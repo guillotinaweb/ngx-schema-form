@@ -1,10 +1,10 @@
 {
-  "name": "plone_client",
+  "name": "angular2-schema-form",
   "version": "0.0.1",
-  "description": "Plone angular 2 client",
+  "description": "Angular2 Schema Form",
   "repository": {
     "type": "git",
-    "url": "https://github.com/==="
+    "url": "https://github.com/makinacorpus/angular2-schema-form"
   },
   "scripts": {
     "rimraf": "rimraf",
@@ -56,12 +56,7 @@
     }
   ],
   "contributors": [
-    "Nathan Van Gheem",
-    "Eric Brehault <ebrehault@gmail.com>",
-    "Sam Schwartz",
-    "Berta Capdevila",
-    "Marc Botifoll",
-    "Ramon Navarro Bosch <r.navarro@iskra.cat>"
+    "Frank Bessou <fbessou@free.fr>"
   ],
   "dependencies": {
     "@angular/common": "2.0.0-rc.1",

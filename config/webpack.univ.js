@@ -50,9 +50,7 @@ var defaultConfig = {
     preLoaders: [
       {
         test: /\.(html|css)$/,
-        // loader: "plonetheme-preloader?themepath=src/customtheme" // LOAD FROM LOCAL
         loader: "plonetheme-preloader?backend=" + METADATA.PLONE // LOAD FROM PLONE
-        // loader: "plonetheme-preloader" // DOES NOTHING
       }
     ],
   },
