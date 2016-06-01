@@ -1,21 +1,21 @@
-import {Component, Directive, Input} from '@angular/core';
-import {FieldChooser} from './chooser';
-import {FieldRegistry} from './registry';
-import {StringField} from './fields/string';
-import {IntegerField} from './fields/integer';
-import {TextLineField} from './fields/textline';
-import {Router} from '@angular/router';
+import {Component, Directive, Input} from "@angular/core";
+import {FieldChooser} from "./chooser";
+import {FieldRegistry} from "./registry";
+import {StringField} from "./fields/string";
+import {IntegerField} from "./fields/integer";
+import {TextLineField} from "./fields/textline";
+import {Router} from "@angular/router";
 
-FieldRegistry.registerField('string', StringField);
-FieldRegistry.registerField('integer', IntegerField);
-FieldRegistry.registerField('textline', TextLineField);
+FieldRegistry.registerField("string", StringField);
+FieldRegistry.registerField("integer", IntegerField);
+FieldRegistry.registerField("textline", TextLineField);
 
 @Component({
-	selector: 'schema-form',
+	selector: "schema-form",
 	directives: [
 		FieldChooser
 	],
-	template: require('./form.component.html')
+	template: require("./form.component.html")
 })
 export class Form {
 	schema: any;
@@ -27,12 +27,12 @@ export class Form {
 
 	ngOnInit() {
 
-		var fields = [];
-		var ids = [];
-		this.schema={
+		let fields = [];
+		let ids = [];
+		this.schema = {
 			type: "object",
 			properties: {
-				name: { 
+				name: {
 					type: "string",
 					minLength: 2,
 					title: "Name",
@@ -40,31 +40,30 @@ export class Form {
 				},
 				age: {
 					type: "integer",
-					enum: ['dr','jr','sir','mrs','mr','NaN','dj']
 				},
 				email : {
 					type: "string",
-					description:"Enter an email"
+					description: "Enter an email"
 				},
 				description : {
-					type:"string",
-					description:"Content..."
+					type: "string",
+					description: "Content..."
 				}
 			},
-			required:["email"]
+			required: ["email"]
 		};
 
-		for (var id in this.schema.properties) {
-			var settings = this.schema.properties[id];
+		for (let id in this.schema.properties) {
+			let settings = this.schema.properties[id];
 			if (this.schema.required.indexOf(id) > -1) {
 				settings.required = true;
 			}
-			var type = settings['type'];
+			let type = settings["type"];
 			// TODO: remove exception
 			if (id === "description") {
 				type = "textline";
 			}
-			this._components[id] = new FieldChooser()
+			this._components[id] = new FieldChooser();
 			fields.push({
 				field: this._components[id],
 				type: type,

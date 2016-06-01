@@ -1,28 +1,28 @@
-import {Component, Input, EventEmitter} from '@angular/core';
-import {BaseField} from './base';
+import {Component, Input, EventEmitter} from "@angular/core";
+import {BaseField} from "./base";
 
 @Component({
-    selector: 'string-field',
-    template: require('./stringfield.component.html'),
-    providers: []
+	selector: "string-field",
+	template: require("./stringfield.component.html"),
+	providers: []
 })
 export class StringField extends BaseField {
 
-    @Input('value') value: string = "";
-    valueChange: EventEmitter<any> = new EventEmitter();
+	@Input("value") value: string = "";
+	valueChange: EventEmitter<any> = new EventEmitter();
 
-    constructor() {
+	constructor() {
 		super();
-    }
+	}
 
-    ngOnInit() {
-    }
+	ngOnInit() {
+	}
 
-    getValueChangeEmitter() {
-        return this.valueChange;
-    }
+	getValueChangeEmitter() {
+		return this.valueChange;
+	}
 
-    change(stringInput) {
-        this.value = stringInput.value;
-    }
+	change(stringInput) {
+		this.value = stringInput.value;
+	}
 }
