@@ -18,7 +18,8 @@ FieldRegistry.registerField("textline", TextLineField);
 	template: require("./form.component.html")
 })
 export class Form {
-	schema: any;
+
+	@Input() schema: any;
 	_components: {} = {};
 	fields: { field: any, type: string }[] = [];
 
@@ -29,29 +30,6 @@ export class Form {
 
 		let fields = [];
 		let ids = [];
-		this.schema = {
-			type: "object",
-			properties: {
-				name: {
-					type: "string",
-					minLength: 2,
-					title: "Name",
-					description: "Name or alias"
-				},
-				age: {
-					type: "integer",
-				},
-				email : {
-					type: "string",
-					description: "Enter an email"
-				},
-				description : {
-					type: "string",
-					description: "Content..."
-				}
-			},
-			required: ["email"]
-		};
 
 		for (let id in this.schema.properties) {
 			let settings = this.schema.properties[id];
