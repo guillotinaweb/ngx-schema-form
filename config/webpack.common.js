@@ -85,7 +85,7 @@ module.exports = {
       {
         test: /\.html$/,
         loader: 'raw-loader',
-        exclude: [helpers.root('src/index.html')]
+        exclude: [helpers.root('demo/index.html')]
       }
     ]
   },
@@ -105,7 +105,7 @@ module.exports = {
     }]),
 
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: 'demo/index.html',
       chunksSortMode: 'dependency'
     })
 

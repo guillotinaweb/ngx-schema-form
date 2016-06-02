@@ -25,7 +25,7 @@ module.exports = webpackMerge(commonConfig, {
   debug: false,
   entry: {
     'polyfills': './src/polyfills.ts',
-    'main': './src/main.browser.ts'
+    'main': './demo/main.browser.ts'
   },
   devtool: 'source-map',
   output: {

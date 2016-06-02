@@ -19,7 +19,7 @@ module.exports = webpackMerge(commonConfig, {
   metadata: METADATA,
   entry: {
     'polyfills': './src/polyfills.ts',
-    'main': './src/main.browser.ts'
+    'main': './demo/main.browser.ts'
   },
   debug: true,
   devtool: 'cheap-module-source-map',

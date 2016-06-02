@@ -1,6 +1,6 @@
 import {Component, Directive, ElementRef, Renderer, ViewEncapsulation} from "@angular/core";
 import {HTTP_PROVIDERS, Http, Response} from "@angular/http";
-import {Form} from "../form/form.component";
+import {Form} from "../src/form/form.component";
 
 
 /////////////////////////
@@ -14,7 +14,7 @@ import {Form} from "../form/form.component";
 	template: require("./app.component.html")
 })
 
-export class App {
+export class DemoApp {
 	private schema:any;
 	constructor(http: Http) {
 		//http.get("./sample.json").subscribe((res: Response) => {this.schema = res.json();console.log(res);});
