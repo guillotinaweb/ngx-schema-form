@@ -2,6 +2,7 @@
 /__server_build__
 /node_modules
 /typings
+/coverage
 /tsd_typings/
 npm-debug.log
 
