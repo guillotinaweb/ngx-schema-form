@@ -12,30 +12,30 @@ import {
 } from '@angular/compiler/testing';
 
 
-import {StringField} from "./string";
+import {IntegerField} from "./integer";
 
-describe("StringField",()=>{
+describe("IntegerField",()=>{
 	let tcb: TestComponentBuilder;
-	let THE_VALUE="FOO";
+	let THE_VALUE=1337;
 	beforeEachProviders(() => [TestComponentBuilder]);
 
-	beforeEach(inject([TestComponentBuilder], _tcb => {
+	beforeEach(inject([TestComponentBuilder], _tcb => { 
 		tcb = _tcb;
 	}));
 
 	it("should initialize value from input", done => {
-		tcb.createAsync(StringField).then( (fixture) => {
+		tcb.createAsync(IntegerField).then( (fixture) => {
 			fixture.detectChanges();
 			let fieldComponent = fixture.componentInstance;
 
 			fieldComponent.value=THE_VALUE;
-			fixture.detectChanges();
+			fixture.detectChanges();		
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
-
-			expect(element.value).toBe(THE_VALUE);
+			expect(element.value).toBe(THE_VALUE.toString());
 			done();
 		}).catch(exception => done.fail(exception));
+
 	});
 
 });
