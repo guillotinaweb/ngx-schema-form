@@ -25,7 +25,7 @@ module.exports = function(config) {
      *
      * we are building the test environment in ./spec-bundle.js
      */
-    files: [ { pattern: './config/spec-bundle.js', watched: false } ],
+    files: [ { pattern: './config/spec-bundle.js', watched: true} ],
 
     /*
      * preprocess matching files before serving them to the browser
@@ -69,7 +69,7 @@ module.exports = function(config) {
     logLevel: config.LOG_INFO,
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
     /*
      * start these browsers
@@ -84,7 +84,7 @@ module.exports = function(config) {
      * Continuous Integration mode
      * if true, Karma captures browsers, runs the tests and exits
      */
-    singleRun: true
+    singleRun: false
   });
 
 };
