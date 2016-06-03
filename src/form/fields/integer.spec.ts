@@ -19,7 +19,7 @@ describe("IntegerField",()=>{
 	let THE_VALUE=1337;
 	beforeEachProviders(() => [TestComponentBuilder]);
 
-	beforeEach(inject([TestComponentBuilder], _tcb => { 
+	beforeEach(inject([TestComponentBuilder], _tcb => {
 		tcb = _tcb;
 	}));
 
@@ -29,7 +29,7 @@ describe("IntegerField",()=>{
 			let fieldComponent = fixture.componentInstance;
 
 			fieldComponent.value=THE_VALUE;
-			fixture.detectChanges();		
+			fixture.detectChanges();
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
 			expect(element.value).toBe(THE_VALUE.toString());

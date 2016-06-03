@@ -29,14 +29,15 @@ export class DemoApp {
 				},
 				"age": {
 					"type": "integer",
+					"description": "Age"
 				},
 				"email" : {
 					"type": "string",
-					"description": "Enter an email"
+					"description": "Email"
 				},
 				"description" : {
 					"type": "string",
-					"description": "Content..."
+					"description": "A long text"
 				}
 			},
 			"required": ["email"]
