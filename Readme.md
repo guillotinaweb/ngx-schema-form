@@ -5,6 +5,8 @@ Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML f
 
 ## Run the demo
 To run the example execute:
+
 	npm start
+	
 It will be available on http://localhost:3000.
 
