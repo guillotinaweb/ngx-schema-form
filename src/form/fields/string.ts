@@ -1,4 +1,9 @@
-import {Component, Input, EventEmitter} from "@angular/core";
+import {
+	Component,
+	Input,
+	EventEmitter
+} from "@angular/core";
+
 import {BaseField} from "./base";
 
 @Component({
@@ -7,7 +12,6 @@ import {BaseField} from "./base";
 	providers: []
 })
 export class StringField extends BaseField {
-
 	@Input("value") value: string = "";
 	valueChange: EventEmitter<any> = new EventEmitter();
 
@@ -16,10 +20,6 @@ export class StringField extends BaseField {
 	}
 
 	ngOnInit() {
-	}
-
-	getValueChangeEmitter() {
-		return this.valueChange;
 	}
 
 	change(stringInput) {
