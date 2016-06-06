@@ -16,6 +16,7 @@ import {Form} from "../src/form/form.component";
 
 export class DemoApp {
 	private schema:any;
+	private model:any;
 	constructor(http: Http) {
 		//http.get("./sample.json").subscribe((res: Response) => {this.schema = res.json();console.log(res);});
 		this.schema = {
@@ -42,6 +43,12 @@ export class DemoApp {
 			},
 			"required": ["email"]
 		}
+
+		this.model = {
+			"name": "John Doe",
+			"age": 42,
+			"description": "Nothing interesting"
+		};
 	}
 
 	ngOnInit() {

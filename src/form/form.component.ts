@@ -21,8 +21,8 @@ export class Form {
 
 	@Input() schema: any;
 	_components: {} = {};
-	fields: { field: any, type: string }[] = [];
-
+	fields: { field: any, type: string, id: string, settings: any}[] = [];
+	@Input() model: any = {};
 	constructor(
 	) {}
 
@@ -33,6 +33,10 @@ export class Form {
 
 		for (let id in this.schema.properties) {
 			let settings = this.schema.properties[id];
+			if(this.model.hasOwnProperty(id)) {
+				settings.initialValue=this.model[id];
+				settings.value=this.model[id];
+			}
 			if (this.schema.required.indexOf(id) > -1) {
 				settings.required = true;
 			}
@@ -52,6 +56,15 @@ export class Form {
 
 		}
 		this.fields = fields;
+	}
 
+	getModel(): any{
+		let model = {};
+		let properties = [];
+		for(let id in this.fields) {
+			let field = this.fields[id];
+			properties[field.id]=field.settings.value;
+		}
+		return model;
 	}
 }
