@@ -1,4 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {
+	Component,
+	Input
+} from "@angular/core";
+import {Control} from "@angular/common";
 import {BaseField} from "./base";
 
 
@@ -8,11 +12,17 @@ import {BaseField} from "./base";
 })
 export class IntegerField extends BaseField {
 	@Input("value") value: number;
+	@Input() validators;
+	@Input() asyncValidators;
+	integerControl : Control;
 
 	constructor() {
 		super();
+
 	}
 
 	ngOnInit() {
+		this.integerControl = new Control("",this.settings.validators);
 	}
+
 }

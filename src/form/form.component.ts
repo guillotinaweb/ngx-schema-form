@@ -34,7 +34,6 @@ export class Form {
 		for (let id in this.schema.properties) {
 			let settings = this.schema.properties[id];
 			if(this.model.hasOwnProperty(id)) {
-				settings.initialValue=this.model[id];
 				settings.value=this.model[id];
 			}
 			if (this.schema.required.indexOf(id) > -1) {
@@ -60,10 +59,9 @@ export class Form {
 
 	getModel(): any{
 		let model = {};
-		let properties = [];
 		for(let id in this.fields) {
 			let field = this.fields[id];
-			properties[field.id]=field.settings.value;
+			model[field.id]=field.settings.value;
 		}
 		return model;
 	}

@@ -1,4 +1,8 @@
-import {Component, Input} from "@angular/core";
+import {
+	Component,
+	Input
+} from "@angular/core";
+import {Control} from "@angular/common";
 import {BaseField} from "./base";
 
 @Component({
@@ -9,12 +13,15 @@ import {BaseField} from "./base";
 export class TextLineField extends BaseField {
 
 	@Input("value") value: string = "";
-	form: any;
+	@Input() validators;
+	@Input() asyncValidators;
+	stringControl : Control;
 
 	constructor() {
 		super();
 	}
 
 	ngOnInit() {
+		this.stringControl = new Control("",this.validators,this.asyncValidators);
 	}
 }

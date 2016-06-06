@@ -11,7 +11,9 @@ import {Form} from "../src/form/form.component";
 		Form
 	],
 	providers: [HTTP_PROVIDERS],
-	template: require("./app.component.html")
+	template: require("./app.component.html"),
+	styleUrls: ["demo/app.scss"],
+	encapsulation: ViewEncapsulation.None
 })
 
 export class DemoApp {
@@ -41,7 +43,7 @@ export class DemoApp {
 					"description": "A long text"
 				}
 			},
-			"required": ["email"]
+			"required": ["email","age"]
 		}
 
 		this.model = {

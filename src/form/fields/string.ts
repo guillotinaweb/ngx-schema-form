@@ -3,6 +3,7 @@ import {
 	Input,
 	EventEmitter
 } from "@angular/core";
+import {Control} from "@angular/common";
 
 import {BaseField} from "./base";
 
@@ -13,16 +14,15 @@ import {BaseField} from "./base";
 })
 export class StringField extends BaseField {
 	@Input("value") value: string = "";
-	valueChange: EventEmitter<any> = new EventEmitter();
+	@Input() validators;
+	@Input() asyncValidators;
+	stringControl : Control;
 
 	constructor() {
 		super();
 	}
 
 	ngOnInit() {
-	}
-
-	change(stringInput) {
-		this.value = stringInput.value;
+		this.stringControl = new Control("",this.settings.validators);
 	}
 }

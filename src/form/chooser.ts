@@ -1,6 +1,6 @@
 import {Component, DynamicComponentLoader, ViewContainerRef, Input} from "@angular/core";
+import {Validators} from "@angular/common"
 import {FieldRegistry} from "./registry";
-
 import {DefaultField} from "./fields/default";
 
 
@@ -34,7 +34,11 @@ export class FieldChooser {
 			field = DefaultField;
 		}
 
-		chooser.dcl.loadNextToLocation(field, chooser.container).then(ref => {
+		if(this.settings.required){
+			this.settings.validators=Validators.required;
+		}
+
+		chooser.dcl.loadNextToLocation(field, chooser.container).then( ref => {
 			ref.instance.settings = chooser.settings;
 			ref.instance.name = chooser.id;
 			chooser.instance = ref.instance;
