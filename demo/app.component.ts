@@ -1,6 +1,8 @@
-import {Component, Directive, ElementRef, Renderer, ViewEncapsulation} from "@angular/core";
+import {Component, ComponentResolver, Directive, ElementRef, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
 import {HTTP_PROVIDERS, Http, Response} from "@angular/http";
 import {Form} from "../src/form/form.component";
+import {FieldFactory} from "../src/form/fieldfactory";
+import {StringField} from "../src/form/fields/string";
 
 
 /////////////////////////
@@ -8,7 +10,8 @@ import {Form} from "../src/form/form.component";
 @Component({
 	selector: "schema-form-demo-app",
 	directives: [
-		Form
+		Form,
+		StringField
 	],
 	providers: [HTTP_PROVIDERS],
 	template: require("./app.component.html"),
@@ -17,9 +20,14 @@ import {Form} from "../src/form/form.component";
 })
 
 export class DemoApp {
+
 	private schema:any;
 	private model:any;
-	constructor(http: Http) {
+	private container: ViewContainerRef;
+	private resolver: ComponentResolver;
+	constructor(http: Http, container: ViewContainerRef = null, resolver: ComponentResolver = null) {
+		this.container = container;
+		this.resolver = resolver;
 		//http.get("./sample.json").subscribe((res: Response) => {this.schema = res.json();console.log(res);});
 		this.schema = {
 			"type": "object",
@@ -55,6 +63,10 @@ export class DemoApp {
 
 	ngOnInit() {
 		console.log("Initializing the component App.");
+		console.log(StringField);
+		let fieldFactory = new FieldFactory(this.resolver);
+		fieldFactory.registerFieldType("string",StringField);
+		fieldFactory.createField(this.container,"string");
 	}
 
 }

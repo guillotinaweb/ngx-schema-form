@@ -1,8 +1,8 @@
-import {ViewContainerRef, ComponentMetadata} from "@angular/core" ;
+import {ViewContainerRef, Component, ComponentMetadata, ComponentResolver, ReflectiveInjector} from "@angular/core" ;
 
 export class FieldFactory {
 	private resolver: ComponentResolver;
-	private fields: {[type:string] : any}={};
+	private fields: {[type:string] : any} = {};
 
 	constructor(resolver: ComponentResolver){
 		this.resolver = resolver;
@@ -16,13 +16,18 @@ export class FieldFactory {
 		return this.fields[type];
 	}
 
-	createField(container : ViewContainerRef, type: string, metadata: ComponentMetadata): Promise<Component>{
-		let ComponentClass = getField(type);
-		let decoratedComponent = Component(metadata)(ComponentClass);
-		this.resolver.resolveComponent(decoratedComponent).then(
-			componentFactory => {
-				let injector = ReflectiveInjector.fromResolvedProviders([], container.injector);
-				this.container.createComponent(factory,0,injector);
+	createField(container : ViewContainerRef, type: string, metadata: ComponentMetadata): Promise<any>{
+		return new Promise(
+			(resolve,reject) => {
+				let ComponentClass = this.getFieldType(type);
+				let decoratedComponent = ComponentClass;
+				this.resolver.resolveComponent(decoratedComponent).then(
+					componentFactory => {
+						let injector = ReflectiveInjector.fromResolvedProviders([], container.injector);
+						let component = container.createComponent(componentFactory,0,injector);
+						resolve(component);
+					}
+				);
 			}
 		);
 	}
