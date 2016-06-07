@@ -1,4 +1,4 @@
-import {ViewContainerRef, Component, ComponentMetadata, ComponentResolver, ReflectiveInjector} from "@angular/core" ;
+import {ViewContainerRef, ComponentRef, ComponentMetadata, ComponentResolver, ReflectiveInjector} from "@angular/core" ;
 
 export class FieldFactory {
 	private resolver: ComponentResolver;
@@ -16,7 +16,7 @@ export class FieldFactory {
 		return this.fields[type];
 	}
 
-	createField(container : ViewContainerRef, type: string, metadata: ComponentMetadata): Promise<any>{
+	createField(container : ViewContainerRef, type: string): Promise<ComponentRef<any>>{
 		return new Promise(
 			(resolve,reject) => {
 				let ComponentClass = this.getFieldType(type);

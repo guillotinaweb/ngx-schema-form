@@ -62,11 +62,10 @@ export class DemoApp {
 	}
 
 	ngOnInit() {
-		console.log("Initializing the component App.");
-		console.log(StringField);
 		let fieldFactory = new FieldFactory(this.resolver);
 		fieldFactory.registerFieldType("string",StringField);
-		fieldFactory.createField(this.container,"string");
+		fieldFactory.createField(this.container,"string").then(field => {
+			field.instance.settings.description="TAEZR"});
 	}
 
 }
