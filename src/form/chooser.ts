@@ -4,12 +4,8 @@ import {
 	Input,
 } from "@angular/core";
 import {Validators} from "@angular/common"
-import {FieldRegistry} from "./registry";
 import {FieldFactory} from "./fieldfactory";
 import {DefaultField} from "./fields/default";
-import {StringField} from "./fields/string";
-import {IntegerField} from "./fields/integer";
-import {TextLineField} from "./fields/textline";
 
 
 @Directive({
@@ -29,7 +25,6 @@ export class FieldChooser {
 	}
 
 	ngOnInit() {
-		this
 		if(this.settings.required){
 			this.settings.validators=Validators.required;
 		}

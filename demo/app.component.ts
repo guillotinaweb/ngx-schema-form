@@ -1,34 +1,34 @@
 import {Component, ComponentResolver, Directive, ElementRef, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
-import {HTTP_PROVIDERS, Http, Response} from "@angular/http";
+import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {Form} from "../src/form/form.component";
-import {FieldFactory} from "../src/form/fieldfactory";
-import {StringField} from "../src/form/fields/string";
+import {FieldRegistry} from "../src/form/fieldregistry";
+import {RatingField} from "./rating.ts";
+
 
 
 /////////////////////////
-// ** MAIN APP COMPONENT **
+// ** MAIN DEMO COMPONENT **
 @Component({
 	selector: "schema-form-demo-app",
 	directives: [
-		Form,
-		StringField
+		Form
 	],
-	providers: [HTTP_PROVIDERS],
+	providers: [FieldRegistry, NgModel],
 	template: require("./app.component.html"),
 	styleUrls: ["demo/app.scss"],
 	encapsulation: ViewEncapsulation.None
 })
 
 export class DemoApp {
-
+	private rating: number = 0;
 	private schema:any;
 	private model:any;
 	private container: ViewContainerRef;
 	private resolver: ComponentResolver;
-	constructor(http: Http, container: ViewContainerRef = null, resolver: ComponentResolver = null) {
+	constructor(container: ViewContainerRef = null, resolver: ComponentResolver = null,registry: FieldRegistry) {
+		registry.registerFieldType("rating",RatingField)
 		this.container = container;
 		this.resolver = resolver;
-		//http.get("./sample.json").subscribe((res: Response) => {this.schema = res.json();console.log(res);});
 		this.schema = {
 			"type": "object",
 			"properties": {
@@ -38,6 +38,7 @@ export class DemoApp {
 					"title": "Name",
 					"description": "Name or alias"
 				},
+				"test":{"type":"rating","description":"birth on"},
 				"age": {
 					"type": "integer",
 					"description": "Age"
@@ -62,10 +63,6 @@ export class DemoApp {
 	}
 
 	ngOnInit() {
-		let fieldFactory = new FieldFactory(this.resolver);
-		fieldFactory.registerFieldType("string",StringField);
-		fieldFactory.createField(this.container,"string").then(field => {
-			field.instance.settings.description="TAEZR"});
 	}
 
 }

@@ -5,24 +5,24 @@ import {
 	Input,
 	provide
 } from "@angular/core";
+
 import {FieldChooser} from "./chooser";
 import {FieldFactory} from "./fieldfactory";
-import {Router} from "@angular/router";
+import {FieldRegistry} from "./fieldregistry";
 
 @Component({
 	selector: "schema-form",
 	directives: [FieldChooser],
-	providers: [provide(FieldFactory,{useClass:FieldFactory,deps : [ComponentResolver]})],
+	providers: [provide(FieldFactory,{useClass: FieldFactory, deps:[FieldRegistry,ComponentResolver]})],
 	template: require("./form.component.html")
 })
 export class Form {
 
-	@Input() schema: any;
-	_components: {} = {};
 	fields: { field: any, type: string, id: string, settings: any}[] = [];
+	@Input() schema: any;
 	@Input() model: any = {};
-	constructor(
-	) {}
+	constructor() {
+	}
 
 	ngOnInit() {
 

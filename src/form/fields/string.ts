@@ -1,8 +1,6 @@
 import {
 	Component,
-	ComponentResolver,
-	Input,
-	EventEmitter
+	Input
 } from "@angular/core";
 import {Control} from "@angular/common";
 
