@@ -1,5 +1,6 @@
 import {
 	Component,
+	ComponentResolver,
 	Input,
 	EventEmitter
 } from "@angular/core";

@@ -1,20 +1,18 @@
-import {Component, Directive, Input} from "@angular/core";
+import {
+	Component,
+	ComponentResolver,
+	Directive,
+	Input,
+	provide
+} from "@angular/core";
 import {FieldChooser} from "./chooser";
-import {FieldRegistry} from "./registry";
-import {StringField} from "./fields/string";
-import {IntegerField} from "./fields/integer";
-import {TextLineField} from "./fields/textline";
+import {FieldFactory} from "./fieldfactory";
 import {Router} from "@angular/router";
-
-FieldRegistry.registerField("string", StringField);
-FieldRegistry.registerField("integer", IntegerField);
-FieldRegistry.registerField("textline", TextLineField);
 
 @Component({
 	selector: "schema-form",
-	directives: [
-		FieldChooser
-	],
+	directives: [FieldChooser],
+	providers: [provide(FieldFactory,{useClass:FieldFactory,deps : [ComponentResolver]})],
 	template: require("./form.component.html")
 })
 export class Form {
@@ -44,9 +42,7 @@ export class Form {
 			if (id === "description") {
 				type = "textline";
 			}
-			this._components[id] = new FieldChooser();
 			fields.push({
-				field: this._components[id],
 				type: type,
 				id: id,
 				settings: settings

@@ -1,47 +1,42 @@
-import {Component, DynamicComponentLoader, ViewContainerRef, Input} from "@angular/core";
+import {
+	Directive,
+	ViewContainerRef,
+	Input,
+} from "@angular/core";
 import {Validators} from "@angular/common"
 import {FieldRegistry} from "./registry";
+import {FieldFactory} from "./fieldfactory";
 import {DefaultField} from "./fields/default";
+import {StringField} from "./fields/string";
+import {IntegerField} from "./fields/integer";
+import {TextLineField} from "./fields/textline";
 
 
-@Component({
+@Directive({
 	selector: "field",
-	directives: FieldRegistry.getFields(),
-	template: `<div></div>`
 })
 export class FieldChooser {
-	dcl: DynamicComponentLoader;
-	container: ViewContainerRef;
-	instance: any;
+	private fieldFactory : FieldFactory;
+	private container: ViewContainerRef;
+	private fieldInstance: any;
 	@Input("typename") typename: string;
 	@Input("id") id: string;
 	@Input("settings") settings: any;
 
-	constructor(dcl: DynamicComponentLoader = null, container: ViewContainerRef = null) {
-		if (!this.dcl && dcl) {
-			this.dcl = dcl;
-			this.container = container;
-		}
+	constructor(fieldFactory: FieldFactory= null, container: ViewContainerRef = null) {
+		this.fieldFactory = fieldFactory;
+		this.container = container;
 	}
 
 	ngOnInit() {
-		let chooser = this;
-		// TODO: find a way to use loadAsRoot instead of loadNextToLocation to
-		// avoid useless markup
-		let field = FieldRegistry.getField(chooser.typename);
-
-		if (!field) {
-			field = DefaultField;
-		}
-
+		this
 		if(this.settings.required){
 			this.settings.validators=Validators.required;
 		}
-
-		chooser.dcl.loadNextToLocation(field, chooser.container).then( ref => {
-			ref.instance.settings = chooser.settings;
-			ref.instance.name = chooser.id;
-			chooser.instance = ref.instance;
+		this.fieldFactory.createField(this.container,this.typename).then( ref => {
+			ref.instance.settings = this.settings;
+			ref.instance.name = this.id;
+			this.fieldInstance = ref.instance;
 		});
 	}
 }
