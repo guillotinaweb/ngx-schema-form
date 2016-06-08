@@ -37,11 +37,13 @@ export class Form {
 			if (this.schema.required.indexOf(id) > -1) {
 				settings.required = true;
 			}
+
 			let type = settings["type"];
 			// TODO: remove exception
 			if (id === "description") {
 				type = "textline";
 			}
+
 			fields.push({
 				type: type,
 				id: id,

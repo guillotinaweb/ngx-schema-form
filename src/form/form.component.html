@@ -1,7 +1,6 @@
 <form>
 	<fieldset id="fieldset-default">
 		<field *ngFor="let data of fields"
-		field="data.field"
 		[typename]="data.type"
 		[id]="data.id"
 		[settings]="data.settings"></field>

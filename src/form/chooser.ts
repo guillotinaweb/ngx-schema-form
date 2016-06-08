@@ -1,5 +1,5 @@
 import {
-	Directive,
+	Component,
 	ViewContainerRef,
 	Input,
 } from "@angular/core";
@@ -8,8 +8,9 @@ import {FieldFactory} from "./fieldfactory";
 import {DefaultField} from "./fields/default";
 
 
-@Directive({
+@Component({
 	selector: "field",
+	template: ""
 })
 export class FieldChooser {
 	private fieldFactory : FieldFactory;
@@ -28,10 +29,14 @@ export class FieldChooser {
 		if(this.settings.required){
 			this.settings.validators=Validators.required;
 		}
-		this.fieldFactory.createField(this.container,this.typename).then( ref => {
+		this.fieldFactory.createField(this.container, this.typename).then( ref => {
 			ref.instance.settings = this.settings;
 			ref.instance.name = this.id;
 			this.fieldInstance = ref.instance;
 		});
+	}
+
+	ngAfterViewInit() {
+		
 	}
 }

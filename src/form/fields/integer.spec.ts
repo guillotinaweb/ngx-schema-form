@@ -14,7 +14,7 @@ import {
 
 import {IntegerField} from "./integer";
 
-describe("IntegerField",()=>{
+describe("IntegerField",() => {
 	let tcb: TestComponentBuilder;
 	let THE_VALUE=1337;
 	beforeEachProviders(() => [TestComponentBuilder]);
@@ -32,9 +32,6 @@ describe("IntegerField",()=>{
 			fixture.detectChanges();
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
-			for(let key in element){
-				console.log(element[key])
-			}
 			expect(element.value).toBe(THE_VALUE.toString());
 			done();
 		}).catch(exception => done.fail(exception));
