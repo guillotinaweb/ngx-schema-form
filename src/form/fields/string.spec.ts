@@ -28,7 +28,7 @@ describe("StringField",()=>{
 			fixture.detectChanges();
 			let fieldComponent = fixture.componentInstance;
 
-			fieldComponent.value=THE_VALUE;
+			fieldComponent.settings.value = THE_VALUE;
 			fixture.detectChanges();
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");

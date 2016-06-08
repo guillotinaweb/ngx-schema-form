@@ -28,10 +28,13 @@ describe("IntegerField",()=>{
 			fixture.detectChanges();
 			let fieldComponent = fixture.componentInstance;
 
-			fieldComponent.value=THE_VALUE;
+			fieldComponent.settings.value=THE_VALUE;
 			fixture.detectChanges();
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
+			for(let key in element){
+				console.log(element[key])
+			}
 			expect(element.value).toBe(THE_VALUE.toString());
 			done();
 		}).catch(exception => done.fail(exception));
