@@ -4,6 +4,7 @@ import {
 	ComponentResolver,
 	ReflectiveInjector
 } from "@angular/core" ;
+
 import {FieldRegistry} from "./fieldregistry"
 
 export class FieldFactory {

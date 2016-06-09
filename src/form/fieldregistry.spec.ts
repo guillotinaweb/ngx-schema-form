@@ -14,6 +14,7 @@ import {TextLineField} from "./fields/textline"
 import {FieldRegistry} from "./fieldregistry";
 
 describe("FieldRegistry",() => {
+
 	let STRING_TYPE = "string";
 	let INT_TYPE = "integer";
 	let TEXTLINE_TYPE = "textline";
@@ -60,4 +61,5 @@ describe("FieldRegistry",() => {
 
 		expect(fieldType).toBe(THE_FIELD_TYPE);
 	});
+
 });

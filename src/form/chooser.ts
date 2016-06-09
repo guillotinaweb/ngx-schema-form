@@ -1,7 +1,7 @@
 import {
 	Component,
 	ViewContainerRef,
-	Input,
+	Input
 } from "@angular/core";
 import {Validators} from "@angular/common"
 import {FieldFactory} from "./fieldfactory";
@@ -13,9 +13,11 @@ import {DefaultField} from "./fields/default";
 	template: ""
 })
 export class FieldChooser {
+
 	private fieldFactory : FieldFactory;
 	private container: ViewContainerRef;
 	private fieldInstance: any;
+
 	@Input("typename") typename: string;
 	@Input("id") id: string;
 	@Input("settings") settings: any;
