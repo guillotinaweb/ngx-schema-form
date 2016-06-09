@@ -38,7 +38,4 @@ export class FieldChooser {
 		});
 	}
 
-	ngAfterViewInit() {
-		
-	}
 }

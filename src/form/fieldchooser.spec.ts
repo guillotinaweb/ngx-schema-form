@@ -8,7 +8,6 @@ import {
 } from '@angular/core/testing';
 
 import {
-	ComponentRef,
 	provide
 } from "@angular/core"
 
@@ -18,13 +17,15 @@ import {
 
 import {ComponentResolver} from "@angular/core";
 import {FieldFactory} from "./fieldfactory";
-import {FieldChooser} from "./chooser";
+import {FieldChooser} from "./fieldchooser";
+
+/*@Component(
+	template: "<field [typename]='data.type' [id]='data.id' [settings]='data.settings'></field>";
+)
+class FieldChooserContainer{
+}*/
 
 describe("FieldChooser",() => {
-
-	let THE_TYPENAME = "ANYTHING";
-	let THE_SETTINGS = {key1:"a",key2:"b"};
-	let THE_NAME = "NAME";
 
 	let tcb: TestComponentBuilder;
 	let factory : FieldFactory;
@@ -50,5 +51,6 @@ describe("FieldChooser",() => {
 
 	});
 
+	xit("should put the field returned by the factory in the DOM", () => {});
 
 });

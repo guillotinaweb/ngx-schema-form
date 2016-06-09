@@ -6,7 +6,7 @@ import {
 	provide
 } from "@angular/core";
 
-import {FieldChooser} from "./chooser";
+import {FieldChooser} from "./fieldchooser";
 import {FieldFactory} from "./fieldfactory";
 import {FieldRegistry} from "./fieldregistry";
 
