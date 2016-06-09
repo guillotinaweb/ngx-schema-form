@@ -4,10 +4,6 @@ import {Form} from "../src/form/form.component";
 import {FieldRegistry} from "../src/form/fieldregistry";
 import {RatingField} from "./rating.ts";
 
-
-
-/////////////////////////
-// ** MAIN DEMO COMPONENT **
 @Component({
 	selector: "schema-form-demo-app",
 	directives: [
@@ -29,6 +25,7 @@ export class DemoApp {
 		registry.registerFieldType("rating",RatingField)
 		this.container = container;
 		this.resolver = resolver;
+
 		this.schema = {
 			"type": "object",
 			"properties": {
