@@ -7,7 +7,7 @@ export class FieldRegistry {
 	private fieldTypes: {[type:string] : any} = {};
 	private defaultFieldType = StringField
 
-	constructor(private defaultFieldType: any = StringField){
+	constructor(){
 		this.registerFieldType("string", StringField)
 		this.registerFieldType("integer", IntegerField)
 		this.registerFieldType("textline", TextLineField)
