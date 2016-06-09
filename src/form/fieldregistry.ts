@@ -5,6 +5,7 @@ import {BaseField} from "./fields/base"
 
 export class FieldRegistry {
 	private fieldTypes: {[type:string] : any} = {};
+	private defaultFieldType = StringField
 
 	constructor(private defaultFieldType: any = StringField){
 		this.registerFieldType("string", StringField)
@@ -12,12 +13,24 @@ export class FieldRegistry {
 		this.registerFieldType("textline", TextLineField)
 	}
 
+	setDefaultFieldType(fieldType: any){
+		this.defaultFieldType = fieldType;
+	}
+
+	getDefaultFieldType(){
+		return this.defaultFieldType;
+	}
+
+	hasFieldType(type: string){
+		return this.fieldTypes.hasOwnProperty(type);
+	}
+
 	registerFieldType(type: string, field: any){
 		this.fieldTypes[type] = field;
 	}
 
 	getFieldType(type: string): any{
-		if(this.fieldTypes.hasOwnProperty(type)){
+		if(this.hasFieldType(type)){
 			return this.fieldTypes[type];
 		}
 		return this.defaultFieldType;
