@@ -1,8 +1,10 @@
-<form>
-	<fieldset id="fieldset-default">
-		<field *ngFor="let data of fields"
-		[typename]="data.type"
-		[id]="data.id"
-		[settings]="data.settings"></field>
+<form ngNoForm>
+	<fieldset *ngFor="let fieldset of fieldsets" id="fieldset.id">
+		<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
+		<field *ngFor="let field of fieldset.fields"
+		[typename]="field.type"
+		[id]="field.id"
+		[settings]="field.settings"></field>
 	</fieldset>
+	<input type="submit" *ngFor="let action of actions" [attr.formaction]="action.href" [attr.formtarget]="'#'+action.rel" [attr.name]="action.title" [attr.formmethod]="action.method" [attr.title]="action.description" [attr.value]="action.title">
 </form>

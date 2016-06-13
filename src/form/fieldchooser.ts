@@ -34,6 +34,7 @@ export class FieldChooser {
 		this.fieldFactory.createField(this.container, this.typename).then( ref => {
 			ref.instance.settings = this.settings;
 			ref.instance.name = this.id;
+			ref.instance.id = this.id;
 			this.fieldInstance = ref.instance;
 		});
 	}

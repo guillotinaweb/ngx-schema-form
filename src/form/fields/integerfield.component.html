@@ -3,6 +3,6 @@
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
 	</label>
 
-	<input [name]="name" class="text-widget textline-field"
+	<input [name]="name" class="text-widget textline-field" [attr.id]="id"
 	[class.required]="settings.required" [ngFormControl]='integerControl' [(ngModel)]="settings.value" type="number" [attr.required]="settings.required">
 </div>

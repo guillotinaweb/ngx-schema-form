@@ -5,19 +5,23 @@
 		"firstName": {
 			"type": "string",
 			"minLength": 2,
-			"title": "First name"
+			"title": "First name",
+			"description": "First name"
 		},
 		"lastName": {
 			"type": "string",
 			"minLength": 2,
-			"title": "Last name"
+			"title": "Last name",
+			"description":"Last name"
 		},
 		"bornOn": {
 			"type": "string",
-			"format": "date-time"
+			"format": "date-time",
+			"description": "Born on"
 		},
 		"transactionNumber": {
-			"type": "integer"
+			"type": "integer",
+			"description":"Transaction number"
 		},
 		"transactionDescription": {
 			"type": "string",
@@ -27,16 +31,16 @@
 	},
 	"links": [
 	{
-		"title": "Preview",
-		"description": "Send transaction.",
-		"href": "#preview",
+		"title": "Send",
+		"description": "Send the transaction",
+		"href": "#send",
 		"method": "POST",
 		"rel": "action"
 	},
 	{
 		"title": "Cancel",
 		"description": "Cancel the transaction",
-		"href": "test",
+		"href": "#cancel",
 		"rel": "action"
 	}],
 	"fieldsets":[
@@ -50,6 +54,5 @@
 		"title": "Part 2 - Transaction",
 		"fields":["transactionNumber", "transactionDescription"]
 	}],
-	"required": ["firstName", "lastName", "transactionNumber"],
-	"order": ["firstName", "lastName", "transactionNumber", "transactionDescription"]
+	"required": ["firstName", "lastName", "transactionNumber"]
 }

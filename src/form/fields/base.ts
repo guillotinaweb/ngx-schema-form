@@ -5,5 +5,5 @@ export class BaseField {
 	name: string="";
 	settings: any={};
 
-	constructor() { }
+	constructor() {}
 }

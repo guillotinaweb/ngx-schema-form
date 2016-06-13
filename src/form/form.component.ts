@@ -18,41 +18,67 @@ import {FieldRegistry} from "./fieldregistry";
 })
 export class Form {
 
-	fields: { field: any, type: string, id: string, settings: any}[] = [];
+	private actions = [];
+	private fieldsets : {fields:{field: any, type: string, id: string, settings: any}[], id: string, title: string}[]=[];
 	@Input() schema: any;
 	@Input() model: any = {};
 	constructor() {
 	}
 
 	ngOnInit() {
+		this.parseSchema(this.schema);
+	}
 
-		let fields = [];
-		let ids = [];
-
-		for (let id in this.schema.properties) {
-			let settings = this.schema.properties[id];
-			if(this.model.hasOwnProperty(id)) {
-				settings.value=this.model[id];
-			}
-			if (this.schema.required.indexOf(id) > -1) {
-				settings.required = true;
-			}
-
-			let type = settings["type"];
-			// TODO: remove exception
-			if (id === "description") {
-				type = "textline";
-			}
-
-			fields.push({
-				type: type,
-				id: id,
-				settings: settings
-			});
-			ids.push(id);
-
+	private parseSchema(schema: any) {
+		if (schema.hasOwnProperty("fieldsets")){
+			this.fields=this.parseFieldsets(schema);
+		} else if (schema.hasOwnProperty("order")) {
+			this.fields=this.parseOrder(schema);
 		}
-		this.fields = fields;
+		
+		this.parseActions(schema);
+	}
+
+	private parseFieldsets(schema: any): any[]{
+		let requiredFields = schema.required;
+		for(let fieldsetId in schema.fieldsets){
+			let fieldsetProp = schema.fieldsets[fieldsetId];
+			let fieldsetData = {fields: [],id: fieldsetProp.id, title: fieldsetProp.title};
+			for(let fieldIdx in fieldsetProp.fields){
+				let fieldId = fieldsetProp.fields[fieldIdx];
+				let fieldSettings = schema.properties[fieldId];
+				let fieldType = fieldSettings.type;
+				if (requiredFields.indexOf(fieldId) > -1) {
+					fieldSettings.required = true;
+				}
+				if (fieldId === "description") {
+					fieldType = "textline";
+				}
+				fieldsetData.fields.push({type:fieldType, id: fieldId, settings: fieldSettings});
+			}
+			this.fieldsets.push(fieldsetData);
+		}
+	}
+
+	private parseOrder(schema: any): any[]{
+		schema.fieldsets = [{
+			id: "fieldset-default",
+			title: "",
+			fields: schema.order
+		}];
+		this.parseFieldsets(schema);
+	}
+
+	private parseActions(schema): any[]{
+		if(schema.links !== undefined){
+			this.actions = schema.links;
+		} else {
+			this.actions = [];
+		}
+	}
+
+	onSubmit(evt){
+		alert(evt);
 	}
 
 	getModel(): any{

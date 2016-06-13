@@ -26,8 +26,8 @@ export class DemoApp {
 		this.container = container;
 		this.resolver = resolver;
 
-		this.schema = require("./sampleschema.json")
-		this.model = require("./samplemodel.json");
+		this.schema = require("./sampleschema_migration.json")
+		this.model = require("./samplemodel_migration.json");
 	}
 
 	ngOnInit() {
