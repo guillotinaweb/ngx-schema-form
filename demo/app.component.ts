@@ -26,37 +26,8 @@ export class DemoApp {
 		this.container = container;
 		this.resolver = resolver;
 
-		this.schema = {
-			"type": "object",
-			"properties": {
-				"name": {
-					"type": "string",
-					"minLength": 2,
-					"title": "Name",
-					"description": "Name or alias"
-				},
-				"test":{"type":"rating","description":"birth on"},
-				"age": {
-					"type": "integer",
-					"description": "Age"
-				},
-				"email" : {
-					"type": "string",
-					"description": "Email"
-				},
-				"description" : {
-					"type": "string",
-					"description": "A long text"
-				}
-			},
-			"required": ["email","age"]
-		}
-
-		this.model = {
-			"name": "John Doe",
-			"age": 42,
-			"description": "Nothing interesting"
-		};
+		this.schema = require("./sampleschema.json")
+		this.model = require("./samplemodel.json");
 	}
 
 	ngOnInit() {

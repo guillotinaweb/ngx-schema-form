@@ -1,0 +1,35 @@
+{
+	"type": "object",
+	"properties": {
+		"name": {
+			"type": "string",
+			"minLength": 2,
+			"title": "Name",
+			"description": "Name or alias"
+		},
+		"test":{
+			"type":"rating",
+			"description":"birth on"},
+		"age": {
+			"type": "integer",
+			"description": "Age"
+		},
+		"email" : {
+			"type": "string",
+			"description": "Email"
+		},
+		"description" : {
+			"type": "string",
+			"description": "A long text"
+		}
+	},
+	"links": [
+		{
+			"description": "Preview page without saving.",
+			"title":"Preview",
+			"href": "#preview"
+		}
+	],
+	"required": ["email","age"]
+}
+

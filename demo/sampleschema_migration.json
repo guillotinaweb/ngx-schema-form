@@ -1,0 +1,55 @@
+{
+	"$schema": "http://json-schema.org/draft-04/hyper-schema#",
+	"type": "object",
+	"properties": {
+		"firstName": {
+			"type": "string",
+			"minLength": 2,
+			"title": "First name"
+		},
+		"lastName": {
+			"type": "string",
+			"minLength": 2,
+			"title": "Last name"
+		},
+		"bornOn": {
+			"type": "string",
+			"format": "date-time"
+		},
+		"transactionNumber": {
+			"type": "integer"
+		},
+		"transactionDescription": {
+			"type": "string",
+			"widget": "textarea",
+			"description": "What is being transacted"
+		}
+	},
+	"links": [
+	{
+		"title": "Preview",
+		"description": "Send transaction.",
+		"href": "#preview",
+		"method": "POST",
+		"rel": "action"
+	},
+	{
+		"title": "Cancel",
+		"description": "Cancel the transaction",
+		"href": "test",
+		"rel": "action"
+	}],
+	"fieldsets":[
+	{
+		"id": "part_1",
+		"title": "Part 1 - Registration",
+		"fields":[ "firstName", "lastName", "bornOn"]
+	},
+	{
+		"id": "part_2",
+		"title": "Part 2 - Transaction",
+		"fields":["transactionNumber", "transactionDescription"]
+	}],
+	"required": ["firstName", "lastName", "transactionNumber"],
+	"order": ["firstName", "lastName", "transactionNumber", "transactionDescription"]
+}
