@@ -54,6 +54,9 @@ export class Form {
 				if (fieldId === "description") {
 					fieldType = "textline";
 				}
+				if(this.model.hasOwnProperty(fieldId)){
+					fieldSettings.value=this.model[fieldId];
+				}
 				fieldsetData.fields.push({type:fieldType, id: fieldId, settings: fieldSettings});
 			}
 			this.fieldsets.push(fieldsetData);
