@@ -47,7 +47,7 @@ export class Form {
 			for(let fieldIdx in fieldsetProp.fields){
 				let fieldId = fieldsetProp.fields[fieldIdx];
 				let fieldSettings = schema.properties[fieldId];
-				let fieldType = fieldSettings.type;
+				let fieldType = fieldSettings.widget || fieldSettings.type;
 				if (requiredFields.indexOf(fieldId) > -1) {
 					fieldSettings.required = true;
 				}

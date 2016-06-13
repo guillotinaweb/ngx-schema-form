@@ -5,19 +5,29 @@
 		"firstName": {
 			"type": "string",
 			"minLength": 2,
+			"maxLength": 40,
 			"title": "First name",
 			"description": "First name"
 		},
 		"lastName": {
 			"type": "string",
 			"minLength": 2,
+			"maxLength": 40,
 			"title": "Last name",
 			"description":"Last name"
 		},
 		"bornOn": {
 			"type": "string",
 			"format": "date-time",
+			"widget": "date",
+			"placeholder": "Ex: 2009-03-11",
 			"description": "Born on"
+		},
+		"favoriteColor": {
+			"type": "string",
+			"pattern":"^#[0-9]{6}$",
+			"widget":"color",
+			"description": "Favorite color"
 		},
 		"transactionNumber": {
 			"type": "integer",
@@ -27,6 +37,30 @@
 			"type": "string",
 			"widget": "textarea",
 			"description": "What is being transacted"
+		},
+		"category": {
+			"widget": "select",
+			"oneOf": [{
+				"title":"Design",
+				"value":"design"
+			},
+			{
+				"title":"High-Tech",
+				"value":"hightech"
+			},
+			{
+				"title": "Materials",
+				"value": "materials"
+			},
+			{
+				"title": "Services",
+				"value": "services"
+			}],
+			"description": "Category"
+		},
+		"password": {
+			"type":"string",
+			"widget":"password"
 		}
 	},
 	"links": [
@@ -47,12 +81,12 @@
 	{
 		"id": "part_1",
 		"title": "Part 1 - Registration",
-		"fields":[ "firstName", "lastName", "bornOn"]
+		"fields":[ "firstName", "lastName", "bornOn","favoriteColor"]
 	},
 	{
 		"id": "part_2",
 		"title": "Part 2 - Transaction",
-		"fields":["transactionNumber", "transactionDescription"]
+		"fields":["transactionNumber", "transactionDescription","category","password"]
 	}],
 	"required": ["firstName", "lastName", "transactionNumber"]
 }

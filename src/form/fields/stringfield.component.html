@@ -2,5 +2,5 @@
 	<label [attr.for]="id" class="horizontal">
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
 	</label>
-	<input #stringValue [name]="name" class="text-widget textline-field" [attr.id]="id" [ngFormControl]="stringControl" [(ngModel)]="settings.value">
+	<input #stringValue [name]="name" class="text-widget textline-field" [attr.type]="settings.widget" [attr.id]="id" [ngFormControl]="stringControl" [(ngModel)]="settings.value" [attr.placeholder]="settings.placeholder">
 </div>

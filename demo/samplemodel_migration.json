@@ -2,5 +2,6 @@
 	"firstName": "John",
 	"lastName": "Doe",
 	"transactionNumber":123456,
-	"transactionDescription": "Payment for your subscription"
+	"transactionDescription": "Payment for your subscription",
+	"password": "admin"
 }
