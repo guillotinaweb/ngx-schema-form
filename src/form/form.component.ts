@@ -14,11 +14,12 @@ import {FieldRegistry} from "./fieldregistry";
 	selector: "schema-form",
 	directives: [FieldChooser],
 	providers: [provide(FieldFactory,{useClass: FieldFactory, deps:[FieldRegistry,ComponentResolver]})],
-	template: require("./form.component.html")
+	template: require("./form.component.html")+"<span>{{getModela}}</span>"
 })
 export class Form {
 
 	private actions = [];
+	private fields = [];
 	private fieldsets : {fields:{field: any, type: string, id: string, settings: any}[], id: string, title: string}[]=[];
 	@Input() schema: any;
 	@Input() model: any = {};
@@ -31,15 +32,15 @@ export class Form {
 
 	private parseSchema(schema: any) {
 		if (schema.hasOwnProperty("fieldsets")){
-			this.fields=this.parseFieldsets(schema);
+			this.parseFieldsets(schema);
 		} else if (schema.hasOwnProperty("order")) {
-			this.fields=this.parseOrder(schema);
+			this.parseOrder(schema);
 		}
 		
 		this.parseActions(schema);
 	}
 
-	private parseFieldsets(schema: any): any[]{
+	private parseFieldsets(schema: any) {
 		let requiredFields = schema.required;
 		for(let fieldsetId in schema.fieldsets){
 			let fieldsetProp = schema.fieldsets[fieldsetId];
@@ -57,13 +58,14 @@ export class Form {
 				if(this.model.hasOwnProperty(fieldId)){
 					fieldSettings.value=this.model[fieldId];
 				}
+				this.fields.push({name: fieldId, id: fieldId, settings:fieldSettings});
 				fieldsetData.fields.push({type:fieldType, id: fieldId, settings: fieldSettings});
 			}
 			this.fieldsets.push(fieldsetData);
 		}
 	}
 
-	private parseOrder(schema: any): any[]{
+	private parseOrder(schema: any) {
 		schema.fieldsets = [{
 			id: "fieldset-default",
 			title: "",
@@ -72,7 +74,7 @@ export class Form {
 		this.parseFieldsets(schema);
 	}
 
-	private parseActions(schema): any[]{
+	private parseActions(schema) {
 		if(schema.links !== undefined){
 			this.actions = schema.links;
 		} else {
@@ -80,15 +82,18 @@ export class Form {
 		}
 	}
 
-	onSubmit(evt){
+	onSubmit(evt) {
 		alert(evt);
 	}
 
-	getModel(): any{
+	get getModela() {
+		return JSON.stringify(this.getModel());
+	}
+	getModel(): any {
 		let model = {};
-		for(let id in this.fields) {
+		for (let id in this.fields) {
 			let field = this.fields[id];
-			model[field.id]=field.settings.value;
+			model[field.name]=field.settings.value;
 		}
 		return model;
 	}

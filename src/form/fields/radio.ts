@@ -5,14 +5,14 @@ import {
 import {Control} from "@angular/common";
 
 import {BaseField} from "./base";
-
+import {RadioControlValueAccessor} from "./radio_value_accessor";
 @Component({
-	radioor: "radio-field",
+	selector: "radio-field",
 	template: require("./radiofield.component.html"),
-	providers: []
+	directives: [RadioControlValueAccessor]
 })
 export class RadioField extends BaseField {
-	@Input("value") value: radio = "";
+	@Input("value") value: string = "";
 	@Input() validators;
 	@Input() asyncValidators;
 	radioControl : Control;

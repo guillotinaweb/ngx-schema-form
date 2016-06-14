@@ -12,7 +12,7 @@ import {BaseField} from "./base";
 	providers: []
 })
 export class SelectField extends BaseField {
-	@Input("value") value: select = "";
+	@Input("value") value: string = "";
 	@Input() validators;
 	@Input() asyncValidators;
 	selectControl : Control;
@@ -23,6 +23,5 @@ export class SelectField extends BaseField {
 
 	ngOnInit() {
 		this.selectControl = new Control("",this.settings.validators);
-		console.log(this.settings.enum);
 	}
 }
