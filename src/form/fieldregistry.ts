@@ -3,6 +3,7 @@ import {IntegerField} from "./fields/integer"
 import {TextLineField} from "./fields/textline"
 import {SelectField} from "./fields/select"
 import {RadioField} from "./fields/radio"
+import {CheckboxField} from "./fields/checkbox"
 import {BaseField} from "./fields/base"
 
 export class FieldRegistry {
@@ -11,6 +12,9 @@ export class FieldRegistry {
 
 	constructor(){
 		this.registerFieldType("string", StringField)
+		this.registerFieldType("search", StringField)
+		this.registerFieldType("tel", StringField)
+		this.registerFieldType("url", StringField)
 		this.registerFieldType("email", StringField)
 		this.registerFieldType("password", StringField)
 		this.registerFieldType("color", StringField)
@@ -20,8 +24,11 @@ export class FieldRegistry {
 
 		this.registerFieldType("select", SelectField)
 		this.registerFieldType("radio", RadioField)
+		this.registerFieldType("boolean", CheckboxField)
+		this.registerFieldType("checkbox", CheckboxField)
 
 		this.registerFieldType("integer", IntegerField)
+		this.registerFieldType("range", IntegerField)
 		this.registerFieldType("textline", TextLineField)
 	}
 

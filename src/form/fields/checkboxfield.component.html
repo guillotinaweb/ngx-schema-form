@@ -1,0 +1,7 @@
+<div class="field">
+	<span *ngIf="settings.required" class="required horizontal" title="Required"></span>
+	<label class="horizontal">
+	<input [(ngModel)]="settings.value" [ngFormControl]="checkboxControl" [attr.name]="name" [indeterminate]="settings.value == undefined" type="checkbox">
+	{{settings.description}}
+	</label>
+</div>
