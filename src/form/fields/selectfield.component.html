@@ -1,6 +1,6 @@
 <div class="field">
 	<label [attr.for]="id" class="horizontal">
-		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
+		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	</label>
 	<select [attr.name]="name">
 	<option *ngFor="let option of settings.oneOf" [attr.value]="option.value">{{option.title}}</option>

@@ -35,7 +35,7 @@
 		},
 		"transactionDescription": {
 			"type": "string",
-			"widget": "textarea",
+			"widget": "textline",
 			"description": "What is being transacted"
 		},
 		"category": {
@@ -57,6 +57,22 @@
 				"value": "services"
 			}],
 			"description": "Category"
+		},
+		"promotion": {
+			"description": "Promotion",
+			"widget": "radio",
+			"oneOf": [{
+				"description":"Student discount (20%)",
+				"value":"student"
+			},
+			{
+				"description":"Summer 2016 discount (15%)",
+				"value":"summer"
+			}]
+		},
+		"confirmationMail": {
+			"type":"string",
+			"widget":"checkbox"
 		},
 		"password": {
 			"type":"string",
@@ -86,7 +102,7 @@
 	{
 		"id": "part_2",
 		"title": "Part 2 - Transaction",
-		"fields":["transactionNumber", "transactionDescription","category","password"]
+		"fields":["transactionNumber", "transactionDescription","promotion","category","password"]
 	}],
 	"required": ["firstName", "lastName", "transactionNumber"]
 }

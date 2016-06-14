@@ -1,7 +1,8 @@
 import {StringField} from "./fields/string"
-import {SelectField} from "./fields/select"
 import {IntegerField} from "./fields/integer"
 import {TextLineField} from "./fields/textline"
+import {SelectField} from "./fields/select"
+import {RadioField} from "./fields/radio"
 import {BaseField} from "./fields/base"
 
 export class FieldRegistry {
@@ -18,6 +19,8 @@ export class FieldRegistry {
 		this.registerFieldType("time", StringField)
 
 		this.registerFieldType("select", SelectField)
+		this.registerFieldType("radio", RadioField)
+
 		this.registerFieldType("integer", IntegerField)
 		this.registerFieldType("textline", TextLineField)
 	}
