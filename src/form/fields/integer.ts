@@ -23,6 +23,10 @@ export class IntegerField extends BaseField {
 
 	ngOnInit() {
 		this.integerControl = new Control("",this.settings.validators);
+		this.settings.value = this.settings.value || (this.settings.maximum - this.settings.minimum)/2;
 	}
 
+	toNumber(){
+		this.settings.value =+this.settings.value;
+	}
 }

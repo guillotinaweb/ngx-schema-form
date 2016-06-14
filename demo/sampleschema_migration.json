@@ -14,24 +14,25 @@
 			"minLength": 2,
 			"maxLength": 40,
 			"title": "Last name",
-			"description":"Last name"
+			"description": "Last name"
 		},
 		"bornOn": {
 			"type": "string",
-			"format": "date-time",
+			"format": "date",
 			"widget": "date",
 			"placeholder": "Ex: 2009-03-11",
 			"description": "Born on"
 		},
 		"favoriteColor": {
 			"type": "string",
-			"pattern":"^#[0-9]{6}$",
-			"widget":"color",
+			"pattern": "^#[0-9a-fA-F]{6}$",
+			"widget": "color",
 			"description": "Favorite color"
 		},
 		"transactionNumber": {
 			"type": "integer",
-			"description":"Transaction number"
+			"minimum": 0,
+			"description": "Transaction number"
 		},
 		"transactionDescription": {
 			"type": "string",
@@ -41,12 +42,12 @@
 		"category": {
 			"widget": "select",
 			"oneOf": [{
-				"title":"Design",
-				"value":"design"
+				"title": "Design",
+				"value": "design"
 			},
 			{
-				"title":"High-Tech",
-				"value":"hightech"
+				"title": "High-Tech",
+				"value": "hightech"
 			},
 			{
 				"title": "Materials",
@@ -62,21 +63,37 @@
 			"description": "Promotion",
 			"widget": "radio",
 			"oneOf": [{
-				"description":"Student discount (20%)",
-				"value":"student"
+				"description": "Student discount (20%)",
+				"value": "student"
 			},
 			{
-				"description":"Summer 2016 discount (15%)",
-				"value":"summer"
+				"description": "Summer 2016 discount (15%)",
+				"value": "summer"
+			},{
+				"description": "None",
+				"value": "none"
 			}]
 		},
 		"confirmationMail": {
-			"type":"string",
-			"widget":"checkbox"
+			"type": "string",
+			"widget": "checkbox"
 		},
 		"password": {
-			"type":"string",
-			"widget":"password"
+			"type": "string",
+			"widget": "password",
+			"description": "Password"
+		},
+		"numberOfBoxes": {
+			"type": "number",
+			"widget": "range",
+			"description": "Number of boxes required",
+			"minimum": 1,
+			"maximum": 10
+		},
+		"freeShipping": {
+			"type": "boolean",
+			"widget": "checkbox",
+			"description":"Free shipping"
 		}
 	},
 	"links": [
@@ -102,7 +119,17 @@
 	{
 		"id": "part_2",
 		"title": "Part 2 - Transaction",
-		"fields":["transactionNumber", "transactionDescription","promotion","category","password"]
+		"fields":["transactionNumber", "transactionDescription","promotion","category"]
+	},
+	{
+		"id": "part_3",
+		"title": "Part 3 - Shipping",
+		"fields": ["numberOfBoxes","freeShipping"]
+	},
+	{
+		"id": "part_4",
+		"title": "Part 4 - Confirmation",
+		"fields": ["password"]
 	}],
-	"required": ["firstName", "lastName", "transactionNumber"]
+	"required": ["firstName", "lastName", "transactionNumber","password"]
 }

@@ -6,6 +6,12 @@ import {
 	provide
 } from "@angular/core";
 
+import {
+	Validators
+} from "@angular/common"
+
+import ZSchema = require("z-schema");
+
 import {FieldChooser} from "./fieldchooser";
 import {FieldFactory} from "./fieldfactory";
 import {FieldRegistry} from "./fieldregistry";
@@ -14,22 +20,23 @@ import {FieldRegistry} from "./fieldregistry";
 	selector: "schema-form",
 	directives: [FieldChooser],
 	providers: [provide(FieldFactory,{useClass: FieldFactory, deps:[FieldRegistry,ComponentResolver]})],
-	template: require("./form.component.html")+"<span>{{getModela}}</span>"
+	template: require("./form.component.html")+"{{values}}"
 })
 export class Form {
-
+	private zschema;
 	private actions = [];
 	private fields = [];
 	private fieldsets : {fields:{field: any, type: string, id: string, settings: any}[], id: string, title: string}[]=[];
 	@Input() schema: any;
 	@Input() model: any = {};
 	constructor() {
+		this.zschema = new ZSchema({});
 	}
 
 	ngOnInit() {
 		this.parseSchema(this.schema);
 	}
-
+	
 	private parseSchema(schema: any) {
 		if (schema.hasOwnProperty("fieldsets")){
 			this.parseFieldsets(schema);
@@ -40,6 +47,19 @@ export class Form {
 		this.parseActions(schema);
 	}
 
+	private createValidatorFn(schema){
+		return (control)=>{
+			let value = control.value;
+			if(schema.type === "number" || schema.type === "integer"){
+				value = +value;
+			}
+			let result =  this.zschema.validate(value,schema);
+			let err = this.zschema.getLastErrors();
+			console.log(err);
+			return err;
+		};
+	}
+
 	private parseFieldsets(schema: any) {
 		let requiredFields = schema.required;
 		for(let fieldsetId in schema.fieldsets){
@@ -48,13 +68,15 @@ export class Form {
 			for(let fieldIdx in fieldsetProp.fields){
 				let fieldId = fieldsetProp.fields[fieldIdx];
 				let fieldSettings = schema.properties[fieldId];
+
+				let validators = this.createValidatorFn(fieldSettings);
+
 				let fieldType = fieldSettings.widget || fieldSettings.type;
 				if (requiredFields.indexOf(fieldId) > -1) {
-					fieldSettings.required = true;
+					validators = Validators.compose([Validators.required,validators]);
+					//fieldSettings.required = true;
 				}
-				if (fieldId === "description") {
-					fieldType = "textline";
-				}
+				fieldSettings.validators=validators;
 				if(this.model.hasOwnProperty(fieldId)){
 					fieldSettings.value=this.model[fieldId];
 				}
@@ -81,14 +103,11 @@ export class Form {
 			this.actions = [];
 		}
 	}
-
-	onSubmit(evt) {
-		alert(evt);
-	}
-
-	get getModela() {
+	
+	get values(){
 		return JSON.stringify(this.getModel());
 	}
+
 	getModel(): any {
 		let model = {};
 		for (let id in this.fields) {

@@ -5,8 +5,10 @@ input, textarea {
 
 .ng-invalid {
 	border-left: 3px solid #f00;
+	background-color:#ffeeee;
 }
 
 .ng-valid {
 	border-left: 3px solid #0d0;
+	background-color:#eeffee;
 }

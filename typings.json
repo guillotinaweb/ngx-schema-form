@@ -12,7 +12,8 @@
 		"serve-static": "registry:dt/serve-static#0.0.0+20160317120654",
 		"source-map": "registry:dt/source-map#0.0.0+20160317120654",
 		"uglify-js": "registry:dt/uglify-js#2.6.1+20160316155526",
-		"webpack": "registry:dt/webpack#1.12.9+20160321060707"
+		"webpack": "registry:dt/webpack#1.12.9+20160321060707",
+		"z-schema": "registry:dt/z-schema#3.16.0+20160526134538"
 	},
 	"dependencies": {
 		"mime": "registry:npm/mime#1.3.0+20160423043021"

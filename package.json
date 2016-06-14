@@ -70,12 +70,13 @@
     "@angular/router": "2.0.0-rc.1",
     "angular2-universal": "~0.101.4",
     "body-parser": "^1.15.0",
+    "core-js": "^2.4.0",
     "express": "^4.13.3",
     "preboot": "~2.0.10",
-    "rxjs": "5.0.0-beta.6",
     "raw-loader": "0.5.1",
-    "zone.js": "~0.6.12",
-    "core-js": "^2.4.0"
+    "rxjs": "5.0.0-beta.6",
+    "z-schema": "^3.17.0",
+    "zone.js": "~0.6.12"
   },
   "devDependencies": {
     "angular2-hmr": "~0.7.0",
