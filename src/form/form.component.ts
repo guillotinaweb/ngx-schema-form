@@ -56,11 +56,7 @@ export class Form {
 
 			let result =  this.zschema.validate(value,schema);
 			let err = this.zschema.getLastErrors();
-				console.log(value);
-			if(err){
-				console.log(err) ;
-			}
-			return err;
+			return err || null;
 		};
 	}
 
