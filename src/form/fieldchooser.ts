@@ -32,7 +32,6 @@ export class FieldChooser {
 
 	ngOnInit() {
 		this.fieldFactory.createField(this.container, this.typename).then( ref => {
-			console.log(this.typename)
 			ref.instance.settings = this.settings;
 			ref.instance.name = this.id;
 			ref.instance.id = this.id;
