@@ -3,6 +3,6 @@
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	</label>
 	<select [(ngModel)]="settings.value" [ngFormControl]="control" [attr.name]="name">
-	<option *ngFor="let option of settings.oneOf" [attr.value]="option.enum[0]" [attr.selected]="settings.value === option.value?true:null">{{option.description}}</option>
+	<option *ngFor="let option of settings.oneOf" [attr.value]="option.enum[0]" [attr.selected]="settings.value === option.enum[0]?true:null">{{option.description}}</option>
 	</select>
 </div>
