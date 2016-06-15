@@ -2,7 +2,6 @@ import {
 	Component,
 	Input
 } from "@angular/core";
-import {Control} from "@angular/common";
 
 import {BaseField} from "./base";
 
