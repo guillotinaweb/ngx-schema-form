@@ -2,5 +2,6 @@
 	<label [attr.for]="id" class="horizontal">
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	</label>
-	<input #stringValue [name]="name" class="text-widget textline-field" [attr.type]="settings.widget||'text'" [attr.id]="id" [ngFormControl]="control" [(ngModel)]="settings.value" [attr.placeholder]="settings.placeholder">
+	<input [name]="name" [attr.readonly]="(settings.widget!=='color') && settings.readOnly?true:null"  class="text-widget textline-field" [attr.type]="settings.widget||'text'" [attr.id]="id" [ngFormControl]="control" [(ngModel)]="settings.value" [attr.placeholder]="settings.placeholder" [attr.disabled]="(settings.widget=='color' && settings.readOnly)?true:null">
+	<input *ngIf="(settings.widget==='color' && settings.readOnly)" [attr.name]="name" type="hidden" [ngModel]="settings.value">
 </div>

@@ -78,7 +78,8 @@
 		},
 		"confirmationMail": {
 			"type": "string",
-			"widget": "checkbox"
+			"description": "Email",
+			"format": "email"
 		},
 		"password": {
 			"type": "string",
@@ -95,7 +96,8 @@
 		"freeShipping": {
 			"type": "boolean",
 			"widget": "checkbox",
-			"description":"Free shipping"
+			"description":"Free shipping",
+			"readOnly": true
 		}
 	},
 	"links": [
@@ -131,7 +133,7 @@
 	{
 		"id": "part_4",
 		"title": "Part 4 - Confirmation",
-		"fields": ["password"]
+		"fields": ["confirmationMail","password"]
 	}],
 	"required": ["firstName", "lastName", "transactionNumber","password"]
 }

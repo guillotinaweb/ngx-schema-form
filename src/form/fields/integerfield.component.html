@@ -4,6 +4,7 @@
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
 	</label>
 	
-	<input [name]="name" class="text-widget textline-field" [attr.id]="id"
-	[class.required]="settings.required" [ngFormControl]="control" [(ngModel)]="settings.value" (ngModelChange)="toNumber()" [attr.type]="settings.widget||'number'" [attr.required]="settings.required" [attr.min]="settings.minimum" [attr.max]="settings.maximum" [attr.placeholder]="settings.placeholder">
+	<input [attr.readonly]="(settings.widget!=='range') && settings.readOnly?true:null" [name]="name" class="text-widget textline-field" [attr.id]="id"
+	[class.required]="settings.required" [ngFormControl]="control" [(ngModel)]="settings.value" (ngModelChange)="toNumber()" [attr.type]="settings.widget||'number'" [attr.required]="settings.required" [attr.min]="settings.minimum" [attr.max]="settings.maximum" [attr.placeholder]="settings.placeholder" [attr.disabled]="(settings.widget==='range') && settings.readOnly?true:null" >
+	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [ngModel]="settings.value">
 </div>
