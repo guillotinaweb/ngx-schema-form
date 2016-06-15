@@ -53,9 +53,13 @@ export class Form {
 			if(schema.type === "number" || schema.type === "integer"){
 				value = +value;
 			}
+
 			let result =  this.zschema.validate(value,schema);
 			let err = this.zschema.getLastErrors();
-			console.log(err);
+				console.log(value);
+			if(err){
+				console.log(err) ;
+			}
 			return err;
 		};
 	}
@@ -74,7 +78,6 @@ export class Form {
 				let fieldType = fieldSettings.widget || fieldSettings.type;
 				if (requiredFields.indexOf(fieldId) > -1) {
 					validators = Validators.compose([Validators.required,validators]);
-					//fieldSettings.required = true;
 				}
 				fieldSettings.validators=validators;
 				if(this.model.hasOwnProperty(fieldId)){

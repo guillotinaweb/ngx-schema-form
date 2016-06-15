@@ -42,20 +42,20 @@
 		"category": {
 			"widget": "select",
 			"oneOf": [{
-				"title": "Design",
-				"value": "design"
+				"description": "Design",
+				"enum": ["design"]
 			},
 			{
-				"title": "High-Tech",
-				"value": "hightech"
+				"description": "High-Tech",
+				"enum": ["hightech"]
 			},
 			{
-				"title": "Materials",
-				"value": "materials"
+				"description": "Materials",
+				"enum": ["materials"]
 			},
 			{
-				"title": "Services",
-				"value": "services"
+				"description": "Services",
+				"enum": ["services"]
 			}],
 			"description": "Category"
 		},
@@ -64,14 +64,14 @@
 			"widget": "radio",
 			"oneOf": [{
 				"description": "Student discount (20%)",
-				"value": "student"
+				"enum": ["student"]
 			},
 			{
 				"description": "Summer 2016 discount (15%)",
-				"value": "summer"
+				"enum": ["summer"]
 			},{
 				"description": "None",
-				"value": "none"
+				"enum": ["none"]
 			}]
 		},
 		"confirmationMail": {

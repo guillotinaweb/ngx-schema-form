@@ -15,13 +15,11 @@ export class StringField extends BaseField {
 	@Input("value") value: string = "";
 	@Input() validators;
 	@Input() asyncValidators;
-	stringControl : Control;
 
 	constructor() {
 		super();
 	}
 
 	ngOnInit() {
-		this.stringControl = new Control("",this.settings.validators);
 	}
 }
