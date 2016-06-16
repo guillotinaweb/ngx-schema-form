@@ -85,13 +85,21 @@ export class Form {
 		this.controlArray.push(control);
 		this.controls[fieldId]=control;
 
-		if(this.model.hasOwnProperty(fieldId)){
-			fieldSchema.value=this.model[fieldId];
-		}else if(fieldSchema.hasOwnProperty("default")){
-			fieldSchema.value= fieldSchema.default;
-		}
 		this.fields[fieldId] = { name: fieldId, type:fieldType, id: fieldId, settings: fieldSchema, control: control, visible: true};
+		this.resetField(fieldId);
+
 		return fieldSchema;
+	}
+
+	private resetField(fieldId){
+		let settings = this.fields[fieldId].settings;
+		if(this.model.hasOwnProperty(fieldId)){
+			settings.value=this.model[fieldId];
+		}else if(settings.hasOwnProperty("default")){
+			settings.value= settings.default;
+		}else{
+			settings.value="";
+		}
 	}
 	
 	private createValidatorFn(schema){
@@ -118,15 +126,20 @@ export class Form {
 
 	private updateFieldVisibility(field){
 		let visibleIf = field.settings.visibleIf;
+		let dependencies = 0;
+		let notVisibleDependencies = 0;
 		for(let conditionField in visibleIf){
-			let values = visibleIf[conditionField];
-			let control = this.controls[conditionField];
-			if(values.indexOf(control.value)>-1){
-				field.visible=true;
-			} else {
-				field.visible=false;
+			if(this.fields[conditionField].visible){
+				let values = visibleIf[conditionField];
+				let control = this.controls[conditionField];
+				if(values.indexOf(control.value)>-1){
+					field.visible=true;
+					return;
+				}
 			}
 		}
+		this.resetField(field.name);
+		field.visible=false;
 
 	}
 

@@ -121,6 +121,7 @@
 		},
 		"otherDeliveryService":{
 			"type": "string",
+			"minLength":2,
 			"visibleIf": {
 				"deliveryService":["other"]
 			}
@@ -131,6 +132,23 @@
 			"description":"Free shipping",
 			"visibleIf":{
 				"deliveryService":["other","ups"]
+			}
+		},
+		"shippingPrice": {
+			"type": "number",
+			"description":"ShippingCost",
+			"minimum":0,
+			"maximum":200,
+			"visibleIf":{
+				"freeShipping":[false]
+			}
+		},
+		"sendApologies":{
+			"type": "boolean",
+			"widget": "checkbox",
+			"description":"Send apologies for the shipping cost",
+			"visibleIf":{
+				"shippingPrice":[22,23]
 			}
 		}
 	},
@@ -162,7 +180,7 @@
 	{
 		"id": "part_3",
 		"title": "Part 3 - Shipping",
-		"fields": ["numberOfBoxes","deliveryService","otherDeliveryService","freeShipping"]
+		"fields": ["numberOfBoxes","deliveryService","otherDeliveryService","freeShipping","shippingPrice","sendApologies"]
 	},
 	{
 		"id": "part_4",

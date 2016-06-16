@@ -28,6 +28,7 @@ export class FieldRegistry {
 		this.registerFieldType("checkbox", CheckboxField)
 
 		this.registerFieldType("integer", IntegerField)
+		this.registerFieldType("number", IntegerField)
 		this.registerFieldType("range", IntegerField)
 		this.registerFieldType("textline", TextLineField)
 	}
