@@ -11,8 +11,6 @@ import {BaseField} from "./base";
 })
 export class IntegerField extends BaseField {
 	@Input("value") value: number;
-	@Input() validators;
-	@Input() asyncValidators;
 
 	constructor() {
 		super();

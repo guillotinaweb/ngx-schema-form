@@ -23,11 +23,20 @@
 			"placeholder": "Ex: 2009-03-11",
 			"description": "Born on"
 		},
+		"moreInfo":{
+			"type": "boolean",
+			"widget": "checkbox",
+			"description":"More information?",
+			"default": true
+		},
 		"favoriteColor": {
 			"type": "string",
 			"pattern": "^#[0-9a-fA-F]{6}$",
 			"widget": "color",
-			"description": "Favorite color"
+			"description": "Favorite color",
+			"visibleIf": {
+				"moreInfo": [true]
+			}
 		},
 		"transactionNumber": {
 			"type": "integer",
@@ -93,11 +102,36 @@
 			"minimum": 1,
 			"maximum": 10
 		},
+		"deliveryService": {
+			"type":"string",
+			"widget":"select",
+			"description": "Delivery service",
+			"oneOf":[{
+				"description": "UPS",
+				"enum": ["ups"]
+			},
+			{
+				"description": "FedEx",
+				"enum": ["fedex"]
+			},{
+				"description":"Other",
+				"enum": ["other"]
+			}],
+			"default":"fedex"
+		},
+		"otherDeliveryService":{
+			"type": "string",
+			"visibleIf": {
+				"deliveryService":["other"]
+			}
+		},
 		"freeShipping": {
 			"type": "boolean",
 			"widget": "checkbox",
 			"description":"Free shipping",
-			"readOnly": true
+			"visibleIf":{
+				"deliveryService":["other","ups"]
+			}
 		}
 	},
 	"links": [
@@ -105,7 +139,7 @@
 		"title": "Send",
 		"description": "Send the transaction",
 		"href": "#send",
-		"method": "POST",
+		"method": "GET",
 		"rel": "action"
 	},
 	{
@@ -118,7 +152,7 @@
 	{
 		"id": "part_1",
 		"title": "Part 1 - Registration",
-		"fields":[ "firstName", "lastName", "bornOn","favoriteColor"]
+		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "favoriteColor"]
 	},
 	{
 		"id": "part_2",
@@ -128,7 +162,7 @@
 	{
 		"id": "part_3",
 		"title": "Part 3 - Shipping",
-		"fields": ["numberOfBoxes","freeShipping"]
+		"fields": ["numberOfBoxes","deliveryService","otherDeliveryService","freeShipping"]
 	},
 	{
 		"id": "part_4",

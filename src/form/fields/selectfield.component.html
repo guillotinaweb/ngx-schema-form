@@ -1,4 +1,4 @@
-<div class="field">
+<div *ngIf="visible" class="field">
 	<label [attr.for]="id" class="horizontal">
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	</label>

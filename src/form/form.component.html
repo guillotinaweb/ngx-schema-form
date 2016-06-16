@@ -2,9 +2,11 @@
 	<fieldset *ngFor="let fieldset of fieldsets" id="fieldset.id">
 		<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
 		<field *ngFor="let field of fieldset.fields"
-		[typename]="field.type"
-		[id]="field.id"
-		[settings]="field.settings"></field>
+		[typename]="fields[field].type"
+		[id]="fields[field].id"
+		[control]="fields[field].control"
+		[visible]="fields[field].visible"
+		[settings]="fields[field].settings"></field>
 	</fieldset>
 	<input type="submit" *ngFor="let action of actions" [attr.formaction]="action.href" [attr.formtarget]="'#'+action.rel" [attr.name]="action.title" [attr.formmethod]="action.method" [attr.title]="action.description" [attr.value]="action.title">
 </form>

@@ -1,4 +1,4 @@
-<div class="field">
+<div *ngIf="visible" class="field">
 	<label>{{settings.description}}</label>
 	<span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	<label *ngFor="let option of settings.oneOf" class="horizontal">

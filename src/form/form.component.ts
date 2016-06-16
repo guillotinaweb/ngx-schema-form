@@ -7,6 +7,8 @@ import {
 } from "@angular/core";
 
 import {
+	Control,
+	ControlArray,
 	Validators
 } from "@angular/common"
 
@@ -23,18 +25,26 @@ import {FieldRegistry} from "./fieldregistry";
 	template: require("./form.component.html")+"{{values}}"
 })
 export class Form {
-	private zschema;
-	private actions = [];
+
 	private fields = [];
 	private fieldsets : {fields:{field: any, type: string, id: string, settings: any}[], id: string, title: string}[]=[];
+
+	private zschema;
+	private controls = {};
+	private controlArray = new ControlArray([]);
+
+	private actions = [];
+
 	@Input() schema: any;
 	@Input() model: any = {};
+
 	constructor() {
 		this.zschema = new ZSchema({});
 	}
 
 	ngOnInit() {
 		this.parseSchema(this.schema);
+		this.controlArray.valueChanges.subscribe(()=>{this.updateFieldsVisibility();});
 	}
 	
 	private parseSchema(schema: any) {
@@ -47,6 +57,43 @@ export class Form {
 		this.parseActions(schema);
 	}
 
+
+	private parseFieldsets(schema: any) {
+		for(let fieldsetId in schema.fieldsets){
+			let fieldsetSchema = schema.fieldsets[fieldsetId];
+			let fieldset = {fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title};
+			for(let fieldIdx in fieldsetSchema.fields){
+				let fieldId = fieldsetSchema.fields[fieldIdx];
+				this.parseField(schema,fieldId);
+				fieldset.fields.push(fieldId);
+			}
+			this.fieldsets.push(fieldset);
+		}
+	}
+
+	private parseField(schema, fieldId){
+		let fieldSchema = schema.properties[fieldId];
+
+		let validators = this.createValidatorFn(fieldSchema);
+
+		// Client validation goes here
+		let fieldType = fieldSchema.widget || fieldSchema.type;
+		if (schema.required.indexOf(fieldId) > -1) {
+			validators = Validators.compose([Validators.required,validators]);
+		}
+		let control = new Control("",validators);
+		this.controlArray.push(control);
+		this.controls[fieldId]=control;
+
+		if(this.model.hasOwnProperty(fieldId)){
+			fieldSchema.value=this.model[fieldId];
+		}else if(fieldSchema.hasOwnProperty("default")){
+			fieldSchema.value= fieldSchema.default;
+		}
+		this.fields[fieldId] = { name: fieldId, type:fieldType, id: fieldId, settings: fieldSchema, control: control, visible: true};
+		return fieldSchema;
+	}
+	
 	private createValidatorFn(schema){
 		return (control)=>{
 			let value = control.value;
@@ -60,30 +107,27 @@ export class Form {
 		};
 	}
 
-	private parseFieldsets(schema: any) {
-		let requiredFields = schema.required;
-		for(let fieldsetId in schema.fieldsets){
-			let fieldsetProp = schema.fieldsets[fieldsetId];
-			let fieldsetData = {fields: [],id: fieldsetProp.id, title: fieldsetProp.title};
-			for(let fieldIdx in fieldsetProp.fields){
-				let fieldId = fieldsetProp.fields[fieldIdx];
-				let fieldSettings = schema.properties[fieldId];
-
-				let validators = this.createValidatorFn(fieldSettings);
-
-				let fieldType = fieldSettings.widget || fieldSettings.type;
-				if (requiredFields.indexOf(fieldId) > -1) {
-					validators = Validators.compose([Validators.required,validators]);
-				}
-				fieldSettings.validators=validators;
-				if(this.model.hasOwnProperty(fieldId)){
-					fieldSettings.value=this.model[fieldId];
-				}
-				this.fields.push({name: fieldId, id: fieldId, settings:fieldSettings});
-				fieldsetData.fields.push({type:fieldType, id: fieldId, settings: fieldSettings});
+	private updateFieldsVisibility(){
+		for(let fieldIdx in this.fields){
+			let field = this.fields[fieldIdx];
+			if(field.settings.hasOwnProperty("visibleIf")){
+				this.updateFieldVisibility(field);
 			}
-			this.fieldsets.push(fieldsetData);
 		}
+	}
+
+	private updateFieldVisibility(field){
+		let visibleIf = field.settings.visibleIf;
+		for(let conditionField in visibleIf){
+			let values = visibleIf[conditionField];
+			let control = this.controls[conditionField];
+			if(values.indexOf(control.value)>-1){
+				field.visible=true;
+			} else {
+				field.visible=false;
+			}
+		}
+
 	}
 
 	private parseOrder(schema: any) {
@@ -102,7 +146,7 @@ export class Form {
 			this.actions = [];
 		}
 	}
-	
+
 	get values(){
 		return JSON.stringify(this.getModel());
 	}
@@ -111,7 +155,9 @@ export class Form {
 		let model = {};
 		for (let id in this.fields) {
 			let field = this.fields[id];
-			model[field.name]=field.settings.value;
+			if(field.visible){
+				model[field.name]=field.settings.value;
+			}
 		}
 		return model;
 	}

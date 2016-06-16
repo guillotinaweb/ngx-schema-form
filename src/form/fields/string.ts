@@ -12,8 +12,6 @@ import {BaseField} from "./base";
 })
 export class StringField extends BaseField {
 	@Input("value") value: string = "";
-	@Input() validators;
-	@Input() asyncValidators;
 
 	constructor() {
 		super();
