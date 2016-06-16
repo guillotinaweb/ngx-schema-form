@@ -1,5 +1,11 @@
 {
-	"test":1,
-	"age":20,
-	"email": "john.doe@somemailbox.com"
+	"firstName": "John",
+	"lastName": "Doe",
+	"transactionNumber":123456,
+	"favoriteColor": "#aaafff",
+	"transactionDescription": "Payment for your subscription",
+	"password": "admin",
+	"category": "hightech",
+	"promotion": "none",
+	"freeShipping": true
 }
