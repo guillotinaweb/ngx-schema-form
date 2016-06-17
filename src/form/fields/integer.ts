@@ -18,7 +18,6 @@ export class IntegerField extends BaseField {
 	}
 
 	ngOnInit() {
-		this.settings.value = this.settings.value || (this.settings.maximum - this.settings.minimum)/2 || 0;
 	}
 
 	toNumber(){

@@ -27,7 +27,7 @@ import {FieldRegistry} from "./fieldregistry";
 export class Form {
 
 	private fields = [];
-	private fieldsets : {fields:{field: any, type: string, id: string, settings: any}[], id: string, title: string}[]=[];
+	private fieldsets : {fields:{field: any, type: string, id: string, settings: any}[], id: string, title: string}[] = [];
 
 	private zschema;
 	private controls = {};
@@ -56,7 +56,6 @@ export class Form {
 		
 		this.parseActions(schema);
 	}
-
 
 	private parseFieldsets(schema: any) {
 		for(let fieldsetId in schema.fieldsets){
@@ -93,13 +92,19 @@ export class Form {
 
 	private resetField(fieldId){
 		let settings = this.fields[fieldId].settings;
+		let val = "";
 		if(this.model.hasOwnProperty(fieldId)){
-			settings.value=this.model[fieldId];
+			val=this.model[fieldId];
 		}else if(settings.hasOwnProperty("default")){
-			settings.value= settings.default;
-		}else{
-			settings.value="";
+			val= settings.default;
+		}else if(settings.type=="number"){
+			if(settings.minimum!==undefined){
+				val = settings.minimum;
+			} else {
+				val = 0;
+			}
 		}
+		settings.value = val;
 	}
 	
 	private createValidatorFn(schema){
