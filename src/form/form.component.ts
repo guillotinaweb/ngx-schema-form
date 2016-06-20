@@ -92,7 +92,7 @@ export class Form {
 
 	private resetField(fieldId){
 		let settings = this.fields[fieldId].settings;
-		let val = "";
+		let val:any = "";
 		if(this.model.hasOwnProperty(fieldId)){
 			val=this.model[fieldId];
 		}else if(settings.hasOwnProperty("default")){
