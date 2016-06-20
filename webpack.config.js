@@ -1,4 +1,5 @@
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require("path");
 
 const METADATA = {
@@ -13,9 +14,10 @@ module.exports = {
 		filename: "[name].bundle.js"
 	},
 	entry: {
-		"form": path.resolve("./src/form/form.component.ts"),
-		"polyfills": "./src/polyfills.ts",
-		"vendor": "./src/vendor.ts"
+		//"form": path.resolve("src/form/form.component"),
+		"demo": "./demo/main.browser",
+		"vendor": "./src/vendor",
+		"polyfills":"./src/polyfills"
 	},
 	resolve: {
 		extensions: ["", ".ts", ".js"]
@@ -34,18 +36,29 @@ module.exports = {
 		}],
 		loaders: [{
 			test: /\.ts$/,
-			loader: "awesome-typescript-loader"
+			loader: "awesome-typescript-loader",
+			exclude: "./node_modules"
 		},{
 			test: /\.json$/,
 			loader: "json-loader"
 		},{
-			test: /\.html$/,
+			test: /\.css$/,
 			loader: 'raw-loader'
+		},{
+			test: /\.html$/,
+			loader: 'raw-loader',
+			exclude:[path.resolve("demo/index.html")]
 		}]
 	},
 	plugins: [
-		new webpack.optimize.CommonsChunkPlugin("vendor", "vendor.bundle.js")
-	],
+		new webpack.optimize.OccurenceOrderPlugin(true),
+		new HtmlWebpackPlugin({
+			template: 'demo/index.html',
+			chunksSortMode: 'dependency'
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: ['demo', 'vendor',"polyfills"]
+		})],
 	node: {
 		global: 'window',
 		crypto: 'empty',
