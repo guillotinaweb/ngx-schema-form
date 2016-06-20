@@ -12,4 +12,4 @@ import "core-js/es7/reflect";
 require("zone.js/dist/zone");
 
 // Typescript emit helpers polyfill
-import "ts-helpers";
+//import "ts-helpers";
