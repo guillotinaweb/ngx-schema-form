@@ -1,122 +1,55 @@
 const webpack = require('webpack');
-const helpers = require('./helpers');
+var path = require("path");
 
 var CopyWebpackPlugin = (CopyWebpackPlugin = require('copy-webpack-plugin'), CopyWebpackPlugin.default || CopyWebpackPlugin);
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const METADATA = {
-  title: 'Angular2 Schema Form',
-  baseUrl: '/'
+	title: 'Angular2 Schema Form',
+	baseUrl: '/'
 };
 
 
 module.exports = {
 
-  metadata: METADATA,
+	metadata: METADATA,
 
-  resolve: {
-    extensions: ['', '.ts', '.js'],
-    root: helpers.root('src'),
-    modulesDirectories: ['node_modules']
-  },
+	resolve: {
+		extensions: ['', '.ts', '.js'],
+	},
+	debug: true,
 
-  module: {
-    preLoaders: [
-      {
-        test: /\.js$/,
-        loader: 'source-map-loader',
-        exclude: [
-          // these packages have problems with their sourcemaps
-          helpers.root('node_modules/rxjs'),
-          helpers.root('node_modules/@angular'),
-        ]
-      }
-    ],
-    loaders: [
-      {
-        test: /\.ts$/,
-        loader: 'awesome-typescript-loader',
-        exclude: [/\.(spec|e2e)\.ts$/]
-      },
-      {   test: /\.scss$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loaders: ['raw-loader', 'sass-loader']},
-      {   test: /\.(png|jpg|gif)$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loader: "url-loader?limit=50000&name=[path][name].[ext]" },
-      {   test: /\.woff(2)?(\?v=\d+\.\d+\.\d+)?$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loader: "file-loader?mimetype=application/font-woff&name=[path][name].[ext]" },
-      {   test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loader: "file-loader?mimetype=application/x-font-ttf&name=[path][name].[ext]" },
-      {   test: /\.eot(\?v=\d+\.\d+\.\d+)?\??$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loader: "file-loader?mimetype=application/vnd.ms-fontobject&name=[path][name].[ext]" },
-      {   test: /\.otf(\?v=\d+\.\d+\.\d+)?$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loader: "file-loader?mimetype=application/font-otf&name=[path][name].[ext]" },
-      {   test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-          exclude: [
-            helpers.root('node_modules')
-          ],
-          loader: "url-loader"   },
-      {
-        test: /\.json$/,
-        loader: 'json-loader'
-      },
-      {
-        test: /\.css$/,
-        loader: 'raw-loader'
-      },
-      {
-        test: /\.html$/,
-        loader: 'raw-loader',
-        exclude: [helpers.root('demo/index.html')]
-      }
-    ]
-  },
-  sassLoader: {
-    includePaths: [helpers.root('src/static/scss')]
-  },
-  plugins: [
 
-    new ForkCheckerPlugin(),
-    new webpack.optimize.OccurenceOrderPlugin(true),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: ['polyfills'].reverse()
-    }),
-    new CopyWebpackPlugin([{
-      from: 'src/static',
-      to: 'static'
-    }]),
+	module: {
+		preLoaders: [{
+			test: /\.js$/,
+			loader: "source-map-loader",
+			exclude: [ /node_modules/]
+		}],
+		loaders: [{
+			test: /\.ts$/,
+			loader: "awesome-typescript-loader",
+			exclude: path.resolve("./node_modules")
+		},{
+			test: /\.json$/,
+			loader: "json-loader"
+		},{
+			test: /\.css$/,
+			loader: 'raw-loader'
+		}
+		]
+	},
+	plugins: [
+		new webpack.optimize.OccurenceOrderPlugin(true),
+		new ForkCheckerPlugin()
+	],
 
-    new HtmlWebpackPlugin({
-      template: 'demo/index.html',
-      chunksSortMode: 'dependency'
-    })
-
-  ],
-
-  node: {
-    global: 'window',
-    crypto: 'empty',
-    module: false,
-    clearImmediate: false,
-    setImmediate: false,
-  }
+	node: {
+		global: 'window',
+		crypto: 'empty',
+		module: false,
+		clearImmediate: false,
+		setImmediate: false,
+	}
 
 };
