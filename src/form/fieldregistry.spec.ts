@@ -21,7 +21,7 @@ describe("FieldRegistry",() => {
 
 	let A_NOT_REGISTERED_TYPE = "FOOBARSTRING";
 	let THE_DEFAULT_FIELD_TYPE = class{};
-	let THE_TYPE = Date;
+	let THE_TYPE = "date";
 	let THE_FIELD_TYPE = class {};
 
 	let registry : FieldRegistry;

@@ -1,72 +1,70 @@
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require("path");
 
-const helpers = require('./helpers');
-const webpackMerge = require('webpack-merge'); // used to merge webpack configs
-const commonConfig = require('./webpack.common.js'); // the settings that are common to prod and dev
+const METADATA = {
+	title: "Angular2 Schema Form",
+	baseUrl: "/"
+};
 
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-
-const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
-const HMR = helpers.hasProcessFlag('hot');
-const METADATA = webpackMerge(commonConfig.metadata, {
-  host: 'localhost',
-  port: 3000,
-  PLONE: 'http://castanyera.iskra.cat:8070/Plone',
-  ENV: ENV,
-  HMR: HMR
-});
-
-module.exports = webpackMerge(commonConfig, {
-  metadata: METADATA,
-  entry: {
-    'polyfills': './src/polyfills.ts',
-    'main': './demo/main.browser.ts'
-  },
-  debug: true,
-  devtool: 'cheap-module-source-map',
-  output: {
-    path: helpers.root('dist'),
-    filename: '[name].bundle.js',
-    sourceMapFilename: '[name].map',
-    chunkFilename: '[id].chunk.js'
-  },
-
-  plugins: [
-    new DefinePlugin({
-      'ENV': JSON.stringify(METADATA.ENV),
-      'HMR': METADATA.HMR,
-      'process.env': {
-        'ENV': JSON.stringify(METADATA.ENV),
-        'NODE_ENV': JSON.stringify(METADATA.ENV),
-        'HMR': METADATA.HMR,
-        'PLONE': JSON.stringify(METADATA.PLONE)
-      }
-    })
-  ],
-
-  tslint: {
-    emitErrors: false,
-    failOnHint: false,
-    resourcePath: 'src'
-  },
-
-  devServer: {
-    port: METADATA.port,
-    host: METADATA.host,
-    historyApiFallback: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-      poll: 1000
-    },
-    outputPath: helpers.root('dist')
-  },
-
-  node: {
-    global: 'window',
-    crypto: 'empty',
-    process: true,
-    module: false,
-    clearImmediate: false,
-    setImmediate: false
-  }
-
-});
+module.exports = {
+	metadata: METADATA,
+	output: {
+		path: path.resolve("./dist"),
+		filename: "[name].js"
+	},
+	entry: {
+		//"form": path.resolve("src/form/form.component"),
+		"demo": "./demo/main.browser",
+		"vendor": "./src/vendor",
+		"polyfills":"./src/polyfills"
+	},
+	resolve: {
+		extensions: ["", ".ts", ".js"]
+	},
+	debug: true,
+	devtool: 'cheap-module-source-map',
+	module: {
+		preLoaders: [{
+			test: /\.js$/,
+			loader: "source-map-loader",
+			exclude: [
+				// these packages have problems with their sourcemaps
+				path.resolve("./node_modules/rxjs"),
+				path.resolve("./node_modules/@angular")
+			]
+		}],
+		loaders: [{
+			test: /\.ts$/,
+			loader: "awesome-typescript-loader",
+			exclude: "./node_modules"
+		},{
+			test: /\.json$/,
+			loader: "json-loader"
+		},{
+			test: /\.css$/,
+			loader: 'raw-loader'
+		},{
+			test: /\.html$/,
+			loader: 'raw-loader',
+			exclude:[path.resolve("demo/index.html")]
+		}]
+	},
+	plugins: [
+		new webpack.optimize.OccurenceOrderPlugin(true),
+		new HtmlWebpackPlugin({
+			template: 'demo/index.html',
+			chunksSortMode: 'dependency'
+		}),
+		new webpack.optimize.CommonsChunkPlugin({
+			name: ['demo', 'vendor',"polyfills"]
+		})],
+	node: {
+		global: 'window',
+		crypto: 'empty',
+		process: true,
+		module: false,
+		clearImmediate: false,
+		setImmediate: false
+	}
+}
