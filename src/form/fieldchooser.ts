@@ -4,7 +4,7 @@ import {
 	Input
 } from "@angular/core";
 
-import {Control} from "@angular/common";
+import {FormControl} from "@angular/forms";
 
 import {Validators} from "@angular/common"
 import {FieldFactory} from "./fieldfactory";
@@ -13,7 +13,7 @@ import {DefaultField} from "./fields/default";
 
 @Component({
 	selector: "field",
-	template: ""
+	template: "",
 })
 export class FieldChooser {
 
@@ -24,7 +24,7 @@ export class FieldChooser {
 	@Input("typename") typename: string;
 	@Input("id") id: string;
 	@Input("settings") settings: any;
-	@Input("control") control: Control;
+	@Input("control") control: FormControl;
 	@Input("visible") visible: boolean;
 
 	constructor(fieldFactory: FieldFactory= null, container: ViewContainerRef = null) {

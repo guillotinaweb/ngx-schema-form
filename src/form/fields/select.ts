@@ -1,3 +1,5 @@
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+
 import {
 	Component,
 	Input
@@ -8,7 +10,7 @@ import {BaseField} from "./base";
 @Component({
 	selector: "select-field",
 	template: require("./selectfield.component.html"),
-	providers: []
+	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class SelectField extends BaseField {
 	@Input("value") value: string = "";

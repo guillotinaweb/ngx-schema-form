@@ -1,11 +1,11 @@
-import {AbstractControl, Control} from "@angular/common";
+import {FormControl} from "@angular/forms";
 export class BaseField {
 
 	value: any="";
 	id: string="";
 	name: string="";
 	settings: any={};
-	control: AbstractControl=new Control('',()=>{return null;});
+	control: FormControl=new FormControl('',()=>{return null;});
 	visible: boolean=true;
 	constructor() {}
 }

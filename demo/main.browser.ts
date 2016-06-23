@@ -1,3 +1,4 @@
 import { bootstrap }    from "@angular/platform-browser-dynamic";
 import { DemoApp } from "./app.component";
-bootstrap(DemoApp);
+import { provideForms} from "@angular/forms"
+bootstrap(DemoApp,[provideForms()]);

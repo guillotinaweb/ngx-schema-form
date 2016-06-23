@@ -1,3 +1,5 @@
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+
 import {
 	Component,
 	Input
@@ -6,7 +8,8 @@ import {
 import {BaseField} from "./base";
 @Component({
 	selector: "checkbox-field",
-	template: require("./checkboxfield.component.html")
+	template: require("./checkboxfield.component.html"),
+	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class CheckboxField extends BaseField {
 	@Input("value") value: string = "";

@@ -2,7 +2,7 @@
 	<label>{{settings.description}}</label>
 	<span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	<label *ngFor="let option of settings.oneOf" class="horizontal">
-		<input [(ngModel)]="settings.value" [ngFormControl]="control" [attr.name]="name" [attr.value]="option.enum[0]" type="radio" [checked]="settings.value == option.enum[0]?true:null" [attr.disabled]="settings.readOnly">
+		<input [(ngModel)]="settings.value" [formControl]="control" [attr.name]="name" value="{{option.enum[0]}}" type="radio"  [attr.disabled]="settings.readOnly">
 	{{option.description}}
 	</label>
 	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [ngModel]="settings.value">

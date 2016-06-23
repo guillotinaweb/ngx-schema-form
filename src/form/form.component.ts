@@ -7,20 +7,21 @@ import {
 } from "@angular/core";
 
 import {
-	Control,
-	ControlArray,
+	FormControl,
+	FormArray,
 	Validators
-} from "@angular/common"
+} from "@angular/forms"
 
 import ZSchema = require("z-schema");
 
 import {FieldChooser} from "./fieldchooser";
 import {FieldFactory} from "./fieldfactory";
 import {FieldRegistry} from "./fieldregistry";
+import {FORM_DIRECTIVES,REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
 
 @Component({
 	selector: "schema-form",
-	directives: [FieldChooser],
+	directives: [FieldChooser, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
 	providers: [provide(FieldFactory,{useClass: FieldFactory, deps:[FieldRegistry,ComponentResolver]})],
 	template: require("./form.component.html")+"{{values}}"
 })
@@ -31,7 +32,7 @@ export class Form {
 
 	private zschema;
 	private controls = {};
-	private controlArray = new ControlArray([]);
+	private controlArray = new FormArray([]);
 
 	private actions = [];
 
@@ -80,7 +81,7 @@ export class Form {
 		if (schema.required.indexOf(fieldId) > -1) {
 			validators = Validators.compose([Validators.required,validators]);
 		}
-		let control = new Control("",validators);
+		let control = new FormControl("",[validators]);
 		this.controlArray.push(control);
 		this.controls[fieldId]=control;
 
@@ -108,12 +109,11 @@ export class Form {
 	}
 	
 	private createValidatorFn(schema){
-		return (control)=>{
+		return (control):{[key:string]:boolean}=>{
 			let value = control.value;
 			if(schema.type === "number" || schema.type === "integer"){
 				value = +value;
 			}
-
 			let result =  this.zschema.validate(value,schema);
 			let err = this.zschema.getLastErrors();
 			return err || null;

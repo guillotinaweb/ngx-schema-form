@@ -1,3 +1,5 @@
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+
 import {
 	Component,
 	Input
@@ -7,7 +9,7 @@ import {BaseField} from "./base";
 @Component({
 	selector: "textline-field",
 	template: require("./textline.component.html"),
-	providers: []
+	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class TextLineField extends BaseField {
 

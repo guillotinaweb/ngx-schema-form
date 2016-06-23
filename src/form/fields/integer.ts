@@ -1,3 +1,5 @@
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+
 import {
 	Component,
 	Input
@@ -5,9 +7,11 @@ import {
 import {BaseField} from "./base";
 
 
+
 @Component({
 	selector: "integer-field",
-	template: require("./integerfield.component.html")
+	template: require("./integerfield.component.html"),
+	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class IntegerField extends BaseField {
 	@Input("value") value: number;
