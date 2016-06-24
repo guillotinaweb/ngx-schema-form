@@ -40,7 +40,9 @@ export class Form {
 	@Input() model: any = {};
 
 	constructor() {
+		console.log("test1");
 		this.zschema = new ZSchema({});
+		console.log("###");
 	}
 
 	ngOnInit() {

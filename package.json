@@ -19,6 +19,7 @@
     "preclean:start": "npm run clean",
     "webpack-dev-server": "webpack-dev-server --config ./config/webpack.dev.js",
     "build": "webpack --progress --profile --colors --display-error-details --display-cached --display-reasons",
+	"tsc": "tsc",
     "prebuild": "npm run clean:dist",
     "test": "karma start",
     "start": "npm run webpack-dev-server",
@@ -28,6 +29,7 @@
     "prepublish": "export NODE_ENV=production; npm run build",
     "postinstall": "npm run typings -- install"
   },
+  "typings":"./dist/src/index.d.ts",
   "license": "BSD-3-Clause",
   "licenses": [
     {
@@ -46,7 +48,6 @@
     "zone.js": "~0.6.12"
   },
   "devDependencies": {
-    "@angular/forms": "^0.1.1",
     "angular2-hmr": "~0.7.0",
     "awesome-typescript-loader": "~0.17.0",
     "bootstrap": "^3.3.6",
@@ -105,6 +106,7 @@
     "z-schema": "^3.17.0"
   },
   "peerDependencies": {
+    "@angular/forms": "^0.1.1",
     "@angular/common": "2.0.0-rc.3",
     "@angular/compiler": "2.0.0-rc.3",
     "@angular/platform-browser": "2.0.0-rc.3",
@@ -112,7 +114,7 @@
     "@angular/platform-server": "2.0.0-rc.3",
     "@angular/core": "2.0.0-rc.3"
   },
-  "main": "dist/form.js",
+  "main": "dist/index.js",
   "files": [
     "dist/"
   ]

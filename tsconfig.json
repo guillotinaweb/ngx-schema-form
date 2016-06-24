@@ -5,7 +5,9 @@
     "target": "es5",
     "module": "commonjs",
     "removeComments": true,
-    "sourceMap": true
+	"sourceMap": true,
+	"outDir":"dist/",
+	"declaration": true
   },
   "awesomeTypescriptLoaderOptions": {
     "resolveGlobs": true,

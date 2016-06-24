@@ -13,12 +13,11 @@ module.exports = merge(require("./webpack.common.js"),{
 	metadata: METADATA,
 	output: {
 		path: path.resolve("./dist"),
-		filename: "form.js",
-		"library": "angular2-schema-form",
+		filename: "index.js",
 		"libraryTarget":"commonjs"
 	},
 	entry: {
-		"form": path.resolve("src/form/form.component")
+		"index": path.resolve("src/index.ts")
 	},
 	devtool: 'cheap-module-source-map',
 	module: {

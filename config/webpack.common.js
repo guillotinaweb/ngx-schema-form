@@ -29,15 +29,14 @@ module.exports = {
 		loaders: [{
 			test: /\.ts$/,
 			loader: "awesome-typescript-loader",
-			exclude: path.resolve("./node_modules")
+			exclude: /node_modules/
 		},{
 			test: /\.json$/,
 			loader: "json-loader"
 		},{
 			test: /\.css$/,
 			loader: 'raw-loader'
-		}
-		]
+		}]
 	},
 	plugins: [
 		new webpack.optimize.OccurenceOrderPlugin(true),
