@@ -25,7 +25,6 @@ export class FieldChooser {
 	@Input("id") id: string;
 	@Input("settings") settings: any;
 	@Input("control") control: FormControl;
-	@Input("visible") visible: boolean;
 
 	constructor(fieldFactory: FieldFactory= null, container: ViewContainerRef = null) {
 		this.fieldFactory = fieldFactory;
@@ -38,15 +37,8 @@ export class FieldChooser {
 			ref.instance.name = this.id;
 			ref.instance.id = this.id;
 			ref.instance.control =  this.control;
-			ref.instance.visible = this.visible
 			this.fieldInstance = ref.instance;
 		});
 	}
 	
-	ngOnChanges(prop){
-		if(this.fieldInstance && prop.hasOwnProperty("visible")){
-			this.fieldInstance.visible = prop["visible"].currentValue;
-		}
-	}
-
 }

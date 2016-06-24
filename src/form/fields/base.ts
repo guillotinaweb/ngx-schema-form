@@ -6,6 +6,5 @@ export class BaseField {
 	name: string="";
 	settings: any={};
 	control: FormControl=new FormControl('',()=>{return null;});
-	visible: boolean=true;
 	constructor() {}
 }

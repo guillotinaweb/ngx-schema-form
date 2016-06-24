@@ -33,7 +33,6 @@ describe("IntegerField",() => {
 			let fieldComponent = fixture.componentInstance;
 
 			fieldComponent.settings.value=THE_VALUE;
-			fieldComponent.visible=true;
 
 			fixture.detectChanges();
 
