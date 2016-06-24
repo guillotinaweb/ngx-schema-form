@@ -5,7 +5,7 @@ import {
 	inject,
 	beforeEach,
 	beforeEachProviders,
-} from '@angular/core/testing';
+} from "@angular/core/testing";
 
 import {
 	provideForms
@@ -13,22 +13,22 @@ import {
 
 import {
 	TestComponentBuilder,
-} from '@angular/compiler/testing';
+} from "@angular/compiler/testing";
 
 
 import {StringField} from "./string";
 
-describe("StringField",()=>{
+describe("StringField", () => {
 	let tcb: TestComponentBuilder;
-	let THE_VALUE="FOO";
-	beforeEachProviders(() => [TestComponentBuilder,provideForms()]);
+	let THE_VALUE = "FOO";
+	beforeEachProviders(() => [TestComponentBuilder, provideForms()]);
 
 	beforeEach(inject([TestComponentBuilder], _tcb => {
 		tcb = _tcb;
 	}));
 
 	it("should initialize value from input", done => {
-		tcb.createAsync(StringField).then( (fixture) => {
+		tcb.createAsync(StringField).then((fixture) => {
 			fixture.detectChanges();
 			let fieldComponent = fixture.componentInstance;
 

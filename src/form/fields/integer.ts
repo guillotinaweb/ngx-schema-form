@@ -1,4 +1,4 @@
-import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 import {
 	Component,
@@ -24,7 +24,7 @@ export class IntegerField extends BaseField {
 	ngOnInit() {
 	}
 
-	toNumber(){
-		this.settings.value =+this.settings.value;
+	toNumber() {
+		this.settings.value = +this.settings.value;
 	}
 }

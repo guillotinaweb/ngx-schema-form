@@ -1,9 +1,10 @@
-import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 import {
 	Component,
 	Input
 } from "@angular/core";
+
 import {BaseField} from "./base";
 
 @Component({

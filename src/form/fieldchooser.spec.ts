@@ -5,45 +5,45 @@ import {
 	inject,
 	beforeEach,
 	beforeEachProviders
-} from '@angular/core/testing';
+} from "@angular/core/testing";
 
 import {
 	provide
-} from "@angular/core"
+} from "@angular/core";
 
 import {
 	TestComponentBuilder,
-} from '@angular/compiler/testing';
+} from "@angular/compiler/testing";
 
 import {ComponentResolver} from "@angular/core";
 import {FieldFactory} from "./fieldfactory";
 import {FieldChooser} from "./fieldchooser";
 
 /*@Component(
-	template: "<field [typename]='data.type' [id]='data.id' [settings]='data.settings'></field>";
+	template: "<field [typename]="data.type" [id]="data.id" [settings]="data.settings"></field>";
 )
 class FieldChooserContainer{
 }*/
 
-describe("FieldChooser",() => {
+describe("FieldChooser", () => {
 
 	let tcb: TestComponentBuilder;
-	let factory : FieldFactory;
+	let factory: FieldFactory;
 	beforeEachProviders(() => [TestComponentBuilder]);
 
 	beforeEach(inject([TestComponentBuilder], _tcb => {
 		tcb = _tcb;
-		factory = new FieldFactory(null,null);
-		spyOn(factory,"createField").and.returnValue(Promise.resolve({instance:{}}));
+		factory = new FieldFactory(null, null);
+		spyOn(factory, "createField").and.returnValue(Promise.resolve({ instance: {} }));
 	}));
 
 	it("should create a field", done => {
-		tcb.overrideProviders(FieldChooser,[provide(FieldFactory,{useValue:factory})]).createAsync(FieldChooser).then( (fixture) => {
+		tcb.overrideProviders(FieldChooser, [provide(FieldFactory, { useValue: factory })]).createAsync(FieldChooser).then((fixture) => {
 			let fieldComponent = fixture.componentInstance;
 			fieldComponent.typename = "string";
-			fieldComponent.settings = {required:true};
+			fieldComponent.settings = { required: true };
 			fixture.detectChanges();
-			expect(factory.createField).toHaveBeenCalledWith(fieldComponent.container,"string")
+			expect(factory.createField).toHaveBeenCalledWith(fieldComponent.container, "string");
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
 			done();
@@ -51,6 +51,6 @@ describe("FieldChooser",() => {
 
 	});
 
-	xit("should put the field returned by the factory in the DOM", () => {});
+	xit("should put the field returned by the factory in the DOM", () => { });
 
 });

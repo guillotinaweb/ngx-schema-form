@@ -1,4 +1,4 @@
-import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 import {
 	Component,
@@ -10,7 +10,7 @@ import {BaseField} from "./base";
 @Component({
 	selector: "radio-field",
 	template: require("./radiofield.component.html"),
-	directives: [FORM_DIRECTIVES,REACTIVE_FORM_DIRECTIVES]
+	directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES]
 })
 export class RadioField extends BaseField {
 	@Input("value") value: string = "";

@@ -5,34 +5,34 @@ import {
 	inject,
 	beforeEach,
 	beforeEachProviders,
-} from '@angular/core/testing';
+} from "@angular/core/testing";
 
 import {
 	provideForms
-} from "@angular/forms"
+} from "@angular/forms";
 
 import {
 	TestComponentBuilder,
-} from '@angular/compiler/testing';
+} from "@angular/compiler/testing";
 
 
 import {IntegerField} from "./integer";
 
-describe("IntegerField",() => {
+describe("IntegerField", () => {
 	let tcb: TestComponentBuilder;
-	let THE_VALUE=1337;
-	beforeEachProviders(() => [TestComponentBuilder,provideForms()]);
+	let THE_VALUE = 1337;
+	beforeEachProviders(() => [TestComponentBuilder, provideForms()]);
 
 	beforeEach(inject([TestComponentBuilder], _tcb => {
 		tcb = _tcb;
 	}));
 
 	it("should initialize value from input", done => {
-		tcb.createAsync(IntegerField).then( (fixture) => {
+		tcb.createAsync(IntegerField).then((fixture) => {
 			fixture.detectChanges();
 			let fieldComponent = fixture.componentInstance;
 
-			fieldComponent.settings.value=THE_VALUE;
+			fieldComponent.settings.value = THE_VALUE;
 
 			fixture.detectChanges();
 

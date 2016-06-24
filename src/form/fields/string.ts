@@ -1,4 +1,4 @@
-import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms"
+import {REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 import {
 	Component,
