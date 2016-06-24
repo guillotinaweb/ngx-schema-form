@@ -8,6 +8,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+	provideForms
+} from "@angular/forms";
+
+import {
 	TestComponentBuilder,
 } from '@angular/compiler/testing';
 
@@ -17,7 +21,7 @@ import {StringField} from "./string";
 describe("StringField",()=>{
 	let tcb: TestComponentBuilder;
 	let THE_VALUE="FOO";
-	beforeEachProviders(() => [TestComponentBuilder]);
+	beforeEachProviders(() => [TestComponentBuilder,provideForms()]);
 
 	beforeEach(inject([TestComponentBuilder], _tcb => {
 		tcb = _tcb;

@@ -8,6 +8,10 @@ import {
 } from '@angular/core/testing';
 
 import {
+	provideForms
+} from "@angular/forms"
+
+import {
 	TestComponentBuilder,
 } from '@angular/compiler/testing';
 
@@ -17,7 +21,7 @@ import {IntegerField} from "./integer";
 describe("IntegerField",() => {
 	let tcb: TestComponentBuilder;
 	let THE_VALUE=1337;
-	beforeEachProviders(() => [TestComponentBuilder]);
+	beforeEachProviders(() => [TestComponentBuilder,provideForms()]);
 
 	beforeEach(inject([TestComponentBuilder], _tcb => {
 		tcb = _tcb;
@@ -29,6 +33,8 @@ describe("IntegerField",() => {
 			let fieldComponent = fixture.componentInstance;
 
 			fieldComponent.settings.value=THE_VALUE;
+			fieldComponent.visible=true;
+
 			fixture.detectChanges();
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
