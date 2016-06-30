@@ -150,6 +150,18 @@
 			"visibleIf":{
 				"shippingPrice":[22,23]
 			}
+		},
+		"useCustomEmail": {
+			"type": "boolean",
+			"description": "Write a custom email ?"
+		},
+		"customEmail":{
+			"type": "string",
+			"widget": "richtext",
+			"visibleIf": {
+				"useCustomEmail": [true]
+			},
+			"pattern":"^<h1>"
 		}
 	},
 	"links": [
@@ -169,7 +181,7 @@
 	"fieldsets":[
 	{
 		"id": "part_1",
-		"title": "Part 1 - Registration",
+		"title": "Part 1 - Recipient",
 		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "favoriteColor"]
 	},
 	{
@@ -182,6 +194,11 @@
 		"id": "part_3",
 		"title": "Part 3 - Shipping",
 		"fields": ["numberOfBoxes","deliveryService","otherDeliveryService","freeShipping","shippingPrice","sendApologies"]
+	},
+	{
+		"id": "part_4",
+		"title": "Part 4 - Email",
+		"fields": ["useCustomEmail","customEmail"]
 	},
 	{
 		"id": "part_4",

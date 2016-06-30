@@ -1,7 +1,6 @@
 import {
 	Component,
 	ComponentResolver,
-	Directive,
 	Input,
 	provide
 } from "@angular/core";
@@ -40,14 +39,13 @@ export class Form {
 	@Input() model: any = {};
 
 	constructor() {
-		console.log("test1");
 		this.zschema = new ZSchema({});
-		console.log("###");
 	}
 
 	ngOnInit() {
 		this.parseSchema(this.schema);
 		this.controlArray.valueChanges.subscribe(() => { this.updateFieldsVisibility(); });
+		this.updateFieldsVisibility(true);
 	}
 
 	private parseSchema(schema: any) {
@@ -87,7 +85,7 @@ export class Form {
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
-		this.fields[fieldId] = { name: fieldId, type: fieldType, id: fieldId, settings: fieldSchema, control: control, visible: true };
+		this.fields[fieldId] = { name: fieldId, type: fieldType, id: fieldId, settings: fieldSchema, control: control, visible: false };
 		this.resetField(fieldId);
 
 		return fieldSchema;
@@ -122,19 +120,19 @@ export class Form {
 		};
 	}
 
-	private updateFieldsVisibility() {
+	private updateFieldsVisibility(updateAll?: boolean ) {
 		for (let fieldIdx in this.fields) {
 			let field = this.fields[fieldIdx];
 			if (field.settings.hasOwnProperty("visibleIf")) {
 				this.updateFieldVisibility(field);
+			} else if (updateAll) {
+				field.visible = true;
 			}
 		}
 	}
 
 	private updateFieldVisibility(field) {
 		let visibleIf = field.settings.visibleIf;
-		let dependencies = 0;
-		let notVisibleDependencies = 0;
 		for (let conditionField in visibleIf) {
 			if (this.fields[conditionField].visible) {
 				let values = visibleIf[conditionField];

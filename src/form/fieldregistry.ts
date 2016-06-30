@@ -4,6 +4,7 @@ import {TextLineField} from "./fields/textline";
 import {SelectField} from "./fields/select";
 import {RadioField} from "./fields/radio";
 import {CheckboxField} from "./fields/checkbox";
+import {RichTextField} from "./fields/richtext";
 import {BaseField} from "./fields/base";
 
 export class FieldRegistry {
@@ -31,6 +32,7 @@ export class FieldRegistry {
 		this.registerFieldType("number", IntegerField);
 		this.registerFieldType("range", IntegerField);
 		this.registerFieldType("textline", TextLineField);
+		this.registerFieldType("richtext", RichTextField);
 	}
 
 	setDefaultFieldType(fieldType: any) {

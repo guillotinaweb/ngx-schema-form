@@ -10,4 +10,6 @@ input, textarea {
 .ng-valid {
 	background-color:#eeffee;
 }
-
+richtextfield > tinymce.ng-invalid {
+	border-top: 2px solid red;
+}

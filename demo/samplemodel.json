@@ -6,5 +6,6 @@
 	"transactionDescription": "Payment for your subscription",
 	"password": "admin",
 	"category": "hightech",
-	"freeShipping": false
+	"freeShipping": false,
+	"customEmail": "Nothing here..."
 }

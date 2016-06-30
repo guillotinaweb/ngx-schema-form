@@ -19,7 +19,7 @@
     "preclean:start": "npm run clean",
     "webpack-dev-server": "webpack-dev-server --config ./config/webpack.dev.js",
     "build": "webpack --progress --profile --colors --display-error-details --display-cached --display-reasons",
-	"tsc": "tsc",
+    "tsc": "tsc",
     "prebuild": "npm run clean:dist",
     "test": "karma start",
     "start": "npm run webpack-dev-server",
@@ -29,7 +29,7 @@
     "prepublish": "export NODE_ENV=production; npm run build",
     "postinstall": "npm run typings -- install"
   },
-  "typings":"./dist/src/index.d.ts",
+  "typings": "./dist/src/index.d.ts",
   "license": "BSD-3-Clause",
   "licenses": [
     {
@@ -45,6 +45,7 @@
     "core-js": "^2.4.0",
     "methods": "^1.1.2",
     "raw-loader": "0.5.1",
+    "tinymce": "^4.3.13",
     "zone.js": "~0.6.12"
   },
   "devDependencies": {
