@@ -3,11 +3,11 @@ input, textarea {
 	border-radius:3px;
 }
 
-.ng-invalid {
+.ng-touched.ng-invalid {
 	background-color:#ffeeee;
 }
 
-.ng-valid {
+.ng-touched.ng-valid {
 	background-color:#eeffee;
 }
 richtextfield > tinymce.ng-invalid {
