@@ -16,6 +16,7 @@ import {TinyMCEValueAccessor} from "./tinymcevalueaccessor";
 	providers: [disableDeprecatedForms(), provideForms()]
 })
 export class RichTextField extends BaseField {
+	dis: boolean = false;
 	constructor() {
 		super();
 	}

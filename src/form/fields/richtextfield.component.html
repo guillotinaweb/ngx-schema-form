@@ -1,4 +1,5 @@
 <div class="field">
 	<label [attr.for]="id" class="horizontal">{{settings.description}}<span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span></label>
-	<tinymce [(ngModel)]="settings.value" [formControl]="control" [id]="id"></tinymce>
+	<input type="checkbox" [(ngModel)]="dis">
+	<tinymce [(ngModel)]="settings.value" [formControl]="control" [id]="id" [disabled]="dis" ></tinymce>
 </div>

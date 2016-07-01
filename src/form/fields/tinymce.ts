@@ -25,11 +25,23 @@ export class TinyMCE {
 
 	private editor: any = null;
 	private initialValue: string = "";
+	@Input() disabled: boolean = false;
 	@Input() id: string;
 	@Output() contentChange = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@Output() focus = new EventEmitter();
 	constructor(private zone: NgZone) { }
+
+	ngAfterViewInit() {
+		this.createEditor();
+	}
+
+	ngOnChanges(changes) {
+		if (this.editor && changes["disabled"]) {
+			this.removeEditor();
+			this.createEditor();
+		}
+	}
 
 	// TinyMCE triggers an error if the DOM elements it created are
 	// inexistent which is the case if this component if located in
@@ -39,36 +51,43 @@ export class TinyMCE {
 	// from tinymce.
 	ngOnDestroy() {
 		this.editor.removed = true;
+		this.removeEditor();
+	}
+
+	private createEditor() {
+		console.log(tinymce.baseURL);
+		tinymce.baseURL = "/node_modules/tinymce";
+		let options: any = {
+			selector: "#" + this.id,
+			skin: false,
+			plugins: "code",
+			readonly: this.disabled ? 1 : 0,
+			setup: (editor) => { this.editor = editor; }
+		};
+
+		if (this.disabled) {
+			options.toolbar = options.menubar = false;
+		}
+
+		tinymce.init(options);
+
+		this.editor.on("change keyup cut paste undo redo", () => {
+			this.emitContentChange();
+		});
+
+		this.editor.on("blur", () => {
+			this.zone.run(() => { this.blur.emit(true); return true; });
+		});
+
+		this.editor.on("focus", () => {
+			this.zone.run(() => { this.focus.emit(true); });
+		});
+	}
+
+	removeEditor() {
 		this.editor.destroy();
 		tinymce.remove(this.editor);
 		this.editor = null;
-	}
-
-	ngAfterViewInit() {
-
-		tinymce.init({
-			selector: "#" + this.id,
-			skin: false,
-			setup: (editor) => {
-				for (let event of ["change", "keyup", "cut", "paste"]) {
-					editor.on(event, () => {
-						this.emitContentChange();
-					});
-				}
-				editor.on("blur", () => {
-					this.zone.run(() => {
-						this.blur.emit(true); return true;
-					});
-				});
-				editor.on("focus", () => {
-					this.zone.run(() => {
-						this.focus.emit(true);
-					});
-
-				});
-				this.editor = editor;
-			}
-		});
 	}
 
 	private emitContentChange() {
