@@ -5,16 +5,12 @@ import {
 	inject,
 	beforeEach,
 	beforeEachProviders,
+	TestComponentBuilder
 } from "@angular/core/testing";
 
 import {
 	provideForms
 } from "@angular/forms";
-
-import {
-	TestComponentBuilder,
-} from "@angular/compiler/testing";
-
 
 import {StringField} from "./string";
 

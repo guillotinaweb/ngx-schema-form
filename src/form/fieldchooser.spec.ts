@@ -4,16 +4,13 @@ import {
 	expect,
 	inject,
 	beforeEach,
-	beforeEachProviders
+	beforeEachProviders,
+	TestComponentBuilder
 } from "@angular/core/testing";
 
 import {
 	provide
 } from "@angular/core";
-
-import {
-	TestComponentBuilder,
-} from "@angular/compiler/testing";
 
 import {ComponentResolver} from "@angular/core";
 import {FieldFactory} from "./fieldfactory";
