@@ -12,8 +12,6 @@ import {CORE_DIRECTIVES} from "@angular/common";
 
 import "tinymce/tinymce";
 import "tinymce/themes/modern/theme";
-require("style!css!tinymce/skins/lightgray/skin.min.css");
-require("style!css!tinymce/skins/lightgray/content.min.css");
 
 declare var tinymce;
 
@@ -58,7 +56,7 @@ export class TinyMCE {
 		tinymce.baseURL = "/node_modules/tinymce";
 		let options: any = {
 			selector: "#" + this.id,
-			skin: false,
+			//skin: false,
 			plugins: "code",
 			readonly: this.readonly ? 1 : 0,
 			setup: (editor) => { this.editor = editor; }

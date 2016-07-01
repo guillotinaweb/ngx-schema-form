@@ -1,10 +1,10 @@
 <!-- Support number and range -->
-<div class="field">
+<div class="field form-group">
 	<label [attr.for]="id" class="horizontal">
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
 	</label>
 	
 	<input [attr.readonly]="(settings.widget!=='range') && settings.readOnly?true:null" [name]="name" class="text-widget integer-field" [attr.id]="id"
-	[class.required]="settings.required" [formControl]="control" [(ngModel)]="settings.value" (ngModelChange)="toNumber()" [attr.type]="settings.widget||'number'" [attr.required]="settings.required" [attr.min]="settings.minimum" [attr.max]="settings.maximum" [attr.placeholder]="settings.placeholder" [attr.disabled]="(settings.widget==='range') && settings.readOnly?true:null" >
+	[class.required]="settings.required" [class.form-control]="settings.widget!=='range'" [formControl]="control" [(ngModel)]="settings.value" (ngModelChange)="toNumber()" [attr.type]="settings.widget||'number'" [attr.required]="settings.required" [attr.min]="settings.minimum" [attr.max]="settings.maximum" [attr.placeholder]="settings.placeholder" [attr.disabled]="(settings.widget==='range') && settings.readOnly?true:null" >
 	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [ngModel]="settings.value">
 </div>

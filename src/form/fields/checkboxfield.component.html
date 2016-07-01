@@ -1,4 +1,4 @@
-<div class="field">
+<div class="field form-group">
 	<span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	<label class="horizontal">
 	<input [(ngModel)]="settings.value" [formControl]="control" [attr.name]="name" [indeterminate]="settings.value == undefined" type="checkbox" [attr.disabled]="settings.readOnly">
