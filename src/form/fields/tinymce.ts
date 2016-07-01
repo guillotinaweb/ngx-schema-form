@@ -25,7 +25,7 @@ export class TinyMCE {
 
 	private editor: any = null;
 	private initialValue: string = "";
-	@Input() disabled: boolean = false;
+	@Input() readonly: boolean = false;
 	@Input() id: string;
 	@Output() contentChange = new EventEmitter();
 	@Output() blur = new EventEmitter();
@@ -37,7 +37,7 @@ export class TinyMCE {
 	}
 
 	ngOnChanges(changes) {
-		if (this.editor && changes["disabled"]) {
+		if (this.editor && changes["readonly"]) {
 			this.removeEditor();
 			this.createEditor();
 		}
@@ -55,17 +55,16 @@ export class TinyMCE {
 	}
 
 	private createEditor() {
-		console.log(tinymce.baseURL);
 		tinymce.baseURL = "/node_modules/tinymce";
 		let options: any = {
 			selector: "#" + this.id,
 			skin: false,
 			plugins: "code",
-			readonly: this.disabled ? 1 : 0,
+			readonly: this.readonly ? 1 : 0,
 			setup: (editor) => { this.editor = editor; }
 		};
 
-		if (this.disabled) {
+		if (this.readonly) {
 			options.toolbar = options.menubar = false;
 		}
 
