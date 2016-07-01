@@ -91,8 +91,10 @@ export class Form {
 		return fieldSchema;
 	}
 
-	private resetField(fieldId) {
+	private resetField(fieldId : string) {
 		let settings = this.fields[fieldId].settings;
+		this.controls[fieldId]._touched=false;
+		this.controls[fieldId]._pristine=true;
 		let val: any = "";
 		if (this.model.hasOwnProperty(fieldId)) {
 			val = this.model[fieldId];
@@ -105,6 +107,7 @@ export class Form {
 				val = 0;
 			}
 		}
+		
 		settings.value = val;
 	}
 
