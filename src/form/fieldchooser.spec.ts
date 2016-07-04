@@ -26,16 +26,24 @@ describe("FieldChooser", () => {
 
 	let tcb: TestComponentBuilder;
 	let factory: FieldFactory;
-	beforeEachProviders(() => [TestComponentBuilder]);
+	beforeEachProviders(() => [TestComponentBuilder, {provide: FieldFactory, useClass: FieldFactoryMock}]);
 
-	beforeEach(inject([TestComponentBuilder], _tcb => {
+	class FieldFactoryMock {
+		createField() {
+			return new Promise( (resolve, reject) => {
+				resolve({instance: { } });
+			});
+		}
+	};
+
+	beforeEach(inject([TestComponentBuilder, FieldFactory], (_tcb, _factory) => {
 		tcb = _tcb;
-		factory = new FieldFactory(null, null);
-		spyOn(factory, "createField").and.returnValue(Promise.resolve({ instance: {} }));
+		factory = _factory;
+		spyOn(factory, "createField").and.callThrough();
 	}));
 
 	it("should create a field", done => {
-		tcb.overrideProviders(FieldChooser, [provide(FieldFactory, { useValue: factory })]).createAsync(FieldChooser).then((fixture) => {
+		tcb.createAsync(FieldChooser).then((fixture) => {
 			let fieldComponent = fixture.componentInstance;
 			fieldComponent.typename = "string";
 			fieldComponent.settings = { required: true };
