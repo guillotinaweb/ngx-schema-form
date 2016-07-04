@@ -1,5 +1,5 @@
 <div class="field form-group">
-<label [attr.for]="id" class="horizontal">
+<label [attr.for]="id" class="horizontal control-label">
 	{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 </label>
 <input [name]="name" [attr.readonly]="(settings.widget!=='color') && settings.readOnly?true:null"  class="text-widget textline-field form-control" [attr.type]="settings.widget||'text'" [attr.id]="id" [formControl]="control" [(ngModel)]="settings.value" [attr.placeholder]="settings.placeholder" [attr.disabled]="(settings.widget=='color' && settings.readOnly)?true:null">

@@ -1,10 +1,11 @@
 <div class="field form-group">
 	<span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	<div class="checkbox">
-		<label class="horizontal">
+		<label class="horizontal control-label">
 			<input [(ngModel)]="settings.value" [formControl]="control" [attr.name]="name" [indeterminate]="settings.value == undefined" type="checkbox" [attr.disabled]="settings.readOnly">
 			<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [ngModel]="settings.value">
 			{{settings.description}}
 		</label>
 	</div>
 </div>
+
