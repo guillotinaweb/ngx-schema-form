@@ -5,6 +5,7 @@
 			[class.has-error]="!fields[field].control.valid"
 			[class.has-success]="fields[field].control.valid"
 			class="form-group">
+
 			<field *ngIf="fields[field].visible" [typename]="fields[field].type"
 			[id]="fields[field].id"
 			[control]="fields[field].control"
