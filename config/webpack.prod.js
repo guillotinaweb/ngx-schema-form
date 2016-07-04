@@ -27,5 +27,5 @@ module.exports = merge(require("./webpack.common.js"),{
 		}]
 	},
 	plugins: [],
-	externals: [nodeExternals({whitelist:["z-schema"]})],
+	externals: [nodeExternals({whitelist:["z-schema","tinymce/tinymce", "tinymce/themes/modern/theme"]})],
 });

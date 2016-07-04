@@ -6,6 +6,7 @@ import {
 	Output
 } from "@angular/core";
 
+declare var tinymce;
 import "tinymce/tinymce";
 import "tinymce/themes/modern/theme";
 
@@ -14,7 +15,6 @@ import {TinyMCEValueAccessor} from "./tinymcevalueaccessor";
 import {CORE_DIRECTIVES} from "@angular/common";
 
 
-declare var tinymce;
 
 @Component({
 	selector: "tinymce",
