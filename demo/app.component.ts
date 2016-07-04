@@ -19,12 +19,27 @@ export class DemoApp {
 	private model:any;
 	private container: ViewContainerRef;
 	private resolver: ComponentResolver;
+	private fieldValidators : { [fieldId:string]: Function} = {};
 	constructor(container: ViewContainerRef = null, resolver: ComponentResolver = null,registry: FieldRegistry) {
 		this.container = container;
 		this.resolver = resolver;
 
 		this.schema = require("./sampleschema.json")
 		this.model = require("./samplemodel.json");
+
+		this.fieldValidators["bornOn"] = (value, model):any => {
+			let dateArr = value.split("-");
+			if (dateArr.length === 3) {
+				let now = new Date();
+				let majorityYear = new Date(now.getFullYear()-18, now.getMonth(), now.getDay()).getTime();
+				let born = new Date(dateArr[0],dateArr[1],dateArr[2]).getTime();
+				if (born < majorityYear ){
+					return true;
+				} else {
+					return "Too young to buy that stuff";
+				}
+			}
+		};
 	}
 
 	ngOnInit() {

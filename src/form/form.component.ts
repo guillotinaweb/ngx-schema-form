@@ -37,6 +37,9 @@ export class Form {
 
 	@Input() schema: any;
 	@Input() model: any = {};
+	@Input() fieldValidators: {[fieldId: string]: Function} = {};
+	//@Input() formValidator: Function = {};
+	//@Input() actions: {[actionId: string]: Function}[] = {};
 
 	constructor() {
 		this.zschema = new ZSchema({});
@@ -74,10 +77,13 @@ export class Form {
 	private parseField(schema, fieldId) {
 		let fieldSchema = schema.properties[fieldId];
 
-		let validators = this.createValidatorFn(fieldSchema);
+		let validators = this.createValidatorFnFromSchema(fieldSchema);
+		if (this.fieldValidators.hasOwnProperty(fieldId)){
+			let customValidator = this.createCustomValidatorFn(fieldId, this.fieldValidators[fieldId]);
+			validators = Validators.compose([customValidator, validators]);
+		}
 
 		// Client validation goes here
-		let fieldType = fieldSchema.widget || fieldSchema.type;
 		if (schema.required.indexOf(fieldId) > -1) {
 			validators = Validators.compose([Validators.required, validators]);
 		}
@@ -85,10 +91,32 @@ export class Form {
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
+		let fieldType = fieldSchema.widget || fieldSchema.type;
 		this.fields[fieldId] = { name: fieldId, type: fieldType, id: fieldId, settings: fieldSchema, control: control, visible: false };
 		this.resetField(fieldId);
 
 		return fieldSchema;
+	}
+
+	private createCustomValidatorFn(fieldId: string, validatorFn: Function ) {
+		return (control):{ [key:string]: boolean } => {
+			let model = this.getModel();
+			if (model.hasOwnProperty(fieldId)){
+				return validatorFn(control.value, model);
+			}
+		};
+	}
+
+	private createValidatorFnFromSchema(schema) {
+		return (control): { [key: string]: boolean } => {
+			let value = control.value;
+			if (schema.type === "number" || schema.type === "integer") {
+				value = +value;
+			}
+			let result = this.zschema.validate(value, schema);
+			let err = this.zschema.getLastErrors();
+			return err || null;
+		};
 	}
 
 	private resetField(fieldId : string) {
@@ -110,18 +138,7 @@ export class Form {
 		
 		settings.value = val;
 	}
-
-	private createValidatorFn(schema) {
-		return (control): { [key: string]: boolean } => {
-			let value = control.value;
-			if (schema.type === "number" || schema.type === "integer") {
-				value = +value;
-			}
-			let result = this.zschema.validate(value, schema);
-			let err = this.zschema.getLastErrors();
-			return err || null;
-		};
-	}
+	
 
 	private updateFieldsVisibility(updateAll?: boolean ) {
 		for (let fieldIdx in this.fields) {
