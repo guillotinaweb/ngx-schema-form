@@ -6,12 +6,13 @@ import {
 	Output
 } from "@angular/core";
 
+import "tinymce/tinymce";
+import "tinymce/themes/modern/theme";
+
 import {TinyMCEValueAccessor} from "./tinymcevalueaccessor";
 
 import {CORE_DIRECTIVES} from "@angular/common";
 
-import "tinymce/tinymce";
-import "tinymce/themes/modern/theme";
 
 declare var tinymce;
 
@@ -56,7 +57,6 @@ export class TinyMCE {
 		tinymce.baseURL = "/node_modules/tinymce";
 		let options: any = {
 			selector: "#" + this.id,
-			//skin: false,
 			plugins: "code",
 			readonly: this.readonly ? 1 : 0,
 			setup: (editor) => { this.editor = editor; }
@@ -82,6 +82,15 @@ export class TinyMCE {
 	}
 
 	removeEditor() {
+		// Hacks to avoid exceptions if the editor is destroyed
+		// before it is thoroughly initialized 
+		if(!this.editor.selection){
+			this.editor.selection = {destroy: () => {} };
+			this.editor.selection.dom = { };
+		}
+		if(!this.editor.dom){
+			this.editor.dom = {destroy: () => {}}
+		}
 		this.editor.destroy();
 		tinymce.remove(this.editor);
 		this.editor = null;
