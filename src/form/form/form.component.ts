@@ -13,9 +13,9 @@ import {
 
 import ZSchema = require("z-schema");
 
-import {FieldChooser} from "./fieldchooser";
-import {FieldFactory} from "./fieldfactory";
-import {FieldRegistryService} from "./fieldregistry.service";
+import {FieldChooser} from "../fieldchooser";
+import {FieldFactory} from "../fieldfactory";
+import {FieldRegistryService} from "../fieldregistry.service";
 import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 @Component({
