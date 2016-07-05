@@ -26,6 +26,7 @@ export class TinyMCE {
 	private initialValue: string = "";
 	@Input() readonly: boolean = false;
 	@Input() id: string;
+	@Input() options: any = {plugins: "code"};
 	@Output() contentChange = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@Output() focus = new EventEmitter();
@@ -57,7 +58,7 @@ export class TinyMCE {
 		tinymce.baseURL = "/node_modules/tinymce";
 		let options: any = {
 			selector: "#" + this.id,
-			plugins: "code",
+			plugins: this.options.plugins,
 			readonly: this.readonly ? 1 : 0,
 			setup: (editor) => { this.editor = editor; }
 		};
@@ -84,12 +85,12 @@ export class TinyMCE {
 	removeEditor() {
 		// Hacks to avoid exceptions if the editor is destroyed
 		// before it is thoroughly initialized 
-		if(!this.editor.selection){
+		if (!this.editor.selection) {
 			this.editor.selection = {destroy: () => {} };
 			this.editor.selection.dom = { };
 		}
-		if(!this.editor.dom){
-			this.editor.dom = {destroy: () => {}}
+		if (!this.editor.dom) {
+			this.editor.dom = {destroy: () => {}};
 		}
 		this.editor.destroy();
 		tinymce.remove(this.editor);
