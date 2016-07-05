@@ -12,9 +12,9 @@ import {
 	provide
 } from "@angular/core";
 
-import {ComponentResolver} from "@angular/core";
-import {FieldFactory} from "../fieldfactory";
-import {FieldChooserComponent} from "./fieldchooser.component";
+import { ComponentResolver } from "@angular/core";
+import { FieldFactory } from "../fieldfactory";
+import { FieldChooserComponent } from "./fieldchooser.component";
 
 describe("FieldChooserComponent", () => {
 

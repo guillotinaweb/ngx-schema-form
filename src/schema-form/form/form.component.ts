@@ -13,10 +13,10 @@ import {
 
 import ZSchema = require("z-schema");
 
-import {FieldChooserComponent} from "../fieldchooser/fieldchooser.component";
-import {FieldFactory} from "../fieldfactory";
-import {FieldRegistryService} from "../fieldregistry.service";
-import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
+import { FieldChooserComponent } from "../fieldchooser/fieldchooser.component";
+import { FieldFactory } from "../fieldfactory";
+import { FieldRegistryService } from "../fieldregistry.service";
+import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 @Component({
 	selector: "schema-form",

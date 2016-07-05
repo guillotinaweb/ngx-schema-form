@@ -1,11 +1,11 @@
-import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
+import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 import {
 	Component,
 	Input
 } from "@angular/core";
 
-import {BaseField} from "../base";
+import { BaseField } from "../base";
 
 @Component({
 	selector: "radio-field",

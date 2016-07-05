@@ -1,5 +1,5 @@
-import {Component} from "@angular/core";
-import {BaseField} from "./base";
+import { Component } from "@angular/core";
+import { BaseField } from "./base";
 
 @Component({
 	selector: "default-field",

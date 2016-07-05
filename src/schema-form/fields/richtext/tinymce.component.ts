@@ -10,9 +10,9 @@ declare var tinymce;
 import "tinymce/tinymce";
 import "tinymce/themes/modern/theme";
 
-import {TinyMCEValueAccessor} from "./tinymcevalueaccessor";
+import { TinyMCEValueAccessor } from "./tinymcevalueaccessor";
 
-import {CORE_DIRECTIVES} from "@angular/common";
+import { CORE_DIRECTIVES } from "@angular/common";
 
 
 

@@ -1,12 +1,12 @@
-import {NG_VALUE_ACCESSOR, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlValueAccessor, provideForms, disableDeprecatedForms} from "@angular/forms";
+import { NG_VALUE_ACCESSOR, REACTIVE_FORM_DIRECTIVES, FORM_DIRECTIVES, ControlValueAccessor, provideForms, disableDeprecatedForms } from "@angular/forms";
 import {
 	Component,
 	Input
 } from "@angular/core";
 
-import {BaseField} from "../base";
-import {TinyMCEComponent} from "./tinymce.component";
-import {TinyMCEValueAccessor} from "./tinymcevalueaccessor";
+import { BaseField } from "../base";
+import { TinyMCEComponent } from "./tinymce.component";
+import { TinyMCEValueAccessor } from "./tinymcevalueaccessor";
 
 
 @Component({

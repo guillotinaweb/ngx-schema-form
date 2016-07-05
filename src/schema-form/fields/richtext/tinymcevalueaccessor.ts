@@ -5,7 +5,7 @@ import {
 	forwardRef
 } from "@angular/core";
 
-import {TinyMCEComponent} from "./tinymce.component";
+import { TinyMCEComponent } from "./tinymce.component";
 
 import {
 	ControlValueAccessor,

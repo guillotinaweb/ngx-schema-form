@@ -14,7 +14,7 @@ import {
 
 
 
-import {IntegerField} from "./integer.field";
+import { IntegerField } from "./integer.field";
 
 describe("IntegerField", () => {
 	let tcb: TestComponentBuilder;

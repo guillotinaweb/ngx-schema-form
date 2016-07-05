@@ -5,7 +5,7 @@ import {
 	ReflectiveInjector
 } from "@angular/core";
 
-import {FieldRegistryService} from "./fieldregistry.service";
+import { FieldRegistryService } from "./fieldregistry.service";
 
 export class FieldFactory {
 

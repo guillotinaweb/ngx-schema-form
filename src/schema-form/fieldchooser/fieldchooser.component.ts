@@ -4,11 +4,11 @@ import {
 	Input
 } from "@angular/core";
 
-import {FormControl} from "@angular/forms";
+import { FormControl } from "@angular/forms";
 
-import {Validators} from "@angular/common";
-import {FieldFactory} from "../fieldfactory";
-import {DefaultField} from "../fields";
+import { Validators } from "@angular/common";
+import { FieldFactory } from "../fieldfactory";
+import { DefaultField } from "../fields";
 
 @Component({
 	selector: "field",

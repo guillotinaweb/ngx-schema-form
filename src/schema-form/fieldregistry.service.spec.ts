@@ -13,7 +13,7 @@ import {
 	StringField
 } from "./fields";
 
-import {FieldRegistryService} from "./fieldregistry.service";
+import { FieldRegistryService } from "./fieldregistry.service";
 
 describe("FieldRegistryService", () => {
 
