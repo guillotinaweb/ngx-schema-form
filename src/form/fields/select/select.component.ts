@@ -5,11 +5,11 @@ import {
 	Input
 } from "@angular/core";
 
-import {BaseField} from "./base";
+import {BaseField} from "../base";
 
 @Component({
 	selector: "select-field",
-	template: require("./selectfield.component.html"),
+	template: require("./select.component.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class SelectField extends BaseField {

@@ -7,9 +7,11 @@ import {
 	beforeEachProviders
 } from "@angular/core/testing";
 
-import {StringField} from "./fields/string";
-import {IntegerField} from "./fields/integer";
-import {TextLineField} from "./fields/textline";
+import {
+	IntegerField,
+	TextLineField,
+	StringField
+} from "./fields";
 
 import {FieldRegistry} from "./fieldregistry";
 

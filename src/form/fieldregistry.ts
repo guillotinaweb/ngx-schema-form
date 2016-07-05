@@ -1,11 +1,14 @@
-import {StringField} from "./fields/string";
-import {IntegerField} from "./fields/integer";
-import {TextLineField} from "./fields/textline";
-import {SelectField} from "./fields/select";
-import {RadioField} from "./fields/radio";
-import {CheckboxField} from "./fields/checkbox";
-import {RichTextField} from "./fields/richtext";
-import {BaseField} from "./fields/base";
+import {
+	StringField,
+	IntegerField,
+	TextLineField,
+	SelectField,
+	RadioField,
+	CheckboxField,
+	RichTextField,
+	BaseField
+} from "./fields";
+
 
 export class FieldRegistry {
 	private fieldTypes: { [type: string]: any } = {};

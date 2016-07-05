@@ -4,14 +4,14 @@ import {
 	Input
 } from "@angular/core";
 
-import {BaseField} from "./base";
+import {BaseField} from "../base";
 import {TinyMCE} from "./tinymce";
 import {TinyMCEValueAccessor} from "./tinymcevalueaccessor";
 
 
 @Component({
 	selector: "richtext-field",
-	template: require("./richtextfield.component.html"),
+	template: require("./richtext.component.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES, TinyMCE, TinyMCEValueAccessor],
 	providers: [disableDeprecatedForms(), provideForms()]
 })

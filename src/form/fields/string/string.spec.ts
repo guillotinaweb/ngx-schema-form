@@ -12,7 +12,7 @@ import {
 	provideForms
 } from "@angular/forms";
 
-import {StringField} from "./string";
+import {StringField} from "./string.component";
 
 describe("StringField", () => {
 	let tcb: TestComponentBuilder;

@@ -4,13 +4,11 @@ import {
 	Component,
 	Input
 } from "@angular/core";
-import {BaseField} from "./base";
-
-
+import {BaseField} from "../base";
 
 @Component({
 	selector: "integer-field",
-	template: require("./integerfield.component.html"),
+	template: require("./integer.component.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class IntegerField extends BaseField {

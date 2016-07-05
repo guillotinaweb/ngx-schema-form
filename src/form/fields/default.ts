@@ -7,5 +7,4 @@ import {BaseField} from "./base";
 })
 export class DefaultField extends BaseField {
 
-
 }

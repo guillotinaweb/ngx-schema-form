@@ -5,11 +5,11 @@ import {
 	Input
 } from "@angular/core";
 
-import {BaseField} from "./base";
+import {BaseField} from "../base";
 
 @Component({
 	selector: "radio-field",
-	template: require("./radiofield.component.html"),
+	template: require("./radio.component.html"),
 	directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES]
 })
 export class RadioField extends BaseField {

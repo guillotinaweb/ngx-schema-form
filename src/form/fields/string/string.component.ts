@@ -4,11 +4,11 @@ import {
 	Component,
 	Input
 } from "@angular/core";
-import {BaseField} from "./base";
+import {BaseField} from "../base";
 
 @Component({
 	selector: "string-field",
-	template: require("./stringfield.component.html"),
+	template: require("./string.component.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
 export class StringField extends BaseField {

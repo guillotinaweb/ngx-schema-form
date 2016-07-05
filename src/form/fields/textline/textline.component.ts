@@ -5,13 +5,15 @@ import {
 	Input
 } from "@angular/core";
 
-import {BaseField} from "./base";
+import {BaseField} from "../base";
+
 @Component({
-	selector: "checkbox-field",
-	template: require("./checkboxfield.component.html"),
+	selector: "textline-field",
+	template: require("./textline.component.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class CheckboxField extends BaseField {
+export class TextLineField extends BaseField {
+
 	@Input("value") value: string = "";
 	@Input() validators;
 	@Input() asyncValidators;
