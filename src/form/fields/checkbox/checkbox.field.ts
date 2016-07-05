@@ -6,14 +6,12 @@ import {
 } from "@angular/core";
 
 import {BaseField} from "../base";
-
 @Component({
-	selector: "textline-field",
-	template: require("./textline.component.html"),
+	selector: "checkbox-field",
+	template: require("./checkbox.field.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class TextLineField extends BaseField {
-
+export class CheckboxField extends BaseField {
 	@Input("value") value: string = "";
 	@Input() validators;
 	@Input() asyncValidators;

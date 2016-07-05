@@ -4,23 +4,14 @@ import {
 	Component,
 	Input
 } from "@angular/core";
-
 import {BaseField} from "../base";
 
 @Component({
-	selector: "select-field",
-	template: require("./select.component.html"),
+	selector: "string-field",
+	template: require("./string.field.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class SelectField extends BaseField {
+export class StringField extends BaseField {
 	@Input("value") value: string = "";
-	@Input() validators;
-	@Input() asyncValidators;
 
-	constructor() {
-		super();
-	}
-
-	ngOnInit() {
-	}
 }

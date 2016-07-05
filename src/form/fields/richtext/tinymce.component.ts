@@ -20,7 +20,7 @@ import {CORE_DIRECTIVES} from "@angular/common";
 	selector: "tinymce",
 	template: require("./tinymce.component.html"),
 })
-export class TinyMCE {
+export class TinyMCEComponent {
 
 	private editor: any = null;
 	private initialValue: string = "";

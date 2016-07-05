@@ -4,25 +4,24 @@ import {
 	Component,
 	Input
 } from "@angular/core";
+
 import {BaseField} from "../base";
 
 @Component({
-	selector: "integer-field",
-	template: require("./integer.component.html"),
+	selector: "textline-field",
+	template: require("./textline.field.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class IntegerField extends BaseField {
-	@Input("value") value: number;
+export class TextLineField extends BaseField {
+
+	@Input("value") value: string = "";
+	@Input() validators;
+	@Input() asyncValidators;
 
 	constructor() {
 		super();
-
 	}
 
 	ngOnInit() {
-	}
-
-	toNumber() {
-		this.settings.value = +this.settings.value;
 	}
 }

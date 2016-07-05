@@ -5,7 +5,7 @@ import {
 	forwardRef
 } from "@angular/core";
 
-import {TinyMCE} from "./tinymce";
+import {TinyMCEComponent} from "./tinymce.component";
 
 import {
 	ControlValueAccessor,
@@ -26,7 +26,7 @@ export class TinyMCEValueAccessor implements ControlValueAccessor {
 	onChange = (_) => {};
 	onTouched = () => {};
 
-	constructor(private host: TinyMCE) { }
+	constructor(private host: TinyMCEComponent) { }
 
 	writeValue(value: string): void {
 		this.host.setContent(value);

@@ -9,7 +9,7 @@ import {BaseField} from "../base";
 
 @Component({
 	selector: "radio-field",
-	template: require("./radio.component.html"),
+	template: require("./radio.field.html"),
 	directives: [FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES]
 })
 export class RadioField extends BaseField {
