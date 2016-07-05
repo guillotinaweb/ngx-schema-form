@@ -158,6 +158,7 @@
 		"customEmail":{
 			"type": "string",
 			"widget": "richtext",
+			"description": "Email to send",
 			"visibleIf": {
 				"useCustomEmail": [true]
 			},
