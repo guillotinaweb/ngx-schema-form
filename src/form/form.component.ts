@@ -32,6 +32,7 @@ export class Form {
 	private zschema;
 	private controls = {};
 	private controlArray = new FormArray([]);
+	private updatingValidity: boolean = false;
 
 	private actions = [];
 
@@ -50,7 +51,7 @@ export class Form {
 		this.controlArray.valueChanges.subscribe(() => { this.updateFieldsVisibility(); });
 		this.updateFieldsVisibility(true);
 	}
-
+	
 	private parseSchema(schema: any) {
 		if (schema.hasOwnProperty("fieldsets")) {
 			this.parseFieldsets(schema);
@@ -76,18 +77,18 @@ export class Form {
 
 	private parseField(schema, fieldId) {
 		let fieldSchema = schema.properties[fieldId];
-
-		let validators = this.createValidatorFnFromSchema(fieldSchema);
+	
+		let validators = this.createSchemaBasedValidator(fieldSchema);
+		// Client validation goes here
 		if (this.fieldValidators.hasOwnProperty(fieldId)){
 			let customValidator = this.createCustomValidatorFn(fieldId, this.fieldValidators[fieldId]);
 			validators = Validators.compose([customValidator, validators]);
 		}
-
-		// Client validation goes here
 		if (schema.required.indexOf(fieldId) > -1) {
 			validators = Validators.compose([Validators.required, validators]);
 		}
 		let control = new FormControl("", [validators]);
+		control.valueChanges.subscribe( () => { this.updateFieldsValidity(control) });
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
@@ -102,12 +103,12 @@ export class Form {
 		return (control):{ [key:string]: boolean } => {
 			let model = this.getModel();
 			if (model.hasOwnProperty(fieldId)){
-				return validatorFn(control.value, model);
+				return validatorFn(control.value, model, this.controls);
 			}
 		};
 	}
 
-	private createValidatorFnFromSchema(schema) {
+	private createSchemaBasedValidator(schema) {
 		return (control): { [key: string]: boolean } => {
 			let value = control.value;
 			if (schema.type === "number" || schema.type === "integer") {
@@ -165,7 +166,19 @@ export class Form {
 		}
 		this.resetField(field.name);
 		field.visible = false;
+	}
 
+	private updateFieldsValidity(sourceControl : FormControl) {
+		if ( ! this.updatingValidity ) {
+			this.updatingValidity = true;
+			for (let fieldId in this.controls) {
+				let control = this.controls[fieldId];
+				if(control !== sourceControl) {
+					this.controls[fieldId].updateValueAndValidity();
+				}
+			}
+			this.updatingValidity = false;
+		}
 	}
 
 	private parseOrder(schema: any) {
