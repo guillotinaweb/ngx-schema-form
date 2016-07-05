@@ -9,8 +9,7 @@ import {
 	BaseField
 } from "./fields";
 
-
-export class FieldRegistry {
+export class FieldRegistryService {
 	private fieldTypes: { [type: string]: any } = {};
 	private defaultFieldType = StringField;
 

@@ -5,14 +5,14 @@ import {
 	ReflectiveInjector
 } from "@angular/core";
 
-import {FieldRegistry} from "./fieldregistry";
+import {FieldRegistryService} from "./fieldregistry.service";
 
 export class FieldFactory {
 
 	private resolver: ComponentResolver;
-	private registry: FieldRegistry;
+	private registry: FieldRegistryService;
 
-	constructor(registry: FieldRegistry, resolver: ComponentResolver) {
+	constructor(registry: FieldRegistryService, resolver: ComponentResolver) {
 		this.registry = registry;
 		this.resolver = resolver;
 	}

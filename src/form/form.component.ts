@@ -15,13 +15,13 @@ import ZSchema = require("z-schema");
 
 import {FieldChooser} from "./fieldchooser";
 import {FieldFactory} from "./fieldfactory";
-import {FieldRegistry} from "./fieldregistry";
+import {FieldRegistryService} from "./fieldregistry.service";
 import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
 
 @Component({
 	selector: "schema-form",
 	directives: [FieldChooser, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-	providers: [provide(FieldFactory, { useClass: FieldFactory, deps: [FieldRegistry, ComponentResolver] })],
+	providers: [provide(FieldFactory, { useClass: FieldFactory, deps: [FieldRegistryService, ComponentResolver] })],
 	template: require("./form.component.html") + "{{values}}"
 })
 export class Form {
