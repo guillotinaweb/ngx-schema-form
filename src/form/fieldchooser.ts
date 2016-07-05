@@ -8,8 +8,7 @@ import {FormControl} from "@angular/forms";
 
 import {Validators} from "@angular/common";
 import {FieldFactory} from "./fieldfactory";
-import {DefaultField} from "./fields/default";
-
+import {DefaultField} from "./fields";
 
 @Component({
 	selector: "field",

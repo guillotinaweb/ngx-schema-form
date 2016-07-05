@@ -13,9 +13,9 @@ import {
 	StringField
 } from "./fields";
 
-import {FieldRegistry} from "./fieldregistry";
+import {FieldRegistryService} from "./fieldregistry.service";
 
-describe("FieldRegistry", () => {
+describe("FieldRegistryService", () => {
 
 	let STRING_TYPE = "string";
 	let INT_TYPE = "integer";
@@ -26,10 +26,10 @@ describe("FieldRegistry", () => {
 	let THE_TYPE = "date";
 	let THE_FIELD_TYPE = class { };
 
-	let registry: FieldRegistry;
+	let registry: FieldRegistryService;
 
 	beforeEach(() => {
-		registry = new FieldRegistry();
+		registry = new FieldRegistryService();
 	});
 
 	it("should be initialized with primitives fields", () => {

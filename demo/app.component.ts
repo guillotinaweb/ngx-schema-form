@@ -1,14 +1,14 @@
 import {Component, ComponentResolver, Directive, ElementRef, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
 import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {Form} from "../src/form/form.component";
-import {FieldRegistry} from "../src/form/fieldregistry";
+import {FieldRegistryService} from "../src/form/fieldregistry.service";
 
 @Component({
 	selector: "schema-form-demo-app",
 	directives: [
 		Form
 	],
-	providers: [FieldRegistry, NgModel],
+	providers: [FieldRegistryService, NgModel],
 	template: require("./app.component.html"),
 	styleUrls: ["demo/app.scss"],
 	encapsulation: ViewEncapsulation.None
@@ -22,7 +22,7 @@ export class DemoApp {
 	private resolver: ComponentResolver;
 	private fieldValidators : { [fieldId:string]: Function} = {};
 
-	constructor(container: ViewContainerRef = null, resolver: ComponentResolver = null,registry: FieldRegistry) {
+	constructor(container: ViewContainerRef = null, resolver: ComponentResolver = null,registry: FieldRegistryService) {
 		this.container = container;
 		this.resolver = resolver;
 
