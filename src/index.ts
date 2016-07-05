@@ -1,3 +1,3 @@
-export {Form} from "./form/form/form.component";
-export {FieldRegistry} from "./form/fieldregistry";
-export {BaseField} from "./form/fields/base"
+export {Form} from "./schema-form/form/form.component";
+export {FieldRegistryService} from "./schema-form/fieldregistry.service";
+export {BaseField} from "./schema-form/fields/base"

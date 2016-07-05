@@ -7,14 +7,14 @@ import {
 import {FormControl} from "@angular/forms";
 
 import {Validators} from "@angular/common";
-import {FieldFactory} from "./fieldfactory";
-import {DefaultField} from "./fields";
+import {FieldFactory} from "../fieldfactory";
+import {DefaultField} from "../fields";
 
 @Component({
 	selector: "field",
 	template: "",
 })
-export class FieldChooser {
+export class FieldChooserComponent {
 
 	private fieldFactory: FieldFactory;
 	private container: ViewContainerRef;

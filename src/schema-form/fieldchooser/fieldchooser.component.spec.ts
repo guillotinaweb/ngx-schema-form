@@ -13,16 +13,10 @@ import {
 } from "@angular/core";
 
 import {ComponentResolver} from "@angular/core";
-import {FieldFactory} from "./fieldfactory";
-import {FieldChooser} from "./fieldchooser";
+import {FieldFactory} from "../fieldfactory";
+import {FieldChooserComponent} from "./fieldchooser.component";
 
-/*@Component(
-	template: "<field [typename]="data.type" [id]="data.id" [settings]="data.settings"></field>";
-)
-class FieldChooserContainer{
-}*/
-
-describe("FieldChooser", () => {
+describe("FieldChooserComponent", () => {
 
 	let tcb: TestComponentBuilder;
 	let factory: FieldFactory;
@@ -43,7 +37,7 @@ describe("FieldChooser", () => {
 	}));
 
 	it("should create a field", done => {
-		tcb.createAsync(FieldChooser).then((fixture) => {
+		tcb.createAsync(FieldChooserComponent).then((fixture) => {
 			let fieldComponent = fixture.componentInstance;
 			fieldComponent.typename = "string";
 			fieldComponent.settings = { required: true };

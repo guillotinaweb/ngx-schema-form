@@ -1,7 +1,7 @@
 import {Component, ComponentResolver, Directive, ElementRef, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
 import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
-import {Form} from "../src/form/form.component";
-import {FieldRegistryService} from "../src/form/fieldregistry.service";
+import {Form} from "../src";
+import {FieldRegistryService} from "../src";
 
 @Component({
 	selector: "schema-form-demo-app",
