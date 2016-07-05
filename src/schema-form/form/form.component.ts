@@ -13,6 +13,7 @@ import {
 
 import ZSchema = require("z-schema");
 
+<<<<<<< HEAD:src/schema-form/form/form.component.ts
 import { FieldChooserComponent } from "../fieldchooser/fieldchooser.component";
 import { FieldFactory } from "../fieldfactory";
 import { FieldRegistryService } from "../fieldregistry.service";
@@ -21,6 +22,16 @@ import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 @Component({
 	selector: "schema-form",
 	directives: [FieldChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+=======
+import {FieldChooser} from "./fieldchooser";
+import {FieldFactory} from "./fieldfactory";
+import {FieldRegistryService} from "./fieldregistry.service";
+import {FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES} from "@angular/forms";
+
+@Component({
+	selector: "schema-form",
+	directives: [FieldChooser, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+>>>>>>> 384edbfe50efc7ee58c67fd2a7035aab664005dd:src/form/form.component.ts
 	providers: [provide(FieldFactory, { useClass: FieldFactory, deps: [FieldRegistryService, ComponentResolver] })],
 	template: require("./form.component.html") + "{{values}}"
 })
