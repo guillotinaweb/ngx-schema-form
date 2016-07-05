@@ -4,19 +4,11 @@ import {
 	Input
 } from "@angular/core";
 
-<<<<<<< HEAD:src/schema-form/fieldchooser/fieldchooser.component.ts
 import { FormControl } from "@angular/forms";
 
 import { Validators } from "@angular/common";
 import { FieldFactory } from "../fieldfactory";
 import { DefaultField } from "../fields";
-=======
-import {FormControl} from "@angular/forms";
-
-import {Validators} from "@angular/common";
-import {FieldFactory} from "./fieldfactory";
-import {DefaultField} from "./fields";
->>>>>>> 384edbfe50efc7ee58c67fd2a7035aab664005dd:src/form/fieldchooser.ts
 
 @Component({
 	selector: "field",
