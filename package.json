@@ -24,7 +24,6 @@
     "test": "karma start",
     "start": "npm run webpack-dev-server",
     "start:hmr": "npm run server:dev:hmr",
-    "tslint": "tslint",
     "protractor": "protractor",
     "prepublish": "export NODE_ENV=production; npm run build",
     "postinstall": "npm run typings -- install"
