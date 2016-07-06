@@ -155,7 +155,7 @@
 			"type": "boolean",
 			"description": "Write a custom email ?"
 		},
-		"customEmail":{
+		"customEmail": {
 			"type": "string",
 			"widget": "richtext",
 			"description": "Email to send",
@@ -163,6 +163,14 @@
 				"useCustomEmail": [true]
 			},
 			"pattern": "^<h1>"
+		},
+		"userManual": {
+			"type": "file",
+			"description": "Add a manual for the delivered items",
+			"readOnly": "true",
+			"visibleIf": {
+				"category": ["hightech"]
+			}
 		}
 	},
 	"links": [
@@ -189,7 +197,7 @@
 		"id": "part_2",
 
 		"title": "Part 2 - Transaction",
-		"fields":["transactionNumber", "transactionDescription","promotion","category"]
+		"fields":["transactionNumber", "transactionDescription","promotion","category", "userManual"]
 	},
 	{
 		"id": "part_3",

@@ -1,12 +1,13 @@
 import {
-	StringField,
+	BaseField,
+	CheckboxField,
+	FileField,
 	IntegerField,
 	TextLineField,
-	SelectField,
 	RadioField,
-	CheckboxField,
 	RichTextField,
-	BaseField
+	SelectField,
+	StringField
 } from "./fields";
 
 export class FieldRegistryService {
@@ -25,15 +26,18 @@ export class FieldRegistryService {
 		this.registerFieldType("date-time", StringField);
 		this.registerFieldType("time", StringField);
 
+		this.registerFieldType("integer", IntegerField);
+		this.registerFieldType("number", IntegerField);
+		this.registerFieldType("range", IntegerField);
+
+		this.registerFieldType("textline", TextLineField);
+		
+		this.registerFieldType("file", FileField)
 		this.registerFieldType("select", SelectField);
 		this.registerFieldType("radio", RadioField);
 		this.registerFieldType("boolean", CheckboxField);
 		this.registerFieldType("checkbox", CheckboxField);
 
-		this.registerFieldType("integer", IntegerField);
-		this.registerFieldType("number", IntegerField);
-		this.registerFieldType("range", IntegerField);
-		this.registerFieldType("textline", TextLineField);
 		this.registerFieldType("richtext", RichTextField);
 	}
 
