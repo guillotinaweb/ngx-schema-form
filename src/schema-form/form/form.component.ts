@@ -21,7 +21,7 @@ import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 @Component({
 	selector: "schema-form",
 	directives: [FieldChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-	providers: [provide(FieldFactory, { useClass: FieldFactory, deps: [FieldRegistryService, ComponentResolver] })],
+	providers: [FieldFactory],
 	template: require("./form.component.html") + "{{values}}"
 })
 export class Form {

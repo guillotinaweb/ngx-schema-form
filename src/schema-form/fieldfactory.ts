@@ -2,11 +2,13 @@ import {
 	ViewContainerRef,
 	ComponentRef,
 	ComponentResolver,
-	ReflectiveInjector
+	ReflectiveInjector,
+	Injectable
 } from "@angular/core";
 
 import { FieldRegistryService } from "./fieldregistry.service";
 
+@Injectable()
 export class FieldFactory {
 
 	private resolver: ComponentResolver;
