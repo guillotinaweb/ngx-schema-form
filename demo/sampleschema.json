@@ -165,7 +165,8 @@
 			"pattern": "^<h1>"
 		},
 		"userManual": {
-			"type": "file",
+			"type": "string",
+			"widget": "file",
 			"description": "Add a manual for the delivered items",
 			"readOnly": "true",
 			"visibleIf": {
