@@ -65,8 +65,7 @@ export class Form {
 			let fieldsetSchema = schema.fieldsets[fieldsetId];
 			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
 
-			for (let fieldIdx in fieldsetSchema.fields) {
-				let fieldId = fieldsetSchema.fields[fieldIdx];
+			for (let fieldId of fieldsetSchema.fields) {
 				this.parseField(schema, fieldId);
 				fieldset.fields.push(fieldId);
 			}
@@ -112,6 +111,7 @@ export class Form {
 		this.controls[fieldId]._touched=false;
 		this.controls[fieldId]._pristine=true;
 		let val: any = "";
+
 		if (this.model.hasOwnProperty(fieldId)) {
 			val = this.model[fieldId];
 		} else if (settings.hasOwnProperty("default")) {
@@ -133,7 +133,7 @@ export class Form {
 			let field = this.fields[fieldIdx];
 			if (field.settings.hasOwnProperty("visibleIf")) {
 				this.updateFieldVisibility(field);
-			} else if (updateAll) {
+			} else {
 				field.visible = true;
 			}
 		}
@@ -142,9 +142,11 @@ export class Form {
 	private updateFieldVisibility(field) {
 		let visibleIf = field.settings.visibleIf;
 		for (let conditionField in visibleIf) {
+
 			if (this.fields[conditionField].visible) {
 				let values = visibleIf[conditionField];
 				let control = this.controls[conditionField];
+
 				if (values.indexOf(control.value) > -1) {
 					field.visible = true;
 					return;
