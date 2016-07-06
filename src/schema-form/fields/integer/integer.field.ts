@@ -19,9 +19,6 @@ export class IntegerField extends BaseField {
 
 	}
 
-	ngOnInit() {
-	}
-
 	toNumber() {
 		this.settings.value = +this.settings.value;
 	}

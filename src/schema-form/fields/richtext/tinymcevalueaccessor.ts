@@ -1,5 +1,6 @@
 import {
 	Directive,
+	HostListener,
 	Inject,
 	Provider,
 	forwardRef
@@ -16,9 +17,6 @@ const TINYMCEVALUEACCESSOR = new Provider(NG_VALUE_ACCESSOR, {useExisting: forwa
 
 @Directive({
 	selector: "tinymce[ngModel]",
-	host: {"(contentChange)": "valueUpdated($event.value)",
-		"(blur)" : "onTouched()"
-	},
 	providers : [TINYMCEVALUEACCESSOR]
 })
 export class TinyMCEValueAccessor implements ControlValueAccessor {
@@ -35,11 +33,18 @@ export class TinyMCEValueAccessor implements ControlValueAccessor {
 	registerOnChange(fn: (_: any) => void): void {
 		this.onChange = fn;
 	}
+
 	registerOnTouched(fn: () => void): void {
 		this.onTouched = fn;
 	}
 
-	private valueUpdated(value) {
+	@HostListener("blur", [])
+	private onBlur() {
+		this.onTouched();
+	}
+
+	@HostListener("contentChange", ["$event.value"])
+	private onContentChanged(value) {
 		this.onChange(value);
 	}
 

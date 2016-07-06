@@ -1,8 +1,12 @@
+import { CORE_DIRECTIVES } from "@angular/common";
 import {
+	AfterViewInit,
 	Component,
 	EventEmitter,
 	Input,
 	NgZone,
+	OnChanges,
+	OnDestroy,
 	Output
 } from "@angular/core";
 
@@ -10,26 +14,23 @@ declare var tinymce;
 import "tinymce/tinymce";
 import "tinymce/themes/modern/theme";
 
-import { TinyMCEValueAccessor } from "./tinymcevalueaccessor";
-
-import { CORE_DIRECTIVES } from "@angular/common";
-
-
-
 @Component({
 	selector: "tinymce",
 	template: require("./tinymce.component.html"),
 })
-export class TinyMCEComponent {
+export class TinyMCEComponent implements OnChanges, AfterViewInit, OnDestroy {
 
-	private editor: any = null;
-	private initialValue: string = "";
 	@Input() readonly: boolean = false;
 	@Input() id: string;
 	@Input() options: any = {plugins: "code"};
+	@Input() baseURL: string = "/node_modules/tinymce";
 	@Output() contentChange = new EventEmitter();
 	@Output() blur = new EventEmitter();
 	@Output() focus = new EventEmitter();
+
+	private editor: any = null;
+	private initialValue: string = "";
+
 	constructor(private zone: NgZone) { }
 
 	ngAfterViewInit() {
@@ -55,7 +56,7 @@ export class TinyMCEComponent {
 	}
 
 	private createEditor() {
-		tinymce.baseURL = "/node_modules/tinymce";
+		tinymce.baseURL = this.baseURL;
 		let options: any = {
 			selector: "#" + this.id,
 			plugins: this.options.plugins,
@@ -68,7 +69,10 @@ export class TinyMCEComponent {
 		}
 
 		tinymce.init(options);
+		this.bindEditor();
+	}
 
+	private bindEditor() {
 		this.editor.on("change keyup cut paste undo redo", () => {
 			this.emitContentChange();
 		});
@@ -89,9 +93,11 @@ export class TinyMCEComponent {
 			this.editor.selection = {destroy: () => {} };
 			this.editor.selection.dom = { };
 		}
+
 		if (!this.editor.dom) {
 			this.editor.dom = {destroy: () => {}};
 		}
+
 		this.editor.destroy();
 		tinymce.remove(this.editor);
 		this.editor = null;

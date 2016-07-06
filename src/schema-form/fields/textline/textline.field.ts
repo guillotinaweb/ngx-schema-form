@@ -1,9 +1,8 @@
-import { REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
-
 import {
 	Component,
 	Input
 } from "@angular/core";
+import { REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 import { BaseField } from "../base";
 
@@ -20,8 +19,5 @@ export class TextLineField extends BaseField {
 
 	constructor() {
 		super();
-	}
-
-	ngOnInit() {
 	}
 }

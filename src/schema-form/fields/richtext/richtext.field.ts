@@ -19,9 +19,4 @@ export class RichTextField extends BaseField {
 	constructor() {
 		super();
 	}
-
-	ngOnInit() {
-	}
-
-
 }

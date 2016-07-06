@@ -1,9 +1,8 @@
-import { REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
-
 import {
 	Component,
 	Input
 } from "@angular/core";
+import { REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 import { BaseField } from "../base";
 @Component({
@@ -18,8 +17,5 @@ export class CheckboxField extends BaseField {
 
 	constructor() {
 		super();
-	}
-
-	ngOnInit() {
 	}
 }

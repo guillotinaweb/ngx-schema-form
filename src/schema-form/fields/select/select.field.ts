@@ -20,7 +20,4 @@ export class SelectField extends BaseField {
 	constructor() {
 		super();
 	}
-
-	ngOnInit() {
-	}
 }
