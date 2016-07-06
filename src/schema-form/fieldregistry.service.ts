@@ -31,8 +31,8 @@ export class FieldRegistryService {
 		this.registerFieldType("range", IntegerField);
 
 		this.registerFieldType("textline", TextLineField);
-		
-		this.registerFieldType("file", FileField)
+
+		this.registerFieldType("file", FileField);
 		this.registerFieldType("select", SelectField);
 		this.registerFieldType("radio", RadioField);
 		this.registerFieldType("boolean", CheckboxField);
