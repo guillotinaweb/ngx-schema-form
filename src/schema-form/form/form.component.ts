@@ -2,6 +2,7 @@ import {
 	Component,
 	ComponentResolver,
 	Input,
+	Inject,
 	provide
 } from "@angular/core";
 
@@ -11,7 +12,7 @@ import {
 	Validators
 } from "@angular/forms";
 
-import ZSchema = require("z-schema");
+import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 
 import { FieldChooserComponent } from "../fieldchooser/fieldchooser.component";
 import { FieldFactory } from "../fieldfactory";
@@ -21,7 +22,7 @@ import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 @Component({
 	selector: "schema-form",
 	directives: [FieldChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-	providers: [FieldFactory],
+	providers: [FieldFactory, provide(SchemaValidatorFactory,{useClass: ZSchemaValidatorFactory}) ],
 	template: require("./form.component.html") + "{{values}}"
 })
 export class Form {
@@ -29,7 +30,6 @@ export class Form {
 	private fields = [];
 	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
 
-	private zschema;
 	private controls = {};
 	private controlArray = new FormArray([]);
 	private updatingValidity: boolean = false;
@@ -42,9 +42,7 @@ export class Form {
 	//@Input() formValidator: Function = {};
 	//@Input() actions: {[actionId: string]: Function}[] = {};
 
-	constructor() {
-		this.zschema = new ZSchema({});
-	}
+	constructor(private schemaValidatorFactory : SchemaValidatorFactory) { }
 
 	ngOnInit() {
 		this.parseSchema(this.schema);
@@ -66,6 +64,7 @@ export class Form {
 		for (let fieldsetId in schema.fieldsets) {
 			let fieldsetSchema = schema.fieldsets[fieldsetId];
 			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
+
 			for (let fieldIdx in fieldsetSchema.fields) {
 				let fieldId = fieldsetSchema.fields[fieldIdx];
 				this.parseField(schema, fieldId);
@@ -78,7 +77,7 @@ export class Form {
 	private parseField(schema, fieldId) {
 		let fieldSchema = schema.properties[fieldId];
 	
-		let validators = this.createSchemaBasedValidator(fieldSchema);
+		let validators = this.schemaValidatorFactory.createValidatorFn(fieldSchema);
 		// Client validation goes here
 		if (this.fieldValidators.hasOwnProperty(fieldId)){
 			let customValidator = this.createCustomValidatorFn(fieldId, this.fieldValidators[fieldId]);
@@ -105,18 +104,6 @@ export class Form {
 			if (model.hasOwnProperty(fieldId)){
 				return validatorFn(control.value, model, this.controls);
 			}
-		};
-	}
-
-	private createSchemaBasedValidator(schema) {
-		return (control): { [key: string]: boolean } => {
-			let value = control.value;
-			if (schema.type === "number" || schema.type === "integer") {
-				value = +value;
-			}
-			let result = this.zschema.validate(value, schema);
-			let err = this.zschema.getLastErrors();
-			return err || null;
 		};
 	}
 
