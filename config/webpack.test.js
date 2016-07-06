@@ -32,7 +32,7 @@ module.exports = merge(require("./webpack.common.js"), {
 				test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
 				include: path.resolve('src'),
 				exclude: [
-					/\.(e2e|spec)\.ts$/,
+					/\.(spec)\.ts$/,
 					/node_modules/
 				]
 			}
