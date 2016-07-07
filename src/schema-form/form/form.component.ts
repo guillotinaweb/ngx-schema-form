@@ -41,9 +41,8 @@ export class Form {
 	@Input() schema: any;
 	@Input() model: any = null;
 	@Input() fieldValidators: {[fieldId: string]: Function} = {};
-	@Input() actions: {[actionId: string]:Function} = {};
-	//@Input() formValidator: Function = {};
-	//@Input() actions: {[actionId: string]: Function}[] = {};
+	@Input() formValidator: Function = () => {return true};
+	@Input() actions: {[actionId: string]: Function} = {};
 
 	constructor(private elementRef : ElementRef, private schemaValidatorFactory : SchemaValidatorFactory) { }
 
@@ -56,14 +55,18 @@ export class Form {
 	}
 
 	ngOnChanges(changes) {
+
 		let needRebuild = changes.schema || (this.schema && changes.fieldValidators);
 		if (needRebuild) {
 			this.parseSchema(this.schema);
 		}
+
 		if (needRebuild || changes.model) {
+
 			if (changes.model && changes.model.previousValue) {
 				this.resetAllFields();
 			}
+
 			if (this.model !== null) {
 				this.applyModel();
 			}
@@ -105,11 +108,11 @@ export class Form {
 		let fieldSchema = schema.properties[fieldId];
 
 		let validators = this.schemaValidatorFactory.createValidatorFn(fieldSchema);
-		// Client validation goes here
 		if (this.fieldValidators.hasOwnProperty(fieldId)){
 			let customValidator = this.createCustomValidatorFn(fieldId, this.fieldValidators[fieldId]);
 			validators = Validators.compose([customValidator, validators]);
 		}
+
 		if (schema.required.indexOf(fieldId) > -1) {
 			validators = Validators.compose([Validators.required, validators]);
 		}
@@ -159,6 +162,7 @@ export class Form {
 
 	private applyModel() {
 		for (let fieldId in this.model) {
+
 			if (this.fields.hasOwnProperty(fieldId)) {
 				this.fields[fieldId].settings.value = this.model[fieldId];
 			}
@@ -168,6 +172,7 @@ export class Form {
 	private updateFieldsVisibility() {
 		for (let fieldIdx in this.fields) {
 			let field = this.fields[fieldIdx];
+
 			if (field.settings.hasOwnProperty("visibleIf")) {
 				this.updateFieldVisibility(field);
 			} else {
@@ -196,14 +201,32 @@ export class Form {
 	private updateFieldsValidity(sourceControl : FormControl) { 
 		if ( ! this.updatingValidity ) {
 			this.updatingValidity = true;
-			for (let fieldId in this.controls) {
-				let control = this.controls[fieldId];
-				if(control !== sourceControl) {
-					this.controls[fieldId].updateValueAndValidity();
-				}
-			}
+			let validityBefore = this.getValidityArray();
+			this.updateFieldsValidityImpl(sourceControl, validityBefore)
 			this.updatingValidity = false;
 		}
+	}
+
+	private updateFieldsValidityImpl(sourceControl : FormControl, validityBefore: string) {
+		for (let fieldId in this.controls) {
+			let control = this.controls[fieldId];
+			if(control !== sourceControl) {
+				this.controls[fieldId].updateValueAndValidity();
+			}
+		}
+
+		let validityAfter = this.getValidityArray();
+		if (validityBefore !== validityAfter) {
+			this.updateFieldsValidityImpl(sourceControl, validityAfter);
+		}
+	}
+
+	private getValidityArray() {
+		let arr = [];
+		for (let fieldId in this.controls) {
+			arr.push(this.controls[fieldId].valid);
+		}
+		return arr.join("");
 	}
 
 	private parseOrder(schema: any) {

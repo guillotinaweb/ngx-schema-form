@@ -73,6 +73,13 @@ export class DemoApp {
 			return null;
 		}
 
+		this.fieldValidators["firstName"] = (value, model, controls) => {
+			if (model.promotion === "student" && controls.promotion.valid) {
+				return null;
+			}
+			return "NOT A BUG, IT'S A FEATURE";
+		}
+
 		this.actions["send"] = (form, options) => {
 			form.submit();
 		}
