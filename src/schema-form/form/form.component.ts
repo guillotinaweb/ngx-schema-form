@@ -1,6 +1,7 @@
 import {
 	Component,
 	ComponentResolver,
+	ElementRef,
 	Input,
 	Inject,
 	provide
@@ -27,37 +28,64 @@ import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 })
 export class Form {
 
-	private fields = [];
+	private fields = {};
 	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
 
 	private controls = {};
 	private controlArray = new FormArray([]);
 	private updatingValidity: boolean = false;
 
-	private actions = [];
+	private buttons = [];
+
 
 	@Input() schema: any;
-	@Input() model: any = {};
+	@Input() model: any = null;
 	@Input() fieldValidators: {[fieldId: string]: Function} = {};
+	@Input() actions: {[actionId: string]:Function} = {};
 	//@Input() formValidator: Function = {};
 	//@Input() actions: {[actionId: string]: Function}[] = {};
 
-	constructor(private schemaValidatorFactory : SchemaValidatorFactory) { }
+	constructor(private elementRef : ElementRef, private schemaValidatorFactory : SchemaValidatorFactory) { }
 
-	ngOnInit() {
-		this.parseSchema(this.schema);
-		this.controlArray.valueChanges.subscribe(() => { this.updateFieldsVisibility(); });
-		this.updateFieldsVisibility(true);
+	submit() {
+		this.elementRef.nativeElement.querySelector("form").submit();
 	}
-	
+
+	reset() {
+		this.resetAllFields();
+	}
+
+	ngOnChanges(changes) {
+		let needRebuild = changes.schema || (this.schema && changes.fieldValidators);
+		if (needRebuild) {
+			this.parseSchema(this.schema);
+		}
+		if (needRebuild || changes.model) {
+			if (changes.model && changes.model.previousValue) {
+				this.resetAllFields();
+			}
+			if (this.model !== null) {
+				this.applyModel();
+			}
+			this.controlArray.valueChanges.subscribe(() => { this.updateFieldsVisibility(); });
+			this.updateFieldsVisibility();
+		}
+	}
+
 	private parseSchema(schema: any) {
+		this.controlArray = new FormArray([]);
+		this.buttons = [];
+		this.fieldsets = [];
+		this.fields = {};
+
 		if (schema.hasOwnProperty("fieldsets")) {
 			this.parseFieldsets(schema);
 		} else if (schema.hasOwnProperty("order")) {
 			this.parseOrder(schema);
 		}
 
-		this.parseActions(schema);
+		this.parseButtons(schema);
+		this.resetAllFields();
 	}
 
 	private parseFieldsets(schema: any) {
@@ -75,7 +103,7 @@ export class Form {
 
 	private parseField(schema, fieldId) {
 		let fieldSchema = schema.properties[fieldId];
-	
+
 		let validators = this.schemaValidatorFactory.createValidatorFn(fieldSchema);
 		// Client validation goes here
 		if (this.fieldValidators.hasOwnProperty(fieldId)){
@@ -92,7 +120,6 @@ export class Form {
 
 		let fieldType = fieldSchema.widget || fieldSchema.type;
 		this.fields[fieldId] = { name: fieldId, type: fieldType, id: fieldId, settings: fieldSchema, control: control, visible: false };
-		this.resetField(fieldId);
 
 		return fieldSchema;
 	}
@@ -106,15 +133,18 @@ export class Form {
 		};
 	}
 
+	private resetAllFields() {
+		for (let field in this.fields) {
+			this.resetField(field);
+		}
+	}
 	private resetField(fieldId : string) {
 		let settings = this.fields[fieldId].settings;
 		this.controls[fieldId]._touched=false;
 		this.controls[fieldId]._pristine=true;
 		let val: any = "";
 
-		if (this.model.hasOwnProperty(fieldId)) {
-			val = this.model[fieldId];
-		} else if (settings.hasOwnProperty("default")) {
+		if (settings.hasOwnProperty("default")) {
 			val = settings.default;
 		} else if (settings.type === "number") {
 			if (settings.minimum !== undefined) {
@@ -123,12 +153,19 @@ export class Form {
 				val = 0;
 			}
 		}
-		
+
 		settings.value = val;
 	}
-	
 
-	private updateFieldsVisibility(updateAll?: boolean ) {
+	private applyModel() {
+		for (let fieldId in this.model) {
+			if (this.fields.hasOwnProperty(fieldId)) {
+				this.fields[fieldId].settings.value = this.model[fieldId];
+			}
+		}
+	}
+
+	private updateFieldsVisibility() {
 		for (let fieldIdx in this.fields) {
 			let field = this.fields[fieldIdx];
 			if (field.settings.hasOwnProperty("visibleIf")) {
@@ -153,11 +190,10 @@ export class Form {
 				}
 			}
 		}
-		this.resetField(field.name);
 		field.visible = false;
 	}
 
-	private updateFieldsValidity(sourceControl : FormControl) {
+	private updateFieldsValidity(sourceControl : FormControl) { 
 		if ( ! this.updatingValidity ) {
 			this.updatingValidity = true;
 			for (let fieldId in this.controls) {
@@ -179,11 +215,18 @@ export class Form {
 		this.parseFieldsets(schema);
 	}
 
-	private parseActions(schema) {
-		if (schema.links !== undefined) {
-			this.actions = schema.links;
-		} else {
-			this.actions = [];
+	private parseButtons(schema) {
+		if (schema.buttons !== undefined) {
+			this.buttons = schema.buttons;
+
+			for (let button of this.buttons) {
+				button.action = (event) => {
+					if (button.id && this.actions[button.id]) {
+						this.actions[button.id](this, button.parameters);
+					}
+					event.preventDefault();
+				};
+			}
 		}
 	}
 

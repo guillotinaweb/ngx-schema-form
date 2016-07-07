@@ -4,6 +4,7 @@
 	"properties": {
 		"firstName": {
 			"type": "string",
+			"placeholder": "First name",
 			"minLength": 2,
 			"maxLength": 40,
 			"title": "First name",
@@ -11,6 +12,7 @@
 		},
 		"lastName": {
 			"type": "string",
+			"placeholder": "Last name",
 			"minLength": 2,
 			"maxLength": 40,
 			"title": "Last name",
@@ -33,6 +35,7 @@
 			"type": "string",
 			"pattern": "^#[0-9a-fA-F]{6}$",
 			"widget": "color",
+			"default": "#aaa111",
 			"description": "Favorite color",
 			"visibleIf": {
 				"moreInfo": [true]
@@ -174,22 +177,19 @@
 			}
 		}
 	},
-	"links": [
-	{
-		"title": "Send",
-		"description": "Send the transaction",
-		"href": "#send",
-		"method": "GET",
-		"rel": "action"
+	"buttons": [{
+		"label": "Send",
+		"id": "send",
+		"parameters": {
+			"method": "GET",
+			"url": "./aaa"
+		}
 	},
 	{
-		"title": "Cancel",
-		"description": "Cancel the transaction",
-		"href": "#cancel",
-		"rel": "action"
+		"label": "Reset",
+		"id": "reset"
 	}],
-	"fieldsets":[
-	{
+	"fieldsets":[{
 		"id": "part_1",
 		"title": "Part 1 - Recipient",
 		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "favoriteColor"]
@@ -211,8 +211,8 @@
 		"fields": ["useCustomEmail","customEmail"]
 	},
 	{
-		"id": "part_4",
-		"title": "Part 4 - Confirmation",
+		"id": "part_5",
+		"title": "Part 5 - Confirmation",
 		"fields": ["confirmationMail","password"]
 	}],
 	"required": ["firstName", "lastName", "transactionNumber","password"]

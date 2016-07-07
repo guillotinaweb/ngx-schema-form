@@ -1,4 +1,4 @@
-import {Component, ComponentResolver, Directive, ElementRef, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
+import {Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
 import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {Form} from "../src";
 import {FieldRegistryService} from "../src";
@@ -18,16 +18,28 @@ export class DemoApp {
 
 	private schema:any;
 	private model:any;
-	private container: ViewContainerRef;
 	private resolver: ComponentResolver;
 	private fieldValidators : { [fieldId:string]: Function} = {};
+	private actions = {}
 
-	constructor(container: ViewContainerRef = null, resolver: ComponentResolver = null,registry: FieldRegistryService) {
-		this.container = container;
+	constructor(resolver: ComponentResolver = null,registry: FieldRegistryService) {
 		this.resolver = resolver;
 
-		this.schema = require("./sampleschema.json")
-		this.model = require("./samplemodel.json");
+		this.schema = (() => {
+			try {
+				return require("./sampleschema.json");
+			} catch (e) {
+				console.log(e);
+			}
+		})();
+		this.model = (() => {
+			try {
+				return require("./samplemodel.json");
+				
+			} catch (e) {
+				console.log(e);
+			}
+		})();
 
 		this.fieldValidators["bornOn"] = (value, model):any => {
 			let dateArr = value.split("-");
@@ -61,7 +73,13 @@ export class DemoApp {
 			return null;
 		}
 
+		this.actions["send"] = (form, options) => {
+			form.submit();
+		}
 
+		this.actions["reset"] = (form, options) => {
+			form.reset();
+		}
 	}
 
 }

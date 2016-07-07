@@ -12,5 +12,5 @@
 			[settings]="fields[field].settings"></field-chooser>
 		</div>
 	</fieldset>
-	<input type="submit" *ngFor="let action of actions" [attr.formaction]="action.href" [attr.formtarget]="'#'+action.rel" [attr.name]="action.title" [attr.formmethod]="action.method" [attr.title]="action.description" [attr.value]="action.title">
+	<button *ngFor="let button of buttons" type="button" (click)="button.action($event)">{{button.label}}</button>
 </form>
