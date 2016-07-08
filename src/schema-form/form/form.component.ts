@@ -41,7 +41,6 @@ export class Form {
 	@Input() schema: any;
 	@Input() model: any = null;
 	@Input() fieldValidators: {[fieldId: string]: Function} = {};
-	@Input() formValidator: Function = () => {return true};
 	@Input() actions: {[actionId: string]: Function} = {};
 
 	constructor(private elementRef : ElementRef, private schemaValidatorFactory : SchemaValidatorFactory) { }
