@@ -18,7 +18,7 @@
     "clean:install": "npm set progress=false && npm install",
     "preclean:start": "npm run clean",
     "webpack-dev-server": "webpack-dev-server --config ./config/webpack.dev.js",
-    "build": "webpack --progress --profile --colors --display-error-details --display-cached --display-reasons",
+    "build": "webpack --config ./config/webpack.prod.js --progress --profile --colors --display-error-details --display-cached --display-reasons",
     "tsc": "tsc",
     "prebuild": "npm run clean:dist",
     "test": "karma start",
@@ -44,7 +44,6 @@
     "core-js": "^2.4.0",
     "methods": "^1.1.2",
     "raw-loader": "0.5.1",
-    "zone.js": "~0.6.12",
     "z-schema": "^3.17.0"
   },
   "devDependencies": {
@@ -112,7 +111,9 @@
     "@angular/platform-browser-dynamic": "2.0.0-rc.4",
     "@angular/platform-server": "2.0.0-rc.4",
     "@angular/core": "2.0.0-rc.4",
-    "tinymce": "^4.3.13"
+    "rxjs": "^5.0.0-beta.10",
+    "tinymce": "^4.3.13",
+    "zone.js": "~0.6.12"
   },
   "main": "dist/index.js",
   "files": [
