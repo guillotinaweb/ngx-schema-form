@@ -24,7 +24,7 @@ import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 	selector: "schema-form",
 	directives: [FieldChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
 	providers: [FieldFactory, provide(SchemaValidatorFactory,{useClass: ZSchemaValidatorFactory}) ],
-	template: require("./form.component.html") + "{{values}}"
+	template: require("./form.component.html")
 })
 export class Form {
 
