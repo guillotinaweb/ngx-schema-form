@@ -1,6 +1,6 @@
 {
   "name": "angular2-schema-form",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Angular2 Schema Form",
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
     "build": "webpack --config ./config/webpack.prod.js --progress --profile --colors --display-error-details --display-cached --display-reasons",
     "tsc": "tsc",
     "prebuild": "npm run clean:dist",
-	"test": "karma start",
-	"typings": "typings",
+    "test": "karma start",
+    "typings": "typings",
     "start": "npm run webpack-dev-server",
     "start:hmr": "npm run server:dev:hmr",
     "protractor": "protractor",
