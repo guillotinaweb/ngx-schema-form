@@ -1,58 +1,207 @@
 # Angular2 Schema Form
 
-## What is it ?
 Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a JSON schema.
 
-## Run the demo
-To run the example execute:
+## Demo
+There is an [example of application](https://github.com/fbessou/angular2-schema-form) using Angular2 Schema Form.
+You can also test the module on [the website](https://makinacorpus.github.com/angular2-schema-form).
 
-	npm start
+## Features
 
-It will be available on http://localhost:3000.
+* Generate a form from a single json schema object
+* Allow initialisation from previous values
+* Validation handled by z-schema
+* Allow injection of custom validators
+* Allow declaration of custom field types
 
 ## Input Schema
 Here is an example of schema that can be converted to a form:
 
-```json
+## Quick start
+1. To use this module, you have to declare the `FieldRegistryService` as a provider at bootstrap.
+
+	```js
+	// main.ts
+	import { bootstrap } from "@angular/platform-browser-dynamic";
+	import { disableDeprecatedForms, provideForms } from "@angular/forms"
+	import { FieldRegistryService } from "angular2-schema-form";
+	import { MyApp } from "./app/app.component";
+
+	bootstrap(MyApp,[disableDeprecatedForms(), provideForms(), FieldRegistryService]);
+	```
+
+2. Add the `schema-form` to your template
+
+	```html
+	<!-- myapp.template.html -->
+	...
+	<schema-form></schemaform>
+	...
+	```
+
+3. Add `Form` to your Component directives.
+
+	```js
+	// myapp.component.ts
+	import { Form } from "angular2-schema-form";
+
+	@Component({
+	  directives: [Form],
+	  template: require("./myapp.template.html") // webpack's require
+	})
+	export class MyApp {
+	  ...
+	}
+	```
+
+4. Bind the schema input propertie
+	The Form Component's `schema` input property is used to construct the form.
+	```html
+	<!-- myapp.template.html -->
+	...
+	<schema-form [schema]='mySchema' ... ></schema-form>
+	...
+	```
+
+	```js
+	// myapp.component.ts
+	...
+	@Component({ ... })
+	class MyApp {
+	  mySchema: any = require("./myschema.json");
+	  ...
+	}
+	```
+
+5. Bind actions to the form buttons
+	When a form button is clicked its action is triggered. Actions are provided through the `actions` input property.
+
+	```html
+	<!-- myapp.template.html -->
+	...
+	<schema-form ... [actions]="myActions" ></schema-form>
+	...
+	```
+
+	```js
+	// myapp.component.ts
+	
+	@Component({ ... })
+	class MyApp {
+	  ...
+	  myActions: any = {
+	    "submit": (form) => { form.submit(); },
+	    "reset": (form) => { form.submit(); },
+	    "debug": (form) => { alert(JSON.stringify(form.getModel()); }
+	  }
+	  ...
+	}
+	```
+Now you should have a minimal working form.
+
+## Schema format
+
+The format accepted as an input of the `Form` Component is an extension of [JSON Schema](http://json-schema.org/).
+In this section are described the extensions made to the original JSON Schema standard.
+
+### Form description
+
+```js
 {
-	"properties": {
-		"name":{
-			"type":"string",
-			"description": "Full name"
-		},
-		"email": {
-			"type": "string",
-			"description": "Email address"
-		}
-	},
-	"required": ["email"]
+  "properties": {
+    "username": {
+      "type": "string",
+      "description": "First name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email"
+    }
+  },
+  "fieldsets": [{
+    "id":"profileInformation",
+    "fields": ["username", "email"]
+  }],
+  "buttons": [{
+    "label":"Save",
+    "id": "send"
+  }, {
+    "label":"Reset",
+    "id": "reset"
+  }]
 }
 ```
-## Usage
-The Form component has two inputs:
-- `schema` is the schema to use to genereate the form
-- `model` contains the default values to use.
+
+The fields are described in the `properties` entry of the schema:
+A field has a type which is one of the JSON schema [primitive types](http://json-schema.org/latest/json-schema-core.html#anchor8).
+The `fieldset` entry describes which are the sections of the form and which fields they contain.
+The `buttons` entry permit to add buttons to the form.
+
+### Schema validation
+Currently, schema validation is made by z-schema. When a field's value change, it is validated against the corresponding "property".
+The field validity is reflected through the css class of the field which can be either `ng-valid` or `ng-invalid`.
+
 ```js
-	import {Form} from "form/form.component"
-	@Component({
-		selector: "example",
-		template: "<schema-form [schema]='mySchema' [model]='myModel'></schema-form>",
-		providers: [FieldRegistry],
-		directives:[Form]
-	})
-	class MyComponent{
-		mySchema: any = {
-			"properties": {
-				"name":{"type":"string"}
-				// ...
-			},
-			"required": ["name"]
-		};
-		myModel: any = {
-			"name":"John Doe"
-		};
-		constructor(registry: Fieldregistry){
-			//registry.registerFieldType("date",MyDatePicker);
-		}
-	}
+{
+  "properties": {
+    "username": {
+      "type": "string",
+      "pattern": "^[A-Za-z][1-9A-Za-z]+$",
+      "maxLength": 10,
+      "description": "First name"
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Email"
+    }
+  },
+  ...
+}
 ```
+
+The above example add validation information to the fields (eg. `"maxLength": 10`). The validation constraints which can be set to a field are those described in the [JSON Schema validation specification](http://json-schema.org/latest/json-schema-validation.html).
+
+TODO
+
+### Example
+```json
+{
+  "properties": {
+    "name":{
+      "type":"string",
+      "description": "Full name",
+      "pattern": "^[A-Za-z][1-9A-Za-z]+$",
+      "maxLength": 10
+    },
+    "email": {
+      "type": "string",
+      "description": "Email address",
+      "format": "email"
+    }
+  },
+  "fieldsets": [{
+    "id": "profileInformation",
+    "fields": ["name", "email"]
+  }],
+  "buttons": [{
+    "label":"Save",
+    "id": "send"
+  }, {
+    "label":"Reset",
+    "id": "reset"
+  }],
+  "required": ["name"]
+}
+```
+
+## Form inputs
+
+### Initial values
+TODO
+
+### Custom validation
+TODO
+
+### Actions
+TODO
