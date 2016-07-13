@@ -3,7 +3,7 @@
 Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a JSON schema.
 
 ## Demo
-There is an [example of application](https://github.com/fbessou/angular2-schema-form) using Angular2 Schema Form.
+There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Angular2 Schema Form.
 You can also test the module on [the website](https://makinacorpus.github.com/angular2-schema-form).
 
 ## Features
@@ -161,8 +161,6 @@ The field validity is reflected through the css class of the field which can be 
 ```
 
 The above example add validation information to the fields (eg. `"maxLength": 10`). The validation constraints which can be set to a field are those described in the [JSON Schema validation specification](http://json-schema.org/latest/json-schema-validation.html).
-
-TODO
 
 ### Example
 ```json
