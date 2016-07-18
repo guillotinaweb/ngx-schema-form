@@ -20,83 +20,83 @@ Here is an example of schema that can be converted to a form:
 ## Quick start
 1. To use this module, you have to declare the `FieldRegistryService` as a provider at bootstrap.
 
-	```js
-	// main.ts
-	import { bootstrap } from "@angular/platform-browser-dynamic";
-	import { disableDeprecatedForms, provideForms } from "@angular/forms"
-	import { FieldRegistryService } from "angular2-schema-form";
-	import { MyApp } from "./app/app.component";
+  ```js
+  // main.ts
+  import { bootstrap } from "@angular/platform-browser-dynamic";
+  import { disableDeprecatedForms, provideForms } from "@angular/forms"
+  import { FieldRegistryService } from "angular2-schema-form";
+  import { MyApp } from "./app/app.component";
 
-	bootstrap(MyApp,[disableDeprecatedForms(), provideForms(), FieldRegistryService]);
-	```
+  bootstrap(MyApp,[disableDeprecatedForms(), provideForms(), FieldRegistryService]);
+  ```
 
 2. Add the `schema-form` to your template
 
-	```html
-	<!-- myapp.template.html -->
-	...
-	<schema-form></schemaform>
-	...
-	```
+  ```html
+  <!-- myapp.template.html -->
+  ...
+  <schema-form></schemaform>
+  ...
+  ```
 
 3. Add `Form` to your Component directives.
 
-	```js
-	// myapp.component.ts
-	import { Form } from "angular2-schema-form";
+  ```js
+  // myapp.component.ts
+  import { Form } from "angular2-schema-form";
 
-	@Component({
-	  directives: [Form],
-	  template: require("./myapp.template.html") // webpack's require
-	})
-	export class MyApp {
-	  ...
-	}
-	```
+  @Component({
+    directives: [Form],
+    template: require("./myapp.template.html") // webpack's require
+  })
+  export class MyApp {
+    ...
+  }
+  ```
 
 4. Bind the schema input propertie
-	The Form Component's `schema` input property is used to construct the form.
-	```html
-	<!-- myapp.template.html -->
-	...
-	<schema-form [schema]='mySchema' ... ></schema-form>
-	...
-	```
+  The Form Component's `schema` input property is used to construct the form.
+  ```html
+  <!-- myapp.template.html -->
+  ...
+  <schema-form [schema]='mySchema' ... ></schema-form>
+  ...
+  ```
 
-	```js
-	// myapp.component.ts
-	...
-	@Component({ ... })
-	class MyApp {
-	  mySchema: any = require("./myschema.json");
-	  ...
-	}
-	```
+  ```js
+  // myapp.component.ts
+  ...
+  @Component({ ... })
+  class MyApp {
+    mySchema: any = require("./myschema.json");
+    ...
+  }
+  ```
 
 5. Bind actions to the form buttons
-	When a form button is clicked its action is triggered. Actions are provided through the `actions` input property.
+  When a form button is clicked its action is triggered. Actions are provided through the `actions` input property.
 
-	```html
-	<!-- myapp.template.html -->
-	...
-	<schema-form ... [actions]="myActions" ></schema-form>
-	...
-	```
+  ```html
+  <!-- myapp.template.html -->
+  ...
+  <schema-form ... [actions]="myActions" ></schema-form>
+  ...
+  ```
 
-	```js
-	// myapp.component.ts
-	
-	@Component({ ... })
-	class MyApp {
-	  ...
-	  myActions: any = {
-	    "submit": (form) => { form.submit(); },
-	    "reset": (form) => { form.submit(); },
-	    "debug": (form) => { alert(JSON.stringify(form.getModel()); }
-	  }
-	  ...
-	}
-	```
+  ```js
+  // myapp.component.ts
+  
+  @Component({ ... })
+  class MyApp {
+    ...
+    myActions: any = {
+      "submit": (form) => { form.submit(); },
+      "reset": (form) => { form.submit(); },
+      "debug": (form) => { alert(JSON.stringify(form.getModel()); }
+    }
+    ...
+  }
+  ```
 Now you should have a minimal working form.
 
 ## Schema format
@@ -193,13 +193,70 @@ The above example add validation information to the fields (eg. `"maxLength": 10
 }
 ```
 
-## Form inputs
+## Form input bindings
+
+All input bindings are supposed to work if loaded asynchronously.
 
 ### Initial values
-TODO
+
+You can provide an initial model as an input of the form. The model must be a subset of the `properties` listed in your JSON schema.
+The form will then be prefilled with these properties.
+
+In the SchemaForm host Component:
+
+```js
+@Component({ ... })
+export class MyApp {
+  private initialModel: {
+    "username": "johnd",
+    "email": "john.doe@example.com"
+  };
+}
+```
+
+In its template:
+
+```js
+<schema-form ... [model]="initialModel"></schema-form>
+```
 
 ### Custom validation
-TODO
+
+If you need to add a custom validator for a field, you can pass a validator function to the Form as an input.
+
+In the SchemaForm host Component:
+
+```js
+@Component({ ... })
+export class MyApp {
+  ...
+  private validators;
+  
+  constructor() {
+    this.validators["username"] = (value) => {
+      if (value.split('').reverse().join('') === value) {
+        return null;
+      } else {
+        return {"palindrome": {"actualValue": value}};
+      }
+    }
+    
+    this.validators["email"] = (value, model) => {
+      if (isPresent(model.username)) {
+        let prefix = value.split("@")[0];
+        return prefix === model.username ? null
+        : {"emailContainsUsername": {"shouldContain": model.username, "actualValue": value } };
+      }
+    }
+  }
+  ...
+}
+
+And in its template:
+
+```html
+<schema-form ... [validators]="validators"></schema-form>
+```
 
 ### Actions
 TODO
