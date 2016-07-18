@@ -56,13 +56,14 @@ Here is an example of schema that can be converted to a form:
 
 4. Bind the schema input propertie
   The Form Component's `schema` input property is used to construct the form.
+
   ```html
   <!-- myapp.template.html -->
   ...
   <schema-form [schema]='mySchema' ... ></schema-form>
   ...
   ```
-
+  
   ```js
   // myapp.component.ts
   ...
@@ -216,7 +217,7 @@ export class MyApp {
 
 In its template:
 
-```js
+```html
 <schema-form ... [model]="initialModel"></schema-form>
 ```
 
@@ -230,7 +231,7 @@ In the SchemaForm host Component:
 @Component({ ... })
 export class MyApp {
   ...
-  private validators;
+  private validators = {};
   
   constructor() {
     this.validators["username"] = (value) => {
@@ -251,6 +252,7 @@ export class MyApp {
   }
   ...
 }
+```
 
 And in its template:
 
@@ -259,4 +261,27 @@ And in its template:
 ```
 
 ### Actions
-TODO
+
+The form's buttons are bound to custom actions which are also provided by one-way binding.
+The `actions` input must be a dictionnary that maps a button id to a function.
+
+```js
+@Component({ ... })
+export class MyApp {
+  ...
+  private actions = {};
+
+  constructor() {
+    actions["submit"] = (form) => {
+      console.log(JSON.stringify(form.getModel()));
+    };
+    actions["reset"] = (form) => {
+      form.reset();
+    };
+  }
+}
+
+
+```
+
+
