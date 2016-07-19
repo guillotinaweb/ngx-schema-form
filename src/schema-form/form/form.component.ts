@@ -90,21 +90,21 @@ export class Form {
 
 	ngOnChanges(changes) {
 
-		let needRebuild = changes.schema || (this.jsonSchema && changes.fieldValidators);
+		let needRebuild = changes.jsonSchema || (this.jsonSchema && changes.fieldValidators);
 		if (needRebuild) {
 			this.parseSchema(this.jsonSchema);
 		}
 
-		if (needRebuild || changes.model) {
+		if (needRebuild || changes.initialValue) {
 
-			if (changes.model && changes.model.previousValue) {
+			if (changes.initialValue && changes.initialValue.previousValue) {
 				this.resetAllFields();
 			}
 
 			if (this.initialValue !== null) {
 				this.applyModel();
 			}
-			this.controlArray.valueChanges.subscribe(() => { this.updateFieldsVisibility(); });
+			this.controlArray.valueChanges.subscribe(() => { this.onFieldValueChange(); });
 			this.updateFieldsVisibility();
 		}
 	}
