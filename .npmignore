@@ -1,6 +1,8 @@
 /__build__
 /__server_build__
 /node_modules
+/doc/
+/dist/
 /typings
 /coverage
 /tsd_typings/
