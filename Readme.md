@@ -14,6 +14,15 @@ You can also test the module on [the website](https://makinacorpus.github.com/an
 * Allow injection of custom validators
 * Allow declaration of custom field types
 
+## Setup
+To use Angular2 Schema Form in your project, simply execute the following command:
+
+```bash
+  npm install angular2-schema-form save-dev
+```
+
+You just have to check that all the peer-dependencies of this module are satisfied in your `package.json`.
+
 ## Input Schema
 Here is an example of schema that can be converted to a form:
 
@@ -284,4 +293,10 @@ export class MyApp {
 
 ```
 
+## Building the API
 
+You can build an HTML version of the API documentation by running the following command:
+
+```bash
+npm run typedoc
+```
