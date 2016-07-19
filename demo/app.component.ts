@@ -2,6 +2,7 @@ import {Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, V
 import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {Form} from "../src";
 import {FieldRegistryService} from "../src";
+import {Validator} from "../src";
 
 @Component({
 	selector: "schema-form-demo-app",
@@ -19,7 +20,7 @@ export class DemoApp {
 	private schema:any;
 	private model:any;
 	private resolver: ComponentResolver;
-	private fieldValidators : { [fieldId:string]: Function} = {};
+	private fieldValidators : { [fieldId:string]: Validator} = {};
 	private actions = {}
 
 	constructor(resolver: ComponentResolver = null,registry: FieldRegistryService) {
@@ -35,49 +36,43 @@ export class DemoApp {
 		this.model = (() => {
 			try {
 				return require("./samplemodel.json");
-				
+
 			} catch (e) {
 				console.log(e);
 			}
 		})();
 
-		this.fieldValidators["bornOn"] = (value, model):any => {
+		this.fieldValidators["bornOn"] = (value, model) => {
 			let dateArr = value.split("-");
 			if (dateArr.length === 3) {
 				let now = new Date();
 				let min = new Date(now.getFullYear()-100, now.getMonth(), now.getDay()).getTime();
 				let max = new Date().getTime();
-				let born = new Date(dateArr[0],dateArr[1],dateArr[2]).getTime();
+				let born = new Date(dateArr[0],dateArr[1]-1,dateArr[2]).getTime();
 				if (born > min && born < max ) {
-					return true;
+					return null;
 				} else {
-					return "Too young to buy that stuff";
+					return {"bornOn": {"expectedValue": ">today - 100 && < today", "actualValue":value}};
 				}
 			}
 		};
 
-		this.fieldValidators["promotion"] = (value, model, controls):any => {
+		this.fieldValidators["promotion"] = (value, model, controls) => {
 			if (value === "student") {
-				if (controls.bornOn.valid) {
-					let date = model.bornOn.split('-');
+				if (controls["bornOn"].valid) {
+					let date = model["bornOn"].split('-');
+					let validYear = new Date().getFullYear() -17;
 					try{
-						if (parseInt(date[0]) < ( new Date().getFullYear() - 17 ) ) {
+						let actualYear = parseInt(date[0]);
+						if (actualYear < validYear) {
 							return null;
 						}
+						return {"promotion": {"bornOn": {"expectedValue": "year<"+validYear, "actualValue": actualYear}}};
 					} catch (e) { }
-					return "Student offer is not available for people under 17yo";
-				} else {
-					return "You must specify a birthdate in order to set the student offer."
 				}
+				return {"promotion": {"bornOn": {"expectedFormat": "date","actualValue": model["bornOn"]}}};
 			}
 			return null;
-		}
-
-		this.fieldValidators["firstName"] = (value, model, controls) => {
-			if (model.promotion === "student" && controls.promotion.valid) {
-				return null;
-			}
-			return "NOT A BUG, IT'S A FEATURE";
 		}
 
 		this.actions["send"] = (form, options) => {

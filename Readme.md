@@ -257,7 +257,7 @@ export class MyApp {
 And in its template:
 
 ```html
-<schema-form ... [validators]="validators"></schema-form>
+<schema-form ... [fieldValidators]="validators"></schema-form>
 ```
 
 ### Actions

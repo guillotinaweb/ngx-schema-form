@@ -2,8 +2,10 @@ import {
 	Component,
 	ComponentResolver,
 	ElementRef,
+	EventEmitter,
 	Input,
 	Inject,
+	Output,
 	provide
 } from "@angular/core";
 
@@ -14,12 +16,19 @@ import {
 } from "@angular/forms";
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
-
+import { Validator } from "../validator";
 import { FieldChooserComponent } from "../fieldchooser/fieldchooser.component";
 import { FieldFactory } from "../fieldfactory";
 import { FieldRegistryService } from "../fieldregistry.service";
 import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
+export interface FormValueChangeEvent {
+	value : string
+}
+
+/**
+ * The main component
+ */
 @Component({
 	selector: "schema-form",
 	directives: [FieldChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
@@ -31,33 +40,59 @@ export class Form {
 	private fields = {};
 	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
 
-	private controls = {};
+	private controls: {[name:string]: FormControl} = {};
 	private controlArray = new FormArray([]);
 	private updatingValidity: boolean = false;
 
 	private buttons = [];
 
+	/**
+	 * Schema the form is generated from
+	 */
+	@Input("schema") jsonSchema: any;
 
-	@Input() schema: any;
-	@Input() model: any = null;
-	@Input() fieldValidators: {[fieldId: string]: Function} = {};
+	/**
+	 * Input values initially provided to the form
+	 */
+	@Input("model") initialValue: any = null;
+
+	/**
+	 * Custom validators called whenever their corresponding field's value is changed.
+	 */
+	@Input() fieldValidators: {[fieldId: string]: Validator} = {};
+	
+	/**
+	 * Actions to perform when a form's button is clicked.
+	 */
 	@Input() actions: {[actionId: string]: Function} = {};
+	
+	/**
+	 * EventEmitter triggered when one of the field value is changed
+	 */
+	@Output() changeEmitter: EventEmitter<FormValueChangeEvent> = new EventEmitter();
 
 	constructor(private elementRef : ElementRef, private schemaValidatorFactory : SchemaValidatorFactory) { }
 
+	/**
+	 * @deprecated
+	 * Send the current form's values somewhere to the same location
+	 */
 	submit() {
 		this.elementRef.nativeElement.querySelector("form").submit();
 	}
 
+	/**
+	 * Erase all fields.
+	 */
 	reset() {
 		this.resetAllFields();
 	}
 
 	ngOnChanges(changes) {
 
-		let needRebuild = changes.schema || (this.schema && changes.fieldValidators);
+		let needRebuild = changes.schema || (this.jsonSchema && changes.fieldValidators);
 		if (needRebuild) {
-			this.parseSchema(this.schema);
+			this.parseSchema(this.jsonSchema);
 		}
 
 		if (needRebuild || changes.model) {
@@ -66,7 +101,7 @@ export class Form {
 				this.resetAllFields();
 			}
 
-			if (this.model !== null) {
+			if (this.initialValue !== null) {
 				this.applyModel();
 			}
 			this.controlArray.valueChanges.subscribe(() => { this.updateFieldsVisibility(); });
@@ -127,7 +162,7 @@ export class Form {
 	}
 
 	private createCustomValidatorFn(fieldId: string, validatorFn: Function ) {
-		return (control):{ [key:string]: boolean } => {
+		return (control): { [key:string]: boolean } => {
 			let model = this.getModel();
 			if (model.hasOwnProperty(fieldId)){
 				return validatorFn(control.value, model, this.controls);
@@ -140,10 +175,19 @@ export class Form {
 			this.resetField(field);
 		}
 	}
+
 	private resetField(fieldId : string) {
 		let settings = this.fields[fieldId].settings;
-		this.controls[fieldId]._touched=false;
-		this.controls[fieldId]._pristine=true;
+		//TODO RC5 replace by markAs
+		if(!(<any>this.controls[fieldId]).markAsUntouched){
+			(<any>this.controls[fieldId])._touched=false;
+			(<any>this.controls[fieldId])._pristine=true;
+		} else {
+			(<any>console).warn("upate to RC5");
+			(<any>this.controls[fieldId]).markAsPristine();
+			(<any>this.controls[fieldId]).markAsUntouched();
+		}
+
 		let val: any = "";
 
 		if (settings.hasOwnProperty("default")) {
@@ -160,12 +204,17 @@ export class Form {
 	}
 
 	private applyModel() {
-		for (let fieldId in this.model) {
+		for (let fieldId in this.initialValue) {
 
 			if (this.fields.hasOwnProperty(fieldId)) {
-				this.fields[fieldId].settings.value = this.model[fieldId];
+				this.fields[fieldId].settings.value = this.initialValue[fieldId];
 			}
 		}
+	}
+
+	private onFieldValueChange() {
+		this.updateFieldsVisibility();
+		this.changeEmitter.emit({value:this.getModel()})
 	}
 
 	private updateFieldsVisibility() {
@@ -250,10 +299,6 @@ export class Form {
 				};
 			}
 		}
-	}
-
-	get values() {
-		return JSON.stringify(this.getModel());
 	}
 
 	getModel(): any {
