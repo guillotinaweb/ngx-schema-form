@@ -18,7 +18,7 @@ You can also test the module on [the website](https://makinacorpus.github.com/an
 To use Angular2 Schema Form in your project, simply execute the following command:
 
 ```bash
-  npm install angular2-schema-form save-dev
+  npm install angular2-schema-form --save-dev
 ```
 
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
