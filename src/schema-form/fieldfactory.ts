@@ -20,6 +20,7 @@ export class FieldFactory {
 	}
 
 	createField(container: ViewContainerRef, type: string): Promise<ComponentRef<any>> {
+
 		return new Promise(
 			(resolve, reject) => {
 				let ComponentClass = this.registry.getFieldType(type);
