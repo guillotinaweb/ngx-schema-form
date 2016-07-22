@@ -8,7 +8,6 @@ import {
 	Output,
 	provide
 } from "@angular/core";
-
 import {
 	FormControl,
 	FormArray,
@@ -86,7 +85,7 @@ export class Form {
 	 * Erase all fields.
 	 */
 	reset() {
-		this.resetAllWidgets();
+		this.resetAllFields();
 	}
 
 	ngOnChanges(changes) {
@@ -99,14 +98,14 @@ export class Form {
 		if (needRebuild || changes.initialValue) {
 
 			if (changes.initialValue && changes.initialValue.previousValue) {
-				this.resetAllWidgets();
+				this.resetAllFields();
 			}
 
 			if (this.initialValue !== null) {
 				this.applyModel();
 			}
-			this.controlArray.valueChanges.subscribe(() => { this.onWidgetValueChange(); });
-			this.updateWidgetsVisibility();
+			this.controlArray.valueChanges.subscribe(() => { this.onFieldValueChange(); });
+			this.updateFieldsVisibility();
 		}
 	}
 
@@ -117,29 +116,29 @@ export class Form {
 		this.fields = {};
 
 		if (schema.hasOwnProperty("fieldsets")) {
-			this.parseWidgetsets(schema);
+			this.parseFieldsets(schema);
 		} else if (schema.hasOwnProperty("order")) {
 			this.parseOrder(schema);
 		}
 
 		this.parseButtons(schema);
-		this.resetAllWidgets();
+		this.resetAllFields();
 	}
 
-	private parseWidgetsets(schema: any) {
+	private parseFieldsets(schema: any) {
 		for (let fieldsetId in schema.fieldsets) {
 			let fieldsetSchema = schema.fieldsets[fieldsetId];
 			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
 
 			for (let fieldId of fieldsetSchema.fields) {
-				this.parseWidget(schema, fieldId);
+				this.parseField(schema, fieldId);
 				fieldset.fields.push(fieldId);
 			}
 			this.fieldsets.push(fieldset);
 		}
 	}
 
-	private parseWidget(schema, fieldId) {
+	private parseField(schema, fieldId) {
 		let field = {id: fieldId};
 
 		let fieldSchema = schema.properties[fieldId];
@@ -154,7 +153,7 @@ export class Form {
 			validators = Validators.compose([Validators.required, validators]);
 		}
 		let control = new FormControl("", [validators]);
-		control.valueChanges.subscribe( () => { this.updateWidgetsValidity(control) });
+		control.valueChanges.subscribe( () => { this.updateFieldsValidity(control) });
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
@@ -182,13 +181,13 @@ export class Form {
 		};
 	}
 
-	private resetAllWidgets() {
+	private resetAllFields() {
 		for (let field in this.fields) {
-			this.resetWidget(field);
+			this.resetField(field);
 		}
 	}
 
-	private resetWidget(fieldId : string) {
+	private resetField(fieldId : string) {
 		let settings = this.fields[fieldId].settings;
 		//TODO RC5 replace by markAs
 		if(!(<any>this.controls[fieldId]).markAsUntouched){
@@ -224,30 +223,30 @@ export class Form {
 		}
 	}
 
-	private onWidgetValueChange() {
-		this.updateWidgetsVisibility();
+	private onFieldValueChange() {
+		this.updateFieldsVisibility();
 		this.changeEmitter.emit({source: this, value: this.getModel()})
 	}
 
-	private updateWidgetsVisibility() {
+	private updateFieldsVisibility() {
 		for (let fieldIdx in this.fields) {
 			let field = this.fields[fieldIdx];
 
 			if (field.settings.hasOwnProperty("visibleIf")) {
-				this.updateWidgetVisibility(field);
+				this.updateFieldVisibility(field);
 			} else {
 				field.visible = true;
 			}
 		}
 	}
 
-	private updateWidgetVisibility(field) {
+	private updateFieldVisibility(field) {
 		let visibleIf = field.settings.visibleIf;
-		for (let conditionWidget in visibleIf) {
+		for (let conditionField in visibleIf) {
 
-			if (this.fields[conditionWidget].visible) {
-				let values = visibleIf[conditionWidget];
-				let control = this.controls[conditionWidget];
+			if (this.fields[conditionField].visible) {
+				let values = visibleIf[conditionField];
+				let control = this.controls[conditionField];
 
 				if (values.indexOf(control.value) > -1) {
 					field.visible = true;
@@ -258,16 +257,16 @@ export class Form {
 		field.visible = false;
 	}
 
-	private updateWidgetsValidity(sourceControl : FormControl) { 
+	private updateFieldsValidity(sourceControl : FormControl) { 
 		if ( ! this.updatingValidity ) {
 			this.updatingValidity = true;
 			let validityBefore = this.getValidityArray();
-			this.updateWidgetsValidityImpl(sourceControl, validityBefore)
+			this.updateFieldsValidityImpl(sourceControl, validityBefore)
 			this.updatingValidity = false;
 		}
 	}
 
-	private updateWidgetsValidityImpl(sourceControl : FormControl, validityBefore: string) {
+	private updateFieldsValidityImpl(sourceControl : FormControl, validityBefore: string) {
 		for (let fieldId in this.controls) {
 			let control = this.controls[fieldId];
 			if(control !== sourceControl) {
@@ -277,7 +276,7 @@ export class Form {
 
 		let validityAfter = this.getValidityArray();
 		if (validityBefore !== validityAfter) {
-			this.updateWidgetsValidityImpl(sourceControl, validityAfter);
+			this.updateFieldsValidityImpl(sourceControl, validityAfter);
 		}
 	}
 
@@ -295,7 +294,7 @@ export class Form {
 			title: "",
 			fields: schema.order
 		}];
-		this.parseWidgetsets(schema);
+		this.parseFieldsets(schema);
 	}
 
 	private parseButtons(schema) {

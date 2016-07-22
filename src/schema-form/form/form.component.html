@@ -7,10 +7,14 @@
 			class="form-group">
 
 			<widget-chooser *ngIf="fields[field].visible"
-				[id]="fields[field].id"
-				[settings]="fields[field].settings"
-				[control]="fields[field].control"></widget-chooser>
+			[id]="fields[field].id"
+			[settings]="fields[field].settings"
+			[control]="fields[field].control"></widget-chooser>
 		</div>
 	</fieldset>
-	<button *ngFor="let button of buttons" type="button" (click)="button.action($event)">{{button.label}}</button>
+	<button *ngFor="let button of buttons"
+		(click)="button.action($event)"
+		type="button">
+		{{button.label}}
+	</button>
 </form>
