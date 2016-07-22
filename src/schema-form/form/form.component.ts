@@ -170,8 +170,6 @@ export class Form {
 		} else if (typeof widget === "string") {
 			fieldSchema.widget = {"id": widget};
 		}
-		
-		return fieldSchema.widget;
 	}
 
 	private createCustomValidatorFn(fieldId: string, validatorFn: Function ) {

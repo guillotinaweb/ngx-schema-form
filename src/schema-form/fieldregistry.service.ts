@@ -5,6 +5,7 @@ import {
 	IntegerField,
 	TextLineField,
 	RadioField,
+	RangeField,
 	RichTextField,
 	SelectField,
 	StringField
@@ -28,7 +29,7 @@ export class FieldRegistryService {
 
 		this.registerFieldType("integer", IntegerField);
 		this.registerFieldType("number", IntegerField);
-		this.registerFieldType("range", IntegerField);
+		this.registerFieldType("range", RangeField);
 
 		this.registerFieldType("textline", TextLineField);
 

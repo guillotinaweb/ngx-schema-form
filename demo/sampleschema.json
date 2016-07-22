@@ -100,7 +100,9 @@
 		},
 		"numberOfBoxes": {
 			"type": "number",
-			"widget": "range",
+			"widget": {
+				"id": "range"
+			},
 			"description": "Number of boxes required",
 			"minimum": 1,
 			"maximum": 10
