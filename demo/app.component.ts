@@ -1,7 +1,7 @@
 import {Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
 import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
 import {Form} from "../src";
-import {FieldRegistryService} from "../src";
+import {WidgetRegistry} from "../src";
 import {Validator} from "../src";
 
 @Component({
@@ -9,7 +9,7 @@ import {Validator} from "../src";
 	directives: [
 		Form
 	],
-	providers: [FieldRegistryService, NgModel],
+	providers: [WidgetRegistry, NgModel],
 	template: require("./app.component.html"),
 	styleUrls: ["demo/app.scss"],
 	encapsulation: ViewEncapsulation.None
@@ -23,7 +23,7 @@ export class DemoApp {
 	private fieldValidators : { [fieldId:string]: Validator} = {};
 	private actions = {}
 
-	constructor(resolver: ComponentResolver = null,registry: FieldRegistryService) {
+	constructor(resolver: ComponentResolver = null,registry: WidgetRegistry) {
 		this.resolver = resolver;
 
 		this.schema = (() => {

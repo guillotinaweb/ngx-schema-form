@@ -1,0 +1,7 @@
+<div class="widget form-group">
+	<label [attr.for]="id" class="horizontal control-label">
+		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
+	</label>
+
+	<textarea [attr.readonly]="settings.readOnly" [name]="name" class="text-widget textline-widget form-control" [class.required]="settings.required" type="text" [formControl]="control" [(ngModel)]="settings.value"></textarea>
+</div>

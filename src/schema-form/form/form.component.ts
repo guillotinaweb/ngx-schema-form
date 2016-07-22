@@ -17,9 +17,9 @@ import {
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 import { Validator } from "../validator";
-import { FieldChooserComponent } from "../fieldchooser/fieldchooser.component";
-import { FieldFactory } from "../fieldfactory";
-import { FieldRegistryService } from "../fieldregistry.service";
+import { WidgetChooserComponent } from "../widgetchooser/widgetchooser.component";
+import { WidgetFactory } from "../widgetfactory";
+import { WidgetRegistry } from "../widgetregistry";
 import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 export interface FormValueChangeEvent {
@@ -32,8 +32,8 @@ export interface FormValueChangeEvent {
  */
 @Component({
 	selector: "schema-form",
-	directives: [FieldChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-	providers: [FieldFactory, provide(SchemaValidatorFactory,{useClass: ZSchemaValidatorFactory}) ],
+	directives: [WidgetChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+	providers: [WidgetFactory, provide(SchemaValidatorFactory,{useClass: ZSchemaValidatorFactory}) ],
 	template: require("./form.component.html")
 })
 export class Form {
@@ -86,7 +86,7 @@ export class Form {
 	 * Erase all fields.
 	 */
 	reset() {
-		this.resetAllFields();
+		this.resetAllWidgets();
 	}
 
 	ngOnChanges(changes) {
@@ -99,14 +99,14 @@ export class Form {
 		if (needRebuild || changes.initialValue) {
 
 			if (changes.initialValue && changes.initialValue.previousValue) {
-				this.resetAllFields();
+				this.resetAllWidgets();
 			}
 
 			if (this.initialValue !== null) {
 				this.applyModel();
 			}
-			this.controlArray.valueChanges.subscribe(() => { this.onFieldValueChange(); });
-			this.updateFieldsVisibility();
+			this.controlArray.valueChanges.subscribe(() => { this.onWidgetValueChange(); });
+			this.updateWidgetsVisibility();
 		}
 	}
 
@@ -117,29 +117,29 @@ export class Form {
 		this.fields = {};
 
 		if (schema.hasOwnProperty("fieldsets")) {
-			this.parseFieldsets(schema);
+			this.parseWidgetsets(schema);
 		} else if (schema.hasOwnProperty("order")) {
 			this.parseOrder(schema);
 		}
 
 		this.parseButtons(schema);
-		this.resetAllFields();
+		this.resetAllWidgets();
 	}
 
-	private parseFieldsets(schema: any) {
+	private parseWidgetsets(schema: any) {
 		for (let fieldsetId in schema.fieldsets) {
 			let fieldsetSchema = schema.fieldsets[fieldsetId];
 			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
 
 			for (let fieldId of fieldsetSchema.fields) {
-				this.parseField(schema, fieldId);
+				this.parseWidget(schema, fieldId);
 				fieldset.fields.push(fieldId);
 			}
 			this.fieldsets.push(fieldset);
 		}
 	}
 
-	private parseField(schema, fieldId) {
+	private parseWidget(schema, fieldId) {
 		let field = {id: fieldId};
 
 		let fieldSchema = schema.properties[fieldId];
@@ -154,7 +154,7 @@ export class Form {
 			validators = Validators.compose([Validators.required, validators]);
 		}
 		let control = new FormControl("", [validators]);
-		control.valueChanges.subscribe( () => { this.updateFieldsValidity(control) });
+		control.valueChanges.subscribe( () => { this.updateWidgetsValidity(control) });
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
@@ -182,13 +182,13 @@ export class Form {
 		};
 	}
 
-	private resetAllFields() {
+	private resetAllWidgets() {
 		for (let field in this.fields) {
-			this.resetField(field);
+			this.resetWidget(field);
 		}
 	}
 
-	private resetField(fieldId : string) {
+	private resetWidget(fieldId : string) {
 		let settings = this.fields[fieldId].settings;
 		//TODO RC5 replace by markAs
 		if(!(<any>this.controls[fieldId]).markAsUntouched){
@@ -224,30 +224,30 @@ export class Form {
 		}
 	}
 
-	private onFieldValueChange() {
-		this.updateFieldsVisibility();
+	private onWidgetValueChange() {
+		this.updateWidgetsVisibility();
 		this.changeEmitter.emit({source: this, value: this.getModel()})
 	}
 
-	private updateFieldsVisibility() {
+	private updateWidgetsVisibility() {
 		for (let fieldIdx in this.fields) {
 			let field = this.fields[fieldIdx];
 
 			if (field.settings.hasOwnProperty("visibleIf")) {
-				this.updateFieldVisibility(field);
+				this.updateWidgetVisibility(field);
 			} else {
 				field.visible = true;
 			}
 		}
 	}
 
-	private updateFieldVisibility(field) {
+	private updateWidgetVisibility(field) {
 		let visibleIf = field.settings.visibleIf;
-		for (let conditionField in visibleIf) {
+		for (let conditionWidget in visibleIf) {
 
-			if (this.fields[conditionField].visible) {
-				let values = visibleIf[conditionField];
-				let control = this.controls[conditionField];
+			if (this.fields[conditionWidget].visible) {
+				let values = visibleIf[conditionWidget];
+				let control = this.controls[conditionWidget];
 
 				if (values.indexOf(control.value) > -1) {
 					field.visible = true;
@@ -258,16 +258,16 @@ export class Form {
 		field.visible = false;
 	}
 
-	private updateFieldsValidity(sourceControl : FormControl) { 
+	private updateWidgetsValidity(sourceControl : FormControl) { 
 		if ( ! this.updatingValidity ) {
 			this.updatingValidity = true;
 			let validityBefore = this.getValidityArray();
-			this.updateFieldsValidityImpl(sourceControl, validityBefore)
+			this.updateWidgetsValidityImpl(sourceControl, validityBefore)
 			this.updatingValidity = false;
 		}
 	}
 
-	private updateFieldsValidityImpl(sourceControl : FormControl, validityBefore: string) {
+	private updateWidgetsValidityImpl(sourceControl : FormControl, validityBefore: string) {
 		for (let fieldId in this.controls) {
 			let control = this.controls[fieldId];
 			if(control !== sourceControl) {
@@ -277,7 +277,7 @@ export class Form {
 
 		let validityAfter = this.getValidityArray();
 		if (validityBefore !== validityAfter) {
-			this.updateFieldsValidityImpl(sourceControl, validityAfter);
+			this.updateWidgetsValidityImpl(sourceControl, validityAfter);
 		}
 	}
 
@@ -295,7 +295,7 @@ export class Form {
 			title: "",
 			fields: schema.order
 		}];
-		this.parseFieldsets(schema);
+		this.parseWidgetsets(schema);
 	}
 
 	private parseButtons(schema) {
