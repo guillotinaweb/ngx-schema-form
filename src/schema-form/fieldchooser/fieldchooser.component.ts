@@ -20,7 +20,6 @@ export class FieldChooserComponent implements OnInit {
 	private container: ViewContainerRef;
 	private fieldInstance: any;
 
-	@Input("typename") typename: string;
 	@Input("id") id: string;
 	@Input("settings") settings: any;
 	@Input("control") control: FormControl;
@@ -31,7 +30,7 @@ export class FieldChooserComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.fieldFactory.createField(this.container, this.typename).then(ref => {
+		this.fieldFactory.createField(this.container, this.settings.widget.id).then(ref => {
 			ref.instance.settings = this.settings;
 			ref.instance.name = this.id;
 			ref.instance.id = this.id;

@@ -6,10 +6,10 @@
 			[class.has-success]="fields[field].control.valid"
 			class="form-group">
 
-			<field-chooser *ngIf="fields[field].visible" [typename]="fields[field].type"
-			[id]="fields[field].id"
-			[control]="fields[field].control"
-			[settings]="fields[field].settings"></field-chooser>
+			<field-chooser *ngIf="fields[field].visible"
+				[id]="fields[field].id"
+				[settings]="fields[field].settings"
+				[control]="fields[field].control"></field-chooser>
 		</div>
 	</fieldset>
 	<button *ngFor="let button of buttons" type="button" (click)="button.action($event)">{{button.label}}</button>

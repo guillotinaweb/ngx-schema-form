@@ -139,6 +139,8 @@ export class Form {
 	}
 
 	private parseField(schema, fieldId) {
+		let field = {id: fieldId};
+
 		let fieldSchema = schema.properties[fieldId];
 
 		let validators = this.schemaValidatorFactory.createValidatorFn(fieldSchema);
@@ -155,10 +157,21 @@ export class Form {
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
-		let fieldType = fieldSchema.widget || fieldSchema.type;
-		this.fields[fieldId] = { name: fieldId, type: fieldType, id: fieldId, settings: fieldSchema, control: control, visible: false };
+		this.normalizeWidget(fieldSchema)
+		this.fields[fieldId] = { id: fieldId, settings: fieldSchema, control: control, visible: false };
 
 		return fieldSchema;
+	}
+
+	private normalizeWidget(fieldSchema) {
+		let widget = fieldSchema.widget;
+		if (widget === undefined) {
+			fieldSchema.widget = {"id": fieldSchema.type};
+		} else if (typeof widget === "string") {
+			fieldSchema.widget = {"id": widget};
+		}
+		
+		return fieldSchema.widget;
 	}
 
 	private createCustomValidatorFn(fieldId: string, validatorFn: Function ) {
