@@ -23,6 +23,7 @@ import { FieldRegistryService } from "../fieldregistry.service";
 import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 export interface FormValueChangeEvent {
+	source : Form,
 	value : string
 }
 
@@ -225,7 +226,7 @@ export class Form {
 
 	private onFieldValueChange() {
 		this.updateFieldsVisibility();
-		this.changeEmitter.emit({value:this.getModel()})
+		this.changeEmitter.emit({source: this, value: this.getModel()})
 	}
 
 	private updateFieldsVisibility() {
