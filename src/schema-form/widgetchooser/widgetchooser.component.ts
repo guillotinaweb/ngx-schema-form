@@ -19,7 +19,8 @@ export class WidgetChooserComponent implements OnInit {
 	private widgetFactory: WidgetFactory;
 	private container: ViewContainerRef;
 	private widgetInstance: any;
-
+	
+	@Input() widget: any;
 	@Input("id") id: string;
 	@Input("settings") settings: any;
 	@Input("control") control: FormControl;
@@ -30,9 +31,10 @@ export class WidgetChooserComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.widgetFactory.createWidget(this.container, this.settings.widget.id).then(ref => {
-			console.log(ref);
+		this.widgetFactory.createWidget(this.container, this.widget.id).then(ref => {
+			//TODO change settings by schema and rename widget by options.
 			ref.instance.settings = this.settings;
+			ref.instance.settings.widget = this.widget;
 			ref.instance.name = this.id;
 			ref.instance.id = this.id;
 			ref.instance.control = this.control;

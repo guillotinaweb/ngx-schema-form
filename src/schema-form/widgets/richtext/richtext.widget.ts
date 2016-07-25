@@ -11,7 +11,6 @@ import { BaseWidget } from "../base";
 import { TinyMCEComponent } from "./tinymce.component";
 import { TinyMCEValueAccessor } from "./tinymce.valueaccessor";
 
-
 @Component({
 	selector: "richtext-widget",
 	template: require("./richtext.widget.html"),

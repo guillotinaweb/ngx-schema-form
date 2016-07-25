@@ -1,15 +1,13 @@
 <form ngNoForm>
 	<fieldset *ngFor="let fieldset of fieldsets" id="fieldset.id">
 		<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
-		<div *ngFor="let field of fieldset.fields"
-			[class.has-error]="!fields[field].control.valid"
-			[class.has-success]="fields[field].control.valid"
+		<div *ngFor="let fieldId of fieldset.fields"
+			[class.has-error]="!fields[fieldId].control.valid"
+			[class.has-success]="fields[fieldId].control.valid"
 			class="form-group">
-
-			<widget-chooser *ngIf="fields[field].visible"
-			[id]="fields[field].id"
-			[settings]="fields[field].settings"
-			[control]="fields[field].control"></widget-chooser>
+			
+			<field *ngIf="fields[fieldId].visible" [fieldModel]="fields[fieldId]" [widget]="widgets[fieldId]">
+			</field>
 		</div>
 	</fieldset>
 	<button *ngFor="let button of buttons"

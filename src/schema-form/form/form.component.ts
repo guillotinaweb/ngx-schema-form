@@ -16,6 +16,7 @@ import {
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 import { Validator } from "../validator";
+import { FieldComponent } from "../field.component";
 import { WidgetChooserComponent } from "../widgetchooser/widgetchooser.component";
 import { WidgetFactory } from "../widgetfactory";
 import { WidgetRegistry } from "../widgetregistry";
@@ -31,8 +32,8 @@ export interface FormValueChangeEvent {
  */
 @Component({
 	selector: "schema-form",
-	directives: [WidgetChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-	providers: [WidgetFactory, provide(SchemaValidatorFactory,{useClass: ZSchemaValidatorFactory}) ],
+	directives: [FieldComponent, WidgetChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+	providers: [WidgetFactory, provide(SchemaValidatorFactory, {useClass: ZSchemaValidatorFactory}) ],
 	template: require("./form.component.html")
 })
 export class Form {
@@ -41,6 +42,7 @@ export class Form {
 	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
 
 	private controls: {[name:string]: FormControl} = {};
+	private widgets = [];
 	private controlArray = new FormArray([]);
 	private updatingValidity: boolean = false;
 
@@ -60,12 +62,12 @@ export class Form {
 	 * Custom validators called whenever their corresponding field's value is changed.
 	 */
 	@Input() fieldValidators: {[fieldId: string]: Validator} = {};
-	
+
 	/**
 	 * Actions to perform when a form's button is clicked.
 	 */
 	@Input() actions: {[actionId: string]: Function} = {};
-	
+
 	/**
 	 * EventEmitter triggered when one of the field value is changed
 	 */
@@ -73,7 +75,7 @@ export class Form {
 
 	constructor(private elementRef : ElementRef, private schemaValidatorFactory : SchemaValidatorFactory) { }
 
-	/**
+	/**:
 	 * @deprecated
 	 * Send the current form's values somewhere to the same location
 	 */
@@ -94,7 +96,6 @@ export class Form {
 		if (needRebuild) {
 			this.parseSchema(this.jsonSchema);
 		}
-
 		if (needRebuild || changes.initialValue) {
 
 			if (changes.initialValue && changes.initialValue.previousValue) {
@@ -114,6 +115,7 @@ export class Form {
 		this.buttons = [];
 		this.fieldsets = [];
 		this.fields = {};
+		this.widgets = [];
 
 		if (schema.hasOwnProperty("fieldsets")) {
 			this.parseFieldsets(schema);
@@ -144,10 +146,8 @@ export class Form {
 		let fieldSchema = schema.properties[fieldId];
 
 		let validators = this.schemaValidatorFactory.createValidatorFn(fieldSchema);
-		if (this.fieldValidators.hasOwnProperty(fieldId)){
-			let customValidator = this.createCustomValidatorFn(fieldId, this.fieldValidators[fieldId]);
-			validators = Validators.compose([customValidator, validators]);
-		}
+		let customValidator = this.createCustomValidatorFn(fieldId);
+		validators = Validators.compose([customValidator, validators]);
 
 		if (schema.required.indexOf(fieldId) > -1) {
 			validators = Validators.compose([Validators.required, validators]);
@@ -157,26 +157,31 @@ export class Form {
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
-		this.normalizeWidget(fieldSchema)
+		this.widgets[fieldId] = this.extractWidget(fieldSchema);
 		this.fields[fieldId] = { id: fieldId, settings: fieldSchema, control: control, visible: false };
 
 		return fieldSchema;
 	}
 
-	private normalizeWidget(fieldSchema) {
+	private extractWidget(fieldSchema) {
 		let widget = fieldSchema.widget;
 		if (widget === undefined) {
-			fieldSchema.widget = {"id": fieldSchema.type};
+			widget = {"id": fieldSchema.type};
 		} else if (typeof widget === "string") {
-			fieldSchema.widget = {"id": widget};
+			widget = {"id": widget};
 		}
+		delete fieldSchema.widget;
+		return widget;
 	}
 
-	private createCustomValidatorFn(fieldId: string, validatorFn: Function ) {
+	private createCustomValidatorFn(fieldId: string) {
 		return (control): { [key:string]: boolean } => {
 			let model = this.getModel();
-			if (model.hasOwnProperty(fieldId)){
-				return validatorFn(control.value, model, this.controls);
+			if (model.hasOwnProperty(fieldId)) {
+				let validatorFn;
+				if (validatorFn = this.fieldValidators[fieldId]) {
+					return validatorFn(control.value, model, this.controls);
+				}
 			}
 		};
 	}
@@ -257,7 +262,7 @@ export class Form {
 		field.visible = false;
 	}
 
-	private updateFieldsValidity(sourceControl : FormControl) { 
+	private updateFieldsValidity(sourceControl : FormControl) {
 		if ( ! this.updatingValidity ) {
 			this.updatingValidity = true;
 			let validityBefore = this.getValidityArray();
@@ -317,7 +322,7 @@ export class Form {
 		for (let id in this.fields) {
 			let field = this.fields[id];
 			if (field.visible) {
-				model[field.name] = field.settings.value;
+				model[field.id] = field.settings.value;
 			}
 		}
 		return model;
