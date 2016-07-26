@@ -13,7 +13,7 @@ import {
 	StringWidget
 } from "./widgets";
 
-import { WidgetRegistry } from "./widgetregistry.service";
+import { WidgetRegistry } from "./widgetregistry";
 
 describe("WidgetRegistry", () => {
 

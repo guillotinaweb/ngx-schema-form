@@ -13,14 +13,17 @@ import {
 	FormArray,
 	Validators
 } from "@angular/forms";
+import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 import { Validator } from "../validator";
 import { FieldComponent } from "../field.component";
+import { FieldModel } from "../fieldmodel";
 import { WidgetChooserComponent } from "../widgetchooser/widgetchooser.component";
 import { WidgetFactory } from "../widgetfactory";
 import { WidgetRegistry } from "../widgetregistry";
-import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
+import { SchemaPreprocessor } from "../schemapreprocessor";
+
 
 export interface FormValueChangeEvent {
 	source : Form,
@@ -94,7 +97,7 @@ export class Form {
 
 		let needRebuild = changes.jsonSchema || (this.jsonSchema && changes.fieldValidators);
 		if (needRebuild) {
-			this.parseSchema(this.jsonSchema);
+			this.parseSchema();
 		}
 		if (needRebuild || changes.initialValue) {
 
@@ -110,30 +113,27 @@ export class Form {
 		}
 	}
 
-	private parseSchema(schema: any) {
+	private parseSchema() {
 		this.controlArray = new FormArray([]);
 		this.buttons = [];
 		this.fieldsets = [];
 		this.fields = {};
 		this.widgets = [];
 
-		if (schema.hasOwnProperty("fieldsets")) {
-			this.parseFieldsets(schema);
-		} else if (schema.hasOwnProperty("order")) {
-			this.parseOrder(schema);
-		}
+		SchemaPreprocessor.preprocess(this.jsonSchema);
 
-		this.parseButtons(schema);
+		this.parseFieldsets();
+		this.parseButtons();
 		this.resetAllFields();
 	}
 
-	private parseFieldsets(schema: any) {
-		for (let fieldsetId in schema.fieldsets) {
-			let fieldsetSchema = schema.fieldsets[fieldsetId];
+	private parseFieldsets() {
+		for (let fieldsetId in this.jsonSchema.fieldsets) {
+			let fieldsetSchema = this.jsonSchema.fieldsets[fieldsetId];
 			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
 
 			for (let fieldId of fieldsetSchema.fields) {
-				this.parseField(schema, fieldId);
+				this.parseField(this.jsonSchema, fieldId);
 				fieldset.fields.push(fieldId);
 			}
 			this.fieldsets.push(fieldset);
@@ -157,25 +157,15 @@ export class Form {
 		this.controlArray.push(control);
 		this.controls[fieldId] = control;
 
-		this.widgets[fieldId] = this.extractWidget(fieldSchema);
+		this.widgets[fieldId] = fieldSchema.widget;
 		this.fields[fieldId] = { id: fieldId, settings: fieldSchema, control: control, visible: false };
 
 		return fieldSchema;
 	}
 
-	private extractWidget(fieldSchema) {
-		let widget = fieldSchema.widget;
-		if (widget === undefined) {
-			widget = {"id": fieldSchema.type};
-		} else if (typeof widget === "string") {
-			widget = {"id": widget};
-		}
-		delete fieldSchema.widget;
-		return widget;
-	}
-
 	private createCustomValidatorFn(fieldId: string) {
 		return (control): { [key:string]: boolean } => {
+			console.log("custom validation");
 			let model = this.getModel();
 			if (model.hasOwnProperty(fieldId)) {
 				let validatorFn;
@@ -229,6 +219,7 @@ export class Form {
 	}
 
 	private onFieldValueChange() {
+		console.log("obs");
 		this.updateFieldsVisibility();
 		this.changeEmitter.emit({source: this, value: this.getModel()})
 	}
@@ -293,18 +284,9 @@ export class Form {
 		return arr.join("");
 	}
 
-	private parseOrder(schema: any) {
-		schema.fieldsets = [{
-			id: "fieldset-default",
-			title: "",
-			fields: schema.order
-		}];
-		this.parseFieldsets(schema);
-	}
-
-	private parseButtons(schema) {
-		if (schema.buttons !== undefined) {
-			this.buttons = schema.buttons;
+	private parseButtons() {
+		if (this.jsonSchema.buttons !== undefined) {
+			this.buttons = this.jsonSchema.buttons;
 
 			for (let button of this.buttons) {
 				button.action = (event) => {

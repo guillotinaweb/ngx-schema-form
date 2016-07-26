@@ -13,36 +13,36 @@ import {
 } from "@angular/core";
 
 import { ComponentResolver } from "@angular/core";
-import { FieldFactory } from "../fieldfactory";
-import { FieldChooserComponent } from "./fieldchooser.component";
+import { WidgetFactory } from "../widgetfactory";
+import { WidgetChooserComponent } from "./widgetchooser.component";
 
-describe("FieldChooserComponent", () => {
+describe("WidgetChooserComponent", () => {
 
 	let tcb: TestComponentBuilder;
-	let factory: FieldFactory;
-	beforeEachProviders(() => [TestComponentBuilder, {provide: FieldFactory, useClass: FieldFactoryMock}]);
+	let factory: WidgetFactory;
+	beforeEachProviders(() => [TestComponentBuilder, {provide: WidgetFactory, useClass: WidgetFactoryMock}]);
 
-	class FieldFactoryMock {
-		createField() {
+	class WidgetFactoryMock {
+		createWidget() {
 			return new Promise( (resolve, reject) => {
 				resolve({instance: { } });
 			});
 		}
 	};
 
-	beforeEach(inject([TestComponentBuilder, FieldFactory], (_tcb, _factory) => {
+	beforeEach(inject([TestComponentBuilder, WidgetFactory], (_tcb, _factory) => {
 		tcb = _tcb;
 		factory = _factory;
-		spyOn(factory, "createField").and.callThrough();
+		spyOn(factory, "createWidget").and.callThrough();
 	}));
 
-	it("should create a field", done => {
-		tcb.createAsync(FieldChooserComponent).then((fixture) => {
-			let fieldComponent = fixture.componentInstance;
-			fieldComponent.typename = "string";
-			fieldComponent.settings = { required: true };
+	it("should create a widget", done => {
+		tcb.createAsync(WidgetChooserComponent).then((fixture) => {
+			let widgetComponent = fixture.componentInstance;
+			widgetComponent.id = "string";
+			widgetComponent.settings = { required: true };
 			fixture.detectChanges();
-			expect(factory.createField).toHaveBeenCalledWith(fieldComponent.container, "string");
+			expect(factory.createWidget).toHaveBeenCalledWith(widgetComponent.container, "string");
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
 			done();
@@ -50,6 +50,6 @@ describe("FieldChooserComponent", () => {
 
 	});
 
-	xit("should put the field returned by the factory in the DOM", () => { });
+	xit("should put the widget returned by the factory in the DOM", () => { });
 
 });
