@@ -15,4 +15,5 @@
 		type="button">
 		{{button.label}}
 	</button>
+	<field *ngFor="let fieldId of formModel.fieldIds" [fieldModel]="formModel.getField(fieldId)" [widget]="widgets"></field>
 </form>

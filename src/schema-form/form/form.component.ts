@@ -19,6 +19,8 @@ import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalida
 import { Validator } from "../validator";
 import { FieldComponent } from "../field.component";
 import { FieldModel } from "../fieldmodel";
+import { FormModel } from "../formmodel";
+import { FormModelFactory } from "../formmodelfactory";
 import { WidgetChooserComponent } from "../widgetchooser/widgetchooser.component";
 import { WidgetFactory } from "../widgetfactory";
 import { WidgetRegistry } from "../widgetregistry";
@@ -36,10 +38,12 @@ export interface FormValueChangeEvent {
 @Component({
 	selector: "schema-form",
 	directives: [FieldComponent, WidgetChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
-	providers: [WidgetFactory, provide(SchemaValidatorFactory, {useClass: ZSchemaValidatorFactory}) ],
+	providers: [WidgetFactory, provide(SchemaValidatorFactory, {useClass: ZSchemaValidatorFactory}), FormModelFactory ],
 	template: require("./form.component.html")
 })
 export class Form {
+
+	private formModel : FormModel;
 
 	private fields = {};
 	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
@@ -76,7 +80,11 @@ export class Form {
 	 */
 	@Output() changeEmitter: EventEmitter<FormValueChangeEvent> = new EventEmitter();
 
-	constructor(private elementRef : ElementRef, private schemaValidatorFactory : SchemaValidatorFactory) { }
+	constructor(
+		private elementRef: ElementRef,
+		private schemaValidatorFactory: SchemaValidatorFactory,
+		private formModelFactory: FormModelFactory
+	) { }
 
 	/**:
 	 * @deprecated
@@ -114,6 +122,10 @@ export class Form {
 	}
 
 	private parseSchema() {
+		// New stuff
+		this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
+		console.log(this.formModel);
+		// Old stuff
 		this.controlArray = new FormArray([]);
 		this.buttons = [];
 		this.fieldsets = [];
@@ -165,7 +177,6 @@ export class Form {
 
 	private createCustomValidatorFn(fieldId: string) {
 		return (control): { [key:string]: boolean } => {
-			console.log("custom validation");
 			let model = this.getModel();
 			if (model.hasOwnProperty(fieldId)) {
 				let validatorFn;
@@ -219,7 +230,6 @@ export class Form {
 	}
 
 	private onFieldValueChange() {
-		console.log("obs");
 		this.updateFieldsVisibility();
 		this.changeEmitter.emit({source: this, value: this.getModel()})
 	}
