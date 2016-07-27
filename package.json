@@ -21,6 +21,7 @@
     "tsc": "tsc",
     "prebuild": "npm run clean:dist",
     "test": "karma start",
+    "test:ci": "karma start",
     "typings": "typings",
     "start": "npm run webpack-dev-server",
     "start:hmr": "npm run server:dev:hmr",
