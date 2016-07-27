@@ -325,8 +325,17 @@ export class Form {
 	}
 
 	valid(fieldId: string) {
-		let v = this.formModel.getField(fieldId).control.valid;
-		console.log(fieldId + " : "+ this.formModel.getField(fieldId).getValue()+ "[" + v + "]");
-		return v;
+		let field = this.formModel.getField(fieldId);
+		let c = field.control;
+		let v = field.getValue();
+		let vc = c.value;
+		console.log("["+fieldId+"] "+
+					"\nfield value: "+v+
+					"\nfield value type: "+ typeof v +
+					"\ncontrol value: "+vc+
+					"\ncontrol value type: "+ typeof vc +
+					"\nvalid: "+ c.valid +
+					"\nerrors: "+JSON.stringify(c.errors) );
+		return c.valid;
 	}
 }

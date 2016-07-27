@@ -20,7 +20,7 @@
 		<div *ngFor="let fieldId of formModel.fieldIds"
 			[class.has-error]="!valid(fieldId)"
 			>
-			<field [fieldModel]="formModel.getField(fieldId)" [widget]="formModel.getField(fieldId).widgetInfo"></field>
+			<field *ngIf="formModel.getField(fieldId).visible" [fieldModel]="formModel.getField(fieldId)" [widget]="formModel.getField(fieldId).widgetInfo"></field>
 		</div>
 	</div>
 </form>

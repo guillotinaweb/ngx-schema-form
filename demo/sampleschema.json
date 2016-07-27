@@ -22,6 +22,7 @@
 			"type": "string",
 			"format": "date",
 			"widget": "date",
+			"default": "1800-12-12",
 			"placeholder": "Ex: 2009-03-11",
 			"description": "Born on"
 		},
