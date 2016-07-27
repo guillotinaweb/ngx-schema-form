@@ -10,7 +10,7 @@ import { SchemaValidatorFactory } from "./schemavalidatorfactory";
 export class FieldModel {
 	public control: FormControl;
 	public change: EventEmitter<any> = new EventEmitter();
-	customValidator: ValidatorFn = () => null;
+	customValidator: ValidatorFn = null;
 
 	constructor(
 		private schemaValidatorFactory: SchemaValidatorFactory,
@@ -38,12 +38,16 @@ export class FieldModel {
 		this.settings.value = newValue;
 	}
 
+	removeCustomValidator() {
+		this.customValidator = null;
+	}
+
 	setCustomValidator(validator: ValidatorFn) {
 		this.customValidator = validator;
 	}
 
 	private customValidatorWrapper(control: FormControl) {
-		if (this.customValidator !== undefined) {
+		if (this.customValidator !== null) {
 			return this.customValidator(control);
 		} else {
 			return null;

@@ -11,13 +11,10 @@
 			</field>
 		</div>
 	</fieldset>-->
-	<button *ngFor="let button of buttons"
-		(click)="button.action($event)"
-		type="button">
-		{{button.label}}
-	</button>
-	<div style="background: #cdeaeb">
-		<div *ngFor="let fieldId of formModel.fieldIds"
+
+	<fieldset *ngFor="let fieldset of fieldsets">
+		<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
+		<div *ngFor="let fieldId of fieldset.fields"
 			[class.has-error]="!valid(fieldId)"
 			[class.has-success]="valid(fieldId)"
 			>
@@ -26,5 +23,11 @@
 			[widget]="formModel.getField(fieldId).widgetInfo">
 			</field>
 		</div>
-	</div>
+	</fieldset>
+	<button *ngFor="let button of buttons"
+		(click)="button.action($event)"
+		type="button">
+		{{button.label}}
+	</button>
+
 </form>

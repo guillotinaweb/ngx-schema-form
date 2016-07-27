@@ -51,7 +51,6 @@ export class Form {
 	private controls: {[name:string]: FormControl} = {};
 	private widgets = [];
 	private controlArray = new FormArray([]);
-	private updatingValidity: boolean = false;
 
 	private buttons = [];
 
@@ -102,44 +101,30 @@ export class Form {
 	}
 
 	ngOnChanges(changes) {
-		console.log(changes);
-
-		let needRebuild = changes.jsonSchema || (this.jsonSchema && changes.fieldValidators);
+		let needRebuild = changes.jsonSchema;
 		if (needRebuild) {
-			this.parseSchema();
+			this.fieldsets = this.jsonSchema.fieldsets;
+			this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
+			this.formModel.change.subscribe((event) => {this.onFormValueChanged(event)});
+			this.parseButtons();
 		}
-		/*
+		
+		if (changes.fieldValidators) {
+			this.setValidators();
+		}
+
 		if (needRebuild || changes.initialValue) {
-
-			if (changes.initialValue && changes.initialValue.previousValue) {
-				this.resetAllFields();
-			}
-
 			if (this.initialValue !== null) {
-				this.applyModel();
+				this.formModel.value = this.initialValue;
 			}
-			this.controlArray.valueChanges.subscribe(() => { this.onFieldValueChange(); });
-			this.updateFieldsVisibility();
-		}*/
+		}
 	}
 
-	private parseSchema() {
-		// New stuff
-		this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
-		this.formModel.reset();
-		// Old stuff
-		/*
-		this.controlArray = new FormArray([]);
-		this.buttons = [];
-		this.fieldsets = [];
-		this.fields = {};
-		this.widgets = [];
-
-		SchemaPreprocessor.preprocess(this.jsonSchema);
-
-		this.parseFieldsets();
-		this.parseButtons();
-		this.resetAllFields();*/
+	private setValidators() {
+		this.formModel.removeCustomValidators();
+		for (let fieldId in this.fieldValidators) {
+			this.formModel.setCustomValidator(fieldId, this.fieldValidators[fieldId]);
+		}
 	}
 
 	private parseFieldsets() {
@@ -166,49 +151,10 @@ export class Form {
 		};
 	}
 
-	private applyModel() {
-		for (let fieldId in this.initialValue) {
-
-			if (this.fields.hasOwnProperty(fieldId)) {
-				this.fields[fieldId].settings.value = this.initialValue[fieldId];
-			}
-		}
+	private onFormValueChanged(event) {
+		this.changeEmitter.emit({source: this, value: event.value})
 	}
 
-	private onFieldValueChange() {
-		this.changeEmitter.emit({source: this, value: this.getModel()})
-	}
-
-	private updateFieldsValidity(sourceControl : FormControl) {
-		if ( ! this.updatingValidity ) {
-			this.updatingValidity = true;
-			let validityBefore = this.getValidityArray();
-			this.updateFieldsValidityImpl(sourceControl, validityBefore)
-			this.updatingValidity = false;
-		}
-	}
-
-	private updateFieldsValidityImpl(sourceControl : FormControl, validityBefore: string) {
-		for (let fieldId in this.controls) {
-			let control = this.controls[fieldId];
-			if(control !== sourceControl) {
-				this.controls[fieldId].updateValueAndValidity();
-			}
-		}
-
-		let validityAfter = this.getValidityArray();
-		if (validityBefore !== validityAfter) {
-			this.updateFieldsValidityImpl(sourceControl, validityAfter);
-		}
-	}
-
-	private getValidityArray() {
-		let arr = [];
-		for (let fieldId in this.controls) {
-			arr.push(this.controls[fieldId].valid);
-		}
-		return arr.join("");
-	}
 
 	private parseButtons() {
 		if (this.jsonSchema.buttons !== undefined) {
@@ -226,14 +172,7 @@ export class Form {
 	}
 
 	getModel(): any {
-		let model = {};
-		for (let id in this.fields) {
-			let field = this.fields[id];
-			if (field.visible) {
-				model[field.id] = field.settings.value;
-			}
-		}
-		return model;
+		return this.formModel.value;
 	}
 
 	valid(fieldId: string) {

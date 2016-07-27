@@ -9,7 +9,8 @@ export class FormModel {
 	private fieldModels: {[fieldId:string]: FieldModel} = {};
 	private controls: {[fieldId:string]: FormControl} = {};
 	public change: EventEmitter<any> = new EventEmitter();
-	constructor() {}
+
+	private updatingValidity: boolean = false;
 
 	getField(fieldId: string): FieldModel {
 		return this.fieldModels[fieldId];
@@ -19,6 +20,7 @@ export class FormModel {
 		this.fieldModels[fieldModel.id] = fieldModel;
 		this.controls[fieldModel.id] = fieldModel.control;
 		fieldModel.change.subscribe( (event) => {this.onFieldValueChanged(event)});
+		fieldModel.reset();
 	}
 
 	get fieldIds() {
@@ -52,18 +54,23 @@ export class FormModel {
 			}
 		});
 	}
+	
+	removeCustomValidators() {
+		for (let fieldId in this.fieldModels) {
+			this.fieldModels[fieldId].removeCustomValidator();
+		}
+	}
 
 	reset() {
 		for (let fieldId in this.fieldModels) {
 			this.fieldModels[fieldId].reset();
 		}
-		//this.updateFieldsVisibility();
 	}
 
 	private onFieldValueChanged(event) {
 		this.change.emit({source: this, value: this.value});
-		console.log("test");
 		this.updateFieldsVisibility();
+		this.updateFieldsValidity();
 	}
 
 	private updateFieldsVisibility() {
@@ -92,5 +99,37 @@ export class FormModel {
 			}
 		}
 		field.visible = false;
+	}
+
+	
+	 //Multi passes validation
+	 
+	private updateFieldsValidity() {
+		if ( ! this.updatingValidity ) {
+			this.updatingValidity = true;
+			let validityBefore = this.getValidityArray();
+			this.updateFieldsValidityImpl(validityBefore)
+			this.updatingValidity = false;
+		}
+	}
+
+	private updateFieldsValidityImpl(validityBefore: string) {
+		for (let fieldId in this.controls) {
+			let control = this.controls[fieldId];
+			this.controls[fieldId].updateValueAndValidity();
+		}
+
+		let validityAfter = this.getValidityArray();
+		if (validityBefore !== validityAfter) {
+			this.updateFieldsValidityImpl(validityAfter);
+		}
+	}
+
+	private getValidityArray() {
+		let arr = [];
+		for (let fieldId in this.controls) {
+			arr.push(this.controls[fieldId].valid);
+		}
+		return arr.join("");
 	}
 }
