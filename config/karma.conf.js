@@ -1,4 +1,4 @@
-var NODE_ENV = process.env.NODE_ENV;
+var CI = process.env.CI_MODE;
 
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.js');
@@ -82,7 +82,7 @@ module.exports = function(config) {
      * Continuous Integration mode
      * if true, Karma captures browsers, runs the tests and exits
      */
-    singleRun: NODE_ENV === "production" ? true : false
+    singleRun: CI !== undefined ? true : false
   });
 
 };
