@@ -9,7 +9,7 @@ export class FormModel {
 
 	constructor() {}
 	getField(fieldId: string): FieldModel {
-		return this.fieldModels[fieldId]; 
+		return this.fieldModels[fieldId];
 	}
 
 	addField(fieldModel: FieldModel) {
@@ -37,5 +37,11 @@ export class FormModel {
 				return validator(control.value, this.getValue(), this.controls);
 			}
 		});
+	}
+
+	reset() {
+		for (let fieldId in this.fieldModels) {
+			this.fieldModels[fieldId].reset();
+		}
 	}
 }

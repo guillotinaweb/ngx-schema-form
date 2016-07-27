@@ -11,16 +11,12 @@ export class FormModelFactory {
 
 	createFromSchema(jsonSchema) {
 		SchemaPreprocessor.preprocess(jsonSchema);
+
 		let formModel = new FormModel();
-		formModel.addField( this.createDummyField("test"));
-		formModel.addField( this.createDummyField("test2"));
 		this.createFields(formModel, jsonSchema);
+
 		return formModel;
 
-	}
-
-	private createDummyField(name: string) {
-		return new FieldModel(this.schemaValidatorFactory, name,{type:"string"},{id:"text"},true,true);
 	}
 
 	private createFields(formModel: FormModel, jsonSchema: any) {
@@ -30,10 +26,18 @@ export class FormModelFactory {
 		}
 	}
 
-	//TODO extract controls and validation
 	private createFieldModel(fieldId: string, formModel: FormModel, jsonSchema: any): FieldModel {
 		let fieldSchema = jsonSchema.properties[fieldId];
-		return new FieldModel(this.schemaValidatorFactory, fieldId, fieldSchema, fieldSchema.widget, false, jsonSchema.required.indexOf(fieldId) > -1);
+		let fieldModel = new FieldModel(
+			this.schemaValidatorFactory,
+			fieldId,
+			fieldSchema,
+			fieldSchema.widget,
+			false,
+			jsonSchema.required.indexOf(fieldId) > -1
+		);
+
+		return fieldModel;
 	}
 
 }

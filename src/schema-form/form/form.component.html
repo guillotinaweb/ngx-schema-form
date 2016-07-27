@@ -1,4 +1,5 @@
 <form ngNoForm>
+	<!--
 	<fieldset *ngFor="let fieldset of fieldsets" id="fieldset.id">
 		<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
 		<div *ngFor="let fieldId of fieldset.fields"
@@ -9,11 +10,17 @@
 			<field *ngIf="fields[fieldId].visible" [fieldModel]="fields[fieldId]" [widget]="widgets[fieldId]">
 			</field>
 		</div>
-	</fieldset>
+	</fieldset>-->
 	<button *ngFor="let button of buttons"
 		(click)="button.action($event)"
 		type="button">
 		{{button.label}}
 	</button>
-	<field *ngFor="let fieldId of formModel.fieldIds" [fieldModel]="formModel.getField(fieldId)" [widget]="widgets"></field>
+	<div style="background: #cdeaeb">
+		<div *ngFor="let fieldId of formModel.fieldIds"
+			[class.has-error]="!valid(fieldId)"
+			>
+			<field [fieldModel]="formModel.getField(fieldId)" [widget]="formModel.getField(fieldId).widgetInfo"></field>
+		</div>
+	</div>
 </form>

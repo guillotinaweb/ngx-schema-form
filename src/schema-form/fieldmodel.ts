@@ -69,6 +69,7 @@ export class FieldModel {
 		}
 
 		this.settings.value = val;
+		this.control.updateValueAndValidity();
 		
 	}
 

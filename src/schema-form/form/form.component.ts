@@ -102,11 +102,13 @@ export class Form {
 	}
 
 	ngOnChanges(changes) {
+		console.log(changes);
 
 		let needRebuild = changes.jsonSchema || (this.jsonSchema && changes.fieldValidators);
 		if (needRebuild) {
 			this.parseSchema();
 		}
+		/*
 		if (needRebuild || changes.initialValue) {
 
 			if (changes.initialValue && changes.initialValue.previousValue) {
@@ -118,14 +120,16 @@ export class Form {
 			}
 			this.controlArray.valueChanges.subscribe(() => { this.onFieldValueChange(); });
 			this.updateFieldsVisibility();
-		}
+		}*/
 	}
 
 	private parseSchema() {
 		// New stuff
 		this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
 		console.log(this.formModel);
+		this.formModel.reset();
 		// Old stuff
+		/*
 		this.controlArray = new FormArray([]);
 		this.buttons = [];
 		this.fieldsets = [];
@@ -136,7 +140,7 @@ export class Form {
 
 		this.parseFieldsets();
 		this.parseButtons();
-		this.resetAllFields();
+		this.resetAllFields();*/
 	}
 
 	private parseFieldsets() {
@@ -318,5 +322,11 @@ export class Form {
 			}
 		}
 		return model;
+	}
+
+	valid(fieldId: string) {
+		let v = this.formModel.getField(fieldId).control.valid;
+		console.log(fieldId + " : "+ this.formModel.getField(fieldId).getValue()+ "[" + v + "]");
+		return v;
 	}
 }
