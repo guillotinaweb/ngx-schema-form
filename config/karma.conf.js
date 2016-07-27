@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 module.exports = function(config) {
   var testWebpackConfig = require('./webpack.test.js');
 
@@ -84,7 +80,7 @@ module.exports = function(config) {
      * Continuous Integration mode
      * if true, Karma captures browsers, runs the tests and exits
      */
-    singleRun: false
+	singleRun: true
   });
 
 };
