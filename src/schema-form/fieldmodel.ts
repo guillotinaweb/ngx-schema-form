@@ -9,7 +9,7 @@ import { SchemaValidatorFactory } from "./schemavalidatorfactory";
 
 export class FieldModel {
 	public control: FormControl;
-	valueChanges = new EventEmitter();
+	public change: EventEmitter<any> = new EventEmitter();
 	customValidator: ValidatorFn = () => null;
 
 	constructor(
@@ -26,11 +26,16 @@ export class FieldModel {
 			validators = Validators.compose([Validators.required, validators]);
 		}
 		this.control = new FormControl("", [validators]);
+		this.control.valueChanges.subscribe((value) => {this.onValueChange(value)});
 	
 	}
 
-	getValue() {
+	get value() {
 		return this.settings.value;
+	}
+
+	set value(newValue: any) {
+		this.settings.value = newValue;
 	}
 
 	setCustomValidator(validator: ValidatorFn) {
@@ -73,4 +78,7 @@ export class FieldModel {
 		
 	}
 
+	private onValueChange(value) {
+		this.change.emit({source: this, value: value})
+	}
 }

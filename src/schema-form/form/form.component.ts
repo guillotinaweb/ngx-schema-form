@@ -98,7 +98,7 @@ export class Form {
 	 * Erase all fields.
 	 */
 	reset() {
-		this.resetAllFields();
+		this.formModel.reset();
 	}
 
 	ngOnChanges(changes) {
@@ -126,7 +126,6 @@ export class Form {
 	private parseSchema() {
 		// New stuff
 		this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
-		console.log(this.formModel);
 		this.formModel.reset();
 		// Old stuff
 		/*
@@ -149,34 +148,10 @@ export class Form {
 			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
 
 			for (let fieldId of fieldsetSchema.fields) {
-				this.parseField(this.jsonSchema, fieldId);
 				fieldset.fields.push(fieldId);
 			}
 			this.fieldsets.push(fieldset);
 		}
-	}
-
-	private parseField(schema, fieldId) {
-		let field = {id: fieldId};
-
-		let fieldSchema = schema.properties[fieldId];
-
-		let validators = this.schemaValidatorFactory.createValidatorFn(fieldSchema);
-		let customValidator = this.createCustomValidatorFn(fieldId);
-		validators = Validators.compose([customValidator, validators]);
-
-		if (schema.required.indexOf(fieldId) > -1) {
-			validators = Validators.compose([Validators.required, validators]);
-		}
-		let control = new FormControl("", [validators]);
-		control.valueChanges.subscribe( () => { this.updateFieldsValidity(control) });
-		this.controlArray.push(control);
-		this.controls[fieldId] = control;
-
-		this.widgets[fieldId] = fieldSchema.widget;
-		this.fields[fieldId] = { id: fieldId, settings: fieldSchema, control: control, visible: false };
-
-		return fieldSchema;
 	}
 
 	private createCustomValidatorFn(fieldId: string) {
@@ -191,39 +166,6 @@ export class Form {
 		};
 	}
 
-	private resetAllFields() {
-		for (let field in this.fields) {
-			this.resetField(field);
-		}
-	}
-
-	private resetField(fieldId : string) {
-		let settings = this.fields[fieldId].settings;
-		//TODO RC5 replace by markAs
-		if(!(<any>this.controls[fieldId]).markAsUntouched){
-			(<any>this.controls[fieldId])._touched=false;
-			(<any>this.controls[fieldId])._pristine=true;
-		} else {
-			(<any>console).warn("upate to RC5");
-			(<any>this.controls[fieldId]).markAsPristine();
-			(<any>this.controls[fieldId]).markAsUntouched();
-		}
-
-		let val: any = "";
-
-		if (settings.hasOwnProperty("default")) {
-			val = settings.default;
-		} else if (settings.type === "number") {
-			if (settings.minimum !== undefined) {
-				val = settings.minimum;
-			} else {
-				val = 0;
-			}
-		}
-
-		settings.value = val;
-	}
-
 	private applyModel() {
 		for (let fieldId in this.initialValue) {
 
@@ -234,37 +176,7 @@ export class Form {
 	}
 
 	private onFieldValueChange() {
-		this.updateFieldsVisibility();
 		this.changeEmitter.emit({source: this, value: this.getModel()})
-	}
-
-	private updateFieldsVisibility() {
-		for (let fieldIdx in this.fields) {
-			let field = this.fields[fieldIdx];
-
-			if (field.settings.hasOwnProperty("visibleIf")) {
-				this.updateFieldVisibility(field);
-			} else {
-				field.visible = true;
-			}
-		}
-	}
-
-	private updateFieldVisibility(field) {
-		let visibleIf = field.settings.visibleIf;
-		for (let conditionField in visibleIf) {
-
-			if (this.fields[conditionField].visible) {
-				let values = visibleIf[conditionField];
-				let control = this.controls[conditionField];
-
-				if (values.indexOf(control.value) > -1) {
-					field.visible = true;
-					return;
-				}
-			}
-		}
-		field.visible = false;
 	}
 
 	private updateFieldsValidity(sourceControl : FormControl) {
@@ -327,15 +239,6 @@ export class Form {
 	valid(fieldId: string) {
 		let field = this.formModel.getField(fieldId);
 		let c = field.control;
-		let v = field.getValue();
-		let vc = c.value;
-		console.log("["+fieldId+"] "+
-					"\nfield value: "+v+
-					"\nfield value type: "+ typeof v +
-					"\ncontrol value: "+vc+
-					"\ncontrol value type: "+ typeof vc +
-					"\nvalid: "+ c.valid +
-					"\nerrors: "+JSON.stringify(c.errors) );
 		return c.valid;
 	}
 }

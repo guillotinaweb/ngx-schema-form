@@ -6,7 +6,7 @@
 			[class.has-error]="!fields[fieldId].control.valid"
 			[class.has-success]="fields[fieldId].control.valid"
 			class="form-group">
-			
+
 			<field *ngIf="fields[fieldId].visible" [fieldModel]="fields[fieldId]" [widget]="widgets[fieldId]">
 			</field>
 		</div>
@@ -19,8 +19,12 @@
 	<div style="background: #cdeaeb">
 		<div *ngFor="let fieldId of formModel.fieldIds"
 			[class.has-error]="!valid(fieldId)"
+			[class.has-success]="valid(fieldId)"
 			>
-			<field *ngIf="formModel.getField(fieldId).visible" [fieldModel]="formModel.getField(fieldId)" [widget]="formModel.getField(fieldId).widgetInfo"></field>
+			<field *ngIf="formModel.getField(fieldId).visible"
+			[fieldModel]="formModel.getField(fieldId)"
+			[widget]="formModel.getField(fieldId).widgetInfo">
+			</field>
 		</div>
 	</div>
 </form>
