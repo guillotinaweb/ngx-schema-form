@@ -2,10 +2,9 @@ import {
 	Component,
 	Input
 } from "@angular/core";
-import { FormControl } from "@angular/forms"
 
-import { WidgetChooserComponent } from "./widgetchooser/widgetchooser.component"
-import { FieldModel } from "./fieldmodel.ts";
+import { WidgetChooserComponent } from "../widgetchooser/widgetchooser.component"
+import { FieldModel } from "../model";
 
 @Component({
 	selector: "field",

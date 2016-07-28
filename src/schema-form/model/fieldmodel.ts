@@ -5,7 +5,7 @@ import {
 	Validators
 } from "@angular/forms";
 
-import { SchemaValidatorFactory } from "./schemavalidatorfactory";
+import { SchemaValidatorFactory } from "../schemavalidatorfactory";
 
 export class FieldModel {
 	public control: FormControl;

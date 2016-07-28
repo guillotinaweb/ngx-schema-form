@@ -1,8 +1,10 @@
 import { Injectable } from "@angular/core";
+
 import { FormModel } from "./formmodel";
 import { FieldModel } from "./fieldmodel";
-import { SchemaPreprocessor } from "./schemapreprocessor";
-import { SchemaValidatorFactory } from "./schemavalidatorfactory";
+import { SchemaPreprocessor } from "../schemapreprocessor";
+import { SchemaValidatorFactory } from "../schemavalidatorfactory";
+
 @Injectable()
 export class FormModelFactory {
 

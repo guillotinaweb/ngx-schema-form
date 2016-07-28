@@ -2,7 +2,7 @@ import { EventEmitter } from "@angular/core";
 import { FormControl } from "@angular/forms";
 
 import { FieldModel } from "./fieldmodel";
-import { Validator } from "./validator";
+import { Validator } from "../validator";
 
 export class FormModel {
 
@@ -28,7 +28,7 @@ export class FormModel {
 		return keys;
 	}
 
-	get value() {
+	getValue() {
 		let value = {};
 		for (let fieldId in this.fieldModels) {
 			if (this.fieldModels[fieldId].visible) {
@@ -38,7 +38,7 @@ export class FormModel {
 		return value;
 	}
 
-	set value(o: any) {
+	setValue(o: any) {
 		this.reset();
 		for (let fieldId in o) {
 			if (this.getField(fieldId) !== undefined) {
@@ -50,7 +50,7 @@ export class FormModel {
 	setCustomValidator(fieldId: string, validator: Validator) {
 		this.fieldModels[fieldId].setCustomValidator( (control) => {
 			if (this.fieldModels[fieldId].visible) {
-				return validator(control.value, this.value, this.controls);
+				return validator(control.value, this.getValue(), this.controls);
 			}
 		});
 	}
@@ -68,7 +68,7 @@ export class FormModel {
 	}
 
 	private onFieldValueChanged(event) {
-		this.change.emit({source: this, value: this.value});
+		this.change.emit({source: this, value: this.getValue()});
 		this.updateFieldsVisibility();
 		this.updateFieldsValidity();
 	}

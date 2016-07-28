@@ -1,7 +1,6 @@
 
 export class SchemaPreprocessor {
 
-
 	static preprocess(jsonSchema: any): any {
 		SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema);
 		SchemaPreprocessor.normalizeAllWidgets(jsonSchema);

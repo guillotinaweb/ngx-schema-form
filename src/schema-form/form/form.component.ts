@@ -1,30 +1,21 @@
 import {
 	Component,
-	ComponentResolver,
 	ElementRef,
 	EventEmitter,
 	Input,
-	Inject,
 	Output,
 	provide
 } from "@angular/core";
-import {
-	FormControl,
-	FormArray,
-	Validators
-} from "@angular/forms";
-import { FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 import { Validator } from "../validator";
-import { FieldComponent } from "../field.component";
-import { FieldModel } from "../fieldmodel";
-import { FormModel } from "../formmodel";
-import { FormModelFactory } from "../formmodelfactory";
-import { WidgetChooserComponent } from "../widgetchooser/widgetchooser.component";
+import { FieldComponent } from "../field/field.component";
+import {
+	FormModel,
+	FormModelFactory
+} from "../model";
 import { WidgetFactory } from "../widgetfactory";
 import { WidgetRegistry } from "../widgetregistry";
-import { SchemaPreprocessor } from "../schemapreprocessor";
 
 
 export interface FormValueChangeEvent {
@@ -37,7 +28,7 @@ export interface FormValueChangeEvent {
  */
 @Component({
 	selector: "schema-form",
-	directives: [FieldComponent, WidgetChooserComponent, FORM_DIRECTIVES, REACTIVE_FORM_DIRECTIVES],
+	directives: [FieldComponent],
 	providers: [WidgetFactory, provide(SchemaValidatorFactory, {useClass: ZSchemaValidatorFactory}), FormModelFactory ],
 	template: require("./form.component.html")
 })
@@ -45,7 +36,7 @@ export class Form {
 
 	private formModel : FormModel;
 
-	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
+	private fieldsets: { fields: string[], id: string, title: string }[] = [];
 
 	private buttons = [];
 
@@ -76,7 +67,6 @@ export class Form {
 
 	constructor(
 		private elementRef: ElementRef,
-		private schemaValidatorFactory: SchemaValidatorFactory,
 		private formModelFactory: FormModelFactory
 	) { }
 
@@ -93,6 +83,10 @@ export class Form {
 	 */
 	reset() {
 		this.formModel.reset();
+	}
+
+	get value(): any {
+		return this.formModel.getValue();
 	}
 
 	ngOnChanges(changes) {
@@ -112,7 +106,7 @@ export class Form {
 
 		if (needRebuild || changes.initialValue) {
 			if (this.initialValue !== null) {
-				this.formModel.value = this.initialValue;
+				this.formModel.setValue(this.initialValue);
 			}
 		}
 	}
@@ -147,9 +141,6 @@ export class Form {
 		};
 	}
 
-	getModel(): any {
-		return this.formModel.value;
-	}
 
 	private valid(fieldId: string) {
 		let field = this.formModel.getField(fieldId);
