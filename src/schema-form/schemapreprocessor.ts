@@ -4,6 +4,7 @@ export class SchemaPreprocessor {
 	static preprocess(jsonSchema: any): any {
 		SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema);
 		SchemaPreprocessor.normalizeAllWidgets(jsonSchema);
+		SchemaPreprocessor.normalizeRequired(jsonSchema);
 	}
 
 	private static checkAndCreateFieldsets(jsonSchema: any) {
@@ -75,5 +76,11 @@ export class SchemaPreprocessor {
 			widget = {"id": widget};
 		}
 		fieldSchema.widget = widget;
+	}
+
+	private static normalizeRequired(jsonSchema) {
+		if (jsonSchema.required === undefined) {
+			jsonSchema.required = [];
+		}
 	}
 }
