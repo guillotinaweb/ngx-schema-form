@@ -12,7 +12,7 @@ You can also test the module on [the website](https://makinacorpus.github.com/an
 * Allow initialisation from previous values
 * Validation handled by z-schema
 * Allow injection of custom validators
-* Allow declaration of custom field types
+* Allow declaration of custom widgets
 
 ## Setup
 To use Angular2 Schema Form in your project, simply execute the following command:
@@ -27,16 +27,16 @@ You just have to check that all the peer-dependencies of this module are satisfi
 Here is an example of schema that can be converted to a form:
 
 ## Quick start
-1. To use this module, you have to declare the `FieldRegistryService` as a provider at bootstrap.
+1. To use this module, you have to declare the `WidgetRegistry` as a provider at bootstrap.
 
   ```js
   // main.ts
   import { bootstrap } from "@angular/platform-browser-dynamic";
   import { disableDeprecatedForms, provideForms } from "@angular/forms"
-  import { FieldRegistryService } from "angular2-schema-form";
+  import { WidgetRegistry } from "angular2-schema-form";
   import { MyApp } from "./app/app.component";
 
-  bootstrap(MyApp,[disableDeprecatedForms(), provideForms(), FieldRegistryService]);
+  bootstrap(MyApp,[disableDeprecatedForms(), provideForms(), WidgetRegistry]);
   ```
 
 2. Add the `schema-form` to your template
@@ -293,9 +293,8 @@ export class MyApp {
 
 ```
 
-## Creating a custom field
-TODO add guide.
-Angular2 schema form allows you to create your own fields. Currently this feature is not completely defined and API could change.
+## Creating a custom widget
+Angular2 schema form allows you to create your own widget. Currently this feature is not completely defined and API could change.
 
 ## Building the API documentation
 
