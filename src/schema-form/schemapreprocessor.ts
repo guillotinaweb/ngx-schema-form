@@ -11,7 +11,7 @@ export class SchemaPreprocessor {
 			if (jsonSchema.order !== undefined) {
 				SchemaPreprocessor.replaceOrderByFieldsets(jsonSchema);
 			} else {
-				throw "A valid schema must contain a 'fieldsets' or an 'order' property";
+				SchemaPreprocessor.createFieldsets(jsonSchema);
 			}
 		}
 		SchemaPreprocessor.checkFieldsUsage(jsonSchema);
@@ -47,7 +47,10 @@ export class SchemaPreprocessor {
 			console.log("Referencing non-existent field '" + remainingfieldsId + "' in one or more fieldsets");
 		}
 	}
-
+	private static createFieldsets(jsonSchema) {
+		jsonSchema.order = Object.keys(jsonSchema.properties);
+		SchemaPreprocessor.replaceOrderByFieldsets(jsonSchema);
+	}
 	private static replaceOrderByFieldsets(jsonSchema){
 		jsonSchema.fieldsets = [{
 			id: "fieldset-default",

@@ -94,8 +94,8 @@ export class Form {
 
 		let needRebuild = changes.jsonSchema;
 		if (needRebuild) {
-			this.fieldsets = this.jsonSchema.fieldsets;
 			this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
+			this.fieldsets = this.jsonSchema.fieldsets;
 			this.formModel.change.subscribe((event) => {this.onFormValueChanged(event)});
 			this.parseButtons();
 		}
