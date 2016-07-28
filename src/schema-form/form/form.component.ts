@@ -45,12 +45,7 @@ export class Form {
 
 	private formModel : FormModel;
 
-	private fields = {};
 	private fieldsets: { fields: { field: any, type: string, id: string, settings: any }[], id: string, title: string }[] = [];
-
-	private controls: {[name:string]: FormControl} = {};
-	private widgets = [];
-	private controlArray = new FormArray([]);
 
 	private buttons = [];
 
@@ -77,7 +72,7 @@ export class Form {
 	/**
 	 * EventEmitter triggered when one of the field value is changed
 	 */
-	@Output() changeEmitter: EventEmitter<FormValueChangeEvent> = new EventEmitter();
+	@Output() change: EventEmitter<FormValueChangeEvent> = new EventEmitter();
 
 	constructor(
 		private elementRef: ElementRef,
@@ -101,6 +96,8 @@ export class Form {
 	}
 
 	ngOnChanges(changes) {
+		// TODO check that input changes can be in any order.
+
 		let needRebuild = changes.jsonSchema;
 		if (needRebuild) {
 			this.fieldsets = this.jsonSchema.fieldsets;
@@ -127,55 +124,34 @@ export class Form {
 		}
 	}
 
-	private parseFieldsets() {
-		for (let fieldsetId in this.jsonSchema.fieldsets) {
-			let fieldsetSchema = this.jsonSchema.fieldsets[fieldsetId];
-			let fieldset = { fields: [], id: fieldsetSchema.id, title: fieldsetSchema.title };
-
-			for (let fieldId of fieldsetSchema.fields) {
-				fieldset.fields.push(fieldId);
-			}
-			this.fieldsets.push(fieldset);
-		}
-	}
-
-	private createCustomValidatorFn(fieldId: string) {
-		return (control): { [key:string]: boolean } => {
-			let model = this.getModel();
-			if (model.hasOwnProperty(fieldId)) {
-				let validatorFn;
-				if (validatorFn = this.fieldValidators[fieldId]) {
-					return validatorFn(control.value, model, this.controls);
-				}
-			}
-		};
-	}
-
 	private onFormValueChanged(event) {
-		this.changeEmitter.emit({source: this, value: event.value})
+		this.change.emit({source: this, value: event.value})
 	}
-
 
 	private parseButtons() {
 		if (this.jsonSchema.buttons !== undefined) {
 			this.buttons = this.jsonSchema.buttons;
 
 			for (let button of this.buttons) {
-				button.action = (event) => {
-					if (button.id && this.actions[button.id]) {
-						this.actions[button.id](this, button.parameters);
-					}
-					event.preventDefault();
-				};
+				this.createButtonCallback(button);
 			}
 		}
+	}
+
+	private createButtonCallback(button) {
+		button.action = (e) => {
+			if (button.id && this.actions[button.id]) {
+				this.actions[button.id](this, button.parameters);
+			}
+			e.preventDefault();
+		};
 	}
 
 	getModel(): any {
 		return this.formModel.value;
 	}
 
-	valid(fieldId: string) {
+	private valid(fieldId: string) {
 		let field = this.formModel.getField(fieldId);
 		let c = field.control;
 		return c.valid;
