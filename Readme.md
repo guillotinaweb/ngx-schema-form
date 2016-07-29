@@ -1,6 +1,7 @@
 # Angular2 Schema Form
 
-Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a JSON schema.
+Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
+
 
 ## Demo
 There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Angular2 Schema Form.
@@ -21,8 +22,51 @@ To use Angular2 Schema Form in your project, simply execute the following comman
   npm install angular2-schema-form --save-dev
 ```
 
-You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
+## Minimal example
 
+```js
+import {
+	Component
+} from "@angular/core";
+import {
+	disableDeprecatedForms,
+	provideForms
+} from "@angular/forms"
+import { bootstrap } from "@angular/platform-browser-dynamic";
+import {
+	Form,
+	WidgetRegistry
+} from "angular2-schema-form";
+
+@Component({
+	selector:"minimal-app",
+	template: '<schema-form [schema]="mySchema"></schema-form>',
+	directives: [Form]
+})
+class AppComponent {
+	mySchema = {
+		"properties": {
+			"firstName": {
+				"type": "string",
+				"description": "First name"
+			},
+			"lastName": {
+				"type": "string",
+				"description": "Last name"
+			},
+			"age": {
+				"type": "integer",
+				"description": "Age",
+				"minimum": 12
+			}
+		},
+	}
+}
+
+bootstrap(AppComponent, [disableDeprecatedForms(), provideForms(), WidgetRegistry]);
+```
+
+You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
 ## Input Schema
 Here is an example of schema that can be converted to a form:
 
