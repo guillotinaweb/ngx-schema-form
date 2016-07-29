@@ -68,9 +68,9 @@ export class FormModel {
 	}
 
 	private onFieldValueChanged(event) {
-		this.change.emit({source: this, value: this.getValue()});
 		this.updateFieldsVisibility();
 		this.updateFieldsValidity();
+		this.change.emit({source: this, value: this.getValue()});
 	}
 
 	private updateFieldsVisibility() {
