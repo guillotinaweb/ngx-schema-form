@@ -9,8 +9,9 @@ export class FormModel {
 	private fieldModels: {[fieldId:string]: FieldModel} = {};
 	private controls: {[fieldId:string]: FormControl} = {};
 	public change: EventEmitter<any> = new EventEmitter();
+	private value = {};
 
-	private updatingValidity: boolean = false;
+	private updatingFieldsState: boolean = false;
 
 	getField(fieldId: string): FieldModel {
 		return this.fieldModels[fieldId];
@@ -29,20 +30,24 @@ export class FormModel {
 	}
 
 	getValue() {
+		return this.value;
+	}
+
+	updateValue() {
 		let value = {};
 		for (let fieldId in this.fieldModels) {
 			if (this.fieldModels[fieldId].visible) {
-				value[fieldId] = this.fieldModels[fieldId].value;
+				value[fieldId] = this.fieldModels[fieldId].getValue();
 			}
 		}
-		return value;
+		this.value = value;
 	}
 
 	setValue(o: any) {
 		this.reset();
 		for (let fieldId in o) {
 			if (this.getField(fieldId) !== undefined) {
-				this.getField(fieldId).value = o[fieldId];
+				this.getField(fieldId).setValue(o[fieldId]);
 			}
 		}
 	}
@@ -68,9 +73,14 @@ export class FormModel {
 	}
 
 	private onFieldValueChanged(event) {
-		this.updateFieldsVisibility();
-		this.updateFieldsValidity();
-		this.change.emit({source: this, value: this.getValue()});
+		if ( ! this.updatingFieldsState ) {
+			this.updatingFieldsState = true;
+			this.updateValue();
+			this.updateFieldsVisibility();
+			this.updateFieldsValidity();
+			this.change.emit({source: this, value: this.getValue()});
+			this.updatingFieldsState = false;
+		}
 	}
 
 	private updateFieldsVisibility() {
@@ -90,7 +100,7 @@ export class FormModel {
 		for (let conditionFieldId in visibleIf) {
 			if (this.getField(conditionFieldId).visible) {
 				let values = visibleIf[conditionFieldId];
-				let value = this.getField(conditionFieldId).value;
+				let value = this.getField(conditionFieldId).getValue();
 
 				if (values.indexOf(value) > -1) {
 					field.visible = true;
@@ -101,22 +111,18 @@ export class FormModel {
 		field.visible = false;
 	}
 
-	
-	 //Multi passes validation
-	 
+
+	//Multi passes validation
+
 	private updateFieldsValidity() {
-		if ( ! this.updatingValidity ) {
-			this.updatingValidity = true;
-			let validityBefore = this.getValidityArray();
-			this.updateFieldsValidityImpl(validityBefore)
-			this.updatingValidity = false;
-		}
+		let validityBefore = this.getValidityArray();
+		this.updateFieldsValidityImpl(validityBefore)
 	}
 
 	private updateFieldsValidityImpl(validityBefore: string) {
 		for (let fieldId in this.controls) {
 			let control = this.controls[fieldId];
-			this.controls[fieldId].updateValueAndValidity();
+			this.controls[fieldId].updateValueAndValidity({onlySelf: true, emitEvent: false});
 		}
 
 		let validityAfter = this.getValidityArray();
