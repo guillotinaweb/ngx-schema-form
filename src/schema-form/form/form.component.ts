@@ -104,8 +104,11 @@ export class Form {
 		}
 
 		if (needRebuild || changes.initialValue) {
-			if (this.initialValue !== null) {
-				this.formModel.setValue(this.initialValue);
+			if(this.formModel !== undefined) {
+				if (this.initialValue !== null) {
+					this.formModel.setValue(this.initialValue);
+				}
+				this.formModel.updateState();
 			}
 		}
 		if (needRebuild) {

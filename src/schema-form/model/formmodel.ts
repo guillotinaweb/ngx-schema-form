@@ -73,6 +73,10 @@ export class FormModel {
 	}
 
 	private onFieldValueChanged(event) {
+		this.updateState();
+	}
+
+	updateState() {
 		if ( ! this.updatingFieldsState ) {
 			this.updatingFieldsState = true;
 			this.updateValue();
