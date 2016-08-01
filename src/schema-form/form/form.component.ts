@@ -62,8 +62,8 @@ export class Form {
 
 	/**
 	 * EventEmitter triggered when one of the field value is changed
-	 */
-	@Output() change: EventEmitter<FormValueChangeEvent> = new EventEmitter();
+	 */on
+	@Output() onChange: EventEmitter<FormValueChangeEvent> = new EventEmitter(true);
 
 	constructor(
 		private elementRef: ElementRef,
@@ -96,7 +96,6 @@ export class Form {
 		if (needRebuild) {
 			this.formModel = this.formModelFactory.createFromSchema(this.jsonSchema);
 			this.fieldsets = this.jsonSchema.fieldsets;
-			this.formModel.change.subscribe((event) => {this.onFormValueChanged(event)});
 			this.parseButtons();
 		}
 		
@@ -105,9 +104,17 @@ export class Form {
 		}
 
 		if (needRebuild || changes.initialValue) {
-			if (this.initialValue !== null) {
-				this.formModel.setValue(this.initialValue);
+			if(this.formModel !== undefined) {
+				if (this.initialValue !== null) {
+					this.formModel.setValue(this.initialValue);
+				}
+				this.formModel.updateState();
 			}
+		}
+		if (needRebuild) {
+			this.formModel.change.subscribe((event) => {
+				this.onFormValueChanged(event)
+			});
 		}
 	}
 
@@ -119,7 +126,7 @@ export class Form {
 	}
 
 	private onFormValueChanged(event) {
-		this.change.emit({source: this, value: event.value})
+		this.onChange.emit({source: this, value: event.value})
 	}
 
 	private parseButtons() {
