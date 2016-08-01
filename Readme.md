@@ -23,7 +23,7 @@ To use Angular2 Schema Form in your project, simply execute the following comman
 ```
 
 ## Minimal example
-
+Here our goal will be to create a simple login form.
 ```js
 import {
 	Component
@@ -46,19 +46,18 @@ import {
 class AppComponent {
 	mySchema = {
 		"properties": {
-			"firstName": {
+			"login": {
 				"type": "string",
-				"description": "First name"
+				"description": "username"
 			},
-			"lastName": {
+			"password": {
 				"type": "string",
-				"description": "Last name"
+				"description": "Password"
 			},
-			"age": {
-				"type": "integer",
-				"description": "Age",
-				"minimum": 12
-			}
+      "rememberMe": {
+        "type": "boolean",
+        "description": "Remember me"
+      }
 		},
 	}
 }
@@ -116,7 +115,7 @@ Here is an example of schema that can be converted to a form:
   <schema-form [schema]='mySchema' ... ></schema-form>
   ...
   ```
-  
+
   ```js
   // myapp.component.ts
   ...
@@ -139,7 +138,7 @@ Here is an example of schema that can be converted to a form:
 
   ```js
   // myapp.component.ts
-  
+
   @Component({ ... })
   class MyApp {
     ...
@@ -285,7 +284,7 @@ In the SchemaForm host Component:
 export class MyApp {
   ...
   private validators = {};
-  
+
   constructor() {
     this.validators["username"] = (value) => {
       if (value.split('').reverse().join('') === value) {
@@ -294,7 +293,7 @@ export class MyApp {
         return {"palindrome": {"actualValue": value}};
       }
     }
-    
+
     this.validators["email"] = (value, model) => {
       if (isPresent(model.username)) {
         let prefix = value.split("@")[0];
