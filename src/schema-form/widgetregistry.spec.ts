@@ -9,7 +9,7 @@ import {
 
 import {
 	IntegerWidget,
-	TextLineWidget,
+	TextAreaWidget,
 	StringWidget
 } from "./widgets";
 
@@ -19,7 +19,7 @@ describe("WidgetRegistry", () => {
 
 	let STRING_TYPE = "string";
 	let INT_TYPE = "integer";
-	let TEXTLINE_TYPE = "textline";
+	let TEXTAREA_TYPE = "textarea";
 
 	let A_NOT_REGISTERED_TYPE = "FOOBARSTRING";
 	let THE_DEFAULT_FIELD_TYPE = class { };
@@ -35,11 +35,11 @@ describe("WidgetRegistry", () => {
 	it("should be initialized with primitives widgets", () => {
 		let stringWidget = registry.getWidgetType(STRING_TYPE);
 		let integerWidget = registry.getWidgetType(INT_TYPE);
-		let textlineWidget = registry.getWidgetType(TEXTLINE_TYPE);
+		let textareaWidget = registry.getWidgetType(TEXTAREA_TYPE);
 
 		expect(stringWidget).toBe(StringWidget);
 		expect(integerWidget).toBe(IntegerWidget);
-		expect(textlineWidget).toBe(TextLineWidget);
+		expect(textareaWidget).toBe(TextAreaWidget);
 	});
 
 	it("should return a default widget if there is no matching string in widgets", () => {

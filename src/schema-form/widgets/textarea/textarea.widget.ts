@@ -7,11 +7,11 @@ import { REACTIVE_FORM_DIRECTIVES } from "@angular/forms";
 import { BaseWidget } from "../base";
 
 @Component({
-	selector: "textline-widget",
-	template: require("./textline.widget.html"),
+	selector: "textarea-widget",
+	template: require("./textarea.widget.html"),
 	directives: [REACTIVE_FORM_DIRECTIVES]
 })
-export class TextLineWidget extends BaseWidget {
+export class TextAreaWidget extends BaseWidget {
 
 	@Input("value") value: string = "";
 	@Input() validators;

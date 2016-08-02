@@ -3,7 +3,7 @@ import {
 	CheckboxWidget,
 	FileWidget,
 	IntegerWidget,
-	TextLineWidget,
+	TextAreaWidget,
 	RadioWidget,
 	RangeWidget,
 	RichTextWidget,
@@ -31,7 +31,7 @@ export class WidgetRegistry {
 		this.registerWidgetType("number", IntegerWidget);
 		this.registerWidgetType("range", RangeWidget);
 
-		this.registerWidgetType("textline", TextLineWidget);
+		this.registerWidgetType("textarea", TextAreaWidget);
 
 		this.registerWidgetType("file", FileWidget);
 		this.registerWidgetType("select", SelectWidget);

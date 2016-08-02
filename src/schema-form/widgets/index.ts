@@ -8,4 +8,4 @@ export * from "./range/range.widget";
 export * from "./richtext/richtext.widget";
 export * from "./select/select.widget";
 export * from "./string/string.widget";
-export * from "./textline/textline.widget";
+export * from "./textarea/textarea.widget";
