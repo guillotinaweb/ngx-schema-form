@@ -36,8 +36,8 @@ export class FormModel {
 	updateValue() {
 		let value = {};
 		for (let fieldId in this.fieldModels) {
-			if (this.fieldModels[fieldId].visible) {
-				value[fieldId] = this.fieldModels[fieldId].getValue();
+			if (this.getField(fieldId).visible) {
+				value[fieldId] = this.getField(fieldId).getValue();
 			}
 		}
 		this.value = value;
@@ -53,22 +53,25 @@ export class FormModel {
 	}
 
 	setCustomValidator(fieldId: string, validator: Validator) {
-		this.fieldModels[fieldId].setCustomValidator( (control) => {
-			if (this.fieldModels[fieldId].visible) {
-				return validator(control.value, this.getValue(), this.controls);
-			}
-		});
+		let fieldModel = this.getField(fieldId);
+		if (fieldModel !== undefined) {
+			fieldModel.setCustomValidator((control) => {
+				if (fieldModel.visible) {
+					return validator(control.value, this.getValue(), this.controls);
+				}
+			});
+		}
 	}
 	
 	removeCustomValidators() {
 		for (let fieldId in this.fieldModels) {
-			this.fieldModels[fieldId].removeCustomValidator();
+			this.getField(fieldId).removeCustomValidator();
 		}
 	}
 
 	reset() {
 		for (let fieldId in this.fieldModels) {
-			this.fieldModels[fieldId].reset();
+			this.getField(fieldId).reset();
 		}
 	}
 

@@ -1,10 +1,20 @@
+import { isBlank } from "./utils"
 
 export class SchemaPreprocessor {
 
 	static preprocess(jsonSchema: any): any {
+		jsonSchema = jsonSchema || {};
+		SchemaPreprocessor.checkProperties(jsonSchema);
 		SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema);
 		SchemaPreprocessor.normalizeAllWidgets(jsonSchema);
 		SchemaPreprocessor.normalizeRequired(jsonSchema);
+	}
+
+	private static checkProperties(jsonSchema) {
+		if (isBlank(jsonSchema.properties)) {
+			jsonSchema.properties = {};
+			console.log("Provided json schema does not contain a 'properties' entry. Schema will be empty");
+		}
 	}
 
 	private static checkAndCreateFieldsets(jsonSchema: any) {
