@@ -49,7 +49,7 @@ describe("WidgetRegistry", () => {
 	});
 
 	it("should return the widget type set when there is no matching type registered", () => {
-		registry.setDefaultWidgetType(THE_DEFAULT_FIELD_TYPE);
+		registry.setDefaultWidget(THE_DEFAULT_FIELD_TYPE);
 
 		let widget = registry.getWidgetType(A_NOT_REGISTERED_TYPE);
 

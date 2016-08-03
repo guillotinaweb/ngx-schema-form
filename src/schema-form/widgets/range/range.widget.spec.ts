@@ -18,7 +18,7 @@ import { RangeWidget } from "./range.widget";
 
 describe("RangeWidget", () => {
 	let tcb: TestComponentBuilder;
-	let THE_VALUE = 1337;
+	let THE_VALUE = 12;
 	beforeEachProviders(() => [TestComponentBuilder, provideForms()]);
 
 	beforeEach(inject([TestComponentBuilder], _tcb => {

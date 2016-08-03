@@ -38,11 +38,12 @@ describe("WidgetChooserComponent", () => {
 
 	it("should create a widget", done => {
 		tcb.createAsync(WidgetChooserComponent).then((fixture) => {
-			let widgetComponent = fixture.componentInstance;
-			widgetComponent.id = "string";
-			widgetComponent.settings = { required: true };
+			let chooser = fixture.componentInstance;
+			chooser.id = "string";
+			chooser.settings = { required: true };
+			chooser.widget = {id: "string"};
 			fixture.detectChanges();
-			expect(factory.createWidget).toHaveBeenCalledWith(widgetComponent.container, "string");
+			expect(factory.createWidget).toHaveBeenCalledWith(chooser.container, "string");
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
 			done();

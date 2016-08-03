@@ -15,9 +15,7 @@ describe("SchemaPreprocessor", () => {
 			"order": ["name","email"]
 		};
 		
-		let p = new SchemaPreprocessor(schema);
-
-		p.preprocess();
+		SchemaPreprocessor.preprocess(schema);
 
 		expect(schema.fieldsets).toBeDefined();
 	})

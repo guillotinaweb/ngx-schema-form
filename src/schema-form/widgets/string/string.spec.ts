@@ -25,10 +25,10 @@ describe("StringWidget", () => {
 
 	it("should initialize value from input", done => {
 		tcb.createAsync(StringWidget).then((fixture) => {
-			fixture.detectChanges();
 			let widgetComponent = fixture.componentInstance;
-
+			widgetComponent.settings.widget= {id:"string"};
 			widgetComponent.settings.value = THE_VALUE;
+
 			fixture.detectChanges();
 
 			let element = fixture.debugElement.nativeElement.querySelector("input");
