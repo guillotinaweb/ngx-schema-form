@@ -1,9 +1,7 @@
-import { FormControl } from "@angular/forms";
-import { OpaqueToken } from "@angular/core";
 import ZSchema = require("z-schema");
 
 export abstract class SchemaValidatorFactory {
-	abstract createValidatorFn(schema) : (control: FormControl) => any;
+	abstract createValidatorFn(schema) : (value: any) => any;
 }
 
 export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
@@ -15,8 +13,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 	}
 
 	createValidatorFn(schema : any) {
-		return (control): { [key: string]: boolean } => {
-			let value = control.value;
+		return (value): { [key: string]: boolean } => {
 
 			if (schema.type === "number" || schema.type === "integer") {
 				value = +value;

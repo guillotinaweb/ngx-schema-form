@@ -22,7 +22,8 @@ export class FieldModel {
 		public visible: boolean,
 		public required: boolean
 	) {
-		let validators = this.schemaValidatorFactory.createValidatorFn(this.settings);
+		let schemaValidator = this.schemaValidatorFactory.createValidatorFn(this.settings);
+		let validators = (control: FormControl) => {return schemaValidator(control.value)};
 		validators = Validators.compose([(control) => {return this.customValidatorWrapper(<FormControl>control);}, validators]);
 		if (this.required) {
 			validators = Validators.compose([Validators.required, validators]);
