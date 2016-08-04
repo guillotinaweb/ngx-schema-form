@@ -1,4 +1,4 @@
-# Angular2 Schema Form
+# Angular2 Schema Form [![Build Status](https://travis-ci.org/makinacorpus/angular2-schema-form.svg?branch=master)](https://travis-ci.org/makinacorpus/angular2-schema-form)
 
 Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
 
