@@ -2,6 +2,7 @@ import {
 	Component,
 	Input,
 	OnInit,
+	ViewChild,
 	ViewContainerRef
 } from "@angular/core";
 import { Validators } from "@angular/common";
@@ -12,12 +13,12 @@ import { DefaultWidget } from "../widgets";
 
 @Component({
 	selector: "widget-chooser",
-	template: "",
+	template: "<div #target></div>",
 })
-export class WidgetChooserComponent implements OnInit {
+export class WidgetChooserComponent {
 
 	private widgetFactory: WidgetFactory;
-	private container: ViewContainerRef;
+	@ViewChild('target', {read: ViewContainerRef}) private container: ViewContainerRef;
 	private widgetInstance: any;
 	
 	@Input() widget: any;
@@ -25,12 +26,11 @@ export class WidgetChooserComponent implements OnInit {
 	@Input("settings") settings: any;
 	@Input("control") control: FormControl;
 
-	constructor(widgetFactory: WidgetFactory = null, container: ViewContainerRef = null) {
+	constructor(widgetFactory: WidgetFactory = null) {
 		this.widgetFactory = widgetFactory;
-		this.container = container;
 	}
 
-	ngOnInit() {
+	ngAfterViewInit() {
 		this.widgetFactory.createWidget(this.container, this.widget.id).then(ref => {
 			//TODO change settings by schema and rename widget by options.
 			ref.instance.settings = this.settings;

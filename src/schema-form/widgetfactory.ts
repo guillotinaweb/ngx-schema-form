@@ -20,14 +20,12 @@ export class WidgetFactory {
 	}
 
 	createWidget(container: ViewContainerRef, type: string): Promise<ComponentRef<any>> {
-
 		return new Promise(
 			(resolve, reject) => {
-				let ComponentClass = this.registry.getWidgetType(type);
-				this.resolver.resolveComponent(ComponentClass).then(
+				let componentClass = this.registry.getWidgetType(type);
+				this.resolver.resolveComponent(componentClass).then(
 					componentFactory => {
-						let injector = ReflectiveInjector.fromResolvedProviders([], container.injector);
-						let component = container.createComponent(componentFactory, 0, injector);
+						let component = container.createComponent(componentFactory);
 						resolve(component);
 					}
 				);
