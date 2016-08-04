@@ -5,11 +5,17 @@ node_js:
     - "node"
 env:
     - CXX=g++-4.8
+install:
+    - ./install-peers.sh
+    - npm install
+
 addons:
     apt:
         sources:
             - ubuntu-toolchain-r-test
         packages:
             - g++-4.8
+git:
+    depth: 4
 
 sudo: false
