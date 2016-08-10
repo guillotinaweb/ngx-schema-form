@@ -13,7 +13,24 @@ export class ObjectProperty extends FormPropertyGroup {
 		schema: any,
 		parent : ObjectProperty) {
 		super(schemaValidatorFactory, schema, parent);
-		this.resetProperties();
+	}
+
+	
+	getProperty(key: string) {
+		return this.properties[key];
+	}
+
+	resetValue(value: any) {
+		value = value || {};
+		this.properties = {};
+		this.propertiesId = [];
+		this.createProperties();
+		for (let propertyId of this.propertiesId) {
+			let property = this.properties[propertyId];
+			property.reset(value && value[propertyId]);
+			value[propertyId] = property.valueChanges.getValue();
+		}
+		return value;
 	}
 
 	createProperties() {
@@ -24,20 +41,6 @@ export class ObjectProperty extends FormPropertyGroup {
 			this.propertiesId.push(propertyId);
 		}
 
-	}
-
-	getProperty(key: string) {
-		return this.properties[key];
-	}
-
-	reset(value: any = null) {
-		this.resetProperties(value);
-	}
-
-	resetProperties(value: any = null) {
-		this.properties = {};
-		this.propertiesId = [];
-		this.createProperties();
 	}
 
 	onChildValueChanged(formproperty: FormProperty) {

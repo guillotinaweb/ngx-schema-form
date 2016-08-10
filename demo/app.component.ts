@@ -1,13 +1,13 @@
-import {Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
-import {NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
-import {Form} from "../src";
-import {WidgetRegistry} from "../src";
-import {Validator} from "../src";
+import { Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
+import { NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
+import { FormComponent} from "../src";
+import { WidgetRegistry} from "../src";
+import { Validator} from "../src";
 
 @Component({
 	selector: "schema-form-demo-app",
 	directives: [
-		Form
+		FormComponent
 	],
 	providers: [WidgetRegistry, NgModel],
 	template: require("./app.component.html"),

@@ -5,6 +5,6 @@
 	</label>
 	
 	<input [name]="name" class="text-widget file-widget" [attr.id]="id"
-	[class.required]="settings.required" [formControl]="control" [(ngModel)]="settings.value" type="file" [attr.required]="settings.required" [attr.disabled]="settings.readOnly?true:null" >
-	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [ngModel]="settings.value">
+	[class.required]="settings.required" [formControl]="control" type="file" [attr.required]="settings.required" [attr.disabled]="settings.readOnly?true:null" >
+	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
 </div>

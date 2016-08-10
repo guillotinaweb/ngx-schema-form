@@ -7,8 +7,8 @@ import {
 } from "./atomicproperty";
 
 import {
-	IntegerProperty
-} from "./integerproperty";
+	NumberProperty
+} from "./numberproperty";
 
 import {
 	ZSchemaValidatorFactory,
@@ -71,13 +71,13 @@ describe("Atomic properties", () => {
 		});
 	});
 
-	describe("IntegerProperty", () => {
+	describe("NumberProperty", () => {
 
-		let AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM = {"type": "integer", "minimum": 10};
-		let AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM = {"type": "integer"};
+		let AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM = {"type": "number", "minimum": 10};
+		let AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM = {"type": "number"};
 
 		it("with minimum in schema should fallback to minimum on reset", () => {
-			let property = new IntegerProperty(A_SCHEMA_VALIDATOR_FACTORY, AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM);
+			let property = new NumberProperty(A_SCHEMA_VALIDATOR_FACTORY, AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM);
 
 			property.reset();
 
@@ -85,7 +85,7 @@ describe("Atomic properties", () => {
 		})
 
 		it("without minimum in schema should fallback to 0 on reset", () => {
-			let property = new IntegerProperty(A_SCHEMA_VALIDATOR_FACTORY, AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM);
+			let property = new NumberProperty(A_SCHEMA_VALIDATOR_FACTORY, AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM);
 
 			property.reset();
 

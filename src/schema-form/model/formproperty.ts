@@ -1,10 +1,11 @@
+import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
 export abstract class FormProperty {
-
+	
+	
 	public schemaValidator: Function;
 	public required: boolean;
-	private _type: string;
-	private _value: any;
+	private _valueChanges: BehaviorSubject<any>;
 
 	constructor(
 		schemaValidatorFactory: SchemaValidatorFactory,
@@ -13,18 +14,18 @@ export abstract class FormProperty {
 	) {
 		this.schema = schema;
 		this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
+		this._valueChanges = new BehaviorSubject<any>(null);
 	}
 
-	public updateValue(value: any): void {
-		this._value = value;
-		if (this.parent !== null) {
+	private emitValueChanged(value: any): void {
+		/*if (this.parent !== null) {
 			this.parent.onChildValueChanged(this);
-		}
-		
+		}*/
+		this._valueChanges.next(value);
 	}
-	
-	public get value() {
-		return this._value;
+
+	public get valueChanges() {
+		return this._valueChanges;
 	}
 
 	public get type(): string {
@@ -32,10 +33,15 @@ export abstract class FormProperty {
 	}
 
 	validate() : any {
-		return this.schemaValidator(this.value);
+		return this.schemaValidator(this._valueChanges.getValue());
 	}
 
-	abstract reset(value: any): void;
+	reset(value: any = null) {
+		value = this.resetValue(value);
+		this.emitValueChanged(value);
+	}
+	
+	abstract resetValue(value: any): any;
 }
 
 export abstract class FormPropertyGroup extends FormProperty {

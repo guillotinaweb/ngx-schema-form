@@ -8,6 +8,7 @@ export class SchemaPreprocessor {
 		SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema);
 		SchemaPreprocessor.normalizeAllWidgets(jsonSchema);
 		SchemaPreprocessor.normalizeRequired(jsonSchema);
+		SchemaPreprocessor.recursiveCheck(jsonSchema);
 	}
 
 	private static checkProperties(jsonSchema) {
@@ -91,6 +92,16 @@ export class SchemaPreprocessor {
 	private static normalizeRequired(jsonSchema) {
 		if (jsonSchema.required === undefined) {
 			jsonSchema.required = [];
+		}
+	}
+	
+	private static recursiveCheck(jsonSchema) {
+		for (let fieldId in jsonSchema.properties ) {
+			let fieldSchema = jsonSchema.properties[fieldId];
+			
+			if (fieldSchema.type === "object") {
+				SchemaPreprocessor.preprocess(fieldSchema);
+			}
 		}
 	}
 }

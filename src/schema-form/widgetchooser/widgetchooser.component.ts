@@ -21,9 +21,9 @@ export class WidgetChooserComponent {
 	@ViewChild('target', {read: ViewContainerRef}) private container: ViewContainerRef;
 	private widgetInstance: any;
 	
-	@Input() widget: any;
+	@Input() widgetInfo: any;
 	@Input("id") id: string;
-	@Input("settings") settings: any;
+	@Input() schema: any;
 	@Input("control") control: FormControl;
 
 	constructor(widgetFactory: WidgetFactory = null) {
@@ -31,10 +31,10 @@ export class WidgetChooserComponent {
 	}
 
 	ngAfterViewInit() {
-		this.widgetFactory.createWidget(this.container, this.widget.id).then(ref => {
-			//TODO change settings by schema and rename widget by options.
-			ref.instance.settings = this.settings;
-			ref.instance.settings.widget = this.widget;
+		this.widgetFactory.createWidget(this.container, this.widgetInfo.id).then(ref => {
+			ref.instance.schema = this.schema;
+			ref.instance.settings = this.schema;
+			ref.instance.settings.widget = this.widgetInfo;
 			ref.instance.name = this.id;
 			ref.instance.id = this.id;
 			ref.instance.control = this.control;

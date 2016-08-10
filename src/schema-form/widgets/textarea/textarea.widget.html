@@ -3,5 +3,5 @@
 		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required">&nbsp;</span>
 	</label>
 
-	<textarea [attr.readonly]="settings.readOnly" [name]="name" class="text-widget textarea-widget form-control" [class.required]="settings.required" type="text" [formControl]="control" [(ngModel)]="settings.value"></textarea>
+	<textarea [attr.readonly]="settings.readOnly" [name]="name" class="text-widget textarea-widget form-control" [class.required]="settings.required" type="text" [formControl]="control"></textarea>
 </div>

@@ -1,9 +1,6 @@
 import { FormProperty } from "./formproperty";
 
 export abstract class AtomicProperty extends FormProperty {
-	reset(value: any = null) {
-		this.resetValue(value)
-	}
 
 	resetValue(value: any = null): void {
 		if (value === null) {
@@ -13,7 +10,7 @@ export abstract class AtomicProperty extends FormProperty {
 			value = this.fallbackValue();
 			}
 		}
-		this.updateValue(value);
+		return value;
 	}
 
 	protected abstract fallbackValue(): any;

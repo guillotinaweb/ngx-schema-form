@@ -16,7 +16,7 @@ import {
 const TINYMCEVALUEACCESSOR = new Provider(NG_VALUE_ACCESSOR, {useExisting: forwardRef(() => TinyMCEValueAccessor), multi: true});
 
 @Directive({
-	selector: "tinymce[ngModel]",
+	selector: "tinymce[ngModel],tinymce[formControl],tinymce[formControlName]",
 	providers : [TINYMCEVALUEACCESSOR]
 })
 export class TinyMCEValueAccessor implements ControlValueAccessor {

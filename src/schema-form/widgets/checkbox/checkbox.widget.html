@@ -2,8 +2,8 @@
 	<span *ngIf="settings.required" class="required horizontal" title="Required"></span>
 	<div class="checkbox">
 		<label class="horizontal control-label">
-			<input [(ngModel)]="settings.value" [formControl]="control" [attr.name]="name" [indeterminate]="settings.value !== false && settings.value !== true ? true :null" type="checkbox" [attr.disabled]="settings.readOnly">
-			<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [ngModel]="settings.value">
+			<input [formControl]="control" [attr.name]="name" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [attr.disabled]="settings.readOnly">
+			<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
 			{{settings.description}}
 		</label>
 	</div>
