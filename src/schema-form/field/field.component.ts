@@ -1,5 +1,6 @@
 import {
 	Component,
+	ChangeDetectorRef,
 	Input
 } from "@angular/core";
 
@@ -20,11 +21,13 @@ export class FieldComponent {
 	private id: string;
 	private control: FormControl = new FormControl();
 
-	constructor() {
+	constructor(private cdr:ChangeDetectorRef) {
 	}
 
 	ngOnInit() {
 		this.id = "field_"+(FieldComponent.counter++);
-		this.formProperty.valueChanges.subscribe((newValue) => {this.control.updateValue(newValue)});
+		this.formProperty.valueChanges.subscribe((newValue) => {this.control.updateValue(newValue,{emitEvent:false})});
+		this.formProperty.errorsChanges.subscribe((errors) => {console.log("err"+errors);this.control.setErrors(errors)});
+		this.control.valueChanges.subscribe((newValue) => {this.formProperty.setValue(newValue)});
 	}
 }

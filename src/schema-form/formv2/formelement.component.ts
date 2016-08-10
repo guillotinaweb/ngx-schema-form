@@ -15,7 +15,6 @@ export class FormElementComponent {
 	@Input() formProperty;
 
 	ngOnInit() {
-		console.log(this.formProperty.widget);
 	}
 
 	hasWidget() {
