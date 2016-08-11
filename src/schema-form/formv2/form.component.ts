@@ -5,7 +5,7 @@ import {
 } from "@angular/core";
 
 import { FormPropertyFactory } from "../model/formpropertyfactory";
-import { FormPropertyGroup } from "../model/formproperty";
+import { FormProperty } from "../model/formproperty";
 import { SchemaPreprocessor} from "../schemapreprocessor";
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 import { WidgetFactory } from "../widgetfactory";
@@ -33,13 +33,13 @@ import { FormElementComponent } from "./formelement.component";
 export class FormComponent {
 	@Input() schema: any=null;
 	@Input() model: any;
-	rootProperty: FormPropertyGroup = null;
+	rootProperty: FormProperty = null;
 
 	constructor(private formPropertyFactory: FormPropertyFactory) { }
 
 	ngOnInit() {
 		SchemaPreprocessor.preprocess(this.schema);
-		this.rootProperty = <FormPropertyGroup>(this.formPropertyFactory.createProperty(this.schema));
-		this.rootProperty.reset(this.model);
+		this.rootProperty = <FormProperty>(this.formPropertyFactory.createProperty(this.schema));
+		this.rootProperty.reset(this.model, true);
 	}
 }

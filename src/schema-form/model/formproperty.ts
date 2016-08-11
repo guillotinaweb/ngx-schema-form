@@ -1,34 +1,21 @@
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
+import { ObjectProperty } from "./objectproperty"
 export abstract class FormProperty {
-	
 	public schemaValidator: Function;
 	public required: boolean;
 	
-	private _value: any;
-	private _errors: any;
-	private _valueChanges: BehaviorSubject<any>;
-	private _errorsChanges: BehaviorSubject<any>;
+protected value: any = null;
+	private errors: any = null ;
+	private _valueChanges = new BehaviorSubject<any>(null);
+	private _errorsChanges = new BehaviorSubject<any>(null);
 
 	constructor(
 		schemaValidatorFactory: SchemaValidatorFactory,
 		public schema: any,
-		private parent: FormPropertyGroup = null
+		private parent: ObjectProperty
 	) {
-		this.schema = schema;
 		this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
-		this._value = null;
-		this._valueChanges = new BehaviorSubject<any>(null);
-		this._errors = null;
-		this._errorsChanges = new BehaviorSubject<any>(null);
-	}
-
-	public setValue(value: any, emit: boolean = false) {
-		this._value = value;
-		this.validate();
-		if (emit) {
-			this._valueChanges.next(value);
-		}
 	}
 
 	public get valueChanges() {
@@ -43,25 +30,31 @@ export abstract class FormProperty {
 		return this.schema.type;
 	}
 
+	public abstract setValue(value: any, onlySelf: boolean);
 
-	reset(value: any = null) {
-		value = this.resetValue(value);
-		this.setValue(value, true);
+	protected updateValueAndValidity(onlySelf = false, emitEvent = true){
+		this.updateValue();
+		if (emitEvent) {
+			this.valueChanges.next(this.value);
+		}
+		this.validate();
+		if (this.parent && !onlySelf) {
+			this.parent.updateValueAndValidity(onlySelf, emitEvent);
+		}
 	}
-	
-	abstract resetValue(value: any): any;
 
+	protected abstract updateValue();
+
+	abstract reset(value: any, onlySelf : boolean)
+	
 	private validate() : any {
-		let errors = this.schemaValidator(this._value);
-		this.setErrors(errors);
+		this.errors = this.schemaValidator(this.value);
+		this.setErrors(this.errors);
 	}
 
 	private setErrors(errors) {
-		this._errors = errors;
+		this.errors = errors;
 		this._errorsChanges.next(errors);
 	}
-}
 
-export abstract class FormPropertyGroup extends FormProperty {
-	abstract onChildValueChanged(formProperty: FormProperty);
 }
