@@ -62,7 +62,7 @@ export class Form {
 
 	/**
 	 * EventEmitter triggered when one of the field value is changed
-	 */on
+	 */
 	@Output() onChange: EventEmitter<FormValueChangeEvent> = new EventEmitter(true);
 
 	constructor(

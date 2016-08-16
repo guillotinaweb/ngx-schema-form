@@ -31,15 +31,54 @@ import { FormElementComponent } from "./formelement.component";
 	]
 })
 export class FormComponent {
+
 	@Input() schema: any=null;
+
 	@Input() model: any;
+
+	@Input() actions: {[actionId: string]: Function} = {};
+
 	rootProperty: FormProperty = null;
+	
+	private buttons = [];
 
 	constructor(private formPropertyFactory: FormPropertyFactory) { }
 
-	ngOnInit() {
-		SchemaPreprocessor.preprocess(this.schema);
-		this.rootProperty = <FormProperty>(this.formPropertyFactory.createProperty(this.schema));
-		this.rootProperty.reset(this.model, true);
+	ngOnChanges(changes: any) {
+		if (changes.schema) {
+			SchemaPreprocessor.preprocess(this.schema);
+			this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
+			this.parseButtons();
+		}
+		if (this.schema && changes.model || this.model && changes.schema) {
+			this.rootProperty.reset(this.model, false);
+		}
+	}
+
+	private setValidators() {
+		//TODO
+	}
+
+	private parseButtons() {
+		if (this.schema.buttons !== undefined) {
+			this.buttons = this.schema.buttons;
+
+			for (let button of this.buttons) {
+				this.createButtonCallback(button);
+			}
+		}
+	}
+
+	private createButtonCallback(button) {
+		button.action = (e) => {
+			if (button.id && this.actions[button.id]) {
+				this.actions[button.id](this, button.parameters);
+			}
+			e.preventDefault();
+		};
+	}
+
+	reset() {
+		this.rootProperty.reset(null, true);
 	}
 }

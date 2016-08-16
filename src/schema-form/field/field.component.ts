@@ -26,7 +26,10 @@ export class FieldComponent {
 
 	ngOnInit() {
 		this.id = "field_"+(FieldComponent.counter++);
-		this.formProperty.valueChanges.subscribe((newValue) => {this.control.updateValue(newValue,{emitEvent:false})});
+		this.formProperty.valueChanges.subscribe((newValue) => {
+			if (this.control.value !== newValue)
+				this.control.updateValue(newValue,{emitEvent:false})
+		});
 		this.formProperty.errorsChanges.subscribe((errors) => {this.control.setErrors(errors)});
 		this.control.valueChanges.subscribe((newValue) => {this.formProperty.setValue(newValue, false)});
 	}

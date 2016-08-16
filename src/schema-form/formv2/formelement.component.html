@@ -1,6 +1,8 @@
-<field *ngIf="hasWidget()" [formProperty]="formProperty"></field>
+<div *ngIf="formProperty.visible">
+	<field *ngIf="hasWidget()" [formProperty]="formProperty"></field>
 
-<div *ngIf="!hasWidget()" [ngSwitch]="formProperty.type">
-	<formobject *ngSwitchCase="'object'" [formProperty]="formProperty"></formobject>
-	<div *ngSwitchDefault>Undefined type form group type: {{formProperty.type}}</div>
+	<div *ngIf="!hasWidget()" [ngSwitch]="formProperty.type">
+		<formobject *ngSwitchCase="'object'" [formProperty]="formProperty"></formobject>
+		<div *ngSwitchDefault>Undefined type form group type: {{formProperty.type}}</div>
+	</div>
 </div>

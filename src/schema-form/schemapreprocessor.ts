@@ -2,23 +2,23 @@ import { isBlank } from "./utils"
 
 export class SchemaPreprocessor {
 
-	static preprocess(jsonSchema: any): any {
+	static preprocess(jsonSchema: any, path: string = "/"): any {
 		jsonSchema = jsonSchema || {};
-		SchemaPreprocessor.checkProperties(jsonSchema);
-		SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema);
+		SchemaPreprocessor.checkProperties(jsonSchema,path);
+		SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema, path);
 		SchemaPreprocessor.normalizeAllWidgets(jsonSchema);
 		SchemaPreprocessor.normalizeRequired(jsonSchema);
-		SchemaPreprocessor.recursiveCheck(jsonSchema);
+		SchemaPreprocessor.recursiveCheck(jsonSchema, path);
 	}
 
-	private static checkProperties(jsonSchema) {
+	private static checkProperties(jsonSchema, path: string) {
 		if (isBlank(jsonSchema.properties)) {
 			jsonSchema.properties = {};
-			console.log("Provided json schema does not contain a 'properties' entry. Schema will be empty");
+			console.log(path+": Provided json schema does not contain a 'properties' entry. Schema will be empty");
 		}
 	}
-
-	private static checkAndCreateFieldsets(jsonSchema: any) {
+	
+	private static checkAndCreateFieldsets(jsonSchema: any, path: string) {
 		if (jsonSchema.fieldsets === undefined) {
 			if (jsonSchema.order !== undefined) {
 				SchemaPreprocessor.replaceOrderByFieldsets(jsonSchema);
@@ -26,10 +26,10 @@ export class SchemaPreprocessor {
 				SchemaPreprocessor.createFieldsets(jsonSchema);
 			}
 		}
-		SchemaPreprocessor.checkFieldsUsage(jsonSchema);
+		SchemaPreprocessor.checkFieldsUsage(jsonSchema, path);
 	}
-
-	private static checkFieldsUsage(jsonSchema) {
+	
+	private static checkFieldsUsage(jsonSchema, path: string) {
 		let fieldsId: string[] = Object.keys(jsonSchema.properties);
 		let usedFields = {};
 		for (let fieldset of jsonSchema.fieldsets) {
@@ -44,19 +44,19 @@ export class SchemaPreprocessor {
 		for (let fieldId of fieldsId) {
 			if (usedFields.hasOwnProperty(fieldId)) {
 				if (usedFields[fieldId].length > 1) {
-					throw fieldId + " is referenced by more than one fieldset: "+usedFields[fieldId];
+					throw path+": "+fieldId + " is referenced by more than one fieldset: "+usedFields[fieldId];
 				}
 				delete usedFields[fieldId];
-			} else if (jsonSchema.require.indexOf(fieldId) > -1 ) {
-				throw fieldId+ " is a required field but it is not referenced as part of a 'order' or a 'fieldset' property";
+			} else if (jsonSchema.required.indexOf(fieldId) > -1 ) {
+				throw path+": "+fieldId+ " is a required field but it is not referenced as part of a 'order' or a 'fieldset' property";
 			} else {
 				delete jsonSchema[fieldId];
-				console.log("Removing unreferenced field '" + fieldId + "'");
+				console.log(path+": Removing unreferenced field '" + fieldId + "'");
 			}
 		}
 		
 		for (let remainingfieldsId in usedFields) {
-			console.log("Referencing non-existent field '" + remainingfieldsId + "' in one or more fieldsets");
+			console.log(path+": Referencing non-existent field '" + remainingfieldsId + "' in one or more fieldsets");
 		}
 	}
 	private static createFieldsets(jsonSchema) {
@@ -66,7 +66,7 @@ export class SchemaPreprocessor {
 	private static replaceOrderByFieldsets(jsonSchema){
 		jsonSchema.fieldsets = [{
 			id: "fieldset-default",
-			title: "",
+			title: jsonSchema.description || "",
 			fields: jsonSchema.order
 		}];
 		delete jsonSchema.order;
@@ -81,7 +81,7 @@ export class SchemaPreprocessor {
 	
 	private static normalizeWidget(fieldSchema: any) {
 		let widget = fieldSchema.widget;
-		if (widget === undefined) {
+		if (widget === undefined && fieldSchema.type !== "object") {
 			widget = {"id": fieldSchema.type};
 		} else if (typeof widget === "string") {
 			widget = {"id": widget};
@@ -95,12 +95,12 @@ export class SchemaPreprocessor {
 		}
 	}
 	
-	private static recursiveCheck(jsonSchema) {
+	private static recursiveCheck(jsonSchema, path: string) {
 		for (let fieldId in jsonSchema.properties ) {
 			let fieldSchema = jsonSchema.properties[fieldId];
 			
 			if (fieldSchema.type === "object") {
-				SchemaPreprocessor.preprocess(fieldSchema);
+				SchemaPreprocessor.preprocess(fieldSchema, path+fieldId+"/");
 			}
 		}
 	}

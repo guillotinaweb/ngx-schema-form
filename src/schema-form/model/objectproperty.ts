@@ -4,6 +4,7 @@ import { SchemaValidatorFactory } from "../schemavalidatorfactory"
 
 export class ObjectProperty extends FormProperty {
 
+	private built = false;
 	private properties: {[key:string]: FormProperty} = {}; 
 	private propertiesId: string[]= [];
 
@@ -11,32 +12,38 @@ export class ObjectProperty extends FormProperty {
 		private formPropertyFactory: FormPropertyFactory,
 		schemaValidatorFactory: SchemaValidatorFactory,
 		schema: any,
-		parent : ObjectProperty) {
+		parent : ObjectProperty
+	) {
 		super(schemaValidatorFactory, schema, parent);
+		this.createProperties();
+		this.reset(null);
 	}
 
-	setValue(value: any, emitEvent: boolean) {
+	setValue(value: any, onlySelf: boolean) {
 		for (let propertyId in value) {
 			this.properties[propertyId].setValue(value[propertyId], true);
 		}
-		this.updateValueAndValidity(true, false);
+		this.updateValueAndValidity(onlySelf, true);
 	}
 
-	reset(value: any, onlySelf) {
+	reset(value: any, onlySelf: boolean = true) {
+		this.resetProperties(value);
+		this.updateValueAndValidity(onlySelf, true);
+	}
+
+	resetProperties(value: any) {
 		value = value || {};
-		this.initializeProperties(value);
-		this.updateValueAndValidity(true, true);
+		for (let propertyId in this.schema.properties) {
+			this.properties[propertyId].reset(value[propertyId], true);
+		}
 	}
 
-	initializeProperties(value: any) {
+	createProperties() {
 		this.properties = {};
 		this.propertiesId = [];
-
-		value = value || {};
 		for (let propertyId in this.schema.properties) {
 			let propertySchema = this.schema.properties[propertyId];
 			let property = this.formPropertyFactory.createProperty(propertySchema, this);
-			property.reset(value[propertyId], true);
 			this.properties[propertyId] = property;
 			this.propertiesId.push(propertyId);
 		}
@@ -48,15 +55,53 @@ export class ObjectProperty extends FormProperty {
 
 	reduceValue(): any {
 		let value = {};
-		for (let propertyId of this.propertiesId) {
-			let property = this.properties[propertyId];
-			value[propertyId] = property.valueChanges.getValue();
-		}
-		this.value = value;
+		this.forEachChild((property, propertyId) => {
+			if (property.visible) {
+				value[propertyId] = property.value;
+			}
+		});
+		this._value = value;
 	}
 
-	getProperty(key: string) {
-		return this.properties[key];
+	getProperty(path: string) {
+		let subPathIdx = path.indexOf("/");
+		let propertyId = subPathIdx !== -1 ? path.substr(subPathIdx+1) : path ;
+		let property = this.properties[propertyId];
+
+		if (property !== null && subPathIdx !== -1 && property instanceof ObjectProperty) {
+			let subPath = path.substr(0, subPathIdx);
+			property = (<ObjectProperty>property).getProperty(subPath);
+		}
+		return property;
+	}
+
+	public forEachChild(fn: (FormProperty, string) => void) {
+		for (let propertyId in this.properties) {
+			let property = this.properties[propertyId]; 
+			fn(property, propertyId);
+		}
+	}
+
+	public forEachChildRecursive(fn: (FormProperty) => void) {
+		this.forEachChild((child) => {
+			fn(child);
+			if (child instanceof ObjectProperty) {
+				(<ObjectProperty>child).forEachChildRecursive(fn);
+			}
+		});
+	}
+
+	public _bindVisibility() {
+		super._bindVisibility();
+		if (this instanceof ObjectProperty) {
+			this._bindVisibilityRecursive();
+		}
+	}
+
+	private _bindVisibilityRecursive () {
+		this.forEachChildRecursive((property) => {
+			property._bindVisibility();
+		});
 	}
 
 }

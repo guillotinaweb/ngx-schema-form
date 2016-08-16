@@ -8,18 +8,33 @@ import { SchemaValidatorFactory } from "../schemavalidatorfactory"
 export class FormPropertyFactory {
 	constructor(private schemaValidatorFactory: SchemaValidatorFactory) {}
 	createProperty(schema: any, parent: ObjectProperty = null): FormProperty {
+		let newProperty = null;
 		switch(schema.type) {
 			case "integer":
 			case "number":
-				return new NumberProperty(this.schemaValidatorFactory, schema, parent);
+				newProperty = new NumberProperty(this.schemaValidatorFactory, schema, parent);
+			break;
 			case "string":
-				return new StringProperty(this.schemaValidatorFactory, schema, parent);
+				newProperty = new StringProperty(this.schemaValidatorFactory, schema, parent);
+			break;
 			case "boolean":
-				return new BooleanProperty(this.schemaValidatorFactory, schema, parent);
+				newProperty = new BooleanProperty(this.schemaValidatorFactory, schema, parent);
+			break;
 			case "object":
-				return new ObjectProperty(this, this.schemaValidatorFactory, schema, parent);
+				newProperty = new ObjectProperty(this, this.schemaValidatorFactory, schema, parent);
+			break;
 			default:
 				throw new TypeError(`Undefined type ${schema.type}`)
 		}
+
+		if(schema.type === "object" && parent === null) {
+			this.initializeRoot(newProperty);
+		}
+		return newProperty;
+	}
+	
+	private initializeRoot(rootProperty: ObjectProperty) {
+		rootProperty.reset(null, true);
+		rootProperty._bindVisibility();
 	}
 }

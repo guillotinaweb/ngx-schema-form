@@ -4,13 +4,13 @@ export abstract class AtomicProperty extends FormProperty {
 
 
 	setValue(value, onlySelf = false) {
-		this.value = value;
+		this._value = value;
 		this.updateValueAndValidity(onlySelf, true);
 	}
 
 	reset(value: any = null, onlySelf = true) {
 		this.resetValue(value);
-		this.updateValueAndValidity();
+		this.updateValueAndValidity(onlySelf, true);
 	}
 
 	protected resetValue(value: any): any {
@@ -21,7 +21,7 @@ export abstract class AtomicProperty extends FormProperty {
 			value = this.fallbackValue();
 			}
 		}
-		this.value = value;
+		this._value = value;
 	}
 
 	protected abstract fallbackValue(): any;

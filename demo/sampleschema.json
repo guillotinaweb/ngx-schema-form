@@ -32,6 +32,34 @@
 			"description":"More information?",
 			"default": true
 		},
+		"survey": {
+			"type": "object",
+			"description": "Little survey",
+			"properties": {
+				"q1":{
+					"type": "string",
+					"description": "Enter a number"
+				},
+				"q2": {
+					"type": "object",
+					"description": "Address",
+					"properties": {
+						"color": {
+							"description": "color",
+							"type": "string",
+							"default":"#aaa000",
+							"pattern":"ff$",
+							"widget": "color"
+						},
+						"zip": {
+							"description": "zip",
+							"type": "number",
+							"default": 15
+						}
+					}
+				}
+			}
+		},
 		"favoriteColor": {
 			"type": "string",
 			"pattern": "^#[0-9a-fA-F]{6}$",
@@ -195,7 +223,7 @@
 	"fieldsets":[{
 		"id": "part_1",
 		"title": "Part 1 - Recipient",
-		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "favoriteColor"]
+		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "favoriteColor","survey"]
 	},
 	{
 		"id": "part_2",
