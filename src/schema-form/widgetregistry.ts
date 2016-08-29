@@ -1,4 +1,6 @@
 import {
+	ArrayListWidget,
+	ObjectWidget,
 	BaseWidget,
 	CheckboxWidget,
 	FileWidget,
@@ -16,6 +18,9 @@ export class WidgetRegistry {
 	private defaultWidget = StringWidget;
 
 	constructor() {
+		this.registerWidgetType("array",  ArrayListWidget);
+		this.registerWidgetType("object",  ObjectWidget);
+
 		this.registerWidgetType("string", StringWidget);
 		this.registerWidgetType("search", StringWidget);
 		this.registerWidgetType("tel", StringWidget);

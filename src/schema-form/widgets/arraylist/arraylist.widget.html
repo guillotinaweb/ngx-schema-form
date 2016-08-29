@@ -1,0 +1,12 @@
+<fieldset>
+	<legend *ngIf="formProperty.schema">{{formProperty.schema.description}}</legend>
+	<div *ngFor="let itemProperty of formProperty.properties; let i=index">
+		<formelement [formProperty]="itemProperty"></formelement>
+		<button (click)="removeItem(i)" class="btn btn-default">
+			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
+		</button>
+	</div>
+	<button (click)="addItem()" class="btn btn-default">
+		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+	</button>
+</fieldset>

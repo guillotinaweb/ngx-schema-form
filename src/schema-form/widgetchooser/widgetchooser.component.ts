@@ -1,9 +1,13 @@
 import {
 	Component,
+	EventEmitter,
+	Inject,
 	Input,
 	OnInit,
+	Output,
 	ViewChild,
-	ViewContainerRef
+	ViewContainerRef,
+	forwardRef
 } from "@angular/core";
 import { Validators } from "@angular/common";
 import { FormControl } from "@angular/forms";
@@ -22,22 +26,15 @@ export class WidgetChooserComponent {
 	private widgetInstance: any;
 	
 	@Input() widgetInfo: any;
-	@Input("id") id: string;
-	@Input() schema: any;
-	@Input("control") control: FormControl;
+	@Output() widgetInstanciated = new EventEmitter<any>();
 
-	constructor(widgetFactory: WidgetFactory = null) {
+	constructor(@Inject(forwardRef(()=>WidgetFactory)) widgetFactory: WidgetFactory = null) {
 		this.widgetFactory = widgetFactory;
 	}
 
 	ngAfterViewInit() {
 		this.widgetFactory.createWidget(this.container, this.widgetInfo.id).then(ref => {
-			ref.instance.schema = this.schema;
-			ref.instance.settings = this.schema;
-			ref.instance.settings.widget = this.widgetInfo;
-			ref.instance.name = this.id;
-			ref.instance.id = this.id;
-			ref.instance.control = this.control;
+			this.widgetInstanciated.emit(ref.instance);
 			this.widgetInstance = ref.instance;
 		});
 	}

@@ -206,6 +206,30 @@
 			"visibleIf": {
 				"category": ["hightech"]
 			}
+		},
+		"colors": {
+			"type": "array",
+			"description": "Colors",
+			"index": "i",
+			"items": {
+				"type": "string",
+				"description": "Color $i",
+				"widget": "color",
+				"buttons": [{
+					"label": "Supprimer",
+					"id": "Remove"
+				}]
+			},
+			"buttons": [{
+				"label": "Ajouter",
+				"id": "addItem",
+				"parameters": {
+					"value": "#afeadd"
+				}
+			},{
+				"label": "Reset",
+				"id": "reset"
+			}]
 		}
 	},
 	"buttons": [{
@@ -223,7 +247,7 @@
 	"fieldsets":[{
 		"id": "part_1",
 		"title": "Part 1 - Recipient",
-		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "favoriteColor","survey"]
+		"fields":[ "firstName", "lastName", "bornOn","moreInfo", "colors","survey"]
 	},
 	{
 		"id": "part_2",

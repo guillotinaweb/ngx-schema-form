@@ -5,14 +5,14 @@ import {
 
 import { forwardRef } from "@angular/core";
 
-import { FormElementComponent } from "./formelement.component";
+import { FormElementComponent } from "../../form/formelement.component";
 
 @Component({
 	selector: "formobject",
-	template: require("./formobject.component.html"),
+	template: require("./object.widget.html"),
 	directives: [forwardRef(() => FormElementComponent)]
 })
-export class FormObject {
+export class ObjectWidget {
 	@Input() formProperty;
 
 }

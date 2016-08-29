@@ -1,22 +1,22 @@
-import { FormProperty } from "./formproperty";
-import { FormPropertyFactory } from "./formpropertyfactory"
-import { SchemaValidatorFactory } from "../schemavalidatorfactory"
+import { PropertyGroup } from "./propertygroup";
+import { FormPropertyFactory } from "./formpropertyfactory";
+import { SchemaValidatorFactory } from "../schemavalidatorfactory";
+import { ValidatorRegistry } from "./validatorregistry";
 
-export class ObjectProperty extends FormProperty {
+export class ObjectProperty extends PropertyGroup {
 
-	private built = false;
-	private properties: {[key:string]: FormProperty} = {}; 
 	private propertiesId: string[]= [];
 
 	constructor(
 		private formPropertyFactory: FormPropertyFactory,
 		schemaValidatorFactory: SchemaValidatorFactory,
+		validatorRegistry: ValidatorRegistry,
 		schema: any,
-		parent : ObjectProperty
+		parent: PropertyGroup,
+		path: string
 	) {
-		super(schemaValidatorFactory, schema, parent);
+		super(schemaValidatorFactory, validatorRegistry, schema, parent, path);
 		this.createProperties();
-		this.reset(null);
 	}
 
 	setValue(value: any, onlySelf: boolean) {
@@ -27,12 +27,12 @@ export class ObjectProperty extends FormProperty {
 	}
 
 	reset(value: any, onlySelf: boolean = true) {
+		value = value || this.schema.default || {};
 		this.resetProperties(value);
 		this.updateValueAndValidity(onlySelf, true);
 	}
 
 	resetProperties(value: any) {
-		value = value || {};
 		for (let propertyId in this.schema.properties) {
 			this.properties[propertyId].reset(value[propertyId], true);
 		}
@@ -43,7 +43,7 @@ export class ObjectProperty extends FormProperty {
 		this.propertiesId = [];
 		for (let propertyId in this.schema.properties) {
 			let propertySchema = this.schema.properties[propertyId];
-			let property = this.formPropertyFactory.createProperty(propertySchema, this);
+			let property = this.formPropertyFactory.createProperty(propertySchema, this, propertyId);
 			this.properties[propertyId] = property;
 			this.propertiesId.push(propertyId);
 		}
@@ -53,7 +53,7 @@ export class ObjectProperty extends FormProperty {
 		this.reduceValue();
 	}
 
-	reduceValue(): any {
+	private reduceValue(): void {
 		let value = {};
 		this.forEachChild((property, propertyId) => {
 			if (property.visible) {
@@ -61,47 +61,6 @@ export class ObjectProperty extends FormProperty {
 			}
 		});
 		this._value = value;
-	}
-
-	getProperty(path: string) {
-		let subPathIdx = path.indexOf("/");
-		let propertyId = subPathIdx !== -1 ? path.substr(subPathIdx+1) : path ;
-		let property = this.properties[propertyId];
-
-		if (property !== null && subPathIdx !== -1 && property instanceof ObjectProperty) {
-			let subPath = path.substr(0, subPathIdx);
-			property = (<ObjectProperty>property).getProperty(subPath);
-		}
-		return property;
-	}
-
-	public forEachChild(fn: (FormProperty, string) => void) {
-		for (let propertyId in this.properties) {
-			let property = this.properties[propertyId]; 
-			fn(property, propertyId);
-		}
-	}
-
-	public forEachChildRecursive(fn: (FormProperty) => void) {
-		this.forEachChild((child) => {
-			fn(child);
-			if (child instanceof ObjectProperty) {
-				(<ObjectProperty>child).forEachChildRecursive(fn);
-			}
-		});
-	}
-
-	public _bindVisibility() {
-		super._bindVisibility();
-		if (this instanceof ObjectProperty) {
-			this._bindVisibilityRecursive();
-		}
-	}
-
-	private _bindVisibilityRecursive () {
-		this.forEachChildRecursive((property) => {
-			property._bindVisibility();
-		});
 	}
 
 }

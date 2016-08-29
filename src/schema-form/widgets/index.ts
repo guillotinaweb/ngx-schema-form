@@ -1,3 +1,5 @@
+export * from "./arraylist/arraylist.widget";
+export * from "./object/object.widget";
 export * from "./base";
 export * from "./checkbox/checkbox.widget";
 export * from "./default.widget";

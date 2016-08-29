@@ -1,4 +1,3 @@
-import { isPresent } from "../utils";
 import { Observable } from "rxjs/Observable";
 import { BehaviorSubject } from "rxjs/BehaviorSubject";
 import "rxjs/add/observable/combineLatest";
@@ -6,7 +5,8 @@ import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/distinctUntilChanged";
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { ObjectProperty } from "./objectproperty"
+import { ValidatorRegistry } from "./validatorregistry";
+import { PropertyGroup } from "./propertygroup";
 
 export abstract class FormProperty {
 	public schemaValidator: Function;
@@ -18,19 +18,25 @@ export abstract class FormProperty {
 	private _errorsChanges = new BehaviorSubject<any>(null);
 	private _visible = true;
 	private visibilityChanges = new BehaviorSubject<boolean>(true);
+	private _parent;
+	private _path;
 
 	constructor(
 		schemaValidatorFactory: SchemaValidatorFactory,
+		private validatorRegistry: ValidatorRegistry,
 		public schema: any,
-		protected parent: ObjectProperty
+		parent: PropertyGroup,
+		path: string
 	) {
 		this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
+		this._parent = parent;
+		this._path = path;
 	}
 
 	public get valueChanges() {
 		return this._valueChanges;
 	}
-	
+
 	public get errorsChanges() {
 		return this._errorsChanges;
 	}
@@ -39,12 +45,24 @@ export abstract class FormProperty {
 		return this.schema.type;
 	}
 
+	public get parent(): PropertyGroup {
+		return this._parent;
+	}
+
+	public get path(): string {
+		return this._path;
+	}
+
 	public get value() {
 		return this._value;
 	}
 
 	public get visible() {
 		return this._visible;
+	}
+
+	public get valid() {
+		return this._errors === null;
 	}
 
 	public abstract setValue(value: any, onlySelf: boolean);
@@ -57,7 +75,7 @@ export abstract class FormProperty {
 			this.valueChanges.next(this.value);
 		}
 
-		this.validate();
+		this.runValidation();
 		if (this.parent && !onlySelf) {
 			this.parent.updateValueAndValidity(onlySelf, emitEvent);
 		}
@@ -66,8 +84,18 @@ export abstract class FormProperty {
 	protected abstract updateValue();
 
 
-	private validate() : any {
-		this._errors = this.schemaValidator(this._value);
+	private runValidation() : any {
+		let errors = this.schemaValidator(this._value) || [];
+		let customValidator = this.validatorRegistry.get(this.path);
+		if (customValidator) {
+			let customErrors = this.validatorRegistry.get(this.path)(this.value, this, this.findRoot()) ;
+			errors.push(...( customErrors || []));
+		}
+		if (errors.length === 0) {
+			errors = null;
+		}
+
+		this._errors = errors;
 		this.setErrors(this._errors);
 	}
 
@@ -78,7 +106,7 @@ export abstract class FormProperty {
 
 	protected searchProperty(path: string): FormProperty {
 		let prop: FormProperty = this;
-		let base: ObjectProperty = null;
+		let base: PropertyGroup = null;
 
 		let result = null;
 		if (path[0] === '/') {
@@ -93,12 +121,12 @@ export abstract class FormProperty {
 		return result;
 	}
 
-	public findRoot(): ObjectProperty{
+	public findRoot(): PropertyGroup {
 		let property: FormProperty = this;
 		while (property.parent !== null ) {
 			property = property.parent;
 		}
-		return <ObjectProperty>property;
+		return <PropertyGroup>property;
 	}
 
 	private setVisible(visible: boolean) {
@@ -135,3 +163,4 @@ export abstract class FormProperty {
 		}
 	}
 }
+

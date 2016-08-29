@@ -1,7 +1,8 @@
+import { SchemaValidatorFactory } from "../schemavalidatorfactory";
+import { PropertyGroup } from "./propertygroup";
 import { FormProperty } from "./formproperty";
 
 export abstract class AtomicProperty extends FormProperty {
-
 
 	setValue(value, onlySelf = false) {
 		this._value = value;
