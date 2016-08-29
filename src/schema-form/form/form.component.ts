@@ -1,9 +1,12 @@
 import {
 	Component,
+	EventEmitter,
 	Input,
+	Output,
 	provide
 } from "@angular/core";
 
+import { Observable } from "rxjs"
 import { Action, ActionRegistry, FormPropertyFactory, FormProperty, SchemaPreprocessor, ValidatorRegistry, Validator } from "../model";
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "../schemavalidatorfactory";
 import { WidgetFactory } from "../widgetfactory";
@@ -39,6 +42,7 @@ export class FormComponent {
 	@Input() actions: {[actionId: string]: Action} = {};
 
 	@Input() validators: {[path: string]: Validator} = {};
+	@Output() onChange = new EventEmitter<{value: any}>();
 
 	rootProperty: FormProperty = null;
 
@@ -49,6 +53,7 @@ export class FormComponent {
 		if (changes.schema) {
 			SchemaPreprocessor.preprocess(this.schema);
 			this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
+			this.rootProperty.valueChanges.subscribe(value => {console.log(value);this.onChange.emit({value:value})});
 		}
 		if (this.schema && changes.model || this.model && changes.schema) {
 			this.rootProperty.reset(this.model, false);
