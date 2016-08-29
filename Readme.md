@@ -86,21 +86,6 @@ The code above creates a form with three required fields. The validation state o
 Validation is done every time a field's value is changed. Basic validation is made by testing the value of the field against its corresponding schema.
 The input schema support almost all the features listed on the JSON schema specification.
 
-**WARNING: Currently there is no support for nested schema. The following schema will generate a form unable to generate valid values:**
-
-```js
-{
-  "properties": {
-    "address": {
-      "properties": {
-        "country": {"type": "string"},
-          "zip": {"type": "number"}
-      }
-    }
-  }
-}
-```
-
 ### Accessing the value of the form.
 
 #### Input binding
@@ -123,7 +108,7 @@ The Form component provide the `onChange` output binding of which value represen
 For instance, you can display the current value of the form with the following template:
 
 ```js
-template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{value}}'
+template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{json | value}}'
 ```
 
 ### Widgets
@@ -151,7 +136,7 @@ mySchema = {
 }
 ```
 
-If there is no widget declared for a given field, its type name is used as widget id.
+If there is no widget declared a given property's schema, its type is used as widget id. For instance, a string property will use the "string" widget.
 Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly in the `widget` property:
 
 ```js
@@ -165,7 +150,7 @@ mySchema = {
         "plugins": "textcolor colorpicker",
         "toolbar": "forecolor backcolor"
       }
-    } 
+    }
   }  
 }
 ```
@@ -175,7 +160,7 @@ Available widgets are managed through a WidgetRegistry. By default, this registr
  - **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio, richtext
  - **number**: number, integer, range
  - **integer**: integer, range
- - **boolean**: checkbox
+ - **boolean**: boolean, checkbox
 
 Note that the select and radio widgets rely on the `oneOf` property:
 
@@ -200,8 +185,7 @@ Note that the select and radio widgets rely on the `oneOf` property:
 ```
 
 ### Actions and buttons
-The input schema can be extended to add buttons to the form:
-
+Each schema can be extended to add buttons after its widget.
 ```js
 // app.component.ts
 @Component({
@@ -221,8 +205,11 @@ export class AppComponent {
       },
       "password": {
         "type": "string",
-
-        "description": "Password"
+        "description": "Password",
+				"buttons": [{
+					"id": "reset",
+					"label": "Reset"
+				}]
       },
       "rememberMe": {
         "type": "boolean",
@@ -234,16 +221,13 @@ export class AppComponent {
     "buttons": [{
       "id": "alert", // the id of the action callback
       "label": "Alert !" // the text inside the button
-    }, {
-      "id": "reset",
-      "label": "Reset"
     }]
   }
 
   // Declare a mapping between action ids and their implementations
   myActions = {
-    "alert": (form) => {alert(JSON.stringify(form.value))},
-    "reset": (form) => {form.reset()}
+    "alert": (property) => {alert(JSON.stringify(property.value))},
+    "reset": (property) => {property.reset()}
   }
 }
 ```
@@ -327,7 +311,7 @@ export class AppComponent {
         "type": "string",
         "description": "Email",
         "format": "email",
-        // Declare that this field must show only if registerNewsletter is true 
+        // Declare that this field must show only if registerNewsletter is true
         "visibleIf": {
           "registerNewsletter": [true]
         }
@@ -339,7 +323,7 @@ export class AppComponent {
 ```
 
 ### Fields presentation and ordering
-As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built. The `order` and `fieldsets`  entries of the schema are here to organize your fields.
+As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built. The `order` and `fieldsets` entries of the schema are here to organize your fields.
 
 #### Ordering
 The `order` entry is an array listing all the fields ids in the order they must appear in the form:
