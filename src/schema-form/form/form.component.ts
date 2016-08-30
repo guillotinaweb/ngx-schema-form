@@ -53,7 +53,7 @@ export class FormComponent {
 		if (changes.schema) {
 			SchemaPreprocessor.preprocess(this.schema);
 			this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
-			this.rootProperty.valueChanges.subscribe(value => {console.log(value);this.onChange.emit({value:value})});
+			this.rootProperty.valueChanges.subscribe(value => {this.onChange.emit({value: value})});
 		}
 		if (this.schema && changes.model || this.model && changes.schema) {
 			this.rootProperty.reset(this.model, false);
