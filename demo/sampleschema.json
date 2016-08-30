@@ -233,12 +233,8 @@
 		}
 	},
 	"buttons": [{
-		"label": "Send",
-		"id": "send",
-		"parameters": {
-			"method": "GET",
-			"url": "./aaa"
-		}
+		"label": "Alert",
+		"id": "alert"
 	},
 	{
 		"label": "Reset",

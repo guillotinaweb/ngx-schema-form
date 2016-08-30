@@ -76,8 +76,8 @@ export class DemoApp {
 			return null;
 		}
 
-		this.actions["send"] = (form, options) => {
-			form.submit();
+		this.actions["alert"] = (property, options) => {
+			alert(JSON.stringify(property.value));
 		}
 
 		this.actions["reset"] = (form, options) => {
