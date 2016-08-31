@@ -1,21 +1,14 @@
 import { Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
-import { NgModel, CORE_DIRECTIVES, FORM_DIRECTIVES} from "@angular/common";
-import { FormComponent} from "../src";
-import { WidgetRegistry} from "../src";
-import { Validator} from "../src";
+import { FormComponent, WidgetRegistry, Validator, DefaultWidgetRegistry} from "../src";
 
 @Component({
 	selector: "schema-form-demo-app",
-	directives: [
-		FormComponent
-	],
-	providers: [WidgetRegistry, NgModel],
 	template: require("./app.component.html"),
 	styleUrls: ["demo/app.scss"],
-	encapsulation: ViewEncapsulation.None
+	encapsulation: ViewEncapsulation.None,
+	providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
 })
-
-export class DemoApp {
+export class AppComponent {
 
 	private schema:any;
 	private model:any;

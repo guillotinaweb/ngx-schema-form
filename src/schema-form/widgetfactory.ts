@@ -1,7 +1,7 @@
 import {
 	ViewContainerRef,
 	ComponentRef,
-	ComponentResolver,
+	ComponentFactoryResolver,
 	ReflectiveInjector,
 	Injectable
 } from "@angular/core";
@@ -11,25 +11,18 @@ import { WidgetRegistry } from "./widgetregistry";
 @Injectable()
 export class WidgetFactory {
 
-	private resolver: ComponentResolver;
+	private resolver: ComponentFactoryResolver;
 	private registry: WidgetRegistry;
 
-	constructor(registry: WidgetRegistry, resolver: ComponentResolver) {
+	constructor(registry: WidgetRegistry, resolver: ComponentFactoryResolver) {
 		this.registry = registry;
 		this.resolver = resolver;
 	}
 
-	createWidget(container: ViewContainerRef, type: string): Promise<ComponentRef<any>> {
-		return new Promise(
-			(resolve, reject) => {
-				let componentClass = this.registry.getWidgetType(type);
-				this.resolver.resolveComponent(componentClass).then(
-					componentFactory => {
-						let component = container.createComponent(componentFactory);
-						resolve(component);
-					}
-				);
-			}
-		);
+	createWidget(container: ViewContainerRef, type: string): ComponentRef<any> {
+		let componentClass = this.registry.getWidgetType(type);
+
+		let componentFactory = this.resolver.resolveComponentFactory(componentClass);
+		return container.createComponent(componentFactory);
 	}
 }
