@@ -36,18 +36,18 @@ export class AppComponent {
 		})();
 
 		this.fieldValidators["/bornOn"] = (value, property, form) => {
+			let errors = null;
 			let dateArr = value.split("-");
 			if (dateArr.length === 3) {
 				let now = new Date();
 				let min = new Date(now.getFullYear()-100, now.getMonth(), now.getDay()).getTime();
 				let max = new Date().getTime();
 				let born = new Date(dateArr[0],dateArr[1]-1,dateArr[2]).getTime();
-				if (born > min && born < max ) {
-					return null;
-				} else {
-					return [{"bornOn": {"expectedValue": ">today - 100 && < today", "actualValue":value}}];
+				if (born < min || born > max ) {
+					errors = [{"bornOn": {"expectedValue": ">today - 100 && < today", "actualValue":value}}];
 				}
 			}
+			return errors;
 		};
 
 		this.fieldValidators["/promotion"] = (value, property, form) => {
