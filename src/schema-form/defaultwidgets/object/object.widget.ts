@@ -1,17 +1,11 @@
 import {
 	Component,
-	Input
 } from "@angular/core";
 
-import { forwardRef } from "@angular/core";
-
-import { FormElementComponent } from "../../formelement.component";
+import { ObjectLayoutWidget } from "../../widget";
 
 @Component({
 	selector: "formobject",
 	template: require("./object.widget.html")
 })
-export class ObjectWidget {
-	@Input() formProperty;
-
-}
+export class ObjectWidget extends ObjectLayoutWidget { }

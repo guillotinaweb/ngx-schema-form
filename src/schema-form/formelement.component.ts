@@ -3,7 +3,12 @@ import {
 	Input
 } from "@angular/core";
 
-import { ActionRegistry, FormProperty } from "./model";
+import { Widget } from "./widget";
+
+import {
+	ActionRegistry,
+	FormProperty
+} from "./model";
 
 @Component({
 	selector: "formelement",
@@ -45,14 +50,10 @@ export class FormElementComponent {
 		};
 	}
 
-	onWidgetInstanciated(widget: any) {
+	private onWidgetInstanciated(widget: Widget) {
 		this.widget = widget;
 		this.initializeWidget();
-		if(widget.control) {
-			this.setupLeafWidget();
-		} else {
-			this.setupLayoutWidget();
-		}
+		this.widget.setup(this.formProperty);
 	}
 
 	private initializeWidget() {
@@ -64,20 +65,4 @@ export class FormElementComponent {
 		this.widget.name = id;
 		this.widget.id = id;
 	}
-
-	setupLeafWidget() {
-		let control = this.widget.control;
-		this.formProperty.valueChanges.subscribe((newValue) => {
-			if (control.value !== newValue) {
-				control.setValue(newValue, {emitEvent: false})
-			}
-		});
-		this.formProperty.errorsChanges.subscribe((errors) => {control.setErrors(errors)});
-		control.valueChanges.subscribe((newValue) => {this.formProperty.setValue(newValue, false)});
-	}
-
-	setupLayoutWidget() {
-		this.widget.formProperty = this.formProperty;
-	}
-
 }

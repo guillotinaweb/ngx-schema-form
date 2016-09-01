@@ -5,8 +5,16 @@ import {
 	Output
 } from "@angular/core";
 
-import { Observable } from "rxjs"
-import { Action, ActionRegistry, FormPropertyFactory, FormProperty, SchemaPreprocessor, ValidatorRegistry, Validator } from "./model";
+import {
+	Action,
+	ActionRegistry,
+	FormPropertyFactory,
+	FormProperty,
+	SchemaPreprocessor,
+	ValidatorRegistry,
+	Validator
+} from "./model";
+
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "./schemavalidatorfactory";
 import { WidgetFactory } from "./widgetfactory";
 
@@ -15,6 +23,8 @@ import { WidgetFactory } from "./widgetfactory";
 	selector: "schema-form",
 	template: require("./form.component.html"),
 	providers: [
+		ActionRegistry,
+		ValidatorRegistry,
 		SchemaPreprocessor,
 		WidgetFactory,
 		{
@@ -26,9 +36,7 @@ import { WidgetFactory } from "./widgetfactory";
 				return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry);
 			},
 			deps: [SchemaValidatorFactory, ValidatorRegistry]
-		},
-		ActionRegistry,
-		ValidatorRegistry
+		}
 	]
 })
 export class FormComponent {
@@ -40,10 +48,10 @@ export class FormComponent {
 	@Input() actions: {[actionId: string]: Action} = {};
 
 	@Input() validators: {[path: string]: Validator} = {};
+
 	@Output() onChange = new EventEmitter<{value: any}>();
 
 	rootProperty: FormProperty = null;
-
 
 	constructor(private formPropertyFactory: FormPropertyFactory, private actionRegistry: ActionRegistry, private validatorRegistry: ValidatorRegistry) { }
 
@@ -82,7 +90,7 @@ export class FormComponent {
 		}
 	}
 
-	reset() {
+	public reset() {
 		this.rootProperty.reset(null, true);
 	}
 }

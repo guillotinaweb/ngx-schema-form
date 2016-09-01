@@ -1,14 +1,9 @@
-import {
-	Component,
-	Input
-} from "@angular/core";
-import { BaseWidget } from "../../widget";
+import { Component } from "@angular/core";
+
+import { ControlWidget } from "../../widget";
 
 @Component({
 	selector: "string-widget",
 	template: require("./string.widget.html")
 })
-export class StringWidget extends BaseWidget {
-	@Input("value") value: string = "";
-
-}
+export class StringWidget extends ControlWidget {}

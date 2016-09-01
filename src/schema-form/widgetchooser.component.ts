@@ -3,11 +3,10 @@ import {
 	EventEmitter,
 	Inject,
 	Input,
-	OnInit,
+	AfterContentInit,
 	Output,
 	ViewChild,
 	ViewContainerRef,
-	forwardRef
 } from "@angular/core";
 
 import { WidgetFactory } from "./widgetfactory";
@@ -16,23 +15,22 @@ import { WidgetFactory } from "./widgetfactory";
 	selector: "widget-chooser",
 	template: "<div #target></div>",
 })
-export class WidgetChooserComponent {
+export class WidgetChooserComponent implements AfterContentInit {
 
-	private widgetFactory: WidgetFactory;
-	@ViewChild('target', {read: ViewContainerRef}) private container: ViewContainerRef;
-	private widgetInstance: any;
-	
 	@Input() widgetInfo: any;
+
 	@Output() widgetInstanciated = new EventEmitter<any>();
 
-	constructor(@Inject(forwardRef(()=>WidgetFactory)) widgetFactory: WidgetFactory = null) {
-		this.widgetFactory = widgetFactory;
-	}
+	@ViewChild('target', {read: ViewContainerRef}) private container: ViewContainerRef;
+
+	private widgetInstance: any;
+	
+
+	constructor(private widgetFactory: WidgetFactory = null) {}
 
 	ngAfterContentInit() {
 		let ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
 		this.widgetInstanciated.emit(ref.instance);
 		this.widgetInstance = ref.instance;
 	}
-
 }

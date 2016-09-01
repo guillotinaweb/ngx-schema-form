@@ -1,4 +1,4 @@
-export * from "./arraylist/arraylist.widget";
+export * from "./array/array.widget";
 export * from "./object/object.widget";
 export * from "./checkbox/checkbox.widget";
 export * from "./file/file.widget";

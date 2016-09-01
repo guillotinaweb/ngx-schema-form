@@ -1,18 +1,9 @@
-import {
-	Component,
-	Input
-} from "@angular/core";
+import { Component } from "@angular/core";
 
-import { BaseWidget } from "../../widget";
-import { TinyMCEComponent } from "./tinymce.component";
-import { TinyMCEValueAccessor } from "./tinymce.valueaccessor";
+import { ControlWidget } from "../../widget";
 
 @Component({
 	selector: "richtext-widget",
 	template: require("./richtext.widget.html"),
 })
-export class RichTextWidget extends BaseWidget {
-	constructor() {
-		super();
-	}
-}
+export class RichTextWidget extends ControlWidget {}

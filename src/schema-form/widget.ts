@@ -1,16 +1,42 @@
 import { FormControl } from "@angular/forms";
-import { ArrayProperty } from "./model";
+import { ArrayProperty, FormProperty, ObjectProperty } from "./model";
 
-export class BaseWidget {
+export abstract class Widget {
+	public abstract setup(formProperty);
+}
+
+export class ControlWidget extends Widget {
 
 	id: string = "";
 	name: string = "";
 	settings: any = {};
 	control: FormControl = new FormControl("", () => null);
-	constructor() {}
+
+	public setup(formProperty: FormProperty) {
+		let control = this.control;
+		formProperty.valueChanges.subscribe((newValue) => {
+			if (control.value !== newValue) {
+				control.setValue(newValue, {emitEvent: false})
+			}
+		});
+		formProperty.errorsChanges.subscribe((errors) => {control.setErrors(errors)});
+		control.valueChanges.subscribe((newValue) => {formProperty.setValue(newValue, false)});
+	}
+
 }
 
-export class ArrayLayoutWidget {
+export class ArrayLayoutWidget extends Widget {
 	formProperty: ArrayProperty = null;
-	constructor () {}
+
+	setup(formProperty: ArrayProperty) {
+		this.formProperty = formProperty;
+	}
+}
+
+export class ObjectLayoutWidget extends Widget {
+	formProperty: ObjectProperty = null;
+
+	setup(formProperty: ObjectProperty) {
+		this.formProperty = formProperty;
+	}
 }

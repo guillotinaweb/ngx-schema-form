@@ -1,5 +1,5 @@
 import {
-	ArrayListWidget,
+	ArrayWidget,
 	ObjectWidget,
 	CheckboxWidget,
 	FileWidget,
@@ -18,7 +18,7 @@ export class DefaultWidgetRegistry extends WidgetRegistry {
 	constructor() {
 		super();
 
-		this.register("array",  ArrayListWidget);
+		this.register("array",  ArrayWidget);
 		this.register("object",  ObjectWidget);
 
 		this.register("string", StringWidget);

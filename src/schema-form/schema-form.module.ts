@@ -10,7 +10,7 @@ import { FormComponent } from "./form.component";
 import { WidgetChooserComponent } from "./widgetchooser.component";
 import { WidgetRegistry } from "./widgetregistry";
 import {
-	ArrayListWidget,
+	ArrayWidget,
 	ObjectWidget,
 	CheckboxWidget,
 	FileWidget,
@@ -28,11 +28,12 @@ import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueacc
 
 
 @NgModule({
+	imports : [BrowserModule, FormsModule, ReactiveFormsModule],
 	declarations: [
 		FormElementComponent,
 		FormComponent,
 		WidgetChooserComponent,
-		ArrayListWidget,
+		ArrayWidget,
 		ObjectWidget,
 		CheckboxWidget,
 		FileWidget,
@@ -46,12 +47,11 @@ import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueacc
 		TinyMCEComponent,
 		TinyMCEValueAccessor
 	],
-	imports : [BrowserModule, FormsModule, ReactiveFormsModule],
 	entryComponents: [
 		FormElementComponent,
 		FormComponent,
 		WidgetChooserComponent,
-		ArrayListWidget,
+		ArrayWidget,
 		ObjectWidget,
 		CheckboxWidget,
 		FileWidget,
@@ -67,7 +67,7 @@ import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueacc
 	exports: [
 		FormComponent,
 		FormElementComponent,
-		ArrayListWidget,
+		ArrayWidget,
 		ObjectWidget,
 		CheckboxWidget,
 		FileWidget,

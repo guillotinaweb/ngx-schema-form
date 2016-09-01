@@ -1,5 +1,7 @@
 export class WidgetRegistry {
+
 	private widgets: { [type: string]: any } = {};
+
 	private defaultWidget: any;
 
 	constructor() { }
