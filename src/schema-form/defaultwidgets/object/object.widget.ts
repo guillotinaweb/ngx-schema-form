@@ -9,8 +9,7 @@ import { FormElementComponent } from "../../formelement.component";
 
 @Component({
 	selector: "formobject",
-	template: require("./object.widget.html"),
-	directives: [forwardRef(() => FormElementComponent)]
+	template: require("./object.widget.html")
 })
 export class ObjectWidget {
 	@Input() formProperty;

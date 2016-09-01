@@ -9,8 +9,6 @@ import {
 	ViewContainerRef,
 	forwardRef
 } from "@angular/core";
-import { Validators } from "@angular/common";
-import { FormControl } from "@angular/forms";
 
 import { WidgetFactory } from "./widgetfactory";
 

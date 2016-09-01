@@ -1,4 +1,4 @@
-import { Component, ComponentResolver, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
+import { Component, Directive, ElementRef, NgZone, Renderer, ViewEncapsulation,ViewContainerRef,ComponentMetadata} from "@angular/core";
 import { FormComponent, WidgetRegistry, Validator, DefaultWidgetRegistry} from "../src";
 
 @Component({
@@ -12,12 +12,10 @@ export class AppComponent {
 
 	private schema:any;
 	private model:any;
-	private resolver: ComponentResolver;
 	private fieldValidators : { [fieldId:string]: Validator} = {};
 	private actions = {}
 
-	constructor(resolver: ComponentResolver = null,registry: WidgetRegistry) {
-		this.resolver = resolver;
+	constructor(registry: WidgetRegistry) {
 
 		this.schema = (() => {
 			try {

@@ -69,7 +69,7 @@ export class FormElementComponent {
 		let control = this.widget.control;
 		this.formProperty.valueChanges.subscribe((newValue) => {
 			if (control.value !== newValue) {
-				control.updateValue(newValue, {emitEvent: false})
+				control.setValue(newValue, {emitEvent: false})
 			}
 		});
 		this.formProperty.errorsChanges.subscribe((errors) => {control.setErrors(errors)});

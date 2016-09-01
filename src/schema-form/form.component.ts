@@ -2,8 +2,7 @@ import {
 	Component,
 	EventEmitter,
 	Input,
-	Output,
-	provide
+	Output
 } from "@angular/core";
 
 import { Observable } from "rxjs"
@@ -18,15 +17,16 @@ import { WidgetFactory } from "./widgetfactory";
 	providers: [
 		SchemaPreprocessor,
 		WidgetFactory,
-		provide(SchemaValidatorFactory, {
+		{
+			provide: SchemaValidatorFactory, 
 			useClass: ZSchemaValidatorFactory
-		}),
-		provide(FormPropertyFactory, {
+		}, {
+			provide: FormPropertyFactory, 
 			useFactory: (schemaValidatorFactory, validatorRegistry) => {
 				return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry);
 			},
 			deps: [SchemaValidatorFactory, ValidatorRegistry]
-		}),
+		},
 		ActionRegistry,
 		ValidatorRegistry
 	]
