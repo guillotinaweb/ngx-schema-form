@@ -18,14 +18,9 @@ import {
 	TextAreaWidget,
 	RadioWidget,
 	RangeWidget,
-	RichTextWidget,
 	SelectWidget,
 	StringWidget
 } from "./defaultwidgets";
-
-import { TinyMCEComponent } from "./defaultwidgets/richtext/tinymce.component";
-import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueaccessor";
-
 
 @NgModule({
 	imports : [BrowserModule, FormsModule, ReactiveFormsModule],
@@ -41,11 +36,8 @@ import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueacc
 		TextAreaWidget,
 		RadioWidget,
 		RangeWidget,
-		RichTextWidget,
 		SelectWidget,
 		StringWidget,
-		TinyMCEComponent,
-		TinyMCEValueAccessor
 	],
 	entryComponents: [
 		FormElementComponent,
@@ -59,10 +51,8 @@ import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueacc
 		TextAreaWidget,
 		RadioWidget,
 		RangeWidget,
-		RichTextWidget,
 		SelectWidget,
 		StringWidget,
-		TinyMCEComponent
 	],
 	exports: [
 		FormComponent,
@@ -75,7 +65,6 @@ import { TinyMCEValueAccessor } from "./defaultwidgets/richtext/tinymce.valueacc
 		TextAreaWidget,
 		RadioWidget,
 		RangeWidget,
-		RichTextWidget,
 		SelectWidget,
 		StringWidget
 	]

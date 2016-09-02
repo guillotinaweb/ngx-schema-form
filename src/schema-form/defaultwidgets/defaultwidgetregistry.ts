@@ -7,7 +7,6 @@ import {
 	TextAreaWidget,
 	RadioWidget,
 	RangeWidget,
-	RichTextWidget,
 	SelectWidget,
 	StringWidget
 } from "./";
@@ -43,8 +42,6 @@ export class DefaultWidgetRegistry extends WidgetRegistry {
 		this.register("radio", RadioWidget);
 		this.register("boolean", CheckboxWidget);
 		this.register("checkbox", CheckboxWidget);
-
-		this.register("richtext", RichTextWidget);
 
 		this.setDefaultWidget(StringWidget);
 	}

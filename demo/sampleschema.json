@@ -191,7 +191,7 @@
 		},
 		"customEmail": {
 			"type": "string",
-			"widget": "richtext",
+			"widget": "textarea",
 			"description": "Email to send",
 			"visibleIf": {
 				"useCustomEmail": [true]

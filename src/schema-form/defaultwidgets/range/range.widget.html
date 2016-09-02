@@ -5,6 +5,6 @@
 	</label>
 	
 	<input [name]="name" class="text-widget range-widget" [attr.id]="id"
-	[class.required]="settings.required" [formControl]="control" (ngModelChange)="toNumber()" [attr.type]="'range'" [attr.required]="settings.required" [attr.min]="settings.minimum" [attr.max]="settings.maximum" [attr.placeholder]="settings.placeholder" [attr.disabled]="settings.readOnly?true:null" >
+	[class.required]="settings.required" [formControl]="control" [attr.type]="'range'" [attr.required]="settings.required" [attr.min]="settings.minimum" [attr.max]="settings.maximum" [attr.placeholder]="settings.placeholder" [attr.disabled]="settings.readOnly?true:null" >
 	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden">
 </div>

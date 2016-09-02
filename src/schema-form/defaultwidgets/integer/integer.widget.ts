@@ -8,5 +8,4 @@ import { ControlWidget } from "../../widget";
 	selector: "integer-widget",
 	template: require("./integer.widget.html")
 })
-export class IntegerWidget extends ControlWidget {
-}
+export class IntegerWidget extends ControlWidget {}
