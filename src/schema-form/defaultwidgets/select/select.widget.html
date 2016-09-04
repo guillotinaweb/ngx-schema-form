@@ -1,9 +1,9 @@
 <div class="widget form-group">
 	<label [attr.for]="id" class="horizontal control-label">
-		{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
+		{{ schema.description }}
 	</label>
-	<select [formControl]="control" [attr.name]="name" [attr.disabled]="settings.readOnly" class="form-control">
-	<option *ngFor="let option of settings.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
+	<select [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control">
+	<option *ngFor="let option of schema.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
 	</select>
-	<input *ngIf="settings.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
+	<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
 </div>

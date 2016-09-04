@@ -1,7 +1,12 @@
 import {
 	Component,
+	ChangeDetectorRef,
 	Input
 } from "@angular/core";
+
+import {
+	FormControl
+} from "@angular/forms";
 
 import { Widget } from "./widget";
 
@@ -17,14 +22,15 @@ import {
 export class FormElementComponent {
 
 	@Input() formProperty: FormProperty;
+	control: FormControl = new FormControl("", () => null);
 
-	private widget = null;
+	private widget: Widget<any> = null;
 
 	private buttons = [];
 
 	private static counter = 0;
 
-	constructor(private actionRegistry: ActionRegistry) { }
+	constructor(private actionRegistry: ActionRegistry) {}
 
 	ngOnInit() {
 		this.parseButtons();
@@ -44,25 +50,23 @@ export class FormElementComponent {
 		button.action = (e) => {
 			let action;
 			if (button.id && (action = this.actionRegistry.get(button.id))) {
-				action(this.formProperty, button.parameters);
+				if (action) {
+					action(this.formProperty, button.parameters);
+				}
 			}
 			e.preventDefault();
 		};
 	}
-
-	private onWidgetInstanciated(widget: Widget) {
+	
+	private onWidgetInstanciated(widget: Widget<any>) {
 		this.widget = widget;
-		this.initializeWidget();
-		this.widget.setup(this.formProperty);
-	}
-
-	private initializeWidget() {
 		let id = "field" + (FormElementComponent.counter++);
 
+		this.widget.formProperty = this.formProperty;
 		this.widget.schema = this.formProperty.schema;
-		this.widget.settings = this.formProperty.schema;
-		this.widget.settings.widget = this.formProperty.schema.widget;
 		this.widget.name = id;
 		this.widget.id = id;
+		this.widget.control = this.control;
 	}
+	
 }

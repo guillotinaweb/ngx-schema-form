@@ -2,7 +2,7 @@ import { isPresent} from "./utils";
 import { Action } from "./action";
 
 export class ActionRegistry {
-	actions: {[key: string]: Action};
+	actions: {[key: string]: Action} = {};
 
 	clear() {
 		this.actions = {};

@@ -1,7 +1,7 @@
 <div class="widget form-group">
 <label [attr.for]="id" class="horizontal control-label">
-	{{ settings.description }} <span *ngIf="settings.required" class="required horizontal" title="Required"></span>
+	{{ schema.description }}
 </label>
-<input [name]="name" [attr.readonly]="(settings.widget.id!=='color') && settings.readOnly?true:null"  class="text-widget.id textline-widget form-control" [attr.type]="settings.widget.id||'text'" [attr.id]="id"  [formControl]="control" [attr.placeholder]="settings.placeholder" [attr.disabled]="(settings.widget.id=='color' && settings.readOnly)?true:null">
-<input *ngIf="(settings.widget.id==='color' && settings.readOnly)" [attr.name]="name" type="hidden" [formControl]="control">
+<input [name]="name" [attr.readonly]="(schema.widget.id!=='color') && schema.readOnly?true:null"  class="text-widget.id textline-widget form-control" [attr.type]="schema.widget.id||'text'" [attr.id]="id"  [formControl]="control" [attr.placeholder]="schema.placeholder" [attr.disabled]="(schema.widget.id=='color' && schema.readOnly)?true:null">
+<input *ngIf="(schema.widget.id==='color' && schema.readOnly)" [attr.name]="name" type="hidden" [formControl]="control">
 </div>

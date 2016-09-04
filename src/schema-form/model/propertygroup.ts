@@ -43,5 +43,7 @@ export abstract class PropertyGroup extends FormProperty {
 		});
 	}
 
-
+	public isRoot() {
+		return this === this.root;
+	}
 }

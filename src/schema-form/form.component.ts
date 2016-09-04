@@ -1,4 +1,5 @@
 import {
+	ChangeDetectorRef,
 	Component,
 	EventEmitter,
 	Input,
@@ -53,22 +54,27 @@ export class FormComponent {
 
 	rootProperty: FormProperty = null;
 
-	constructor(private formPropertyFactory: FormPropertyFactory, private actionRegistry: ActionRegistry, private validatorRegistry: ValidatorRegistry) { }
+	constructor(private formPropertyFactory: FormPropertyFactory, private actionRegistry: ActionRegistry, private validatorRegistry: ValidatorRegistry, private cdr: ChangeDetectorRef) { }
 
 	ngOnChanges(changes: any) {
+
+		if (changes.validators) {
+			this.setValidators();
+		}
+
+		if (changes.actions) {
+			this.setActions();
+		}
+
 		if (changes.schema) {
 			SchemaPreprocessor.preprocess(this.schema);
 			this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
 			this.rootProperty.valueChanges.subscribe(value => {this.onChange.emit({value: value})});
 		}
-		if (this.schema && changes.model || this.model && changes.schema) {
+
+		if (this.schema && (changes.model || changes.schema )) {
 			this.rootProperty.reset(this.model, false);
-		}
-		if (changes.actions) {
-			this.setActions();
-		}
-		if (changes.validators) {
-			this.setValidators();
+			this.cdr.detectChanges();
 		}
 	}
 

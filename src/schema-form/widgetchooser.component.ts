@@ -1,9 +1,10 @@
 import {
 	Component,
+	ChangeDetectorRef,
 	EventEmitter,
 	Inject,
 	Input,
-	AfterContentInit,
+	OnInit,
 	Output,
 	ViewChild,
 	ViewContainerRef,
@@ -12,10 +13,10 @@ import {
 import { WidgetFactory } from "./widgetfactory";
 
 @Component({
-	selector: "widget-chooser",
+	selector: "ng2sf-widget-chooser",
 	template: "<div #target></div>",
 })
-export class WidgetChooserComponent implements AfterContentInit {
+export class WidgetChooserComponent implements OnInit { 
 
 	@Input() widgetInfo: any;
 
@@ -26,11 +27,12 @@ export class WidgetChooserComponent implements AfterContentInit {
 	private widgetInstance: any;
 	
 
-	constructor(private widgetFactory: WidgetFactory = null) {}
+	constructor(private widgetFactory: WidgetFactory = null, private cdr: ChangeDetectorRef) {}
 
-	ngAfterContentInit() {
+	ngOnInit() {
 		let ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
 		this.widgetInstanciated.emit(ref.instance);
 		this.widgetInstance = ref.instance;
+		this.cdr.detectChanges();
 	}
 }

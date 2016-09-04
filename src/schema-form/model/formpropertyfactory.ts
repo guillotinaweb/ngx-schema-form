@@ -31,7 +31,7 @@ export class FormPropertyFactory {
 
 		switch(schema.type) {
 			case "integer":
-				case "number":
+			case "number":
 				newProperty = new NumberProperty(this.schemaValidatorFactory, this.validatorRegistry, schema, parent, path);
 			break;
 			case "string":
@@ -50,9 +50,10 @@ export class FormPropertyFactory {
 				throw new TypeError(`Undefined type ${schema.type}`)
 		}
 
-		if( newProperty instanceof PropertyGroup && parent === null) {
+		if (newProperty instanceof PropertyGroup && parent === null) {
 			this.initializeRoot(newProperty);
 		}
+
 		return newProperty;
 	}
 

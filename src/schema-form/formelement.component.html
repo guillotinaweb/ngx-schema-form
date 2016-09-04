@@ -1,7 +1,7 @@
 <div *ngIf="formProperty.visible">
-	<widget-chooser
+	<ng2sf-widget-chooser
 	(widgetInstanciated)="onWidgetInstanciated($event)"
 	[widgetInfo]="formProperty.schema.widget">
-	</widget-chooser>
+	</ng2sf-widget-chooser>
 	<button *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
 </div>

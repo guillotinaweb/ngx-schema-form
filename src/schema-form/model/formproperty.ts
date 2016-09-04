@@ -17,19 +17,29 @@ export abstract class FormProperty {
 	private _valueChanges = new BehaviorSubject<any>(null);
 	private _errorsChanges = new BehaviorSubject<any>(null);
 	private _visible = true;
-	private visibilityChanges = new BehaviorSubject<boolean>(true);
-	private _parent;
-	private _path;
+	private _visibilityChanges = new BehaviorSubject<boolean>(true);
+	private _root: PropertyGroup;
+	private _parent: PropertyGroup;
+	private _path: string;
 
 	constructor(
 		schemaValidatorFactory: SchemaValidatorFactory,
 		private validatorRegistry: ValidatorRegistry,
 		public schema: any,
+
 		parent: PropertyGroup,
 		path: string
 	) {
 		this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
+
 		this._parent = parent;
+		if (parent) {
+			this._root = parent.root;
+		} else if (this instanceof PropertyGroup) {
+			this._root = <PropertyGroup><any>this;
+		} else {
+			throw new Error("")
+		}
 		this._path = path;
 	}
 
@@ -47,6 +57,10 @@ export abstract class FormProperty {
 
 	public get parent(): PropertyGroup {
 		return this._parent;
+	}
+
+	public get root(): PropertyGroup {
+		return this._root || <PropertyGroup><any>this;
 	}
 
 	public get path(): string {
@@ -69,20 +83,22 @@ export abstract class FormProperty {
 
 	abstract reset(value: any, onlySelf : boolean)
 
-	protected updateValueAndValidity(onlySelf = false, emitEvent = true){
+	protected updateValueAndValidity(onlySelf = false, emitEvent = true) {
 		this.updateValue();
+
 		if (emitEvent) {
 			this.valueChanges.next(this.value);
 		}
 
 		this.runValidation();
+
 		if (this.parent && !onlySelf) {
 			this.parent.updateValueAndValidity(onlySelf, emitEvent);
 		}
+
 	}
 
 	protected abstract updateValue();
-
 
 	private runValidation() : any {
 		let errors = this.schemaValidator(this._value) || [];
@@ -131,16 +147,14 @@ export abstract class FormProperty {
 
 	private setVisible(visible: boolean) {
 		this._visible = visible;
-		this.visibilityChanges.next(visible);
+		this._visibilityChanges.next(visible);
 		this.updateValueAndValidity();
 		if (this.parent) {
 			this.parent.updateValueAndValidity(false, true);
 		}
 	}
 
-	/**
-	 * A fiel is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
-	 */
+	// A fiel is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
 	public _bindVisibility() {
 		let visibleIf = this.schema.visibleIf;
 		if (visibleIf !== undefined) {
@@ -148,9 +162,9 @@ export abstract class FormProperty {
 			for (let dependencyPath in visibleIf) {
 				let property = this.searchProperty(dependencyPath);
 				let valueCheck = property.valueChanges.map(
-					value => visibleIf[dependencyPath].indexOf(value) != -1 
+					value => visibleIf[dependencyPath].indexOf(value) != -1
 				);
-				let visibilityCheck = property.visibilityChanges;
+				let visibilityCheck = property._visibilityChanges;
 				let and = Observable.combineLatest([valueCheck,visibilityCheck], (v1, v2) => v1 && v2);
 				propertiesBinding.push(and);
 			}
