@@ -32,12 +32,9 @@ Let's start by creating a simple AppComponent taking a simple JSON schema as inp
 // app.component.ts
 
 import { Component } from "@angular/core";
-import { Form } from "angular2-schema-form";
 
 @Component({
   selector:"minimal-app",
-  // Declare that our Component contains a Form component.
-  directives: [Form],
   // Bind the "mySchema" member to the schema input of the Form component.
   template: '<schema-form [schema]="mySchema"></schema-form>'
 })
@@ -66,21 +63,36 @@ export class AppComponent {
 }
 ```
 
-Bootstrap your AppComponent:
+Create a module which import the AppComponent and configure Angular2 schema form.
+```js
+//app.module.ts
+
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "angular2-schema-form";
+import { AppComponent } from "./app.component";
+
+@NgModule({
+  imports: [
+    SchemaFormModule,
+    BrowserModule
+  ],
+  declarations: [AppComponent],
+  providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
+})
+export class AppModule {}
+```
+
+Bootstrap your Module:
 
 ```js
 // main.browser.ts
-
-import {
-  disableDeprecatedForms,
-  provideForms
-} from "@angular/forms"
-import { bootstrap } from "@angular/platform-browser-dynamic";
+import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
 import { WidgetRegistry } from "angular2-schema-form";
 
 // Until Angular2 RC5, we have to specify we are using new forms API
-bootstrap(AppComponent, [disableDeprecatedForms(), provideForms(), WidgetRegistry]);
+platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
 The code above creates a form with three required fields.
@@ -168,7 +180,7 @@ mySchema = {
 }
 ```
 
-Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly within the `widget` property:
+Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly within the `widget` property (here the [TinyMCE widget](https://github.com/fbessou/ng2sf-tinymce) ):
 
 ```js
 mySchema = {
@@ -224,7 +236,6 @@ Each schema can be extended by adding buttons after its widget.
 // app.component.ts
 @Component({
   selector:"minimal-app",
-  directives: [Form],
   // Bind the actions map to the the "actions" input
   template: '<schema-form [schema]="mySchema" [actions]="myActions"></schema-form>'
 })
@@ -268,8 +279,8 @@ export class AppComponent {
 
 ### Advanced validation
 JSON schema provides validation against a static schema but its often necessary to provide other validation rules.
-The Form component accepts a `fieldValidators` input bound to a map between a field id and a validation function.
-The validation function takes three arguments: the value of the field, the value of the form and the controls of every fields (which can be useful to check if another field is valid, touched, etc.).
+The Form component accepts a `validators` input bound to a map between a field id and a validation function.
+The validation function takes three arguments: the value of the field, the property corresponding to it and the form object.
 
 In the following example we create a simple registration form.
 The user have to enter his password twice.
@@ -278,9 +289,8 @@ To perform this check we create a custom validator:
 ```js
 @Component({
   selector:"minimal-app",
-  directives: [Form],
-  // Bind the validator map to the the "fieldValidators" input
-  template: '<schema-form [schema]="mySchema" [fieldValidators]="myValidators"></schema-form>'
+  // Bind the validator map to the the "validators" input
+  template: '<schema-form [schema]="mySchema" [validators]="myValidators"></schema-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -299,12 +309,12 @@ export class AppComponent {
         "description": "Password (verification)"
       }
     },
-    "required": ["email","password","passwordCheck"]
+    "required": ["email", "password", "passwordCheck"]
   }
 
   // Declare a mapping between action ids and their implementations
   myValidators = {
-    "passwordCheck": (value, values, controls) => {
+    "passwordCheck": (value, property, form) => {
       if (controls.password !== undefined
           && controls.password.valid
           && value !== values.password
@@ -324,7 +334,6 @@ To achieve this you just have to add a `visibleIf` property to a field's definit
 ```js
 @Component({
   selector:"minimal-app",
-  directives: [Form],
   template: '<schema-form [schema]="mySchema"></schema-form>'
 })
 export class AppComponent {
