@@ -5,12 +5,12 @@ Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML f
 
 ## Demo
 There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Angular2 Schema Form.
-You can also test the module on [the website](https://makinacorpus.github.com/angular2-schema-form).
+You can also test the module on [the website](https://makinacorpus.github.io/angular2-schema-form).
 
 ## Features
 
 * Generate a form from a single json schema object
-* Allow initialisation from previous values
+* Allow initialization from previous values
 * Validation handled by z-schema
 * Allow injection of custom validators
 * Allow declaration of custom widgets
@@ -35,12 +35,13 @@ import { Component } from "@angular/core";
 import { Form } from "angular2-schema-form";
 
 @Component({
-selector:"minimal-app",
-// Declare that our Component contains a Form component.
-directives: [Form],
-// Bind the "mySchema" member to the schema input of the Form component.
-template: '<schema-form [schema]="mySchema"></schema-form>'
+  selector:"minimal-app",
+  // Declare that our Component contains a Form component.
+  directives: [Form],
+  // Bind the "mySchema" member to the schema input of the Form component.
+  template: '<schema-form [schema]="mySchema"></schema-form>'
 })
+
 export class AppComponent {
   // The schema that will be used to generate a form
   mySchema = {
@@ -72,7 +73,7 @@ Bootstrap your AppComponent:
 
 import {
   disableDeprecatedForms,
-    provideForms
+  provideForms
 } from "@angular/forms"
 import { bootstrap } from "@angular/platform-browser-dynamic";
 
@@ -82,15 +83,17 @@ import { WidgetRegistry } from "angular2-schema-form";
 bootstrap(AppComponent, [disableDeprecatedForms(), provideForms(), WidgetRegistry]);
 ```
 
-The code above creates a form with three required fields. The validation state of each field is reflected by the class of each of them which can be either "has-error" or "has-success".
-Validation is done every time a field's value is changed. Basic validation is made by testing the value of the field against its corresponding schema.
-The input schema support almost all the features listed on the JSON schema specification.
+The code above creates a form with three required fields.
+The validation state of each field is reflected by the class of each of them which can be either "has-error" or "has-success".
+Validation is done everytime a field's value changes.
+Basic validation is made by testing the value of the field against its corresponding schema.
+The input schema support almost all the features listed on the [JSON schema specification](http://json-schema.org/).
 
-### Accessing the value of the form.
+### Accessing the form's value
 
 #### Input binding
-
-It is possible to provide initial values to the form. You can set the initial value of the form through the `model` input:
+It is possible to provide initial values to the form.
+You can set the initial form's value through the `model` input:
 
 
 ```js
@@ -104,15 +107,16 @@ export class AppComponent {
 ```
 
 #### Output binding
-The Form component provide the `onChange` output binding of which value represents the value of the form.
-For instance, you can display the current value of the form with the following template:
+The Form component provides the `onChange` output binding of which value represents the value of the form.
+For instance, you can display the current forms's value with the following template:
 
 ```js
 template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{json | value}}'
 ```
 
 ### Widgets
-Each field can be displayed using a specific widget. To declare the widget you want to use, add its id to the field's definition:
+Each field can be displayed using a specific widget.
+To declare the widget you want to use, add its `id` to the field's definition:
 
 ```js
 mySchema = {
@@ -136,8 +140,35 @@ mySchema = {
 }
 ```
 
-If there is no widget declared a given property's schema, its type is used as widget id. For instance, a string property will use the "string" widget.
-Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly in the `widget` property:
+If there is no widget declared in a given property's schema, its type is used as widget id and the [default registry](#default-widgets-registry) gives a default widget (see details below).
+For instance, a string property will use the "string" widget.
+The following JSON schema is equivalent with the above example:
+
+```js
+mySchema = {
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "email",
+      "format": "email",
+      "widget": "string"
+    },
+    "password": {
+      "type": "string",
+      "description": "Password",
+      "widget": "password"// == "widget": {"id": "password"}
+    },
+    "rememberMe": {
+      "type": "boolean",
+      "default": false,
+      "description": "Remember me",
+      "widget": "boolean"
+    }
+  }
+}
+```
+
+Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly within the `widget` property:
 
 ```js
 mySchema = {
@@ -151,16 +182,18 @@ mySchema = {
         "toolbar": "forecolor backcolor"
       }
     }
-  }  
+  }
 }
 ```
 
-Available widgets are managed through a WidgetRegistry. By default, this registry contains many widgets which are listed below by type:
+### default widget's registry
+Available widgets are managed through a `WidgetRegistry`.
+By default, this registry contains many widgets listed below, ordered by type:
 
- - **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio, richtext
- - **number**: number, integer, range
- - **integer**: integer, range
- - **boolean**: boolean, checkbox
+- **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio, richtext
+- **number**: number, integer, range
+- **integer**: integer, range
+- **boolean**: boolean, checkbox
 
 Note that the select and radio widgets rely on the `oneOf` property:
 
@@ -185,14 +218,15 @@ Note that the select and radio widgets rely on the `oneOf` property:
 ```
 
 ### Actions and buttons
-Each schema can be extended to add buttons after its widget.
+Each schema can be extended by adding buttons after its widget.
+
 ```js
 // app.component.ts
 @Component({
-selector:"minimal-app",
-directives: [Form],
-// Bind the actions map to the the "actions" input
-template: '<schema-form [schema]="mySchema" [actions]="myActions"></schema-form>'
+  selector:"minimal-app",
+  directives: [Form],
+  // Bind the actions map to the the "actions" input
+  template: '<schema-form [schema]="mySchema" [actions]="myActions"></schema-form>'
 })
 export class AppComponent {
   // The schema that will be used to generate a form
@@ -224,7 +258,7 @@ export class AppComponent {
     }]
   }
 
-  // Declare a mapping between action ids and their implementations
+  // Declare a mapping between action ids and their event listener
   myActions = {
     "alert": (property) => {alert(JSON.stringify(property.value))},
     "reset": (property) => {property.reset()}
@@ -233,18 +267,20 @@ export class AppComponent {
 ```
 
 ### Advanced validation
+JSON schema provides validation against a static schema but its often necessary to provide other validation rules.
+The Form component accepts a `fieldValidators` input bound to a map between a field id and a validation function.
+The validation function takes three arguments: the value of the field, the value of the form and the controls of every fields (which can be useful to check if another field is valid, touched, etc.).
 
-JSON schema provide validation against a static schema but its often necessary to provide other validation rules.
-The Form component accept a `fieldValidators` input which binds to a map between a field id and a validation function. The validation function takes three arguments: the value of the field, the value of the form and the controls of every fields (which can be useful to check if another field is valid, touched, etc.).
-
-In the following example we create a simple registration form. The user have to enter his password twice. To perform this check we create a custom validator:
+In the following example we create a simple registration form.
+The user have to enter his password twice.
+To perform this check we create a custom validator:
 
 ```js
 @Component({
-selector:"minimal-app",
-directives: [Form],
-// Bind the validator map to the the "fieldValidators" input
-template: '<schema-form [schema]="mySchema" [fieldValidators]="myValidators"></schema-form>'
+  selector:"minimal-app",
+  directives: [Form],
+  // Bind the validator map to the the "fieldValidators" input
+  template: '<schema-form [schema]="mySchema" [fieldValidators]="myValidators"></schema-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -282,14 +318,14 @@ export class AppComponent {
 ```
 
 ### Conditional fields
-
-It is possible to make the presence of a field depend on another field's value. To achieve this, you just have to add a "`visibleIf` property to a field's definition.
+It is possible to make the presence of a field depends on another field's value.
+To achieve this you just have to add a `visibleIf` property to a field's definition.
 
 ```js
 @Component({
-selector:"minimal-app",
-directives: [Form],
-template: '<schema-form [schema]="mySchema"></schema-form>'
+  selector:"minimal-app",
+  directives: [Form],
+  template: '<schema-form [schema]="mySchema"></schema-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -305,13 +341,13 @@ export class AppComponent {
       "registerNewsletter": {
         "type": "boolean",
         "description": "I want to receive the newsletter",
-        "default": true
+        "default": false
       },
       "registerEmail": {
         "type": "string",
         "description": "Email",
         "format": "email",
-        // Declare that this field must show only if registerNewsletter is true
+        // Declare that this field must be displayed only if registerNewsletter is true
         "visibleIf": {
           "registerNewsletter": [true]
         }
@@ -323,7 +359,8 @@ export class AppComponent {
 ```
 
 ### Fields presentation and ordering
-As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built. The `order` and `fieldsets` entries of the schema are here to organize your fields.
+As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built.
+The `order` and `fieldsets` entries of the schema are here to organize your fields.
 
 #### Ordering
 The `order` entry is an array listing all the fields ids in the order they must appear in the form:
@@ -340,7 +377,6 @@ The `order` entry is an array listing all the fields ids in the order they must 
 ```
 
 #### Fieldsets
-
 With the `fieldsets` property, you can describe the different parts of the form and the fields they contain:
 
 ```js
@@ -376,10 +412,10 @@ With the `fieldsets` property, you can describe the different parts of the form 
 The `title` entry of each fieldset is optional.
 
 ## Creating a custom widget
-Angular2 schema form allows you to create your own widget. Currently this feature is not completely defined and API could change.
+Angular2 schema form allows you to create your own widget.
+Currently this feature is not completely defined and the API could change.
 
 ## Building the API documentation
-
 You can build an HTML version of the API documentation by running the following command:
 
 ```bash
