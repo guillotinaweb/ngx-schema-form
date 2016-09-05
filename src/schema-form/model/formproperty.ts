@@ -104,8 +104,8 @@ export abstract class FormProperty {
 		let errors = this.schemaValidator(this._value) || [];
 		let customValidator = this.validatorRegistry.get(this.path);
 		if (customValidator) {
-			let customErrors = this.validatorRegistry.get(this.path)(this.value, this, this.findRoot()) ;
-			errors.push(...( customErrors || []));
+			let customErrors = customValidator(this.value, this, this.findRoot()) ;
+			errors = this.mergeErrors(errors, customErrors);
 		}
 		if (errors.length === 0) {
 			errors = null;
@@ -113,6 +113,17 @@ export abstract class FormProperty {
 
 		this._errors = errors;
 		this.setErrors(this._errors);
+	}
+
+	private mergeErrors(errors, newErrors) {
+		if (newErrors) {
+			if (Array.isArray(newErrors)) {
+				errors = errors.concat(...newErrors);
+			} else {
+				errors.push(newErrors);
+			}
+		}
+		return errors;
 	}
 
 	private setErrors(errors) {
