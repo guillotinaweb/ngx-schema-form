@@ -6,11 +6,11 @@ export abstract class PropertyGroup extends FormProperty {
 
 	getProperty(path: string) {
 		let subPathIdx = path.indexOf("/");
-		let propertyId = subPathIdx !== -1 ? path.substr(subPathIdx+1) : path ;
-		let property = this.properties[propertyId];
+		let propertyId = subPathIdx !== -1 ? path.substr(0,subPathIdx) : path ;
 
+		let property = this.properties[propertyId];
 		if (property !== null && subPathIdx !== -1 && property instanceof PropertyGroup) {
-			let subPath = path.substr(0, subPathIdx);
+			let subPath = path.substr(subPathIdx+1);
 			property = (<PropertyGroup>property).getProperty(subPath);
 		}
 		return property;

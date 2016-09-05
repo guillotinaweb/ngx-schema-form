@@ -161,12 +161,16 @@ export abstract class FormProperty {
 			let propertiesBinding = [];
 			for (let dependencyPath in visibleIf) {
 				let property = this.searchProperty(dependencyPath);
-				let valueCheck = property.valueChanges.map(
-					value => visibleIf[dependencyPath].indexOf(value) != -1
-				);
-				let visibilityCheck = property._visibilityChanges;
-				let and = Observable.combineLatest([valueCheck,visibilityCheck], (v1, v2) => v1 && v2);
-				propertiesBinding.push(and);
+				if (property) {
+					let valueCheck = property.valueChanges.map(
+						value => visibleIf[dependencyPath].indexOf(value) != -1
+					);
+					let visibilityCheck = property._visibilityChanges;
+					let and = Observable.combineLatest([valueCheck,visibilityCheck], (v1, v2) => v1 && v2);
+					propertiesBinding.push(and);
+				} else {
+					console.warn("Can't find property "+dependencyPath+" for visibility check of "+this.path);
+				}
 			}
 
 			Observable.combineLatest(propertiesBinding, (...values: boolean[]) => {
