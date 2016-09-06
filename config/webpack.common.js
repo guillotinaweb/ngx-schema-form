@@ -36,19 +36,9 @@ module.exports = {
 		},{
 			test: /\.css$/,
 			loader: 'raw-loader',
-			exclude: /tinymce/
-		},{
-			test: require.resolve("tinymce/tinymce"),
-			loaders : [
-				"imports?this=>window",
-				"exports?window.tinymce"
-			]
 		},{
 			test: /\.(png|jpg|gif|woff|ttf|eot|svg)$/,
 		    loader: 'file-loader'
-		},{
-			test: /tinymce\/(themes|plugins)\//,
-			loaders: ["imports?this=>window"]
 		}]
 	},
 	plugins: [
