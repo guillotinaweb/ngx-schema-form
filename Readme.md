@@ -89,7 +89,7 @@ Bootstrap your Module:
 // main.browser.ts
 import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
 
-import { WidgetRegistry } from "angular2-schema-form";
+import { AppModule } from "app.module";
 
 // Until Angular2 RC5, we have to specify we are using new forms API
 platformBrowserDynamic().bootstrapModule(AppModule);
@@ -198,9 +198,9 @@ mySchema = {
 }
 ```
 
-### default widget's registry
+### Default widget's registry
 Available widgets are managed through a `WidgetRegistry`.
-By default, this registry contains many widgets listed below, ordered by type:
+The default registry ([`DefaultWidgetRegistry`](./src/schema-form/defaultwidgets/defaultwidgetregistry.ts)) contains many widgets listed below, ordered by type:
 
 - **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio, richtext
 - **number**: number, integer, range
