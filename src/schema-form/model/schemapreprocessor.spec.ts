@@ -1,8 +1,3 @@
-import {
-	describe,
-	expect
-} from "@angular/core/testing";
-
 import { SchemaPreprocessor } from "./schemapreprocessor";
 describe("SchemaPreprocessor", () => {
 

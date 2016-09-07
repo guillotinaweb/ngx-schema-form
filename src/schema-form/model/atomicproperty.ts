@@ -1,5 +1,4 @@
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { PropertyGroup } from "./propertygroup";
 import { FormProperty } from "./formproperty";
 
 export abstract class AtomicProperty extends FormProperty {
@@ -27,6 +26,6 @@ export abstract class AtomicProperty extends FormProperty {
 
 	protected abstract fallbackValue(): any;
 
-	protected updateValue() {};
+	public _updateValue() {};
 
 }

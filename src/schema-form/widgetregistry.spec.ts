@@ -1,17 +1,12 @@
 import {
-	describe,
-	it,
-	expect,
 	inject,
-	beforeEach,
-	beforeEachProviders
 } from "@angular/core/testing";
 
 import {
 	IntegerWidget,
 	TextAreaWidget,
 	StringWidget
-} from "./widgets";
+} from "./defaultwidgets";
 
 import { WidgetRegistry } from "./widgetregistry";
 
@@ -57,7 +52,7 @@ describe("WidgetRegistry", () => {
 	});
 
 	it("should register a widget type", () => {
-		registry.registerWidgetType(THE_TYPE, THE_FIELD_TYPE);
+		registry.register(THE_TYPE, THE_FIELD_TYPE);
 
 		let widget = registry.getWidgetType(THE_TYPE);
 

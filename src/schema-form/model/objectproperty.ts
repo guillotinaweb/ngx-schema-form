@@ -49,7 +49,7 @@ export class ObjectProperty extends PropertyGroup {
 		}
 	}
 
-	protected updateValue() {
+	public _updateValue() {
 		this.reduceValue();
 	}
 

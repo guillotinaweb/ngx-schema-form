@@ -4,6 +4,7 @@ import "rxjs/add/observable/combineLatest";
 import "rxjs/add/operator/map";
 import "rxjs/add/operator/do";
 import "rxjs/add/operator/distinctUntilChanged";
+
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
 import { ValidatorRegistry } from "./validatorregistry";
 import { PropertyGroup } from "./propertygroup";
@@ -81,26 +82,32 @@ export abstract class FormProperty {
 
 	public abstract setValue(value: any, onlySelf: boolean);
 
-	abstract reset(value: any, onlySelf : boolean)
+	public abstract reset(value: any, onlySelf : boolean)
 
-	protected updateValueAndValidity(onlySelf = false, emitEvent = true) {
-		this.updateValue();
+	public updateValueAndValidity(onlySelf = false, emitEvent = true) {
+		this._updateValue();
 
 		if (emitEvent) {
 			this.valueChanges.next(this.value);
 		}
 
-		this.runValidation();
+		this._runValidation();
 
 		if (this.parent && !onlySelf) {
 			this.parent.updateValueAndValidity(onlySelf, emitEvent);
 		}
 
 	}
+	
+	/**
+	 *  @internal
+	 */
+	public abstract _updateValue();
 
-	protected abstract updateValue();
-
-	private runValidation() : any {
+	/**
+	 * @internal
+	 */
+	public _runValidation() : any {
 		let errors = this.schemaValidator(this._value) || [];
 		let customValidator = this.validatorRegistry.get(this.path);
 		if (customValidator) {

@@ -40,7 +40,7 @@ export class ArrayProperty extends PropertyGroup {
 		this.updateValueAndValidity(onlySelf, true);
 	}
 
-	protected updateValue() {
+	public _updateValue() {
 		this.reduceValue();
 	}
 
