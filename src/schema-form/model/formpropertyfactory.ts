@@ -1,5 +1,4 @@
-import { FormProperty } from "./formproperty";
-import { PropertyGroup } from "./propertygroup";
+import { FormProperty, PropertyGroup } from "./formproperty";
 import { NumberProperty } from "./numberproperty";
 import { StringProperty } from "./stringproperty";
 import { BooleanProperty } from "./booleanproperty";

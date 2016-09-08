@@ -1,5 +1,4 @@
-import { PropertyGroup } from "./propertygroup";
-import { FormProperty } from "./formproperty";
+import { FormProperty, PropertyGroup } from "./formproperty";
 import { FormPropertyFactory } from "./formpropertyfactory";
 import { SchemaValidatorFactory } from "../schemavalidatorfactory";
 import { ValidatorRegistry } from "./validatorregistry"; 

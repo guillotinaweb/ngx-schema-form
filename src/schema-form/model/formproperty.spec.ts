@@ -1,6 +1,4 @@
-import { FormProperty } from "./formproperty";
-
-import { PropertyGroup } from "./propertygroup";
+import { FormProperty, PropertyGroup } from "./formproperty";
 
 import {
 	ZSchemaValidatorFactory,
