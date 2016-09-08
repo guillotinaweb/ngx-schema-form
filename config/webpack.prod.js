@@ -14,7 +14,8 @@ module.exports = merge(require("./webpack.common.js"),{
 	output: {
 		path: path.resolve("./dist"),
 		filename: "index.js",
-		"libraryTarget":"commonjs"
+		libraryTarget: "commonjs2",
+		library: true
 	},
 	entry: {
 		"index": path.resolve("src/index.ts")
@@ -27,5 +28,5 @@ module.exports = merge(require("./webpack.common.js"),{
 		}]
 	},
 	plugins: [],
-	externals: [nodeExternals({whitelist:["z-schema","tinymce/tinymce", "tinymce/themes/modern/theme"]})],
+	externals: [nodeExternals({whitelist:["z-schema"]})],
 });
