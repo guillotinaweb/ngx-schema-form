@@ -2,6 +2,11 @@
 
 Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
 
+## DISCLAIMER
+
+Angular2 Schema Form is **not** related to [angular-schema-form](https://github.com/json-schema-form/angular-schema-form) and [schemaform.io](http://schemaform.io/).
+
+We think `angular-schema-form` is a great Angular 1 library, and when it will move to Angular 2, we will probably join our efforts to produce and maintain a unique Angular 2 solution.
 
 ## Demo
 There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Angular2 Schema Form.

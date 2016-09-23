@@ -1,7 +1,7 @@
 {
   "name": "angular2-schema-form",
   "version": "1.0.0-alpha.23",
-  "description": "Angular2 Schema Form",
+  "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "repository": {
     "type": "git",
     "url": "https://github.com/makinacorpus/angular2-schema-form"
