@@ -7,7 +7,7 @@
 		"express-serve-static-core": "registry:dt/express-serve-static-core#0.0.0+20160322035842",
 		"hammerjs": "registry:dt/hammerjs#2.0.4+20160417130828",
 		"jasmine": "registry:dt/jasmine#2.2.0+20160505161446",
-		"node": "registry:dt/node#6.0.0+20160514165920",
+		"node": "registry:dt/node#6.0.0+20160925070332",
 		"selenium-webdriver": "registry:dt/selenium-webdriver#2.44.0+20160317120654",
 		"serve-static": "registry:dt/serve-static#0.0.0+20160317120654",
 		"source-map": "registry:dt/source-map#0.0.0+20160317120654",
