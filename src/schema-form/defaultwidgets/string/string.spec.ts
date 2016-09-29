@@ -7,6 +7,6 @@ import { StringWidget } from "./string.widget";
 describe("StringWidget", () => {
 	let THE_VALUE = "FOO";
 
-	it("should initialize value from input", done => {});
+	xit("should initialize value from input", done => {});
 
 });
