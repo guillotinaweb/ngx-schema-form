@@ -16,8 +16,8 @@ module.exports = merge(require("./webpack.common.js"),{
 	},
 	entry: {
 		"demo": "./demo/main.browser",
-		"vendor": "./src/vendor",
-		"polyfills":"./src/polyfills"
+		"vendor": "./demo/vendor",
+		"polyfills":"./demo/polyfills"
 	},
 	devtool: 'cheap-module-source-map',
 	module: {
