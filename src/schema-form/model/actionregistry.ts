@@ -1,18 +1,18 @@
-import { isPresent} from "./utils";
+import { isPresent } from "./utils";
 import { Action } from "./action";
 
 export class ActionRegistry {
-	actions: {[key: string]: Action} = {};
+  actions: {[key: string]: Action} = {};
 
-	clear() {
-		this.actions = {};
-	}
+  clear() {
+    this.actions = {};
+  }
 
-	register(actionId: string, action: Action) {
-		this.actions[actionId] = action;
-	}
+  register(actionId: string, action: Action) {
+    this.actions[actionId] = action;
+  }
 
-	get(actionId: string) {
-		return this.actions[actionId];
-	}
+  get(actionId: string) {
+    return this.actions[actionId];
+  }
 }

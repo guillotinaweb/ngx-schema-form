@@ -11,4 +11,4 @@
 import "core-js/es7/reflect";
 require("zone.js/dist/zone");
 
-import 'ts-helpers';
+import "ts-helpers";

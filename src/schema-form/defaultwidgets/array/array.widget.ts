@@ -3,16 +3,16 @@ import { Component } from "@angular/core";
 import { ArrayLayoutWidget } from "../../widget";
 
 @Component({
-	selector: "array-widget",
-	template: require("./array.widget.html")
+  selector: "array-widget",
+  template: require("./array.widget.html")
 })
 export class ArrayWidget extends ArrayLayoutWidget {
 
-	addItem() {
-		this.formProperty.addItem();
-	}
+  addItem() {
+    this.formProperty.addItem();
+  }
 
-	removeItem(index: number) {
-		this.formProperty.removeItem(index);
-	}
+  removeItem(index: number) {
+    this.formProperty.removeItem(index);
+  }
 }

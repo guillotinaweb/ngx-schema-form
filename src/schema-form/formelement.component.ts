@@ -1,72 +1,73 @@
 import {
-	Component,
-	ChangeDetectorRef,
-	Input
+  Component,
+  ChangeDetectorRef,
+  Input,
+  OnInit
 } from "@angular/core";
 
 import {
-	FormControl
+  FormControl
 } from "@angular/forms";
 
 import { Widget } from "./widget";
 
 import {
-	ActionRegistry,
-	FormProperty
+  ActionRegistry,
+  FormProperty
 } from "./model";
 
 @Component({
-	selector: "formelement",
-	template: require("./formelement.component.html")
+  selector: "form-element",
+  template: require("./formelement.component.html")
 })
-export class FormElementComponent {
+export class FormElementComponent implements OnInit {
 
-	@Input() formProperty: FormProperty;
-	control: FormControl = new FormControl("", () => null);
+  @Input() formProperty: FormProperty;
+  control: FormControl = new FormControl("", () => null);
 
-	private widget: Widget<any> = null;
+  private widget: Widget<any> = null;
 
-	private buttons = [];
+  private buttons = [];
 
-	private static counter = 0;
+  private static counter = 0;
 
-	constructor(private actionRegistry: ActionRegistry) {}
+  constructor(private actionRegistry: ActionRegistry) {}
 
-	ngOnInit() {
-		this.parseButtons();
-	}
+  ngOnInit() {
+    this.parseButtons();
+  }
 
-	private parseButtons() {
-		if (this.formProperty.schema.buttons !== undefined) {
-			this.buttons = this.formProperty.schema.buttons;
+  private parseButtons() {
+    if (this.formProperty.schema.buttons !== undefined) {
+      this.buttons = this.formProperty.schema.buttons;
 
-			for (let button of this.buttons) {
-				this.createButtonCallback(button);
-			}
-		}
-	}
+      for (let button of this.buttons) {
+        this.createButtonCallback(button);
+      }
+    }
+  }
 
-	private createButtonCallback(button) {
-		button.action = (e) => {
-			let action;
-			if (button.id && (action = this.actionRegistry.get(button.id))) {
-				if (action) {
-					action(this.formProperty, button.parameters);
-				}
-			}
-			e.preventDefault();
-		};
-	}
-	
-	private onWidgetInstanciated(widget: Widget<any>) {
-		this.widget = widget;
-		let id = "field" + (FormElementComponent.counter++);
+  private createButtonCallback(button) {
+    button.action = (e) => {
+      let action;
+      if (button.id && (action = this.actionRegistry.get(button.id))) {
+        if (action) {
+          action(this.formProperty, button.parameters);
+        }
+      }
+      e.preventDefault();
+    };
+  }
 
-		this.widget.formProperty = this.formProperty;
-		this.widget.schema = this.formProperty.schema;
-		this.widget.name = id;
-		this.widget.id = id;
-		this.widget.control = this.control;
-	}
-	
+  private onWidgetInstanciated(widget: Widget<any>) {
+    this.widget = widget;
+    let id = "field" + (FormElementComponent.counter++);
+
+    this.widget.formProperty = this.formProperty;
+    this.widget.schema = this.formProperty.schema;
+    this.widget.name = id;
+    this.widget.id = id;
+    this.widget.control = this.control;
+  }
+
 }

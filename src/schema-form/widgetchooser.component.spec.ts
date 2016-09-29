@@ -5,14 +5,14 @@ import { WidgetChooserComponent } from "./widgetchooser.component";
 
 describe("WidgetChooserComponent", () => {
 
-	let factory: WidgetFactory;
+  let factory: WidgetFactory;
 
-	it("should create a widget", ()=>{
-		TestBed.createComponent(WidgetChooserComponent);
-	});
+  it("should create a widget", () => {
+    TestBed.createComponent(WidgetChooserComponent);
+  });
 
-	xit("should put the widget returned by the factory in the DOM", () => {
-	
-	});
+  xit("should put the widget returned by the factory in the DOM", () => {
+
+  });
 
 });

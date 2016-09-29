@@ -1,18 +1,18 @@
 import { SchemaPreprocessor } from "./schemapreprocessor";
 describe("SchemaPreprocessor", () => {
 
-	it("should replace order by fieldsets", () => {
-		let schema: any = {
-			"properties": {
-				"name": {},
-				"email":{}
-			},
-			"order": ["name","email"]
-		};
-		
-		SchemaPreprocessor.preprocess(schema);
+  it("should replace order by fieldsets", () => {
+    let schema: any = {
+      "properties": {
+        "name": {},
+        "email": {}
+      },
+      "order": ["name", "email"]
+    };
 
-		expect(schema.fieldsets).toBeDefined();
-	})
+    SchemaPreprocessor.preprocess(schema);
 
-})
+    expect(schema.fieldsets).toBeDefined();
+  });
+
+});

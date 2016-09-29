@@ -1,28 +1,28 @@
 import ZSchema = require("z-schema");
 
 export abstract class SchemaValidatorFactory {
-	abstract createValidatorFn(schema) : (value: any) => any;
+  abstract createValidatorFn(schema): (value: any) => any;
 }
 
 export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
-	private zschema;
+  private zschema;
 
-	constructor() {
-		super();
-		this.zschema = new ZSchema({});
-	}
+  constructor() {
+    super();
+    this.zschema = new ZSchema({});
+  }
 
-	createValidatorFn(schema : any) {
-		return (value): { [key: string]: boolean } => {
+  createValidatorFn(schema: any) {
+    return (value): { [key: string]: boolean } => {
 
-			if (schema.type === "number" || schema.type === "integer") {
-				value = +value;
-			}
+      if (schema.type === "number" || schema.type === "integer") {
+        value = +value;
+      }
 
-			let result = this.zschema.validate(value, schema);
-			let err = this.zschema.getLastErrors();
-			return err || null;
-		};
-	}
+      let result = this.zschema.validate(value, schema);
+      let err = this.zschema.getLastErrors();
+      return err || null;
+    };
+  }
 }

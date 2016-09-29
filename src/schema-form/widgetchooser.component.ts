@@ -1,38 +1,38 @@
 import {
-	Component,
-	ChangeDetectorRef,
-	EventEmitter,
-	Inject,
-	Input,
-	OnInit,
-	Output,
-	ViewChild,
-	ViewContainerRef,
+  Component,
+  ChangeDetectorRef,
+  EventEmitter,
+  Inject,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewContainerRef,
 } from "@angular/core";
 
 import { WidgetFactory } from "./widgetfactory";
 
 @Component({
-	selector: "ng2sf-widget-chooser",
-	template: "<div #target></div>",
+  selector: "ng2sf-widget-chooser",
+  template: "<div #target></div>",
 })
-export class WidgetChooserComponent implements OnInit { 
+export class WidgetChooserComponent implements OnInit {
 
-	@Input() widgetInfo: any;
+  @Input() widgetInfo: any;
 
-	@Output() widgetInstanciated = new EventEmitter<any>();
+  @Output() widgetInstanciated = new EventEmitter<any>();
 
-	@ViewChild('target', {read: ViewContainerRef}) private container: ViewContainerRef;
+  @ViewChild("target", {read: ViewContainerRef}) private container: ViewContainerRef;
 
-	private widgetInstance: any;
-	
+  private widgetInstance: any;
 
-	constructor(private widgetFactory: WidgetFactory = null, private cdr: ChangeDetectorRef) {}
 
-	ngOnInit() {
-		let ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
-		this.widgetInstanciated.emit(ref.instance);
-		this.widgetInstance = ref.instance;
-		this.cdr.detectChanges();
-	}
+  constructor(private widgetFactory: WidgetFactory = null, private cdr: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    let ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
+    this.widgetInstanciated.emit(ref.instance);
+    this.widgetInstance = ref.instance;
+    this.cdr.detectChanges();
+  }
 }
