@@ -7,16 +7,21 @@
 		"removeComments": true,
 		"sourceMap": true,
 		"outDir":"dist/",
-		"declaration": true
+		"declaration": true,
+		"noEmitHelpers": true,
+		"strictNullChecks": false
 	},
 	"awesomeTypescriptLoaderOptions": {
-		"resolveGlobs": true,
+		"useWebpackText": true,
 		"forkChecker": true
 	},
+	"include": [
+		"src",
+		"demo"
+	],
 	"exclude": [
-		"typings/main.d.ts",
-		"typings/main",
-		"node_modules"
+		"node_modules",
+		"dist"
 	],
 	"compileOnSave": false,
 	"buildOnSave": false,
