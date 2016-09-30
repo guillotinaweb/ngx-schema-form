@@ -23,6 +23,10 @@
 		"node_modules",
 		"dist"
 	],
+	"typeRoots": [
+       "../../node_modules/@types",
+       "../../node_modules"
+      ],
 	"compileOnSave": false,
 	"buildOnSave": false,
 	"atom": { "rewriteTsconfig": false }
