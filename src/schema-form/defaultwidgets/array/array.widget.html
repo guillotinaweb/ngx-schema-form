@@ -1,7 +1,7 @@
 <fieldset>
 	<legend *ngIf="formProperty.schema">{{formProperty.schema.description}}</legend>
 	<div *ngFor="let itemProperty of formProperty.properties; let i=index">
-		<formelement [formProperty]="itemProperty"></formelement>
+		<form-element [formProperty]="itemProperty"></form-element>
 		<button (click)="removeItem(i)" class="btn btn-default">
 			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
 		</button>
