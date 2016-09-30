@@ -6,11 +6,11 @@ import {
   IntegerWidget,
   TextAreaWidget,
   StringWidget
-} from "./defaultwidgets";
+} from "./";
 
-import { WidgetRegistry } from "./widgetregistry";
+import { DefaultWidgetRegistry } from "./defaultwidgetregistry";
 
-describe("WidgetRegistry", () => {
+describe("DefaultWidgetRegistry", () => {
 
   let STRING_TYPE = "string";
   let INT_TYPE = "integer";
@@ -21,10 +21,10 @@ describe("WidgetRegistry", () => {
   let THE_TYPE = "date";
   let THE_FIELD_TYPE = class { };
 
-  let registry: WidgetRegistry;
+  let registry: DefaultWidgetRegistry;
 
   beforeEach(() => {
-    registry = new WidgetRegistry();
+    registry = new DefaultWidgetRegistry();
   });
 
   it("should be initialized with primitives widgets", () => {
