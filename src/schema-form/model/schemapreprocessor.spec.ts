@@ -7,7 +7,8 @@ describe("SchemaPreprocessor", () => {
         "name": {},
         "email": {}
       },
-      "order": ["name", "email"]
+      "order": ["name", "email"],
+      "type": "object"
     };
 
     SchemaPreprocessor.preprocess(schema);
