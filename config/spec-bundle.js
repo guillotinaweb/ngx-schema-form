@@ -15,6 +15,7 @@ Error.stackTraceLimit = Infinity;
 
 require('core-js/client/shim');
 require("core-js/es7/reflect");
+require('reflect-metadata');
 
 // Typescript emit helpers polyfill
 require('ts-helpers');
