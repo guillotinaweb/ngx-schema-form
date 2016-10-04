@@ -40,24 +40,4 @@ describe("ObjectProperty", () => {
     }
   });
 
-  it("should reset all its properties on reset", () => {
-    let propFactory = new FormPropertyFactory(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY);
-    let objProp = new ObjectProperty(propFactory, A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_OBJECT_SCHEMA, null, "");
-    let property = new (<any>FormProperty)(A_SCHEMA_VALIDATOR_FACTORY, {}, objProp);
-
-    for (let propertyId in THE_OBJECT_SCHEMA.properties) {
-      let newProperty = objProperty.getProperty(propertyId);
-      expect(newProperty).not.toBe(property);
-    }
-
-    spyOn(propFactory, "createProperty").and.returnValue(property);
-
-    objProp.reset(null);
-
-    for (let propertyId in THE_OBJECT_SCHEMA.properties) {
-      let newProperty = objProp.getProperty(propertyId);
-      expect(newProperty).toBe(property);
-    }
-  });
-
 });

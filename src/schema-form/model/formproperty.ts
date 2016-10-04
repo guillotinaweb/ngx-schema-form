@@ -37,8 +37,6 @@ export abstract class FormProperty {
       this._root = parent.root;
     } else if (this instanceof PropertyGroup) {
       this._root = <PropertyGroup><any>this;
-    } else {
-      throw new Error("");
     }
     this._path = path;
   }

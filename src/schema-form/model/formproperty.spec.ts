@@ -26,27 +26,22 @@ class PropertyGroupImpl extends PropertyGroup {
 }
 
 describe("FormProperty", () => {
-  let A_VALUE = "FOO";
-  let THE_VALUE = "BAR";
-  let A_SCHEMA_VALIDATOR_FACTORY = new ZSchemaValidatorFactory();
-  let A_VALIDATOR_REGISTRY = new ValidatorRegistry();
-  let THE_SCHEMA_VALIDATOR_FACTORY;
-  let A_PROPERTY_SCHEMA = {};
+  let THE_SCHEMA_VALIDATOR_FACTORY =  new ZSchemaValidatorFactory();
+  let THE_VALIDATOR_REGISTRY = new ValidatorRegistry();
   let THE_PROPERTY_SCHEMA = {};
   let THE_PARENT_PROPERTY_SCHEMA = {};
   let THE_VALIDATOR;
 
   let formProperty: FormProperty;
-  let parentProperty: PropertyGroup;
+  let propertyGroup: PropertyGroup;
 
   beforeEach(() => {
-    THE_SCHEMA_VALIDATOR_FACTORY = new ZSchemaValidatorFactory();
     THE_VALIDATOR = jasmine.createSpy("a_validator");
     spyOn(THE_SCHEMA_VALIDATOR_FACTORY, "createValidatorFn").and.returnValue(THE_VALIDATOR);
 
-    parentProperty = new PropertyGroupImpl(THE_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PARENT_PROPERTY_SCHEMA, null, "");
-    spyOn(parentProperty, "updateValueAndValidity");
-    formProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, parentProperty, "");
+    propertyGroup = new PropertyGroupImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PARENT_PROPERTY_SCHEMA, null, "");
+    spyOn(propertyGroup, "updateValueAndValidity");
+    formProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, propertyGroup, "");
   });
 
   it("should create a validator on construction", () => {
@@ -61,19 +56,27 @@ describe("FormProperty", () => {
 
   });
 
-  it("with parent should notify parent when changed", () => {
-    formProperty.updateValueAndValidity();
+  describe("With a parent", () => {
 
-    expect(parentProperty.updateValueAndValidity).toHaveBeenCalledWith(formProperty);
+    it("should notify parent when changed", () => {
+      formProperty.updateValueAndValidity();
+
+      expect(propertyGroup.updateValueAndValidity).toHaveBeenCalled();
+    });
+
   });
 
-  it("with no parent should not throw when changed", () => {
-    let orphanFormProperty = new FormPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, null, "");
+  describe("Without a parent", () => {
 
-    let updateValue = (() => { orphanFormProperty.updateValueAndValidity(); });
+    it("should not throw when changed", () => {
+      let orphanFormProperty = new FormPropertyImpl(THE_SCHEMA_VALIDATOR_FACTORY, THE_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, propertyGroup, "");
+      let updateValue = (() => { orphanFormProperty.updateValueAndValidity(); });
 
-    expect(updateValue).not.toThrow();
+      expect(updateValue).not.toThrow();
+    });
+
   });
+
 
 
 });
