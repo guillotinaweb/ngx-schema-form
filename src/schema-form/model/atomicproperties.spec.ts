@@ -39,41 +39,23 @@ describe("Atomic properties", () => {
       atomicProperty = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, null, "");
     });
 
-    it("should call updateValue when reset", () => {
-      spyOn(atomicProperty, "_updateValue");
-      atomicProperty.reset();
-
-      expect(atomicProperty._updateValue).toHaveBeenCalled();
-    });
-
-
-    it("reset with argument should call updateValue with this argument", () => {
-      spyOn(atomicProperty, "_updateValue");
-      atomicProperty.reset(THE_VALUE);
-
-      expect(atomicProperty._updateValue).toHaveBeenCalledWith(THE_VALUE);
-    });
-
     it("reset with no argument and default value in schema should use the default value", () => {
       let THE_DEFAULT_VALUE = Symbol();
       let A_SCHEMA_WITH_DEFAULT = {"default": THE_DEFAULT_VALUE };
       let atomicPropertyWithDefault = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, A_SCHEMA_WITH_DEFAULT, null, "");
-      spyOn(atomicPropertyWithDefault, "_updateValue");
 
       atomicPropertyWithDefault.reset();
 
-      expect(atomicPropertyWithDefault._updateValue).toHaveBeenCalledWith(THE_DEFAULT_VALUE);
-
+      expect(atomicPropertyWithDefault.value).toBe(THE_DEFAULT_VALUE);
     });
 
     it("reset with no argument, and no default value in schema use property's type fallback default", () => {
       let fallback = Symbol();
       spyOn(atomicProperty, "fallbackValue").and.returnValue(fallback);
-      spyOn(atomicProperty, "_updateValue");
 
       atomicProperty.reset();
 
-      expect(atomicProperty._updateValue).toHaveBeenCalledWith(fallback);
+      expect(atomicProperty.value).toBe(fallback);
     });
   });
 
