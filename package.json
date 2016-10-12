@@ -1,6 +1,6 @@
 {
   "name": "angular2-schema-form",
-  "version": "1.0.0-alpha.27",
+  "version": "1.0.0-alpha.28",
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "repository": {
     "type": "git",
@@ -34,7 +34,8 @@
   ],
   "contributors": [
     "Frank Bessou <fbessou@free.fr>",
-    "Eric Brehault <ebrehault@gmail.com>"
+    "Eric Brehault <ebrehault@gmail.com>",
+    "Simon Bats <contact@simonbats.com>"
   ],
   "dependencies": {
     "body-parser": "^1.15.1",
@@ -118,6 +119,7 @@
     "zone.js": "^0.6.25"
   },
   "main": "dist/index.js",
+  "typings": "dist/src/index",
   "files": [
     "dist/"
   ]
