@@ -1,7 +1,7 @@
 <!-- Support number and range -->
 <div class="widget form-group">
 	<label [attr.for]="id" class="horizontal control-label">
-		{{ schema.description }}
+		{{ schema.title }}
 	</label>
 	
 	<input [name]="name" class="text-widget file-widget" [attr.id]="id" [formControl]="control" type="file" [attr.disabled]="schema.readOnly?true:null" >
