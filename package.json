@@ -2,7 +2,7 @@
   "name": "angular2-schema-form",
   "license": "MIT",
   "angular-cli": {},
-  "version": "1.0.0-alpha.28",
+  "version": "1.0.0-alpha.29",
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "repository": {
     "type": "git",
