@@ -14,7 +14,6 @@
     "build": "rm -rf dist/* && tsc && cp src/* dist/",
     "serve": "rm -rf dist/ && tsc -w"
   },
-  "private": true,
   "licenses": [
     {
       "type": "BSD",
