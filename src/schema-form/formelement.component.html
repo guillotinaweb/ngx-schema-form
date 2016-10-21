@@ -3,5 +3,5 @@
 	(widgetInstanciated)="onWidgetInstanciated($event)"
 	[widgetInfo]="formProperty.schema.widget">
 	</ng2sf-widget-chooser>
-	<button *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
+	<button class="btn btn-default" *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
 </div>
