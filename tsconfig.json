@@ -8,7 +8,7 @@
         "sourceMap": true,
         "outDir":"dist/",
         "declaration": true,
-        "noEmitHelpers": true,
+        "noEmitHelpers": false,
         "strictNullChecks": false
     },
     "awesomeTypescriptLoaderOptions": {
