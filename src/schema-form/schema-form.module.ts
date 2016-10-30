@@ -1,5 +1,5 @@
 import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import { CommonModule } from "@angular/common";
 import {
   FormsModule,
   ReactiveFormsModule
@@ -23,7 +23,7 @@ import {
 } from "./defaultwidgets";
 
 @NgModule({
-  imports : [BrowserModule, FormsModule, ReactiveFormsModule],
+  imports : [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
     FormElementComponent,
     FormComponent,
