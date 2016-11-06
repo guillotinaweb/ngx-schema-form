@@ -425,6 +425,42 @@ With the `fieldsets` property, you can describe the different parts of the form 
 
 The `title` entry of each fieldset is optional.
 
+## Fixing the schema or model before rendering
+
+Sometimes your schema (or model) is provided by a backend you cannot control.
+If it is not formatted the way Angular 2 Schema Form expects or if some elements are missing (for instance the fieldsets, some widgets, etc.), you can fix it very easily in your component:
+
+```javascript
+@Component({
+  selector: 'plone-view-edit',
+  template: '<schema-form [schema]="schema" [model]="model" [actions]="actions"></schema-form>'
+})
+export class MyComponent {
+  private schema:any = 
+    'properties': {}
+  };
+  private actions:any = {};
+  private model:any = {};
+
+  constructor(private http: Http) { }
+
+  ngOnInit() {
+      this.http.get('http://mybackend/schema').subscribe(res => {
+        let schema = res.json();
+
+        // FIXES
+        // the "description" field must be rendered with tinymce
+        schema.properties.description.widget = 'tinymce'
+
+        // the "publication" field is required
+        schema.required = ['publication'];
+
+        this.schema = schema;
+    });
+  }
+}
+```
+
 ## Creating a custom widget
 Angular2 schema form allows you to create your own widget.
 Currently this feature is not completely defined and the API could change.
