@@ -12,4 +12,11 @@ export class NumberProperty extends AtomicProperty {
     return value;
   }
 
+  setValue(value, onlySelf = false) {
+    if(typeof value === 'string') {
+       value = value.indexOf('.') > -1 ? parseFloat(value) : parseInt(value);
+    }
+    this._value = value;
+    this.updateValueAndValidity(onlySelf, true);
+  }
 }
