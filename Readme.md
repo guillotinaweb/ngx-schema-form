@@ -128,7 +128,7 @@ The Form component provides the `onChange` output binding of which value represe
 For instance, you can display the current forms's value with the following template:
 
 ```js
-template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{json | value}}'
+template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{value | json}}'
 ```
 
 ### Widgets
