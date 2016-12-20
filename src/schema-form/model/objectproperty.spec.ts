@@ -1,15 +1,13 @@
-import { ObjectProperty } from "./objectproperty";
-import { FormProperty } from "./formproperty";
-import { FormPropertyFactory } from "./formpropertyfactory";
+import { ObjectProperty } from './objectproperty';
+import { FormPropertyFactory } from './formpropertyfactory';
 
 import {
-  SchemaValidatorFactory,
   ZSchemaValidatorFactory
-} from "../schemavalidatorfactory";
+} from '../schemavalidatorfactory';
 
-import { ValidatorRegistry } from "./validatorregistry";
+import { ValidatorRegistry } from './validatorregistry';
 
-describe("ObjectProperty", () => {
+describe('ObjectProperty', () => {
 
   let A_VALIDATOR_REGISTRY = new ValidatorRegistry();
   let A_SCHEMA_VALIDATOR_FACTORY = new ZSchemaValidatorFactory();
@@ -17,11 +15,11 @@ describe("ObjectProperty", () => {
 
 
   let THE_OBJECT_SCHEMA = {
-    type: "object",
+    type: 'object',
     properties: {
-      FOO: {type: "integer"},
-      BAR: {type: "integer"},
-      BAZ: {type: "object"}
+      FOO: {type: 'integer'},
+      BAR: {type: 'integer'},
+      BAZ: {type: 'object'}
     }
   };
 
@@ -29,14 +27,23 @@ describe("ObjectProperty", () => {
 
 
   beforeEach(() => {
-    objProperty = new ObjectProperty(A_FORM_PROPERTY_FACTORY, A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_OBJECT_SCHEMA, null, "");
+    objProperty = new ObjectProperty(
+      A_FORM_PROPERTY_FACTORY,
+      A_SCHEMA_VALIDATOR_FACTORY,
+      A_VALIDATOR_REGISTRY,
+      THE_OBJECT_SCHEMA,
+      null,
+      ''
+    );
   });
 
-  it("should create same properties as in the schema", () => {
+  it('should create same properties as in the schema', () => {
 
     for (let propertyId in THE_OBJECT_SCHEMA.properties) {
-      let property = objProperty.getProperty(propertyId);
-      expect(property).toBeDefined();
+      if (THE_OBJECT_SCHEMA.properties.hasOwnProperty(propertyId)) {
+        let property = objProperty.getProperty(propertyId);
+        expect(property).toBeDefined();
+      }
     }
   });
 

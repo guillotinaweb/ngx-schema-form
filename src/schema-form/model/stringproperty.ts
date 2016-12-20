@@ -1,9 +1,9 @@
-import { AtomicProperty } from "./atomicproperty";
+import { AtomicProperty } from './atomicproperty';
 
 export class StringProperty extends AtomicProperty {
 
   protected fallbackValue() {
-    return "";
+    return '';
   }
 
 }

@@ -1,23 +1,22 @@
 import {
   AtomicProperty
-} from "./atomicproperty";
+} from './atomicproperty';
 
 import {
   FormProperty
-} from "./formproperty";
+} from './formproperty';
 
 import {
   NumberProperty
-} from "./numberproperty";
+} from './numberproperty';
 
 import {
   ValidatorRegistry
-} from "./validatorregistry";
+} from './validatorregistry';
 
 import {
-  ZSchemaValidatorFactory,
-  SchemaValidatorFactory
-} from "../schemavalidatorfactory";
+  ZSchemaValidatorFactory
+} from '../schemavalidatorfactory';
 
 class AtomicPropertyImpl extends AtomicProperty {
 
@@ -26,32 +25,37 @@ class AtomicPropertyImpl extends AtomicProperty {
   }
 }
 
-describe("Atomic properties", () => {
+describe('Atomic properties', () => {
   let A_SCHEMA_VALIDATOR_FACTORY = new ZSchemaValidatorFactory();
   let A_VALIDATOR_REGISTRY = new ValidatorRegistry();
 
-  describe("AtomicProperty", () => {
+  describe('AtomicProperty', () => {
     let THE_PROPERTY_SCHEMA = {};
-    let THE_VALUE = "FOO";
     let atomicProperty: AtomicProperty;
 
     beforeEach(() => {
-      atomicProperty = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, null, "");
+      atomicProperty = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, null, '');
     });
 
-    it("reset with no argument and default value in schema should use the default value", () => {
+    it('reset with no argument and default value in schema should use the default value', () => {
       let THE_DEFAULT_VALUE = Symbol();
-      let A_SCHEMA_WITH_DEFAULT = {"default": THE_DEFAULT_VALUE };
-      let atomicPropertyWithDefault = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, A_SCHEMA_WITH_DEFAULT, null, "");
+      let A_SCHEMA_WITH_DEFAULT = {'default': THE_DEFAULT_VALUE };
+      let atomicPropertyWithDefault = new AtomicPropertyImpl(
+        A_SCHEMA_VALIDATOR_FACTORY,
+        A_VALIDATOR_REGISTRY,
+        A_SCHEMA_WITH_DEFAULT,
+        null,
+        ''
+      );
 
       atomicPropertyWithDefault.reset();
 
       expect(atomicPropertyWithDefault.value).toBe(THE_DEFAULT_VALUE);
     });
 
-    it("reset with no argument, and no default value in schema use property's type fallback default", () => {
+    it('reset with no argument, and no default value in schema use property\'s type fallback default', () => {
       let fallback = Symbol();
-      spyOn(atomicProperty, "fallbackValue").and.returnValue(fallback);
+      spyOn(atomicProperty, 'fallbackValue').and.returnValue(fallback);
 
       atomicProperty.reset();
 
@@ -59,21 +63,33 @@ describe("Atomic properties", () => {
     });
   });
 
-  describe("NumberProperty", () => {
+  describe('NumberProperty', () => {
 
-    let AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM = {"type": "number", "minimum": 10};
-    let AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM = {"type": "number"};
+    let AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM = {'type': 'number', 'minimum': 10};
+    let AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM = {'type': 'number'};
 
-    it("with minimum in schema should fallback to minimum on reset", () => {
-      let property = new NumberProperty(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM, null, "");
+    it('with minimum in schema should fallback to minimum on reset', () => {
+      let property = new NumberProperty(
+        A_SCHEMA_VALIDATOR_FACTORY,
+        A_VALIDATOR_REGISTRY,
+        AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM,
+        null,
+        ''
+      );
 
       property.reset();
 
       expect(property.value).toBe(AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM.minimum);
     });
 
-    it("without minimum in schema should fallback to 0 on reset", () => {
-      let property = new NumberProperty(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM, null, "");
+    it('without minimum in schema should fallback to 0 on reset', () => {
+      let property = new NumberProperty(
+        A_SCHEMA_VALIDATOR_FACTORY,
+        A_VALIDATOR_REGISTRY,
+        AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM,
+        null,
+        ''
+      );
 
       property.reset();
 

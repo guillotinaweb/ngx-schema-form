@@ -1,10 +1,10 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 
-import { ArrayLayoutWidget } from "../../widget";
+import { ArrayLayoutWidget } from '../../widget';
 
 @Component({
-  selector: "array-widget",
-  template: require("./array.widget.html")
+  selector: 'sf-array-widget',
+  template: require('./array.widget.html')
 })
 export class ArrayWidget extends ArrayLayoutWidget {
 

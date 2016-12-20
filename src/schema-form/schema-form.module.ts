@@ -1,14 +1,13 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {
   FormsModule,
   ReactiveFormsModule
-} from "@angular/forms";
+} from '@angular/forms';
 
-import { FormElementComponent } from "./formelement.component";
-import { FormComponent } from "./form.component";
-import { WidgetChooserComponent } from "./widgetchooser.component";
-import { WidgetRegistry } from "./widgetregistry";
+import { FormElementComponent } from './formelement.component';
+import { FormComponent } from './form.component';
+import { WidgetChooserComponent } from './widgetchooser.component';
 import {
   ArrayWidget,
   ObjectWidget,
@@ -20,7 +19,7 @@ import {
   RangeWidget,
   SelectWidget,
   StringWidget
-} from "./defaultwidgets";
+} from './defaultwidgets';
 
 @NgModule({
   imports : [CommonModule, FormsModule, ReactiveFormsModule],
