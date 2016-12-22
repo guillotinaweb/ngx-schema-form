@@ -1,57 +1,51 @@
 const webpack = require('webpack');
-var path = require("path");
+const autoprefixer = require('autoprefixer');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const { ENV, IS_PRODUCTION, APP_VERSION, IS_DEV, dir } = require('./helpers');
 
-var CopyWebpackPlugin = (CopyWebpackPlugin = require('copy-webpack-plugin'), CopyWebpackPlugin.default || CopyWebpackPlugin);
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-
-const METADATA = {
-	title: 'Angular2 Schema Form',
-	baseUrl: '/'
-};
-
-
-module.exports = {
-
-	metadata: METADATA,
-
-	resolve: {
-		extensions: ['', '.ts', '.js']
-	},
-	debug: true,
-
-
-	module: {
-		preLoaders: [{
-			test: /\.js$/,
-			loader: "source-map-loader",
-			exclude: [ /node_modules/]
-		}],
-		loaders: [{
-			test: /\.ts$/,
-			loader: "awesome-typescript-loader",
-			exclude: /node_modules/
-		},{
-			test: /\.json$/,
-			loader: "json-loader"
-		},{
-			test: /\.css$/,
-			loader: 'raw-loader',
-		},{
-			test: /\.(png|jpg|gif|woff|ttf|eot|svg)$/,
-		    loader: 'file-loader'
-		}]
-	},
-	plugins: [
-		new webpack.optimize.OccurenceOrderPlugin(true),
-		new ForkCheckerPlugin()
-	],
-
-	node: {
-		global: 'window',
-		crypto: 'empty',
-		module: false,
-		clearImmediate: false,
-		setImmediate: false,
-	}
+module.exports = function(options = {}) {
+  return {
+    context: dir(),
+    resolve: {
+      extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html'],
+      modules: [
+        'node_modules',
+        dir('src'),
+        dir('demo')
+      ]
+    },
+    output: {
+      path: dir('dist'),
+      filename: '[name].js',
+      sourceMapFilename: '[name].map',
+      chunkFilename: '[id].chunk.js'
+    },
+    plugins: [
+      new webpack.NamedModulesPlugin(),
+      new webpack.DefinePlugin({
+        ENV,
+        IS_PRODUCTION,
+        APP_VERSION,
+        IS_DEV,
+        HMR: options.HMR
+      }),
+      // new CopyWebpackPlugin([
+      //   { from: 'assets', to: 'assets' }
+      // ]),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          context: dir(),
+          tslint: {
+            emitErrors: false,
+            failOnHint: false,
+            resourcePath: 'src'
+          },
+          postcss: function() {
+            return [ autoprefixer ];
+          }
+        }
+      })
+    ]
+  };
 
 };

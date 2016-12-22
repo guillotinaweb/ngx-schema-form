@@ -1,38 +1,94 @@
-const webpack = require("webpack");
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const WebpackNotifierPlugin = require('webpack-notifier');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const merge = require("webpack-merge");
-var path = require("path");
+const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
-const METADATA = {
-	title: "Angular2 Schema Form",
-	baseUrl: "/"
+const commonConfig = require('./webpack.common');
+const { ENV, dir } = require('./helpers');
+
+module.exports = function(options) {
+  return webpackMerge(commonConfig({ env: ENV }), {
+    devtool: 'cheap-module-source-map',
+    devServer: {
+      watchOptions: {
+        poll: true
+      },
+      port: 9999,
+      hot: options.HMR,
+      stats: {
+        modules: false,
+        cached: false,
+        chunk: false
+      }
+    },
+    entry: {
+      'app': './demo/bootstrap.ts',
+      'polyfills': './demo/polyfills.ts'
+    },
+    module: {
+      exprContextCritical: false,
+      rules: [
+        {
+          enforce: 'pre',
+          test: /\.js$/,
+          loader: 'source-map-loader',
+          exclude: /(node_modules)/
+        },
+        {
+          enforce: 'pre',
+          test: /\.ts$/,
+          loader: 'tslint-loader',
+          exclude: /(node_modules|release|dist)/
+        },
+        {
+          test: /\.json$/,
+          loader: "json-loader"
+        },
+        {
+          test: /\.ts$/,
+          loaders: [
+            'awesome-typescript-loader',
+            '@angularclass/hmr-loader'
+          ],
+          exclude: [/\.(spec|e2e|d)\.ts$/]
+        },
+        {
+          test: /\.css/,
+          loader: 'style-loader!css-loader?sourceMap'
+        },
+        {
+          test: /\.scss$/,
+          loader: 'style-loader!css-loader!postcss-loader?sourceMap!sass-loader?sourceMap'
+        },
+        {
+          test: /\.html$/,
+          loader: 'raw-loader'
+        }
+      ]
+    },
+    plugins: [
+      // new ForkCheckerPlugin(),
+      new webpack.optimize.CommonsChunkPlugin({
+        name: ['polyfills'],
+        minChunks: Infinity
+      }),
+      new HtmlWebpackPlugin({
+        template: 'demo/index.html',
+        chunksSortMode: 'dependency',
+        title: 'schema-form'
+      }),
+      new WebpackNotifierPlugin({
+        excludeWarnings: true
+      }),
+      new ProgressBarPlugin({
+        format: chalk.yellow.bold('Webpack Building...') +
+          ' [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)'
+      }),
+      new webpack.HotModuleReplacementPlugin()
+    ]
+  });
+
 };
-
-module.exports = merge(require("./webpack.common.js"),{
-	metadata: METADATA,
-	output: {
-		path: path.resolve("./dist"),
-		filename: "[name].js"
-	},
-	entry: {
-		"demo": "./demo/main.browser",
-		"vendor": "./demo/vendor",
-		"polyfills":"./demo/polyfills"
-	},
-	devtool: 'cheap-module-source-map',
-	module: {
-		loaders:[{
-			test: /\.html$/,
-			loader: 'raw-loader',
-			exclude:[path.resolve("demo/index.html")]
-		}]
-	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			template: 'demo/index.html',
-			chunksSortMode: 'dependency'
-		}),
-		new webpack.optimize.CommonsChunkPlugin({
-			name: ['demo', 'vendor',"polyfills"]
-		})]
-})

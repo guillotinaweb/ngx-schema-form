@@ -1,4 +1,4 @@
-import { Validator } from "./validator";
+import { Validator } from './validator';
 
 export class ValidatorRegistry {
   private validators: Validator[] = [];

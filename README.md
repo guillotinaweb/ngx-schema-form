@@ -436,7 +436,7 @@ If it is not formatted the way Angular 2 Schema Form expects or if some elements
   template: '<schema-form [schema]="schema" [model]="model" [actions]="actions"></schema-form>'
 })
 export class MyComponent {
-  private schema:any = 
+  private schema:any =
     'properties': {}
   };
   private actions:any = {};

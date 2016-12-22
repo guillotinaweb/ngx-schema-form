@@ -2,11 +2,10 @@ import {
   ViewContainerRef,
   ComponentRef,
   ComponentFactoryResolver,
-  ReflectiveInjector,
   Injectable
-} from "@angular/core";
+} from '@angular/core';
 
-import { WidgetRegistry } from "./widgetregistry";
+import { WidgetRegistry } from './widgetregistry';
 
 @Injectable()
 export class WidgetFactory {

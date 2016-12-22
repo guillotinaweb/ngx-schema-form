@@ -4,7 +4,7 @@
 	</label>
 	<span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
 	<div *ngFor="let itemProperty of formProperty.properties; let i=index">
-		<form-element [formProperty]="itemProperty"></form-element>
+		<sf-form-element [formProperty]="itemProperty"></sf-form-element>
 		<button (click)="removeItem(i)" class="btn btn-default array-remove-button">
 			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
 		</button>

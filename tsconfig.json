@@ -1,33 +1,38 @@
 {
-    "compilerOptions": {
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "target": "es5",
-        "module": "commonjs",
-        "removeComments": true,
-        "sourceMap": true,
-        "outDir":"dist/",
-        "declaration": true,
-        "noEmitHelpers": false,
-        "strictNullChecks": false
-    },
-    "awesomeTypescriptLoaderOptions": {
-        "useWebpackText": true,
-        "forkChecker": true
-    },
-    "include": [
-        "src/**/*",
-        "demo/**/*"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
-    "typeRoots": [
-       "../../node_modules/@types",
-       "../../node_modules"
-      ],
-    "compileOnSave": false,
-    "buildOnSave": false,
-    "atom": { "rewriteTsconfig": false }
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "declaration": true,
+    "noEmitHelpers": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "sourceMap": true,
+    "pretty": true,
+    "allowUnreachableCode": true,
+    "allowUnusedLabels": true,
+    "noImplicitAny": false,
+    "noImplicitReturns": false,
+    "noImplicitUseStrict": false,
+    "noFallthroughCasesInSwitch": false,
+    "allowSyntheticDefaultImports": true,
+    "suppressExcessPropertyErrors": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "outDir": "dist",
+    "declarationDir": "dist"
+  },
+  "files": [
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": false
+  },
+  "angularCompilerOptions": {
+    "genDir": "dist/",
+    "skipMetadataEmit": false
+  }
 }

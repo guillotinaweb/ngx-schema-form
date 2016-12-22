@@ -1,12 +1,12 @@
-import { ChangeDetectorRef } from "@angular/core";
-import { TestBed } from "@angular/core/testing";
+import { ChangeDetectorRef } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
-import { WidgetFactory } from "./widgetfactory";
-import { WidgetRegistry } from "./widgetregistry";
+import { WidgetFactory } from './widgetfactory';
+import { WidgetRegistry } from './widgetregistry';
 
-import { WidgetChooserComponent } from "./widgetchooser.component";
+import { WidgetChooserComponent } from './widgetchooser.component';
 
-describe("WidgetChooserComponent", () => {
+describe('WidgetChooserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,13 +19,13 @@ describe("WidgetChooserComponent", () => {
     });
   });
 
-  it("should create a widget which contain an instance", () => {
+  it('should create a widget which contain an instance', () => {
     let fixture = TestBed.createComponent(WidgetChooserComponent);
     let widgetChooserComponent = fixture.debugElement.componentInstance;
     expect(widgetChooserComponent).toBeDefined();
   });
 
-  xit("should put the widget returned by the factory in the DOM", () => {
+  xit('should put the widget returned by the factory in the DOM', () => {
 
   });
 

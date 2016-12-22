@@ -1,48 +1,21 @@
-<!DOCTYPE html>
-<html lang="">
+<html>
+
 <head>
+  <title>Angular2 Schema form</title>
+  <meta name="description" content="Attempt at Angular schema form v2" />
 
-  <title><%= webpackConfig.metadata.title %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="<%= webpackConfig.metadata.title %>">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta http-equiv="cleartype" content="on">
   <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
-<link rel="manifest" href="/static/manifest.json">
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="msapplication-TileImage" content="/static/ms-icon-144x144.png">
-<meta name="theme-color" content="#ffffff">
-  <!-- end favicon -->
 
-  <!-- base url -->
-  <base href="<%= webpackConfig.metadata.baseUrl %>">
-
-
-  <% for (var css in htmlWebpackPlugin.files.css) { %>
-  <link href="<%=htmlWebpackPlugin.files.css[css] %>" rel="stylesheet">
-  <% } %>
-  <style>
-	body {
-		max-width:1500px;
-		width: 90%;
-		margin: auto
-	}
-  </style>
 </head>
+
 <body>
-
-
-    <schema-form-demo-app>
-      ... Loading ...
-    </schema-form-demo-app>
-
-
-  <% if (webpackConfig.metadata.ENV === 'development') { %>
-  <!-- Webpack Dev Server reload -->
-  <script src="/webpack-dev-server.js"></script>
-  <% } %>
-
+  <sf-demo-app>
+    <span class="loading">Loading...</span>
+  </sf-demo-app>
 </body>
+
 </html>

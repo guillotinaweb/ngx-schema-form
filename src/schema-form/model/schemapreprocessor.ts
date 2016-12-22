@@ -1,7 +1,7 @@
-import { isBlank } from "./utils";
+import { isBlank } from './utils';
 
 function formatMessage(message, path) {
-  return "Parsing error on " + path + ": " + message;
+  return `Parsing error on ${path}: ${message}`;
 }
 
 function schemaError(message, path): void {
@@ -11,17 +11,18 @@ function schemaError(message, path): void {
 
 function schemaWarning(message, path): void {
   let mesg = formatMessage(message, path);
+  throw new Error(mesg);
 }
 
 export class SchemaPreprocessor {
 
-  static preprocess(jsonSchema: any, path: string = "/"): any {
+  static preprocess(jsonSchema: any, path = '/'): any {
     jsonSchema = jsonSchema || {};
-    if (jsonSchema.type === "object") {
+    if (jsonSchema.type === 'object') {
       SchemaPreprocessor.checkProperties(jsonSchema, path);
       SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema, path);
       SchemaPreprocessor.normalizeRequired(jsonSchema);
-    } else if (jsonSchema.type === "array") {
+    } else if (jsonSchema.type === 'array') {
       SchemaPreprocessor.checkItems(jsonSchema, path);
     }
     SchemaPreprocessor.normalizeWidget(jsonSchema);
@@ -31,7 +32,7 @@ export class SchemaPreprocessor {
   private static checkProperties(jsonSchema, path: string) {
     if (isBlank(jsonSchema.properties)) {
       jsonSchema.properties = {};
-      schemaWarning("Provided json schema does not contain a 'properties' entry. Output schema will be empty", path);
+      schemaWarning('Provided json schema does not contain a \'properties\' entry. Output schema will be empty', path);
     }
   }
 
@@ -61,19 +62,21 @@ export class SchemaPreprocessor {
     for (let fieldId of fieldsId) {
       if (usedFields.hasOwnProperty(fieldId)) {
         if (usedFields[fieldId].length > 1) {
-          schemaError(fieldId + " is referenced by more than one fieldset: " + usedFields[fieldId], path);
+          schemaError(`${fieldId} is referenced by more than one fieldset: ${usedFields[fieldId]}`, path);
         }
         delete usedFields[fieldId];
       } else if (jsonSchema.required.indexOf(fieldId) > -1 ) {
-        schemaError(fieldId + " is a required field but it is not referenced as part of a 'order' or a 'fieldset' property", path);
+        schemaError(`${fieldId} is a required field but it is not referenced as part of a 'order' or a 'fieldset' property`, path);
       } else {
         delete jsonSchema[fieldId];
-          schemaWarning("Removing unreferenced field '" + fieldId + "'", path);
+          schemaWarning(`Removing unreferenced field ${fieldId}`, path);
       }
     }
 
     for (let remainingfieldsId in usedFields) {
-      schemaWarning("Referencing non-existent field '" + remainingfieldsId + "' in one or more fieldsets", path);
+      if (usedFields.hasOwnProperty(remainingfieldsId)) {
+        schemaWarning(`Referencing non-existent field ${remainingfieldsId} in one or more fieldsets`, path);
+      }
     }
   }
 
@@ -84,8 +87,8 @@ export class SchemaPreprocessor {
 
   private static replaceOrderByFieldsets(jsonSchema) {
     jsonSchema.fieldsets = [{
-      id: "fieldset-default",
-      title: jsonSchema.description || "",
+      id: 'fieldset-default',
+      title: jsonSchema.description || '',
       fields: jsonSchema.order
     }];
     delete jsonSchema.order;
@@ -94,35 +97,36 @@ export class SchemaPreprocessor {
   private static normalizeWidget(fieldSchema: any) {
     let widget = fieldSchema.widget;
     if (widget === undefined) {
-      widget = {"id": fieldSchema.type};
-    } else if (typeof widget === "string") {
-      widget = {"id": widget};
+      widget = {'id': fieldSchema.type};
+    } else if (typeof widget === 'string') {
+      widget = {'id': widget};
     }
     fieldSchema.widget = widget;
   }
 
   private static normalizeRequired(jsonSchema) {
-    if (jsonSchema.type === "object" && jsonSchema.required === undefined) {
+    if (jsonSchema.type === 'object' && jsonSchema.required === undefined) {
       jsonSchema.required = Object.keys(jsonSchema.properties);
     }
   }
 
   private static checkItems(jsonSchema, path) {
     if (jsonSchema.items === undefined) {
-      schemaError("No 'items' property in array", path);
+      schemaError('No \'items\' property in array', path);
     }
   }
 
   private static recursiveCheck(jsonSchema, path: string) {
-    if (jsonSchema.type === "object") {
+    if (jsonSchema.type === 'object') {
       for (let fieldId in jsonSchema.properties) {
-        let fieldSchema = jsonSchema.properties[fieldId];
-
-        SchemaPreprocessor.preprocess(fieldSchema, path + fieldId + "/");
+        if (jsonSchema.properties.hasOwnProperty(fieldId)) {
+          let fieldSchema = jsonSchema.properties[fieldId];
+          SchemaPreprocessor.preprocess(fieldSchema, path + fieldId + '/');
+        }
       }
 
-    } else if (jsonSchema.type === "array") {
-      SchemaPreprocessor.preprocess(jsonSchema.items, path + "*/");
+    } else if (jsonSchema.type === 'array') {
+      SchemaPreprocessor.preprocess(jsonSchema.items, path + '*/');
     }
   }
 }

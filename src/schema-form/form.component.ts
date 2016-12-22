@@ -5,7 +5,7 @@ import {
   EventEmitter,
   Input,
   Output
-} from "@angular/core";
+} from '@angular/core';
 
 import {
   Action,
@@ -15,15 +15,15 @@ import {
   SchemaPreprocessor,
   ValidatorRegistry,
   Validator
-} from "./model";
+} from './model';
 
-import { SchemaValidatorFactory, ZSchemaValidatorFactory } from "./schemavalidatorfactory";
-import { WidgetFactory } from "./widgetfactory";
+import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
+import { WidgetFactory } from './widgetfactory';
 
 
 @Component({
-  selector: "schema-form",
-  template: require("./form.component.html"),
+  selector: 'sf-form',
+  template: require('./form.component.html'),
   providers: [
     ActionRegistry,
     ValidatorRegistry,
@@ -63,7 +63,7 @@ export class FormComponent implements OnChanges {
   ) { }
 
   ngOnChanges(changes: any) {
-
+    console.log(changes);
     if (changes.validators) {
       this.setValidators();
     }
@@ -72,11 +72,12 @@ export class FormComponent implements OnChanges {
       this.setActions();
     }
 
-    if(!this.schema.type) {
+    if (!this.schema.type) {
       this.schema.type = 'object';
     }
 
     if (this.schema && changes.schema) {
+      console.log(this.schema, changes.schema);
       SchemaPreprocessor.preprocess(this.schema);
       this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
       this.rootProperty.valueChanges.subscribe(value => { this.onChange.emit({value: value}); });
@@ -92,7 +93,9 @@ export class FormComponent implements OnChanges {
     this.validatorRegistry.clear();
     if (this.validators) {
       for (let validatorId in this.validators) {
-        this.validatorRegistry.register(validatorId, this.validators[validatorId]);
+        if (this.validators.hasOwnProperty(validatorId)) {
+          this.validatorRegistry.register(validatorId, this.validators[validatorId]);
+        }
       }
     }
   }
@@ -101,7 +104,9 @@ export class FormComponent implements OnChanges {
     this.actionRegistry.clear();
     if (this.actions) {
       for (let actionId in this.actions) {
-        this.actionRegistry.register(actionId, this.actions[actionId]);
+        if (this.actions.hasOwnProperty(actionId)) {
+          this.actionRegistry.register(actionId, this.actions[actionId]);
+        }
       }
     }
   }
