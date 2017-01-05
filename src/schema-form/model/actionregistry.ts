@@ -1,5 +1,4 @@
-import { isPresent } from "./utils";
-import { Action } from "./action";
+import { Action } from './action';
 
 export class ActionRegistry {
   actions: {[key: string]: Action} = {};

@@ -1,6 +1,6 @@
 <fieldset *ngFor="let fieldset of formProperty.schema.fieldsets">
 	<legend *ngIf="fieldset.title">{{fieldset.title}}</legend>
 	<div *ngFor="let fieldId of fieldset.fields">
-		<form-element [formProperty]="formProperty.getProperty(fieldId)"></form-element>
+		<sf-form-element [formProperty]="formProperty.getProperty(fieldId)"></sf-form-element>
 	</div>
 </fieldset>

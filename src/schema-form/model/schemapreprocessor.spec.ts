@@ -1,14 +1,14 @@
-import { SchemaPreprocessor } from "./schemapreprocessor";
-describe("SchemaPreprocessor", () => {
+import { SchemaPreprocessor } from './schemapreprocessor';
+describe('SchemaPreprocessor', () => {
 
-  it("should replace order by fieldsets", () => {
+  it('should replace order by fieldsets', () => {
     let schema: any = {
-      "properties": {
-        "name": {},
-        "email": {}
+      'properties': {
+        'name': {},
+        'email': {}
       },
-      "order": ["name", "email"],
-      "type": "object"
+      'order': ['name', 'email'],
+      'type': 'object'
     };
 
     SchemaPreprocessor.preprocess(schema);

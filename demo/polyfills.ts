@@ -1,14 +1,27 @@
-// Polyfills
-// (these modules are what are in "angular2/bundles/angular2-polyfills" so don"t use that here)
+import 'core-js/es6';
+import 'core-js/es7/reflect';
+import 'zone.js/dist/zone';
 
-// import "ie-shim"; // Internet Explorer
-// import "aaadedes6-shim";
-// import "aaadedes6-promise";
-// import "aaadedes7-reflect-metadata";
+// ng2
+import { disableDebugTools } from '@angular/platform-browser';
+import '@angular/platform-browser-dynamic';
+import { enableProdMode } from '@angular/core';
+import '@angular/common';
 
-// Prefer CoreJS over the polyfills above
-// import "core-js/es6";
-import "core-js/es7/reflect";
-require("zone.js/dist/zone");
+// RxJS
+import 'rxjs/Rx';
 
-import "ts-helpers";
+declare const IS_PRODUCTION: boolean;
+declare const IS_DEV: boolean;
+
+// optimization for production
+// https://github.com/AngularClass/angular2-webpack-starter/blob/master/src/platform/environment.ts#L17
+if (IS_PRODUCTION) {
+  disableDebugTools();
+  enableProdMode();
+}
+
+if (IS_DEV) {
+  Error.stackTraceLimit = Infinity;
+  require('zone.js/dist/long-stack-trace-zone');
+}

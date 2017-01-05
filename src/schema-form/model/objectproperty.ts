@@ -1,7 +1,7 @@
-import { PropertyGroup } from "./formproperty";
-import { FormPropertyFactory } from "./formpropertyfactory";
-import { SchemaValidatorFactory } from "../schemavalidatorfactory";
-import { ValidatorRegistry } from "./validatorregistry";
+import { PropertyGroup } from './formproperty';
+import { FormPropertyFactory } from './formpropertyfactory';
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { ValidatorRegistry } from './validatorregistry';
 
 export class ObjectProperty extends PropertyGroup {
 
@@ -21,12 +21,14 @@ export class ObjectProperty extends PropertyGroup {
 
   setValue(value: any, onlySelf: boolean) {
     for (let propertyId in value) {
-      this.properties[propertyId].setValue(value[propertyId], true);
+      if (value.hasOwnProperty(propertyId)) {
+        this.properties[propertyId].setValue(value[propertyId], true);
+      }
     }
     this.updateValueAndValidity(onlySelf, true);
   }
 
-  reset(value: any, onlySelf: boolean = true) {
+  reset(value: any, onlySelf = true) {
     value = value || this.schema.default || {};
     this.resetProperties(value);
     this.updateValueAndValidity(onlySelf, true);
@@ -34,7 +36,9 @@ export class ObjectProperty extends PropertyGroup {
 
   resetProperties(value: any) {
     for (let propertyId in this.schema.properties) {
-      this.properties[propertyId].reset(value[propertyId], true);
+      if (this.schema.properties.hasOwnProperty(propertyId)) {
+        this.properties[propertyId].reset(value[propertyId], true);
+      }
     }
   }
 
@@ -42,10 +46,12 @@ export class ObjectProperty extends PropertyGroup {
     this.properties = {};
     this.propertiesId = [];
     for (let propertyId in this.schema.properties) {
-      let propertySchema = this.schema.properties[propertyId];
-      let property = this.formPropertyFactory.createProperty(propertySchema, this, propertyId);
-      this.properties[propertyId] = property;
-      this.propertiesId.push(propertyId);
+      if (this.schema.properties.hasOwnProperty(propertyId)) {
+        let propertySchema = this.schema.properties[propertyId];
+        let property = this.formPropertyFactory.createProperty(propertySchema, this, propertyId);
+        this.properties[propertyId] = property;
+        this.propertiesId.push(propertyId);
+      }
     }
   }
 

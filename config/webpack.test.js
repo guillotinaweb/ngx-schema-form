@@ -1,48 +1,68 @@
-const webpack = require("webpack");
-const merge = require("webpack-merge");
-var path = require("path");
-const ProvidePlugin = require('webpack/lib/ProvidePlugin');
-const DefinePlugin = require('webpack/lib/DefinePlugin');
+const webpack = require('webpack');
+const webpackMerge = require('webpack-merge');
+const chalk = require('chalk');
+const commonConfig = require('./webpack.common');
+const { ENV, dir } = require('./helpers');
 
-const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
-
-module.exports = merge(require("./webpack.common.js"), {
-
-	// Necessary for karma
-	devtool: 'inline-source-map',
-
-	module: {
-
-		preLoaders: [
-
-			{
-				test: /\.ts$/,
-				loader: 'tslint-loader',
-				exclude: /'node_modules'/
-			}
-		],
-		loaders:[{
-			test: /\.html$/,
-			loader: 'raw-loader',
-			exclude:[path.resolve("demo/index.html")]
-		}],
-
-		postLoaders: [
-			{
-				test: /\.(js|ts)$/, loader: 'istanbul-instrumenter-loader',
-				include: path.resolve('src'),
-				exclude: [
-					/\.(spec)\.ts$/,
-					/node_modules/
-				]
-			}
-
-		]
-	},
-
-	tslint: {
-		emitErrors: false,
-		failOnHint: false,
-		resourcePath: 'src'
-	}
-})
+module.exports = function(env) {
+  return webpackMerge(commonConfig({ env: ENV }), {
+    devtool: 'inline-source-map',
+    module: {
+      exprContextCritical: false,
+      rules: [
+        {
+          enforce: 'pre',
+          test: /\.js$/,
+          loader: 'source-map-loader',
+          exclude: /(node_modules)/
+        },
+        {
+          test: /\.ts$/,
+          loader: 'awesome-typescript-loader',
+          query: {
+            sourceMap: false,
+            inlineSourceMap: true,
+            compilerOptions: {
+              removeComments: true
+            }
+          },
+          exclude: [/\.e2e\.ts$/, /(node_modules)/]
+        },
+        {
+          enforce: 'post',
+          test: /\.(js|ts)$/,
+          loader: 'istanbul-instrumenter-loader',
+          include: dir('src'),
+          exclude: [
+            /\.(e2e|spec)\.ts$/,
+            /node_modules/
+          ]
+        },
+        {
+          test: /\.json$/,
+          loader: "json-loader"
+        },
+        {
+          test: /\.css/,
+          loader: 'style-loader!css-loader?sourceMap'
+        },
+        {
+          test: /\.scss$/,
+          loader: 'style-loader!css-loader!postcss-loader?sourceMap!sass-loader?sourceMap'
+        },
+        {
+          test: /\.html$/,
+          loader: 'raw-loader'
+        }
+      ]
+    },
+    node: {
+      global: true,
+      process: false,
+      crypto: 'empty',
+      module: false,
+      clearImmediate: false,
+      setImmediate: false
+    }
+  });
+};

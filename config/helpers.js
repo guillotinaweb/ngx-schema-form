@@ -1,23 +1,16 @@
-/**
- * @author: @AngularClass
- */
+const path = require('path');
 
-var path = require('path');
+const ENV = process.env.NODE_ENV;
+const pkg = require('../package.json');
+const ROOT = path.resolve(__dirname, '..');
 
-// Helper functions
-var ROOT = path.resolve(__dirname, '..');
-
-console.log('root directory:', root() + '\n');
-
-function hasProcessFlag(flag) {
-  return process.argv.join('').indexOf(flag) > -1;
-}
-
-function root(args) {
+exports.dir = function(args) {
   args = Array.prototype.slice.call(arguments, 0);
   return path.join.apply(path, [ROOT].concat(args));
 }
 
-
-exports.hasProcessFlag = hasProcessFlag;
-exports.root = root;
+exports.ENV = JSON.stringify(ENV);
+exports.IS_PRODUCTION = ENV === 'production';
+exports.IS_PACKAGE = ENV === 'package';
+exports.IS_DEV = ENV === 'dev' || ENV === 'development';
+exports.APP_VERSION = JSON.stringify(pkg.version);

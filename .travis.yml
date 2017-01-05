@@ -1,20 +1,26 @@
 language: node_js
+
 node_js:
-    - "6"
-    - "node"
+  - '6'
+  - 'node'
+
 env:
-    - CXX=g++-4.8
+  - CXX=g++-4.8
+
 install:
-    - ./install-peers.sh
-    - npm install
+  - npm install
+
+after_script:
+  - codeclimate-test-reporter < coverage/lcov.info
 
 addons:
-    apt:
-        sources:
-            - ubuntu-toolchain-r-test
-        packages:
-            - g++-4.8
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.8
+
 git:
-    depth: 4
+  depth: 4
 
 sudo: false
