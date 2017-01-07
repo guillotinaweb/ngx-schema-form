@@ -20,6 +20,9 @@ import {
   SelectWidget,
   StringWidget
 } from './defaultwidgets';
+import {
+  DefaultWidget
+} from './default.widget';
 
 @NgModule({
   imports : [CommonModule, FormsModule, ReactiveFormsModule],
@@ -27,6 +30,7 @@ import {
     FormElementComponent,
     FormComponent,
     WidgetChooserComponent,
+    DefaultWidget,
     ArrayWidget,
     ObjectWidget,
     CheckboxWidget,

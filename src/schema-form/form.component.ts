@@ -20,10 +20,13 @@ import {
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 import { WidgetFactory } from './widgetfactory';
 
+export function useFactory(schemaValidatorFactory, validatorRegistry) {
+  return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry);
+};
 
 @Component({
   selector: 'sf-form',
-  template: require('./form.component.html'),
+  templateUrl: './form.component.html',
   providers: [
     ActionRegistry,
     ValidatorRegistry,
@@ -34,9 +37,7 @@ import { WidgetFactory } from './widgetfactory';
       useClass: ZSchemaValidatorFactory
     }, {
       provide: FormPropertyFactory,
-      useFactory: (schemaValidatorFactory, validatorRegistry) => {
-        return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry);
-      },
+      useFactory: useFactory,
       deps: [SchemaValidatorFactory, ValidatorRegistry]
     }
   ]

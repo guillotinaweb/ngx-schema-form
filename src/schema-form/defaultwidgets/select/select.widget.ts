@@ -4,6 +4,6 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-select-widget',
-  template: require('./select.widget.html')
+  templateUrl: './select.widget.html'
 })
 export class SelectWidget extends ControlWidget {}

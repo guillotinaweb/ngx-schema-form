@@ -4,6 +4,6 @@ import { ObjectLayoutWidget } from '../../widget';
 
 @Component({
   selector: 'sf-form-object',
-  template: require('./object.widget.html')
+  templateUrl: './object.widget.html'
 })
 export class ObjectWidget extends ObjectLayoutWidget { }

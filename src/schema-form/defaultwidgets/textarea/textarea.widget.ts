@@ -4,6 +4,6 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-textarea-widget',
-  template: require('./textarea.widget.html')
+  templateUrl: './textarea.widget.html'
 })
 export class TextAreaWidget extends ControlWidget {}

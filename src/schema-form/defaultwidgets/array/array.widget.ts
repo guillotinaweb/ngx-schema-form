@@ -4,7 +4,7 @@ import { ArrayLayoutWidget } from '../../widget';
 
 @Component({
   selector: 'sf-array-widget',
-  template: require('./array.widget.html')
+  templateUrl: './array.widget.html'
 })
 export class ArrayWidget extends ArrayLayoutWidget {
 

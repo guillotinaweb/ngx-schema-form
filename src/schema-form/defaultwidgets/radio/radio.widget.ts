@@ -4,6 +4,6 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-radio-widget',
-  template: require('./radio.widget.html')
+  templateUrl: './radio.widget.html'
 })
 export class RadioWidget extends ControlWidget {}

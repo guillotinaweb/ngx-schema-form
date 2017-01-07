@@ -6,6 +6,6 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-integer-widget',
-  template: require('./integer.widget.html')
+  templateUrl: './integer.widget.html'
 })
 export class IntegerWidget extends ControlWidget {}
