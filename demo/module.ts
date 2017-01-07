@@ -2,7 +2,7 @@ import { NgModule, ApplicationRef } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { removeNgStyles, createNewHosts } from '@angularclass/hmr';
 
-import { SchemaFormModule } from '../src';
+import { SchemaFormModule } from '../';
 
 import { AppComponent } from './app.component';
 

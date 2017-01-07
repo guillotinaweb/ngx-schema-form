@@ -6,7 +6,7 @@ import {
     WidgetRegistry,
     Validator,
     DefaultWidgetRegistry
-} from '../src';
+} from '../';
 
 declare const APP_VERSION: string;
 
