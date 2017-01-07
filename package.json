@@ -5,8 +5,8 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "build": "npm-run-all -s lint clean tsc copy-template",
-    "copy-template": "copy ./src/**/**/*.html dist",
+    "build": "npm-run-all -s lint clean ngc copy-template",
+    "copy-template": "copy ./src/**/*.html ./dist/src",
     "check": "npm-check --skip-unused",
     "test": "karma start",
     "watch:test": "npm run test -- --auto-watch --no-single-run",
@@ -15,7 +15,9 @@
     "watch": "webpack --display-error-details --watch",
     "start": "webpack-dev-server",
     "start:hmr": "webpack-dev-server --env.HMR",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "ngc": "ngc",
+    "prepublish": "export NODE_ENV=production; npm run build"
   },
   "repository": {
     "type": "git",

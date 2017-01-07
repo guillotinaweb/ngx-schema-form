@@ -3,10 +3,6 @@ import {
 } from './atomicproperty';
 
 import {
-  FormProperty
-} from './formproperty';
-
-import {
   NumberProperty
 } from './numberproperty';
 
