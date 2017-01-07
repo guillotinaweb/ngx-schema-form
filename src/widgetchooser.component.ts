@@ -21,7 +21,7 @@ export class WidgetChooserComponent implements OnInit {
 
   @Output() widgetInstanciated = new EventEmitter<any>();
 
-  @ViewChild('target', {read: ViewContainerRef}) private container: ViewContainerRef;
+  @ViewChild('target', {read: ViewContainerRef}) container: ViewContainerRef;
 
   private widgetInstance: any;
 

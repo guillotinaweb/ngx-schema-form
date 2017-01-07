@@ -8,7 +8,7 @@ import { ValidatorRegistry } from './validatorregistry';
 
 class FormPropertyImpl extends FormProperty {
 
-  protected fallbackValue() {
+  fallbackValue() {
     return Symbol();
   }
   _updateValue() {}

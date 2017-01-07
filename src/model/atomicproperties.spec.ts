@@ -16,7 +16,7 @@ import {
 
 class AtomicPropertyImpl extends AtomicProperty {
 
-  protected fallbackValue() {
+  fallbackValue() {
     return Symbol();
   }
 }

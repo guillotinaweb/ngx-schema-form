@@ -2,7 +2,7 @@ import { AtomicProperty } from './atomicproperty';
 
 export class NumberProperty extends AtomicProperty {
 
-  protected fallbackValue() {
+  fallbackValue() {
     let value;
     if (this.schema.minimum !== undefined) {
       value = this.schema.minimum;

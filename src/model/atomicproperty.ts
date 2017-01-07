@@ -12,7 +12,7 @@ export abstract class AtomicProperty extends FormProperty {
     this.updateValueAndValidity(onlySelf, true);
   }
 
-  protected resetValue(value: any): any {
+  resetValue(value: any): any {
     if (value === null) {
       if (this.schema.default !== undefined) {
         value = this.schema.default;
@@ -23,7 +23,7 @@ export abstract class AtomicProperty extends FormProperty {
     this._value = value;
   }
 
-  protected abstract fallbackValue(): any;
+  abstract fallbackValue(): any;
 
   public _updateValue() {};
 

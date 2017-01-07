@@ -12,8 +12,8 @@ export abstract class FormProperty {
   public schemaValidator: Function;
   public required: boolean;
 
-  protected _value: any = null;
-  protected _errors: any = null ;
+  _value: any = null;
+  _errors: any = null ;
   private _valueChanges = new BehaviorSubject<any>(null);
   private _errorsChanges = new BehaviorSubject<any>(null);
   private _visible = true;
@@ -135,7 +135,7 @@ export abstract class FormProperty {
     this._errorsChanges.next(errors);
   }
 
-  protected searchProperty(path: string): FormProperty {
+  searchProperty(path: string): FormProperty {
     let prop: FormProperty = this;
     let base: PropertyGroup = null;
 
@@ -201,7 +201,7 @@ export abstract class FormProperty {
 
 export abstract class PropertyGroup extends FormProperty {
 
-  protected properties: FormProperty[] | {[key: string]: FormProperty} = null;
+  properties: FormProperty[] | {[key: string]: FormProperty} = null;
 
   getProperty(path: string) {
     let subPathIdx = path.indexOf('/');
