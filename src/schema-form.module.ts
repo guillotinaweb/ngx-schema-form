@@ -60,6 +60,7 @@ import {
   exports: [
     FormComponent,
     FormElementComponent,
+    WidgetChooserComponent,
     ArrayWidget,
     ObjectWidget,
     CheckboxWidget,
