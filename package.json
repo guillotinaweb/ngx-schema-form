@@ -9,7 +9,7 @@
     "copy-template": "copyfiles './src/**/*.html' './dist/src'",
     "check": "npm-check --skip-unused",
     "test": "karma start",
-    "watch:test": "npm run test -- --auto-watch --no-single-run",
+    "test:watch": "npm run test -- --auto-watch --no-single-run",
     "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
     "clean": "rimraf dist",
     "watch": "webpack --display-error-details --watch",
