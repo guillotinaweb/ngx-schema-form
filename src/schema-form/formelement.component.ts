@@ -68,6 +68,7 @@ export class FormElementComponent implements OnInit {
     this.widget.name = id;
     this.widget.id = id;
     this.widget.control = this.control;
+    this.widget.control.reset({value: '', disabled: widget.schema.readOnly});
   }
 
 }
