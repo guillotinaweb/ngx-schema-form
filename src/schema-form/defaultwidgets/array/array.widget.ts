@@ -15,4 +15,8 @@ export class ArrayWidget extends ArrayLayoutWidget {
   removeItem(index: number) {
     this.formProperty.removeItem(index);
   }
+
+  trackByIndex(index: number, item: any) {
+    return index;
+  }
 }
