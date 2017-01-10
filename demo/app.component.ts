@@ -12,19 +12,7 @@ declare const APP_VERSION: string;
 
 @Component({
   selector: 'sf-demo-app',
-  template: `
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-6">
-          <sf-form [schema]="schema" [model]="model" [validators]="fieldValidators" [actions]="actions">
-          </sf-form>
-        </div>
-        <div class="col-md-6">
-          <pre>{{schema | json}}</pre>
-        </div>
-      </div>
-    </div>
-  `,
+  templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
 })

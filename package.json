@@ -72,6 +72,7 @@
     "@types/core-js": "^0.9.28",
     "@types/jasmine": "^2.5.37",
     "@types/node": "^6.0.31",
+    "angular2-template-loader": "^0.6.0",
     "autoprefixer": "^6.4.0",
     "awesome-typescript-loader": "2.2.4",
     "bootstrap": "^3.3.6",

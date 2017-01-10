@@ -22,7 +22,8 @@ module.exports = function(options) {
         modules: false,
         cached: false,
         chunk: false
-      }
+      },
+      contentBase: '.'
     },
     entry: {
       'app': './demo/bootstrap.ts',
@@ -50,6 +51,7 @@ module.exports = function(options) {
         {
           test: /\.ts$/,
           loaders: [
+            'angular2-template-loader',
             'awesome-typescript-loader',
             '@angularclass/hmr-loader'
           ],
