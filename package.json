@@ -6,11 +6,11 @@
   "typings": "dist/index.d.ts",
   "scripts": {
     "build": "npm-run-all -s lint clean ngc copy-template",
-    "copy-template": "copyfiles './src/**/*.html' './dist/src'",
+    "copy-template": "copyfiles \"./src/**/*.html\" \"./dist\"",
     "check": "npm-check --skip-unused",
     "test": "karma start",
     "test:watch": "npm run test -- --auto-watch --no-single-run",
-    "lint": "tslint ./src/**/*.ts ./test/**/*.ts",
+    "lint": "tslint \"./src/**/*.ts\" \"./test/**/*.ts\"",
     "clean": "rimraf dist",
     "watch": "webpack --display-error-details --watch",
     "start": "webpack-dev-server",
