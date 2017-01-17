@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "es5",
     "module": "commonjs",
+    "moduleResolution": "node",
     "declaration": true,
     "noEmitHelpers": false,
     "emitDecoratorMetadata": true,
@@ -17,14 +18,15 @@
     "allowSyntheticDefaultImports": true,
     "suppressExcessPropertyErrors": true,
     "suppressImplicitAnyIndexErrors": true,
-    "outDir": "dist",
-    "declarationDir": "dist"
+    "outDir": "./dist",
+    "declarationDir": "./dist"
   },
   "files": [
-    "src/index.ts"
+    "./index.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "demo"
   ],
   "compileOnSave": false,
   "buildOnSave": false,
@@ -32,7 +34,7 @@
     "forkChecker": false
   },
   "angularCompilerOptions": {
-    "genDir": "dist/",
+    "genDir": "dist",
     "skipMetadataEmit": false
   }
 }
