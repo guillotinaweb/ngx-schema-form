@@ -41,7 +41,7 @@ import { Component } from "@angular/core";
 @Component({
   selector:"minimal-app",
   // Bind the "mySchema" member to the schema input of the Form component.
-  template: '<schema-form [schema]="mySchema"></schema-form>'
+  template: '<sf-form [schema]="mySchema"></sf-form>'
 })
 
 export class AppComponent {
@@ -115,7 +115,7 @@ You can set the initial form's value through the `model` input:
 
 ```js
 @Component({
-template: '<schema-form [schema]="mySchema" [model]="myModel"></schema-form>'
+template: '<sf-form [schema]="mySchema" [model]="myModel"></sf-form>'
 })
 export class AppComponent {
   mySchema = {...};
@@ -128,7 +128,7 @@ The Form component provides the `onChange` output binding of which value represe
 For instance, you can display the current forms's value with the following template:
 
 ```js
-template: '<schema-form [schema]="mySchema" (onChange)="value=$event.value"></schema-form>{{value | json}}'
+template: '<sf-form [schema]="mySchema" (onChange)="value=$event.value"></sf-form>{{value | json}}'
 ```
 
 ### Widgets
@@ -242,7 +242,7 @@ Each schema can be extended by adding buttons after its widget.
 @Component({
   selector:"minimal-app",
   // Bind the actions map to the the "actions" input
-  template: '<schema-form [schema]="mySchema" [actions]="myActions"></schema-form>'
+  template: '<sf-form [schema]="mySchema" [actions]="myActions"></sf-form>'
 })
 export class AppComponent {
   // The schema that will be used to generate a form
@@ -295,7 +295,7 @@ To perform this check we create a custom validator:
 @Component({
   selector:"minimal-app",
   // Bind the validator map to the the "validators" input
-  template: '<schema-form [schema]="mySchema" [validators]="myValidators"></schema-form>'
+  template: '<sf-form [schema]="mySchema" [validators]="myValidators"></sf-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -339,7 +339,7 @@ To achieve this you just have to add a `visibleIf` property to a field's definit
 ```js
 @Component({
   selector:"minimal-app",
-  template: '<schema-form [schema]="mySchema"></schema-form>'
+  template: '<sf-form [schema]="mySchema"></sf-form>'
 })
 export class AppComponent {
   mySchema = {
@@ -433,7 +433,7 @@ If it is not formatted the way Angular 2 Schema Form expects or if some elements
 ```javascript
 @Component({
   selector: 'plone-view-edit',
-  template: '<schema-form [schema]="schema" [model]="model" [actions]="actions"></schema-form>'
+  template: '<sf-form [schema]="schema" [model]="model" [actions]="actions"></sf-form>'
 })
 export class MyComponent {
   private schema:any =
