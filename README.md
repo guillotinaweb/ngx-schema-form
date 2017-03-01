@@ -335,6 +335,7 @@ export class AppComponent {
 ### Conditional fields
 It is possible to make the presence of a field depends on another field's value.
 To achieve this you just have to add a `visibleIf` property to a field's definition.
+Adding the value $ANY$ to the array of conditional values,will make the field visible for any value inserted.
 
 ```js
 @Component({
@@ -355,7 +356,10 @@ export class AppComponent {
       "registerNewsletter": {
         "type": "boolean",
         "description": "I want to receive the newsletter",
-        "default": false
+        "default": false,
+         "visibleIf": {
+                  "comment": ['$ANY$']
+                }
       },
       "registerEmail": {
         "type": "string",
