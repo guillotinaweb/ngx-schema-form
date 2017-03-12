@@ -1,28 +1,24 @@
 import {
-    Component,
-    ViewEncapsulation
+  Component,
+  ViewEncapsulation
 } from '@angular/core';
 import {
-    WidgetRegistry,
-    Validator,
-    DefaultWidgetRegistry
-} from '../';
-
-declare const APP_VERSION: string;
+  WidgetRegistry,
+  Validator,
+  DefaultWidgetRegistry
+} from './lib';
 
 @Component({
   selector: 'sf-demo-app',
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
-  providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
+  providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]
 })
 export class AppComponent {
 
-  version: string = APP_VERSION;
-
   schema: any;
   model: any;
-  fieldValidators: {[fieldId: string]: Validator } = {};
+  fieldValidators: { [fieldId: string]: Validator } = {};
   actions = {};
 
   constructor(registry: WidgetRegistry) {
