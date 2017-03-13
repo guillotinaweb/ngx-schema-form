@@ -24,7 +24,7 @@ You can also test the module on [the website](https://makinacorpus.github.io/ang
 To use Angular2 Schema Form in your project simply execute the following command:
 
 ```bash
-npm install angular2-schema-form --save-dev
+npm install angular2-schema-form --save
 ```
 
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
@@ -86,18 +86,6 @@ import { AppComponent } from "./app.component";
   providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
 })
 export class AppModule {}
-```
-
-Bootstrap your Module:
-
-```js
-// main.browser.ts
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-
-import { AppModule } from "app.module";
-
-// Until Angular2 RC5, we have to specify we are using new forms API
-platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
 The code above creates a form with three required fields.
@@ -468,6 +456,39 @@ export class MyComponent {
 ## Creating a custom widget
 Angular2 schema form allows you to create your own widget.
 Currently this feature is not completely defined and the API could change.
+
+## Development and build
+
+To work on this package:
+
+```bash
+npm install
+```
+
+You also need the peer dependencies:
+
+```bash
+npm info . peerDependencies | sed -n 's/^{\{0,1\}[[:space:]]*'\''\{0,1\}\([^:'\'']*\)'\''\{0,1\}:[[:space:]]'\''\([^'\'']*\).*$/\1@\2/p' | xargs npm i
+```
+(you may also use install-peerdeps, but I h'avn't figured out how it works)
+
+Then you can build:
+
+```bash
+npm run build
+```
+
+If you want to work with the demo:
+
+```bash
+npm install -g @angular/cli
+cd ./tests
+npm install
+cd ./src/app
+ln -s ../../../src/
+cd -
+ng serve
+```
 
 ## Building the API documentation
 You can build an HTML version of the API documentation by running the following command:

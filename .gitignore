@@ -11,3 +11,20 @@ release/
 *.metadata.json
 *.ngfactory.ts
 *.tgz
+/dist
+
+# test subproject and demo
+/demo
+/tests/dist
+/tests/src/app/lib
+/tests/tmp
+/tests/node_modules
+/tests/.idea
+/tests/.vscode
+/tests/.sass-cache
+/tests/connect.lock
+/tests/coverage/*
+/tests/libpeerconnection.log
+/tests/typings
+/tests/e2e/*.js
+/tests/e2e/*.map
