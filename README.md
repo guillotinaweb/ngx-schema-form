@@ -468,9 +468,8 @@ npm install
 You also need the peer dependencies:
 
 ```bash
-npm info . peerDependencies | sed -n 's/^{\{0,1\}[[:space:]]*'\''\{0,1\}\([^:'\'']*\)'\''\{0,1\}:[[:space:]]'\''\([^'\'']*\).*$/\1@\2/p' | xargs npm i
+npm run install:peers
 ```
-(you may also use install-peerdeps, but I h'avn't figured out how it works)
 
 Then you can build:
 
