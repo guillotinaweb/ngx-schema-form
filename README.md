@@ -455,7 +455,44 @@ export class MyComponent {
 
 ## Creating a custom widget
 Angular2 schema form allows you to create your own widget.
-Currently this feature is not completely defined and the API could change.
+
+Note: Currently this feature is not completely defined and the API might change.
+
+You need to derivate the widget you want to customize:
+```javascript
+@Component({
+  selector: 'mdl-sf-string-widget',
+  templateUrl: './string.widget.html'
+})
+export class MyStringWidget extends StringWidget {}
+```
+
+You need to provide its html template (let's imagine we want to use the Material Design text field):
+```html
+<mdl-textfield [label]="schema.description" type="string" floating-label 
+    [name]="name" [attr.readonly]="schema.readOnly?true:null"
+    [attr.id]="id"
+    [attr.disabled]="schema.readOnly?true:null"
+    [formControl]="control"></mdl-textfield>
+```
+
+And you need to declare it in a custom registry:
+```javascript
+import { MyStringWidget } from './mystring';
+
+export class MyWidgetRegistry extends DefaultWidgetRegistry {
+  constructor() {
+    super();
+
+    this.register('string',  MyStringWidget);
+  }
+}
+```
+
+And then you need to provide your registry in your module:
+```javascript
+providers: [{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
+```
 
 ## Development and build
 
