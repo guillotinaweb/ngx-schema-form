@@ -6,7 +6,7 @@
         "moduleResolution": "node",
         "declaration": true,
         "noImplicitAny": false,
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "sourceMap": false,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
@@ -33,7 +33,8 @@
         "dist",
         "tests",
         "**/*.ngfactory.ts",
-        "**/*.shim.ts"
+        "**/*.shim.ts",
+        "**/*.spec.ts"
     ],
     "angularCompilerOptions": {
         "genDir": "dist",

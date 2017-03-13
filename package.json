@@ -9,7 +9,8 @@
     "test": "cd tests/src/app && ln -s ../../../src/ ./lib && cd ../.. && ng test --single-run",
     "build:aot": "ngc -p tsconfig.json",
     "build:jit": "tsc -p tsconfig.json",
-    "build": "npm run clean && npm run build:aot"
+    "build": "npm run clean && npm run build:aot",
+    "install:peers": "npm-install-peers"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
   },
   "peerDependencies": {
     "@angular/common": "^2.4.0",
+    "@angular/forms": "^2.4.0",
     "@angular/compiler": "^2.4.0",
     "@angular/core": "^2.4.0",
     "@angular/http": "^2.4.0",
@@ -56,6 +58,7 @@
     "@angular/platform-server": "^2.4.0",
     "@types/jasmine": "2.5.38",
     "@types/node": "6.0.60",
+    "npm-install-peers": "^1.1.0",
     "rimraf": "^2.5.4"
   }
 }
