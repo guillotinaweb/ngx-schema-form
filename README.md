@@ -469,6 +469,39 @@ export class MyComponent {
 Angular2 schema form allows you to create your own widget.
 Currently this feature is not completely defined and the API could change.
 
+## Development and build
+
+To work on this package:
+
+```bash
+npm install
+```
+
+You also need the peer dependencies:
+
+```bash
+npm info . peerDependencies | sed -n 's/^{\{0,1\}[[:space:]]*'\''\{0,1\}\([^:'\'']*\)'\''\{0,1\}:[[:space:]]'\''\([^'\'']*\).*$/\1@\2/p' | xargs npm i
+```
+(you may also use install-peerdeps, but I h'avn't figured out how it works)
+
+Then you can build:
+
+```bash
+npm run build
+```
+
+If you want to work with the demo:
+
+```bash
+npm install -g @angular/cli
+cd ./tests
+npm install
+cd ./src/app
+ln -s ../../../src/
+cd -
+ng serve
+```
+
 ## Building the API documentation
 You can build an HTML version of the API documentation by running the following command:
 
