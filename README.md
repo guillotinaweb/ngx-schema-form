@@ -24,7 +24,7 @@ You can also test the module on [the website](https://makinacorpus.github.io/ang
 To use Angular2 Schema Form in your project simply execute the following command:
 
 ```bash
-npm install angular2-schema-form --save-dev
+npm install angular2-schema-form --save
 ```
 
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
@@ -86,18 +86,6 @@ import { AppComponent } from "./app.component";
   providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
 })
 export class AppModule {}
-```
-
-Bootstrap your Module:
-
-```js
-// main.browser.ts
-import { platformBrowserDynamic } from "@angular/platform-browser-dynamic";
-
-import { AppModule } from "app.module";
-
-// Until Angular2 RC5, we have to specify we are using new forms API
-platformBrowserDynamic().bootstrapModule(AppModule);
 ```
 
 The code above creates a form with three required fields.
