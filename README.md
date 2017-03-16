@@ -494,6 +494,18 @@ And then you need to provide your registry in your module:
 providers: [{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
 ```
 
+Note: you will also need to import `ReactiveFormsModule` if you want to be able to use form control:
+```javascript
+import { ReactiveFormsModule } from '@angular/forms';
+...
+@NgModule({
+  ...
+  imports: [
+    ...
+    ReactiveFormsModule,
+  ]
+```
+
 ## Development and build
 
 To work on this package:
