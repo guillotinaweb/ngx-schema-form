@@ -1,6 +1,6 @@
 {
   "name": "angular2-schema-form",
-  "version": "1.0.0-beta.3",
+  "version": "1.0.0-beta.4",
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -9,7 +9,8 @@
     "test": "cd tests/src/app && ln -s ../../../src/ ./lib && cd ../.. && ng test --single-run",
     "build:aot": "ngc -p tsconfig.json",
     "build:jit": "tsc -p tsconfig.json",
-    "build": "npm run clean && npm run build:aot",
+    "html": "cd ./src && find . -name '*.html' -type f -exec cp --parents {} ../dist \\; && cd ..",
+    "build": "npm run clean && npm run build:aot && npm run html",
     "install:peers": "npm-install-peers"
   },
   "repository": {
