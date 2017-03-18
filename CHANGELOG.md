@@ -1,3 +1,11 @@
+# 1.0.0-beta.5 (2017-03-18)
+
+## Bug Fixes
+
+- Use inline html
+
+## BREAKING CHANGES
+
 # 1.0.0-beta.4 (2017-03-17)
 
 ## Bug Fixes
@@ -5,7 +13,6 @@
 - Make sure .html templates are part of the package
 
 ## BREAKING CHANGES
-
 
 # 1.0.0-beta.3 (2017-03-16)
 
