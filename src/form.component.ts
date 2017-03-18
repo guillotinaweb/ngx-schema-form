@@ -26,7 +26,8 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
 
 @Component({
   selector: 'sf-form',
-  templateUrl: './form.component.html',
+  template: `<sf-form-element
+  *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element>`,
   providers: [
     ActionRegistry,
     ValidatorRegistry,

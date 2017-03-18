@@ -17,7 +17,13 @@ import {
 
 @Component({
   selector: 'sf-form-element',
-  templateUrl: './formelement.component.html'
+  template: `<div *ngIf="formProperty.visible">
+	<sf-widget-chooser
+	(widgetInstanciated)="onWidgetInstanciated($event)"
+	[widgetInfo]="formProperty.schema.widget">
+	</sf-widget-chooser>
+	<button *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
+</div>`
 })
 export class FormElementComponent implements OnInit {
 
