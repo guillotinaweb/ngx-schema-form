@@ -3,7 +3,7 @@ import {
   ChangeDetectorRef,
   EventEmitter,
   Input,
-  OnInit,
+  OnChanges,
   Output,
   ViewChild,
   ViewContainerRef,
@@ -15,7 +15,7 @@ import { WidgetFactory } from './widgetfactory';
   selector: 'sf-widget-chooser',
   template: `<div #target></div>`,
 })
-export class WidgetChooserComponent implements OnInit {
+export class WidgetChooserComponent implements OnChanges {
 
   @Input() widgetInfo: any;
 
@@ -28,7 +28,7 @@ export class WidgetChooserComponent implements OnInit {
 
   constructor(private widgetFactory: WidgetFactory = null, private cdr: ChangeDetectorRef) {}
 
-  ngOnInit() {
+  ngOnChanges() {
     let ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
     this.widgetInstanciated.emit(ref.instance);
     this.widgetInstance = ref.instance;
