@@ -109,4 +109,8 @@ export class AppComponent {
       property.addItem(parameters.value);
     };
   }
+
+  changeSchema() {
+    this.schema = require('./otherschema.json');
+  }
 }
