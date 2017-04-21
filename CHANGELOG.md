@@ -1,3 +1,9 @@
+# 1.0.0-beta.6 (2017-04-21)
+
+## Bug Fixes
+
+- Re-render form on schema change [ZheyangSong]
+
 # 1.0.0-beta.5 (2017-03-18)
 
 ## Bug Fixes
