@@ -1,3 +1,9 @@
+# 1.0.0-beta.7 (unreleased)
+
+## New features
+
+- Upgrade to Angular 4
+
 # 1.0.0-beta.6 (2017-04-21)
 
 ## Bug Fixes

@@ -32,9 +32,9 @@ export class FormElementComponent implements OnInit {
   @Input() formProperty: FormProperty;
   control: FormControl = new FormControl('', () => null);
 
-  private widget: Widget<any> = null;
+  widget: Widget<any> = null;
 
-  private buttons = [];
+  buttons = [];
 
 
   constructor(private actionRegistry: ActionRegistry) {}
