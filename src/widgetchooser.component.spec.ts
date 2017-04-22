@@ -1,6 +1,7 @@
 import { ChangeDetectorRef } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
+import { TerminatorService } from './terminator.service';
 import { WidgetFactory } from './widgetfactory';
 import { WidgetRegistry } from './widgetregistry';
 
@@ -14,7 +15,8 @@ describe('WidgetChooserComponent', () => {
       providers: [
         WidgetFactory,
         WidgetRegistry,
-        ChangeDetectorRef
+        ChangeDetectorRef,
+        TerminatorService,
       ]
     });
   });
