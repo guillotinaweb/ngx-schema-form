@@ -1,5 +1,6 @@
 import {
   Component,
+  ComponentRef,
   ChangeDetectorRef,
   EventEmitter,
   Input,
@@ -8,7 +9,7 @@ import {
   ViewChild,
   ViewContainerRef,
 } from '@angular/core';
-
+import { TerminatorService } from './terminator.service';
 import { WidgetFactory } from './widgetfactory';
 
 @Component({
@@ -24,14 +25,26 @@ export class WidgetChooserComponent implements OnChanges {
   @ViewChild('target', {read: ViewContainerRef}) container: ViewContainerRef;
 
   private widgetInstance: any;
+  private ref: ComponentRef<any>;
 
+  constructor(
+    private widgetFactory: WidgetFactory = null,
+    private cdr: ChangeDetectorRef,
+    private terminator: TerminatorService,
+  ) { }
 
-  constructor(private widgetFactory: WidgetFactory = null, private cdr: ChangeDetectorRef) {}
+  ngOnInit() {
+    this.terminator.onDestroy.subscribe(destroy => {
+      if (destroy) {
+        this.ref.destroy();
+      }
+    })
+  }
 
   ngOnChanges() {
-    let ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
-    this.widgetInstanciated.emit(ref.instance);
-    this.widgetInstance = ref.instance;
+    this.ref = this.widgetFactory.createWidget(this.container, this.widgetInfo.id);
+    this.widgetInstanciated.emit(this.ref.instance);
+    this.widgetInstance = this.ref.instance;
     this.cdr.detectChanges();
   }
 }
