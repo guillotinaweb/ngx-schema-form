@@ -7,6 +7,7 @@
 ## Bug Fixes
 
 - Clean up existing elements on schema changes
+- Fix AOT build
 
 # 1.0.0-beta.6 (2017-04-21)
 
