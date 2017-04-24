@@ -17,7 +17,9 @@ import {
 
 @Component({
   selector: 'sf-form-element',
-  template: `<div *ngIf="formProperty.visible">
+  template: `<div *ngIf="formProperty.visible"
+    [class.has-error]="!control.valid"
+	  [class.has-success]="control.valid">
 	<sf-widget-chooser
 	(widgetInstanciated)="onWidgetInstanciated($event)"
 	[widgetInfo]="formProperty.schema.widget">

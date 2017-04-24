@@ -1,3 +1,9 @@
+# 1.0.0-beta.8 (unreleased)
+
+## Bug Fixes
+
+- Restore has-success/has-error class
+
 # 1.0.0-beta.7 (2017-04-24)
 
 ## New features
