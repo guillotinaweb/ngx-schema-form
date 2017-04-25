@@ -1,3 +1,26 @@
+# 1.0.0-beta.8 (unreleased)
+
+## Bug Fixes
+
+- Restore has-success/has-error class
+
+# 1.0.0-beta.7 (2017-04-24)
+
+## New features
+
+- Upgrade to Angular 4
+
+## Bug Fixes
+
+- Clean up existing elements on schema changes
+- Fix AOT build
+
+# 1.0.0-beta.6 (2017-04-21)
+
+## Bug Fixes
+
+- Re-render form on schema change [ZheyangSong]
+
 # 1.0.0-beta.5 (2017-03-18)
 
 ## Bug Fixes

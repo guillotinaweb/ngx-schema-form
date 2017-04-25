@@ -19,6 +19,7 @@ import {
 
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 import { WidgetFactory } from './widgetfactory';
+import { TerminatorService } from './terminator.service';
 
 export function useFactory(schemaValidatorFactory, validatorRegistry) {
   return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry);
@@ -26,8 +27,8 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
 
 @Component({
   selector: 'sf-form',
-  template: `<sf-form-element
-  *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element>`,
+  template: `<form><sf-form-element
+  *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element></form>`,
   providers: [
     ActionRegistry,
     ValidatorRegistry,
@@ -40,7 +41,8 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
       provide: FormPropertyFactory,
       useFactory: useFactory,
       deps: [SchemaValidatorFactory, ValidatorRegistry]
-    }
+    },
+    TerminatorService,
   ]
 })
 export class FormComponent implements OnChanges {
@@ -61,11 +63,11 @@ export class FormComponent implements OnChanges {
     private formPropertyFactory: FormPropertyFactory,
     private actionRegistry: ActionRegistry,
     private validatorRegistry: ValidatorRegistry,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private terminator: TerminatorService,
   ) { }
 
   ngOnChanges(changes: any) {
-    console.log(changes);
     if (changes.validators) {
       this.setValidators();
     }
@@ -79,7 +81,9 @@ export class FormComponent implements OnChanges {
     }
 
     if (this.schema && changes.schema) {
-      console.log(this.schema, changes.schema);
+      if (!changes.schema.firstChange) {
+        this.terminator.destroy();
+      }
       SchemaPreprocessor.preprocess(this.schema);
       this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
       this.rootProperty.valueChanges.subscribe(value => { this.onChange.emit({value: value}); });
