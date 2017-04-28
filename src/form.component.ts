@@ -76,7 +76,7 @@ export class FormComponent implements OnChanges {
       this.setActions();
     }
 
-    if (!this.schema.type) {
+    if (this.schema && !this.schema.type) {
       this.schema.type = 'object';
     }
 
