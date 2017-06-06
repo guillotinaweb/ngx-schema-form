@@ -3,6 +3,7 @@ export { FormElementComponent } from './formelement.component';
 export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
 export { Validator } from './model/validator';
+export { TerminatorService } from './terminator.service';
 
 export {
     Widget,
