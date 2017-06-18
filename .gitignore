@@ -5,6 +5,7 @@ compiled/
 dist/
 coverage/
 .idea
+package-lock.json
 yarn.lock
 /.vscode
 release/
