@@ -11,7 +11,8 @@ import { ControlWidget } from '../../widget';
     <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
     <input [name]="name" [attr.readonly]="(schema.widget.id!=='color') && schema.readOnly?true:null"  class="text-widget.id textline-widget form-control" [attr.type]="this.getInputType()" [attr.id]="id"  [formControl]="control" [attr.placeholder]="schema.placeholder" [attr.disabled]="(schema.widget.id=='color' && schema.readOnly)?true:null">
     <input *ngIf="(schema.widget.id==='color' && schema.readOnly)" [attr.name]="name" type="hidden" [formControl]="control">
-</div>`
+    <p *ngIf="control.errors" class="help-block">{{control.errors[0].message}}</p>
+  </div>`
 })
 export class StringWidget extends ControlWidget {
 

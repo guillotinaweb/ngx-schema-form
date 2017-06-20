@@ -15,98 +15,20 @@ import {
   providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]
 })
 export class AppComponent {
-
   schema: any;
   model: any;
-  fieldValidators: { [fieldId: string]: Validator } = {};
+  errors: any;
+  fieldValidators = {};
   actions = {};
 
   constructor(registry: WidgetRegistry) {
-
     this.schema = require('./sampleschema.json');
-    this.model = require('./samplemodel.json');
+    this.model = { passwordCheck: "aa" };
 
-    this.fieldValidators['/bornOn'] = (value, property, form) => {
-      let errors = null;
-      let dateArr = value.split('-');
-
-      if (dateArr.length === 3) {
-        let now = new Date();
-        let min = new Date(
-          now.getFullYear() - 100,
-          now.getMonth(),
-          now.getDay()
-        ).getTime();
-        let max = new Date().getTime();
-        let born = new Date(
-          dateArr[0],
-          dateArr[1] - 1,
-          dateArr[2]
-        ).getTime();
-
-        if (born < min || born > max) {
-          errors = [{
-            bornOn: {
-              expectedValue: '>today - 100 && < today',
-              actualValue: value
-            }
-          }];
-        }
+    this.fieldValidators = {
+      "/passwordCheck": (value, property, form) => {
+        return { "message": "same as 'password'" }
       }
-      return errors;
-    };
-
-    this.fieldValidators['/promotion'] = (value, property, form) => {
-
-      if (value === 'student') {
-        let bornOn = form.getProperty('/bornOn');
-
-        if (bornOn.valid) {
-          let date = bornOn.value.split('-');
-          let validYear = new Date().getFullYear() - 17;
-
-          try {
-            let actualYear = parseInt(date[0], 10);
-
-            if (actualYear < validYear) {
-              return null;
-            }
-
-            return [{
-              promotion: {
-                bornOn: {
-                  expectedValue: 'year<' + validYear,
-                  actualValue: actualYear
-                }
-              }
-            }];
-
-          } catch (e) { }
-        }
-
-        return [{
-          promotion: {
-            bornOn: {
-              expectedFormat: 'date',
-              actualValue: bornOn.value
-            }
-          }
-        }];
-      }
-
-      return null;
-    };
-
-    this.actions['alert'] = (property, options) => {
-      alert(JSON.stringify(property.value));
-    };
-
-    this.actions['reset'] = (form, options) => {
-      form.reset();
-    };
-
-    this.actions['addItem'] = (property, parameters) => {
-      property.addItem(parameters.value);
     };
   }
 

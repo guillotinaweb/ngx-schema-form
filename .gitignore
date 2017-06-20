@@ -13,6 +13,7 @@ release/
 *.ngfactory.ts
 *.tgz
 /dist
+mp-angular2-schema-form.iml
 
 # test subproject and demo
 /demo

@@ -17,6 +17,8 @@ import {
   Validator
 } from './model';
 
+import { errorGenerator } from './errorGenerator';
+
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 import { WidgetFactory } from './widgetfactory';
 import { TerminatorService } from './terminator.service';
@@ -46,10 +48,11 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
   ]
 })
 export class FormComponent implements OnChanges {
-
   @Input() schema: any = null;
 
   @Input() model: any;
+
+  @Input() errors: any;
 
   @Input() actions: {[actionId: string]: Action} = {};
 
@@ -65,11 +68,16 @@ export class FormComponent implements OnChanges {
     private validatorRegistry: ValidatorRegistry,
     private cdr: ChangeDetectorRef,
     private terminator: TerminatorService,
-  ) { }
+  ) {
+  }
 
   ngOnChanges(changes: any) {
     if (changes.validators) {
       this.setValidators();
+    }
+
+    if(changes.errors) {
+      this.setErrors();
     }
 
     if (changes.actions) {
@@ -93,6 +101,7 @@ export class FormComponent implements OnChanges {
       this.rootProperty.reset(this.model, false);
       this.cdr.detectChanges();
     }
+
   }
 
   private setValidators() {
@@ -114,6 +123,16 @@ export class FormComponent implements OnChanges {
           this.actionRegistry.register(actionId, this.actions[actionId]);
         }
       }
+    }
+  }
+
+  private setErrors() {
+    if(!this.errors) return ;
+
+    const errors = errorGenerator(this.errors);
+
+    for (let errorKey in errors) {
+      this.validatorRegistry.register(errorKey, errors[errorKey]);
     }
   }
 

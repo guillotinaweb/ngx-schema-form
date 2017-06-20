@@ -4,6 +4,7 @@ export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
 export { Validator } from './model/validator';
 export { TerminatorService } from './terminator.service';
+export { errorGenerator } from './errorGenerator';
 
 export {
     Widget,
