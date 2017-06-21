@@ -172,7 +172,11 @@ export abstract class FormProperty {
   // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
   public _bindVisibility() {
     let visibleIf = this.schema.visibleIf;
-    if (visibleIf !== undefined) {
+    if (visibleIf === {})
+    {
+      this.setVisible(false);
+    }
+    else if (visibleIf !== undefined) {
       let propertiesBinding = [];
       for (let dependencyPath in visibleIf) {
         if (visibleIf.hasOwnProperty(dependencyPath)) {
