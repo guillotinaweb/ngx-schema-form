@@ -4,7 +4,7 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-range-widget',
-  template: `<div class="widget form-group">
+  template: `<div>
 	<label [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>

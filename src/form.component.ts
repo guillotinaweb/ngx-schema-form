@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  OnInit,
   OnChanges,
   EventEmitter,
   Input,
@@ -29,7 +30,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
 
 @Component({
   selector: 'sf-form',
-  template: `<form><sf-form-element
+  template: `<form #form="ngForm"><sf-form-element
   *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element></form>`,
   providers: [
     ActionRegistry,
@@ -47,7 +48,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
     TerminatorService,
   ]
 })
-export class FormComponent implements OnChanges {
+export class FormComponent implements OnChanges, OnInit {
   @Input() schema: any = null;
 
   @Input() model: any;
