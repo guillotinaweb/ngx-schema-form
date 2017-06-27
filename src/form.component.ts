@@ -48,7 +48,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
     TerminatorService,
   ]
 })
-export class FormComponent implements OnChanges, OnInit {
+export class FormComponent implements OnChanges {
   @Input() schema: any = null;
 
   @Input() model: any;
@@ -84,6 +84,7 @@ export class FormComponent implements OnChanges, OnInit {
     if (changes.actions) {
       this.setActions();
     }
+    console.info('scheme1', this.schema)
 
     if (this.schema && !this.schema.type) {
       this.schema.type = 'object';
@@ -103,6 +104,7 @@ export class FormComponent implements OnChanges, OnInit {
       this.cdr.detectChanges();
     }
 
+    console.info('scheme2', this.schema)
   }
 
   private setValidators() {
