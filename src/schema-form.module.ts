@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
   FormsModule,
@@ -23,6 +23,10 @@ import {
 import {
   DefaultWidget
 } from './default.widget';
+
+import { WidgetRegistry } from './widgetregistry';
+import { DefaultWidgetRegistry } from './defaultwidgets';
+import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 
 @NgModule({
   imports : [CommonModule, FormsModule, ReactiveFormsModule],
@@ -73,4 +77,22 @@ import {
     StringWidget
   ]
 })
-export class SchemaFormModule {}
+export class SchemaFormModule {
+
+  static forRoot(): ModuleWithProviders {
+    return {
+      ngModule: SchemaFormModule,
+      providers: [
+        {
+          provide: WidgetRegistry,
+          useClass: DefaultWidgetRegistry
+        },
+        {
+          provide: SchemaValidatorFactory,
+          useClass: ZSchemaValidatorFactory
+        }
+      ]
+    }
+  }
+
+}
