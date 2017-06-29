@@ -21,7 +21,7 @@ export class ControlWidget extends Widget<FormProperty> implements AfterViewInit
       }
     });
     this.formProperty.errorsChanges.subscribe((errors) => {
-      control.setErrors(errors, true);
+      control.setErrors(errors);
     });
     control.valueChanges.subscribe((newValue) => { this.formProperty.setValue(newValue, false); });
   }

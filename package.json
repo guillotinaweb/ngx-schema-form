@@ -1,15 +1,15 @@
 {
-  "name": "angular2-schema-form",
+  "name": "mp-angular2-schema-form",
   "version": "1.0.0-beta.7",
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "clean": "rimraf dist/",
+    "clean": "rm -rf dist",
     "test": "cd tests/src/app && ln -s ../../../src/ ./lib && cd ../.. && ng test --single-run",
     "build:aot": "ngc -p tsconfig.json",
     "build:jit": "tsc -p tsconfig.json",
-    "build": "npm run clean && npm run build:aot",
+    "build": "npm run clean && npm install && npm run build:aot",
     "install:peers": "npm-install-peers"
   },
   "repository": {
@@ -36,10 +36,20 @@
     "Ramon Navarro Bosch <ramon.nb@gmail.com>"
   ],
   "dependencies": {
+    "@angular/common": "^4.2.3",
+    "@angular/compiler": "^4.2.3",
+    "@angular/core": "^4.2.3",
+    "@angular/forms": "^4.2.3",
+    "@angular/http": "^4.2.3",
+    "@angular/platform-browser": "^4.2.3",
     "body-parser": "^1.15.1",
+    "core-js": "^2.4.1",
     "methods": "^1.1.2",
     "raw-loader": "0.5.1",
-    "z-schema": "^3.17.0"
+    "rxjs": "^5.4.1",
+    "typescript": "^2.2.2",
+    "z-schema": "^3.17.0",
+    "zone.js": "^0.7.8"
   },
   "peerDependencies": {
     "@angular/common": "^4.0.3",

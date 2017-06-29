@@ -96,8 +96,9 @@ export class SchemaPreprocessor {
 
   private static normalizeWidget(fieldSchema: any) {
     let widget = fieldSchema.widget;
+
     if (widget === undefined) {
-      widget = {'id': fieldSchema.type};
+      widget = {'id': fieldSchema.format || fieldSchema.type};
     } else if (typeof widget === 'string') {
       widget = {'id': widget};
     }

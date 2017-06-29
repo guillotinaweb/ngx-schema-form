@@ -1,0 +1,11 @@
+export { ArrayWidget } from './array/array.widget';
+export { CheckboxWidget } from './checkbox/checkbox.widget';
+export { FileWidget } from './file/file.widget';
+export { IntegerWidget } from './integer/integer.widget';
+export { ObjectWidget } from './object/object.widget';
+export { RadioWidget } from './radio/radio.widget';
+export { RangeWidget } from './range/range.widget';
+export { SelectWidget } from './select/select.widget';
+export { StringWidget } from './string/string.widget';
+export { TextAreaWidget } from './textarea/textarea.widget';
+export { DefaultWidgetRegistry } from './defaultwidgetregistry';

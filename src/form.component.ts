@@ -1,6 +1,7 @@
 import {
   ChangeDetectorRef,
   Component,
+  OnInit,
   OnChanges,
   EventEmitter,
   Input,
@@ -17,6 +18,8 @@ import {
   Validator
 } from './model';
 
+import { errorGenerator } from './errorGenerator';
+
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 import { WidgetFactory } from './widgetfactory';
 import { TerminatorService } from './terminator.service';
@@ -27,7 +30,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
 
 @Component({
   selector: 'sf-form',
-  template: `<form><sf-form-element
+  template: `<form #form="ngForm"><sf-form-element
   *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element></form>`,
   providers: [
     ActionRegistry,
@@ -46,10 +49,11 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
   ]
 })
 export class FormComponent implements OnChanges {
-
   @Input() schema: any = null;
 
   @Input() model: any;
+
+  @Input() errors: any;
 
   @Input() actions: {[actionId: string]: Action} = {};
 
@@ -65,16 +69,22 @@ export class FormComponent implements OnChanges {
     private validatorRegistry: ValidatorRegistry,
     private cdr: ChangeDetectorRef,
     private terminator: TerminatorService,
-  ) { }
+  ) {
+  }
 
   ngOnChanges(changes: any) {
     if (changes.validators) {
       this.setValidators();
     }
 
+    if(changes.errors) {
+      this.setErrors();
+    }
+
     if (changes.actions) {
       this.setActions();
     }
+    console.info('scheme1', this.schema)
 
     if (this.schema && !this.schema.type) {
       this.schema.type = 'object';
@@ -93,6 +103,8 @@ export class FormComponent implements OnChanges {
       this.rootProperty.reset(this.model, false);
       this.cdr.detectChanges();
     }
+
+    console.info('scheme2', this.schema)
   }
 
   private setValidators() {
@@ -114,6 +126,16 @@ export class FormComponent implements OnChanges {
           this.actionRegistry.register(actionId, this.actions[actionId]);
         }
       }
+    }
+  }
+
+  private setErrors() {
+    if(!this.errors) return ;
+
+    const errors = errorGenerator(this.errors);
+
+    for (let errorKey in errors) {
+      this.validatorRegistry.register(errorKey, errors[errorKey]);
     }
   }
 

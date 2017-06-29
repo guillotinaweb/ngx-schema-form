@@ -17,15 +17,18 @@ import {
 
 @Component({
   selector: 'sf-form-element',
-  template: `<div *ngIf="formProperty.visible"
-    [class.has-error]="!control.valid"
-	  [class.has-success]="control.valid">
-	<sf-widget-chooser
-	(widgetInstanciated)="onWidgetInstanciated($event)"
-	[widgetInfo]="formProperty.schema.widget">
-	</sf-widget-chooser>
-	<button *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
-</div>`
+  template: `
+    <div *ngIf="formProperty.visible"
+         class="widget form-group"
+         [class.has-error]="!control.valid"
+         [class.has-success]="control.valid">
+      <sf-widget-chooser
+        (widgetInstanciated)="onWidgetInstanciated($event)"
+        [widgetInfo]="formProperty.schema.widget">
+      </sf-widget-chooser>
+      <p *ngIf="control.errors" class="help-block">{{control.errors[0].message}}</p>
+      <button *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
+    </div>`
 })
 export class FormElementComponent implements OnInit {
 
@@ -39,7 +42,8 @@ export class FormElementComponent implements OnInit {
   buttons = [];
 
 
-  constructor(private actionRegistry: ActionRegistry) {}
+  constructor(private actionRegistry: ActionRegistry) {
+  }
 
   ngOnInit() {
     this.parseButtons();

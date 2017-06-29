@@ -2,16 +2,16 @@ node_modules/
 .DS_Store
 npm-debug.log
 compiled/
-dist/
 coverage/
 .idea
+package-lock.json
 yarn.lock
 /.vscode
 release/
 *.metadata.json
 *.ngfactory.ts
 *.tgz
-/dist
+mp-angular2-schema-form.iml
 
 # test subproject and demo
 /demo

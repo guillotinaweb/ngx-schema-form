@@ -4,7 +4,7 @@ import { ControlWidget } from '../../widget';
 
 @Component({
   selector: 'sf-radio-widget',
-  template: `<div class="widget form-group">
+  template: `<div>
 	<label>{{schema.title}}</label>
     <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
 	<div *ngFor="let option of schema.oneOf" class="radio">

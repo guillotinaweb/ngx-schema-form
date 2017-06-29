@@ -4,7 +4,7 @@ import { ArrayLayoutWidget } from '../../widget';
 
 @Component({
   selector: 'sf-array-widget',
-  template: `<div class="widget form-group">
+  template: `<div>
 	<label [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>

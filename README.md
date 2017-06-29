@@ -528,6 +528,8 @@ npm run build
 
 If you want to work with the demo:
 
+데모를 돌릴때는 프로잭트 root 디렉토리에 node_modules가 없어야합니다.
+
 ```bash
 npm install -g @angular/cli
 cd ./tests
