@@ -6,7 +6,7 @@ export abstract class SchemaValidatorFactory {
 
 export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
-  private zschema;
+  protected zschema;
 
   constructor() {
     super();
