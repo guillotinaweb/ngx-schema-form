@@ -363,6 +363,17 @@ export class AppComponent {
   }
 }
 ```
+Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden.
+```js
+mySchema = {
+    "properties": {
+      "hidden": {
+        "type": "boolean",
+        "visibleIf": { }
+      }
+    }
+  }
+```
 
 ### Fields presentation and ordering
 As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built.
