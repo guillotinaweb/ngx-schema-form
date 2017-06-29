@@ -9,7 +9,6 @@ import {
   RangeWidget,
   SelectWidget,
   StringWidget,
-  DatetimeWidget
 } from './';
 
 import { WidgetRegistry } from '../widgetregistry';
@@ -29,7 +28,6 @@ export class DefaultWidgetRegistry extends WidgetRegistry {
     this.register('password', StringWidget);
     this.register('color', StringWidget);
     this.register('date', StringWidget);
-    this.register('datetime', DatetimeWidget);
     this.register('time', StringWidget);
 
     this.register('integer', IntegerWidget);

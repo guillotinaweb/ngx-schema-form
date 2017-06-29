@@ -9,7 +9,7 @@
     "test": "cd tests/src/app && ln -s ../../../src/ ./lib && cd ../.. && ng test --single-run",
     "build:aot": "ngc -p tsconfig.json",
     "build:jit": "tsc -p tsconfig.json",
-    "build": "npm run clean && npm install && npm run build:aot && rm -rf node_modules",
+    "build": "npm run clean && npm install && npm run build:aot",
     "install:peers": "npm-install-peers"
   },
   "repository": {
@@ -45,7 +45,6 @@
     "body-parser": "^1.15.1",
     "core-js": "^2.4.1",
     "methods": "^1.1.2",
-    "ngx-mydatepicker": "^2.0.12",
     "raw-loader": "0.5.1",
     "rxjs": "^5.4.1",
     "typescript": "^2.2.2",

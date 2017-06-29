@@ -4,7 +4,6 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { NgxMyDatePickerModule } from 'ngx-mydatepicker';
 
 import { FormElementComponent } from './formelement.component';
 import { FormComponent } from './form.component';
@@ -20,14 +19,13 @@ import {
   RangeWidget,
   SelectWidget,
   StringWidget,
-  DatetimeWidget
 } from './defaultwidgets';
 import {
   DefaultWidget
 } from './default.widget';
 
 @NgModule({
-  imports : [CommonModule, FormsModule, ReactiveFormsModule, NgxMyDatePickerModule],
+  imports : [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
     FormElementComponent,
     FormComponent,
@@ -43,7 +41,6 @@ import {
     RangeWidget,
     SelectWidget,
     StringWidget,
-    DatetimeWidget,
   ],
   entryComponents: [
     FormElementComponent,
@@ -59,7 +56,6 @@ import {
     RangeWidget,
     SelectWidget,
     StringWidget,
-    DatetimeWidget,
   ],
   exports: [
     FormComponent,
@@ -75,7 +71,6 @@ import {
     RangeWidget,
     SelectWidget,
     StringWidget,
-    DatetimeWidget,
   ]
 })
 export class SchemaFormModule {}
