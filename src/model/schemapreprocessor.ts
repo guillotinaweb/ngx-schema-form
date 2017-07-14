@@ -88,7 +88,8 @@ export class SchemaPreprocessor {
   private static replaceOrderByFieldsets(jsonSchema) {
     jsonSchema.fieldsets = [{
       id: 'fieldset-default',
-      title: jsonSchema.description || '',
+      title: jsonSchema.title || '',
+      description : jsonSchema.description || '',
       fields: jsonSchema.order
     }];
     delete jsonSchema.order;
