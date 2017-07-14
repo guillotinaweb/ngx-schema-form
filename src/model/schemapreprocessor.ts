@@ -90,6 +90,7 @@ export class SchemaPreprocessor {
       id: 'fieldset-default',
       title: jsonSchema.title || '',
       description : jsonSchema.description || '',
+      name : jsonSchema.name || '',
       fields: jsonSchema.order
     }];
     delete jsonSchema.order;
