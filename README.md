@@ -375,6 +375,37 @@ mySchema = {
   }
 ```
 
+#### Hidden fields
+When a field has been made invisible by the condition `visibleIf`
+then the property of the invisible field will be missing in the result model.
+
+If there is need to submit default values that are not visible for the form
+the `widget.id` `hidden` might be the better choice
+```js
+  mySchema = {
+    "properties": {
+      "hiddenInput": {
+        "type": "boolean",
+        "widget": "hidden",
+        "default": true
+      },
+      "lastName": {
+        "type": "string",
+        ...
+      }
+    }
+  }
+```
+so the value of the hidden field will be bound to the output model
+
+```js
+  {
+    "hiddenInput": true,
+    "lastName": "Doe",
+    ...
+  }
+```
+
 ### Fields presentation and ordering
 As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built.
 The `order` and `fieldsets` entries of the schema are here to organize your fields.
