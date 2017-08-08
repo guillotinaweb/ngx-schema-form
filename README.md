@@ -270,6 +270,55 @@ export class AppComponent {
 }
 ```
 
+#### Render buttons
+
+You may define you own widget to create buttons by 
+overriding the default widget for action buttons
+or create completely customized button widgets.
+
+##### Override
+
+Override the default action button widget 
+in your `WidgetRegistry` implementation
+and register your own button widget.
+
+```js
+    this.register('button', MyButtonWidgetComponent);
+```
+
+##### Custom
+
+Define a custom button widget by 
+setting the property `button.widget` in the schema
+
+```json
+    "password": {
+      "type": "string",
+      "description": "Password",
+      "buttons": [{
+        "id": "reset",
+        "label": "Reset"
+      },{
+        "id": "custom_b",
+        "label": "My custom button",
+        "widget": "my_custom_button" // custom widget name for this button
+      }]
+    },
+``` 
+
+and then register it in your `WidgetRegistry` implementation
+
+```js
+    this.register('my_custom_button', MyCustomButtonWidgetComponent);
+```
+  
+##### Binding
+
+The button widget will get provided the `button` object form the schema
+including the `button.action` from the action registry 
+and the `formProperty` object.
+
+
 ### Advanced validation
 JSON schema provides validation against a static schema but its often necessary to provide other validation rules.
 The Form component accepts a `validators` input bound to a map between a field id and a validation function.

@@ -8,4 +8,5 @@ export { RangeWidget } from './range/range.widget';
 export { SelectWidget } from './select/select.widget';
 export { StringWidget } from './string/string.widget';
 export { TextAreaWidget } from './textarea/textarea.widget';
+export { ButtonWidget } from './button/button.widget';
 export { DefaultWidgetRegistry } from './defaultwidgetregistry';

@@ -24,7 +24,7 @@ import {
 	(widgetInstanciated)="onWidgetInstanciated($event)"
 	[widgetInfo]="formProperty.schema.widget">
 	</sf-widget-chooser>
-	<button *ngFor="let button of buttons" (click)="button.action($event)">{{button.label}}</button>
+	<sf-form-element-action *ngFor="let button of buttons" [button]="button" [formProperty]="formProperty"></sf-form-element-action>
 </div>`
 })
 export class FormElementComponent implements OnInit {

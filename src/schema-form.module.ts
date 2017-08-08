@@ -27,11 +27,13 @@ import {
 import { WidgetRegistry } from './widgetregistry';
 import { DefaultWidgetRegistry } from './defaultwidgets';
 import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
+import {FormElementComponentAction} from "./formelement.action.component";
 
 @NgModule({
   imports : [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
     FormElementComponent,
+    FormElementComponentAction,
     FormComponent,
     WidgetChooserComponent,
     DefaultWidget,
@@ -48,6 +50,7 @@ import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidat
   ],
   entryComponents: [
     FormElementComponent,
+    FormElementComponentAction,
     FormComponent,
     WidgetChooserComponent,
     ArrayWidget,
@@ -64,6 +67,7 @@ import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidat
   exports: [
     FormComponent,
     FormElementComponent,
+    FormElementComponentAction,
     WidgetChooserComponent,
     ArrayWidget,
     ObjectWidget,
