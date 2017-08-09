@@ -318,6 +318,33 @@ The button widget will get provided the `button` object form the schema
 including the `button.action` from the action registry 
 and the `formProperty` object.
 
+To be fully AOT compatible 
+the custom button widget may then extend `ButtonWidget` or 
+provide the properties `button` and `formProperty` by it self.
+
+```js
+  import {Component} from "@angular/core";
+  import {ButtonWidget} from 'angular2-schema-form/dist/defaultwidgets'
+  
+  @Component({
+    selector: 'sf-button-widget',
+    templateUrl: 'custom-button.widget.html'
+  })
+  export class CustomWidgetComponent extends ButtonWidget {
+  
+  }
+```
+
+```js
+  @Component({
+    selector: 'sf-button-widget',
+    templateUrl: 'custom-button.widget.html'
+  })
+  export class CustomWidgetComponent {
+    public button
+    public formProperty
+  }
+```
 
 ### Advanced validation
 JSON schema provides validation against a static schema but its often necessary to provide other validation rules.
