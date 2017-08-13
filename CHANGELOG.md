@@ -1,5 +1,9 @@
 # 1.0.0-beta.8 (unreleased)
 
+## New features
+
+- Allow to customize action button rendering (Daniele Pecora)
+
 ## Bug Fixes
 
 - Restore has-success/has-error class
