@@ -10,7 +10,7 @@ import { ValidatorRegistry } from './validatorregistry';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
-  public required: boolean;
+  private _required: boolean;
 
   _value: any = null;
   _errors: any = null ;
@@ -39,6 +39,18 @@ export abstract class FormProperty {
       this._root = <PropertyGroup><any>this;
     }
     this._path = path;
+
+    this._required = this._isRequired();
+  }
+
+  private _isRequired() {
+    if (!this._parent)
+      return false;
+    return -1 != (this._parent.schema.required || []).indexOf(this._path.split('/').slice(-1)[0])
+  }
+
+  public get required(): boolean {
+    return this._required;
   }
 
   public get valueChanges() {
