@@ -1,4 +1,14 @@
-# 1.0.0-beta.8 (unreleased)
+# 1.0.0-beta.9 (2017-08-14)
+
+## New features
+
+- Manage required state for FormProperty (Daniele Pecora)
+
+## Bug Fixes
+
+- AOT fix for custom buttons (Daniele Pecora)
+
+# 1.0.0-beta.8 (2017-08-13)
 
 ## New features
 
