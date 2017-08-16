@@ -10,6 +10,7 @@ import { FormComponent } from './form.component';
 import { WidgetChooserComponent } from './widgetchooser.component';
 import {
   ArrayWidget,
+  ButtonWidget,
   ObjectWidget,
   CheckboxWidget,
   FileWidget,
@@ -38,6 +39,7 @@ import {FormElementComponentAction} from "./formelement.action.component";
     WidgetChooserComponent,
     DefaultWidget,
     ArrayWidget,
+    ButtonWidget,
     ObjectWidget,
     CheckboxWidget,
     FileWidget,
