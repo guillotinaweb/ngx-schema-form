@@ -1,3 +1,9 @@
+# 1.0.0-beta.10 (2017-08-17)
+
+## Bug Fixes
+
+- Fix ButtonWidgte import (Emmanuel Navarro)
+
 # 1.0.0-beta.9 (2017-08-14)
 
 ## New features
