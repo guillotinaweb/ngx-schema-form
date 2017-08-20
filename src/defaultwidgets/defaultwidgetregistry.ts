@@ -44,6 +44,8 @@ export class DefaultWidgetRegistry extends WidgetRegistry {
     this.register('boolean', CheckboxWidget);
     this.register('checkbox', CheckboxWidget);
 
+    this.register('button', ButtonWidget);
+
     this.setDefaultWidget(StringWidget);
   }
 }
