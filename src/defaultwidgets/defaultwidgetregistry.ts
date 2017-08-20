@@ -8,7 +8,8 @@ import {
   RadioWidget,
   RangeWidget,
   SelectWidget,
-  StringWidget
+  StringWidget,
+  ButtonWidget
 } from './';
 
 import { WidgetRegistry } from '../widgetregistry';
