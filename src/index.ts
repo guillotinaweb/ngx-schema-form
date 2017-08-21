@@ -22,6 +22,7 @@ export {
     SelectWidget,
     StringWidget,
     TextAreaWidget,
-    DefaultWidgetRegistry,
+    ButtonWidget,
+    DefaultWidgetRegistry
 } from './defaultwidgets';
 export { SchemaFormModule } from './schema-form.module';
