@@ -1,4 +1,4 @@
-import { FormProperty } from './formproperty';
+import {FormProperty} from './formproperty';
 
 export abstract class AtomicProperty extends FormProperty {
 
@@ -17,14 +17,18 @@ export abstract class AtomicProperty extends FormProperty {
       if (this.schema.default !== undefined) {
         value = this.schema.default;
       } else {
-      value = this.fallbackValue();
+        value = this.fallbackValue();
       }
     }
     this._value = value;
   }
 
+  public _hasValue(): boolean {
+    return this.fallbackValue() !== this.value;
+  }
+
   abstract fallbackValue(): any;
 
-  public _updateValue() {};
-
+  public _updateValue() {
+  }
 }
