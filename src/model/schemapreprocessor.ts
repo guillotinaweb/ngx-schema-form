@@ -21,7 +21,7 @@ export class SchemaPreprocessor {
     if (jsonSchema.type === 'object') {
       SchemaPreprocessor.checkProperties(jsonSchema, path);
       SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema, path);
-      SchemaPreprocessor.normalizeRequired(jsonSchema);
+      // SchemaPreprocessor.normalizeRequired(jsonSchema);
     } else if (jsonSchema.type === 'array') {
       SchemaPreprocessor.checkItems(jsonSchema, path);
     }
