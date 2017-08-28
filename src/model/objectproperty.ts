@@ -66,7 +66,9 @@ export class ObjectProperty extends PropertyGroup {
     if (this._errors) {
       this._errors.forEach(error => {
         const prop = this.searchProperty(error.path.slice(1));
-        prop.extendErrors(error);
+        if (prop) {
+          prop.extendErrors(error);
+        }
       });
     }
   }
