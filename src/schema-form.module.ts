@@ -1,13 +1,13 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule, ModuleWithProviders} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {
   FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
 
-import { FormElementComponent } from './formelement.component';
-import { FormComponent } from './form.component';
-import { WidgetChooserComponent } from './widgetchooser.component';
+import {FormElementComponent} from './formelement.component';
+import {FormComponent} from './form.component';
+import {WidgetChooserComponent} from './widgetchooser.component';
 import {
   ArrayWidget,
   ButtonWidget,
@@ -25,13 +25,24 @@ import {
   DefaultWidget
 } from './default.widget';
 
-import { WidgetRegistry } from './widgetregistry';
-import { DefaultWidgetRegistry } from './defaultwidgets';
-import { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
+import {WidgetRegistry} from './widgetregistry';
+import {DefaultWidgetRegistry} from './defaultwidgets';
+import {SchemaValidatorFactory, ZSchemaValidatorFactory} from './schemavalidatorfactory';
 import {FormElementComponentAction} from "./formelement.action.component";
 
+const moduleProviders = [
+  {
+    provide: WidgetRegistry,
+    useClass: DefaultWidgetRegistry
+  },
+  {
+    provide: SchemaValidatorFactory,
+    useClass: ZSchemaValidatorFactory
+  }
+];
+
 @NgModule({
-  imports : [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
   declarations: [
     FormElementComponent,
     FormElementComponentAction,
@@ -85,20 +96,18 @@ import {FormElementComponentAction} from "./formelement.action.component";
 })
 export class SchemaFormModule {
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(providers?: [{ provide: any, useClass: any }]): ModuleWithProviders {
+    if (providers) {
+      providers.forEach(provider => {
+        const found = moduleProviders.find(p => p.provide === provider.provide);
+        found.useClass = provider.useClass;
+      });
+    }
+
     return {
       ngModule: SchemaFormModule,
-      providers: [
-        {
-          provide: WidgetRegistry,
-          useClass: DefaultWidgetRegistry
-        },
-        {
-          provide: SchemaValidatorFactory,
-          useClass: ZSchemaValidatorFactory
-        }
-      ]
-    }
+      providers: [...moduleProviders]
+    };
   }
 
 }
