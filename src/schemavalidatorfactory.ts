@@ -22,7 +22,21 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
       this.zschema.validate(value, schema);
       let err = this.zschema.getLastErrors();
+
+      this.denormalizeRequiredPropertyPaths(err);
+
       return err || null;
     };
+  }
+
+  private denormalizeRequiredPropertyPaths(err: any[]) {
+    if (err && err.length) {
+      err = err.map(error => {
+        if (error.path === '#/' && error.code === 'OBJECT_MISSING_REQUIRED_PROPERTY') {
+          error.path = `${error.path}${error.params[0]}`;
+        }
+        return error;
+      });
+    }
   }
 }

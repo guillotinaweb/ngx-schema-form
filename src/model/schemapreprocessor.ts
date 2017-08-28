@@ -21,7 +21,6 @@ export class SchemaPreprocessor {
     if (jsonSchema.type === 'object') {
       SchemaPreprocessor.checkProperties(jsonSchema, path);
       SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema, path);
-      // SchemaPreprocessor.normalizeRequired(jsonSchema);
     } else if (jsonSchema.type === 'array') {
       SchemaPreprocessor.checkItems(jsonSchema, path);
     }
@@ -104,12 +103,6 @@ export class SchemaPreprocessor {
       widget = {'id': widget};
     }
     fieldSchema.widget = widget;
-  }
-
-  private static normalizeRequired(jsonSchema) {
-    if (jsonSchema.type === 'object' && jsonSchema.required === undefined) {
-      jsonSchema.required = Object.keys(jsonSchema.properties);
-    }
   }
 
   private static checkItems(jsonSchema, path) {
