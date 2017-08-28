@@ -1,20 +1,18 @@
-import { AtomicProperty } from './atomicproperty';
+import {AtomicProperty} from './atomicproperty';
 
 export class NumberProperty extends AtomicProperty {
 
   fallbackValue() {
-    let value;
-    if (this.schema.minimum !== undefined) {
-      value = this.schema.minimum;
-    } else {
-      value = 0;
-    }
-    return value;
+    return null;
   }
 
   setValue(value, onlySelf = false) {
     if (typeof value === 'string') {
-       value = value.indexOf('.') > -1 ? parseFloat(value) : parseInt(value, 10);
+      if (value.length) {
+        value = value.indexOf('.') > -1 ? parseFloat(value) : parseInt(value, 10);
+      } else {
+        value = null;
+      }
     }
     this._value = value;
     this.updateValueAndValidity(onlySelf, true);
