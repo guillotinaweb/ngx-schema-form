@@ -60,6 +60,17 @@ export class ObjectProperty extends PropertyGroup {
     this.reduceValue();
   }
 
+  public _runValidation() {
+    super._runValidation();
+
+    if (this._errors) {
+      this._errors.forEach(error => {
+        const prop = this.searchProperty(error.path.slice(1));
+        prop.extendErrors(error);
+      });
+    }
+  }
+
   private reduceValue(): void {
     const value = {};
     this.forEachChild((property, propertyId: string) => {
