@@ -1,6 +1,6 @@
-import { AfterViewInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { ArrayProperty, FormProperty, ObjectProperty } from './model';
+import {AfterViewInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
+import {ArrayProperty, FormProperty, ObjectProperty} from './model';
 
 export abstract class Widget<T extends FormProperty> {
   formProperty: T;
@@ -14,7 +14,7 @@ export abstract class Widget<T extends FormProperty> {
 export class ControlWidget extends Widget<FormProperty> implements AfterViewInit {
 
   ngAfterViewInit() {
-    let control = this.control;
+    const control = this.control;
     this.formProperty.valueChanges.subscribe((newValue) => {
       if (control.value !== newValue) {
         control.setValue(newValue, {emitEvent: false});
@@ -23,11 +23,29 @@ export class ControlWidget extends Widget<FormProperty> implements AfterViewInit
     this.formProperty.errorsChanges.subscribe((errors) => {
       control.setErrors(errors, {emitEvent: true});
     });
-    control.valueChanges.subscribe((newValue) => { this.formProperty.setValue(newValue, false); });
+    control.valueChanges.subscribe((newValue) => {
+      this.formProperty.setValue(newValue, false);
+    });
   }
 
 }
 
-export class ArrayLayoutWidget extends Widget<ArrayProperty> {}
+export class ArrayLayoutWidget extends Widget<ArrayProperty> implements AfterViewInit {
 
-export class ObjectLayoutWidget extends Widget<ObjectProperty> {}
+  ngAfterViewInit() {
+    const control = this.control;
+    this.formProperty.errorsChanges.subscribe((errors) => {
+      control.setErrors(errors, {emitEvent: true});
+    });
+  }
+}
+
+export class ObjectLayoutWidget extends Widget<ObjectProperty> implements AfterViewInit {
+
+  ngAfterViewInit() {
+    const control = this.control;
+    this.formProperty.errorsChanges.subscribe((errors) => {
+      control.setErrors(errors, {emitEvent: true});
+    });
+  }
+}
