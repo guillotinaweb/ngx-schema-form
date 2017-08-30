@@ -123,12 +123,29 @@ export class SchemaPreprocessor {
         for (let fieldId in jsonSchema.definitions) {
           if (jsonSchema.definitions.hasOwnProperty(fieldId)) {
             let fieldSchema = jsonSchema.definitions[fieldId];
+            SchemaPreprocessor.removeRecursiveRefProperties(fieldSchema, `#/definitions/${fieldId}`);
             SchemaPreprocessor.preprocess(fieldSchema, path + fieldId + '/');
           }
         }
       }
     } else if (jsonSchema.type === 'array') {
       SchemaPreprocessor.preprocess(jsonSchema.items, path + '*/');
+    }
+  }
+
+  private static removeRecursiveRefProperties(jsonSchema, definitionPath) {
+    // to avoid infinite loop
+    if (jsonSchema.type === 'object') {
+      for (let fieldId in jsonSchema.properties) {
+        if (jsonSchema.properties.hasOwnProperty(fieldId)) {
+          if (jsonSchema.properties[fieldId].$ref
+            && jsonSchema.properties[fieldId].$ref === definitionPath) {
+            delete jsonSchema.properties[fieldId];
+          } else if (jsonSchema.properties[fieldId].type === 'object') {
+            SchemaPreprocessor.removeRecursiveRefProperties(jsonSchema.properties[fieldId], definitionPath);
+          }
+        }
+      }
     }
   }
 }
