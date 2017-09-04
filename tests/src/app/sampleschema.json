@@ -202,7 +202,6 @@
 			"type": "string",
 			"widget": "file",
 			"description": "Add a manual for the delivered items",
-			"readOnly": "true",
 			"visibleIf": {
 				"category": ["hightech"]
 			}

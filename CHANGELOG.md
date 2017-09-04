@@ -1,3 +1,9 @@
+# 1.0.0-beta.12 (unreleased)
+
+## New features
+
+- Manage input type="file" properly (ebrehault)
+
 # 1.0.0-beta.11 (2017-08-29)
 
 ## New features
