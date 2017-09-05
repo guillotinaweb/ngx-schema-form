@@ -1,4 +1,4 @@
-# 1.0.0-beta.12 (unreleased)
+# 1.0.0-beta.12 (2017-09-05)
 
 ## New features
 
