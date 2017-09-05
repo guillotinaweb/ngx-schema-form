@@ -651,7 +651,7 @@ npm install -g @angular/cli
 cd ./tests
 npm install
 cd ./src/app
-ln -s ../../../src/
+ln -s ../../../src/ lib
 cd -
 ng serve
 ```
