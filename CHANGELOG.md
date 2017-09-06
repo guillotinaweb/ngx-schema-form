@@ -1,3 +1,31 @@
+# 1.0.0-beta.12 (2017-09-05)
+
+## New features
+
+- Manage input type="file" properly (ebrehault)
+
+# 1.0.0-beta.11 (2017-08-29)
+
+## New features
+
+- isValid and onErrorChange event emitters added (mrpanky)
+- forRoot() now able to change default providers (mrpanky)
+- deep $ref support for definitions (Gabor Pankotay)
+
+## Bug Fixes
+
+- Fix export for ButtonWidget (Brian Glass)
+- number and boolean fallback values fixed (mrpanky)
+- legacy required property check removed, schemavalidator denormalizes object's required field paths, objectproper
+ty extends subject field's errors (Gabor Pankotay)
+- ArrayLayoutWidget, ObjectLayoutWidget implements AfterViewInit interface (Gabor Pankotay)
+
+# 1.0.0-beta.10 (2017-08-17)
+
+## Bug Fixes
+
+- Fix ButtonWidgte import (Emmanuel Navarro)
+
 # 1.0.0-beta.9 (2017-08-14)
 
 ## New features

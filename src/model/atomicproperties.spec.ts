@@ -61,24 +61,9 @@ describe('Atomic properties', () => {
 
   describe('NumberProperty', () => {
 
-    let AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM = {'type': 'number', 'minimum': 10};
     let AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM = {'type': 'number'};
 
-    it('with minimum in schema should fallback to minimum on reset', () => {
-      let property = new NumberProperty(
-        A_SCHEMA_VALIDATOR_FACTORY,
-        A_VALIDATOR_REGISTRY,
-        AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM,
-        null,
-        ''
-      );
-
-      property.reset();
-
-      expect(property.value).toBe(AN_INT_PROPERTY_SCHEMA_WITH_MINIMUM.minimum);
-    });
-
-    it('without minimum in schema should fallback to 0 on reset', () => {
+    it('without minimum in schema should fallback to null on reset', () => {
       let property = new NumberProperty(
         A_SCHEMA_VALIDATOR_FACTORY,
         A_VALIDATOR_REGISTRY,
@@ -89,7 +74,7 @@ describe('Atomic properties', () => {
 
       property.reset();
 
-      expect(property.value).toBe(0);
+      expect(property.value).toBe(null);
     });
   });
 });
