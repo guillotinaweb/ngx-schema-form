@@ -64,6 +64,8 @@ export class FormComponent implements OnChanges {
 
   @Output() onErrorChange = new EventEmitter<{ value: any[] }>();
 
+  @Output() onErrorsChange = new EventEmitter<{value: any}>();
+  
   rootProperty: FormProperty = null;
 
   constructor(private formPropertyFactory: FormPropertyFactory,
@@ -92,6 +94,7 @@ export class FormComponent implements OnChanges {
       }
       SchemaPreprocessor.preprocess(this.schema);
       this.rootProperty = this.formPropertyFactory.createProperty(this.schema);
+
       this.rootProperty.valueChanges.subscribe(value => {
         this.onChange.emit({value: value});
       });
