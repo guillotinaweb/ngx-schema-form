@@ -73,6 +73,7 @@
 		"transactionNumber": {
 			"type": "integer",
 			"minimum": 0,
+			"readOnly": "true",
 			"description": "Transaction number"
 		},
 		"transactionDescription": {
@@ -252,6 +253,10 @@
 	{
 		"label": "Reset",
 		"id": "reset"
+	},
+	{
+		"label": "Disable all",
+		"id": "disable"
 	}],
 	"fieldsets":[{
 		"id": "part_1",

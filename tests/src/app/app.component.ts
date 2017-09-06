@@ -107,10 +107,10 @@ export class AppComponent {
     this.actions['reset'] = (form, options) => {
       form.reset();
     };
-
-    this.actions['addItem'] = (property, parameters) => {
-      property.addItem(parameters.value);
+    this.actions['reset'] = (form, options) => {
+      form.reset();
     };
+    this.actions['disable'] = this.disableAll.bind(this);
   }
 
   logErrors(errors) {
@@ -119,5 +119,11 @@ export class AppComponent {
 
   changeSchema() {
     this.schema = require('./otherschema.json');
+  }
+
+  disableAll() {
+    Object.keys(this.schema.properties).map(prop => {
+      this.schema.properties[prop].readOnly = true;
+    });
   }
 }
