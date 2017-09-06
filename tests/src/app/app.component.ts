@@ -98,6 +98,9 @@ export class AppComponent {
     };
 
     this.actions['alert'] = (property, options) => {
+      property.forEachChildRecursive(child => {
+        console.log(child.valid, child);
+      });
       alert(JSON.stringify(property.value));
     };
 
@@ -108,6 +111,10 @@ export class AppComponent {
     this.actions['addItem'] = (property, parameters) => {
       property.addItem(parameters.value);
     };
+  }
+
+  logErrors(errors) {
+    console.log('ERRORS', errors);
   }
 
   changeSchema() {

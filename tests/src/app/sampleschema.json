@@ -199,8 +199,22 @@
 			"pattern": "^<h1>"
 		},
 		"userManual": {
-			"type": "string",
+			"type": "object",
 			"widget": "file",
+			"properties": {
+				"type": {
+					"type": "string"
+				},
+				"name": {
+					"type": "string"
+				},
+				"size": {
+					"type": "integer"
+				},
+				"data": {
+					"type": "string"
+				}
+			},
 			"description": "Add a manual for the delivered items",
 			"visibleIf": {
 				"category": ["hightech"]
