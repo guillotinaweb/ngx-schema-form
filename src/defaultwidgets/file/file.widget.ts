@@ -17,8 +17,8 @@ import { ControlWidget } from '../../widget';
 })
 export class FileWidget extends ControlWidget implements AfterViewInit {
 
-  private reader = new FileReader();
-  private filedata: any = {};
+  protected reader = new FileReader();
+  protected filedata: any = {};
 
   constructor() {
     super();
