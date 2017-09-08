@@ -1,3 +1,18 @@
+# 1.0.0-beta.13 (2017-09-08)
+
+## New features
+
+- Expose form validity (thereiskeks)
+- Checkbox widget support for array properties (ebrehault)
+- Placeholder in textarea (ebrehault)
+- Fill in minLenght and maxLength attributes (ebrehault)
+- Compute unique error messages in widget (ebrehault)
+
+## Bug fixes
+
+- Make FileWidget properties accessible in derivated widget (ebrehault)
+- Do not repeat description in checkbox (ebrehault)
+
 # 1.0.0-beta.12 (2017-09-05)
 
 ## New features
