@@ -1,6 +1,7 @@
 {
 	"firstName": "John",
 	"lastName": "Doe",
+	"categories": ["cat", "dog"],
 	"transactionNumber":123456,
 	"favoriteColor": "#aaafff",
 	"transactionDescription": "Payment for your subscription",

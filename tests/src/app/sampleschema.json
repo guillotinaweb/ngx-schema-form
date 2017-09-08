@@ -26,6 +26,18 @@
 			"placeholder": "Ex: 2009-03-11",
 			"description": "Born on"
 		},
+		"categories": {
+			"type": "array",
+			"items": {
+				"type": "string",
+				"oneOf": [
+					{"description": "Dog", "enum": ["dog"]},
+					{"description": "Cat", "enum": ["cat"]},
+					{"description": "Daulphin", "enum": ["daulphin"]}
+				]
+			},
+			"widget": "checkbox"
+		},
 		"moreInfo":{
 			"type": "boolean",
 			"widget": "checkbox",
@@ -261,7 +273,7 @@
 	"fieldsets":[{
 		"id": "part_1",
 		"title": "Part 1 - Recipient",
-		"fields":[ "firstName", "lastName", "bornOn", "moreInfo", "favoriteColor", "colors","survey"]
+		"fields":[ "firstName", "lastName", "categories", "bornOn", "moreInfo", "favoriteColor", "colors","survey"]
 	},
 	{
 		"id": "part_2",
