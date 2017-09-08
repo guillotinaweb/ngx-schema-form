@@ -5,6 +5,7 @@ import {ArrayProperty, FormProperty, ObjectProperty} from './model';
 export abstract class Widget<T extends FormProperty> {
   formProperty: T;
   control: FormControl;
+  errorMessages: string[];
 
   id: string = '';
   name: string = '';
@@ -21,7 +22,13 @@ export class ControlWidget extends Widget<FormProperty> implements AfterViewInit
       }
     });
     this.formProperty.errorsChanges.subscribe((errors) => {
-      control.setErrors(errors, {emitEvent: true});
+      control.setErrors(errors, { emitEvent: true });
+      const messages = (errors || [])
+        .filter(e => {
+          return e.path && e.path.slice(1) === this.formProperty.path;
+        })
+        .map(e => e.message);
+      this.errorMessages = messages.filter((m, i) => messages.indexOf(m) === i);
     });
     control.valueChanges.subscribe((newValue) => {
       this.formProperty.setValue(newValue, false);
