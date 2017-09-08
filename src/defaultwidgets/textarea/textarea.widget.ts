@@ -12,6 +12,8 @@ import { ControlWidget } from '../../widget';
 	<textarea [attr.readonly]="schema.readOnly" [name]="name"
 		class="text-widget textarea-widget form-control"
 		[attr.placeholder]="schema.placeholder"
+		[attr.maxLength]="schema.maxLength || null"
+    [attr.minLength]="schema.minLength || null"
 		[formControl]="control"></textarea>
 </div>`
 })
