@@ -215,14 +215,17 @@
 			"type": "object",
 			"widget": "file",
 			"properties": {
-				"type": {
+				"content-type": {
 					"type": "string"
 				},
-				"name": {
+				"filename": {
 					"type": "string"
 				},
 				"size": {
 					"type": "integer"
+				},
+				"encoding": {
+					"type": "string"
 				},
 				"data": {
 					"type": "string"
