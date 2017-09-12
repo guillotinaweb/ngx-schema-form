@@ -1,3 +1,9 @@
+# 1.0.1 (2017-09-12)
+
+# Bug fixes
+
+- FileWidget: fix file encoding (ebrehault)
+
 # 1.0.0-beta.13 (2017-09-08)
 
 ## New features

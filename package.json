@@ -1,6 +1,6 @@
 {
   "name": "angular2-schema-form",
-  "version": "1.0.0-beta.13",
+  "version": "1.0.1",
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
