@@ -202,22 +202,35 @@ The default registry ([`DefaultWidgetRegistry`](./src/defaultwidgets/defaultwidg
 
 Note that the select and radio widgets rely on the `oneOf` property:
 
-```js
+```javascript
 "operatingSystem": {
   "type": "string",
-  "oneOf":[{
-    "enum": ["linux"],
-    "description": "GNU/Linux"
-  }, {
-    "enum": ["osx"],
-    "description": "OSX"
-  }, {
-    "enum": ["windows"],
-    "description": "Windows"
-  },{
-    "enum": ["other"],
-    "description": "Other"
-  }],
+  "oneOf": [
+    {
+      "enum": [
+        "linux"
+      ],
+      "description": "GNU/Linux"
+    },
+    {
+      "enum": [
+        "osx"
+      ],
+      "description": "OSX"
+    },
+    {
+      "enum": [
+        "windows"
+      ],
+      "description": "Windows"
+    },
+    {
+      "enum": [
+        "other"
+      ],
+      "description": "Other"
+    }
+  ],
   "default": "other"
 }
 ```
@@ -228,7 +241,7 @@ Each schema can be extended by adding buttons after its widget.
 ```js
 // app.component.ts
 @Component({
-  selector:"minimal-app",
+  selector: "minimal-app",
   // Bind the actions map to the the "actions" input
   template: '<sf-form [schema]="mySchema" [actions]="myActions"></sf-form>'
 })
@@ -244,10 +257,10 @@ export class AppComponent {
       "password": {
         "type": "string",
         "description": "Password",
-				"buttons": [{
-					"id": "reset",
-					"label": "Reset"
-				}]
+        "buttons": [{
+          "id": "reset",
+          "label": "Reset"
+        }]
       },
       "rememberMe": {
         "type": "boolean",
@@ -255,7 +268,7 @@ export class AppComponent {
         "description": "Remember me"
       }
     },
-    "required": ["email","password","rememberMe"],
+    "required": ["email", "password", "rememberMe"],
     "buttons": [{
       "id": "alert", // the id of the action callback
       "label": "Alert !" // the text inside the button
@@ -264,8 +277,8 @@ export class AppComponent {
 
   // Declare a mapping between action ids and their event listener
   myActions = {
-    "alert": (property) => {alert(JSON.stringify(property.value))},
-    "reset": (property) => {property.reset()}
+    "alert": (property) => { alert(JSON.stringify(property.value)) },
+    "reset": (property) => { property.reset() }
   }
 }
 ```
@@ -292,18 +305,21 @@ Define a custom button widget by
 setting the property `button.widget` in the schema
 
 ```json
-    "password": {
-      "type": "string",
-      "description": "Password",
-      "buttons": [{
+  "password": {
+    "type": "string",
+    "description": "Password",
+    "buttons": [
+      {
         "id": "reset",
         "label": "Reset"
-      },{
+      },
+      {
         "id": "custom_b",
         "label": "My custom button",
         "widget": "my_custom_button" // custom widget name for this button
-      }]
-    },
+      }
+    ]
+  }
 ``` 
 
 and then register it in your `WidgetRegistry` implementation
@@ -357,7 +373,7 @@ To perform this check we create a custom validator:
 
 ```js
 @Component({
-  selector:"minimal-app",
+  selector: "minimal-app",
   // Bind the validator map to the the "validators" input
   template: '<sf-form [schema]="mySchema" [validators]="myValidators"></sf-form>'
 })
@@ -384,11 +400,8 @@ export class AppComponent {
   // Declare a mapping between action ids and their implementations
   myValidators = {
     "/passwordCheck": (value, property, form) => {
-      if (controls.password !== undefined
-          && controls.password.valid
-          && value !== values.password
-         ) {
-        return {"passwordCheck":{"expectedValue":"same as 'password'"}}
+      if (controls.password !== undefined && controls.password.valid && value !== values.password) {
+        return { "passwordCheck": { "expectedValue": "same as 'password'" } }
       }
       return null;
     }
@@ -403,7 +416,7 @@ Adding the value $ANY$ to the array of conditional values,will make the field vi
 
 ```js
 @Component({
-  selector:"minimal-app",
+  selector: "minimal-app",
   template: '<sf-form [schema]="mySchema"></sf-form>'
 })
 export class AppComponent {
@@ -421,9 +434,9 @@ export class AppComponent {
         "type": "boolean",
         "description": "I want to receive the newsletter",
         "default": false,
-         "visibleIf": {
-                  "comment": ['$ANY$']
-                }
+        "visibleIf": {
+          "comment": ['$ANY$']
+        }
       },
       "registerEmail": {
         "type": "string",
@@ -435,7 +448,7 @@ export class AppComponent {
         }
       }
     },
-    "required": ["name","comment","registerToNewsletter"]
+    "required": ["name", "comment", "registerToNewsletter"]
   }
 }
 ```
@@ -506,30 +519,61 @@ With the `fieldsets` property, you can describe the different parts of the form 
 ```js
 {
   "properties": {
-    "firstName": {"type": "string","description": "First name"},
-      "lastName": {"type": "string","description": "Last name"},
-      "email": {"type": "string","description": "Email"},
-      "notificationsFrequency": {
-        "type":"string",
-        "description": "Notifications frequency",
-        "widget": "select",
-        "oneOf": [{
-          "description": "Daily", "enum": ["daily"]
-        }, {
-          "description": "Weekly", "enum": ["weekly"]
-        }, {
-          "description": "Monthly", "enum": ["monthly"]
-        }],
-        "default": "daily"
-      }
+    "firstName": {
+      "type": "string",
+      "description": "First name"
+    },
+    "lastName": {
+      "type": "string",
+      "description": "Last name"
+    },
+    "email": {
+      "type": "string",
+      "description": "Email"
+    },
+    "notificationsFrequency": {
+      "type": "string",
+      "description": "Notifications frequency",
+      "widget": "select",
+      "oneOf": [
+        {
+          "description": "Daily",
+          "enum": [
+            "daily"
+          ]
+        },
+        {
+          "description": "Weekly",
+          "enum": [
+            "weekly"
+          ]
+        },
+        {
+          "description": "Monthly",
+          "enum": [
+            "monthly"
+          ]
+        }
+      ],
+      "default": "daily"
+    }
   },
-  "fieldsets": [{
-    "title": "Personal information",
-    "fields": ["firstName", "lastName", "email"]
-  }, {
-    "title": "Account settings",
-    "fields": ["notificationsFrequency"]
-  }]
+  "fieldsets": [
+    {
+      "title": "Personal information",
+      "fields": [
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    {
+      "title": "Account settings",
+      "fields": [
+        "notificationsFrequency"
+      ]
+    }
+  ]
 }
 ```
 
@@ -546,26 +590,26 @@ If it is not formatted the way Angular 2 Schema Form expects or if some elements
   template: '<sf-form [schema]="schema" [model]="model" [actions]="actions"></sf-form>'
 })
 export class MyComponent {
-  private schema:any =
+  private schema: any = {
     'properties': {}
   };
-  private actions:any = {};
-  private model:any = {};
+  private actions: any = {};
+  private model: any = {};
 
   constructor(private http: Http) { }
 
   ngOnInit() {
-      this.http.get('http://mybackend/schema').subscribe(res => {
-        let schema = res.json();
+    this.http.get('http://mybackend/schema').subscribe(res => {
+      let schema = res.json();
 
-        // FIXES
-        // the "description" field must be rendered with tinymce
-        schema.properties.description.widget = 'tinymce'
+      // FIXES
+      // the "description" field must be rendered with tinymce
+      schema.properties.description.widget = 'tinymce'
 
-        // the "publication" field is required
-        schema.required = ['publication'];
+      // the "publication" field is required
+      schema.required = ['publication'];
 
-        this.schema = schema;
+      this.schema = schema;
     });
   }
 }
@@ -622,6 +666,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     ...
     ReactiveFormsModule,
   ]
+})
 ```
 
 ## Development and build
