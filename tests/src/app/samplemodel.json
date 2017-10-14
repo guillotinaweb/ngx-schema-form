@@ -6,7 +6,7 @@
 	"favoriteColor": "#aaafff",
 	"transactionDescription": "Payment for your subscription",
 	"password": "admin",
-	"category": "hightech",
+	"category": ["hightech"],
 	"freeShipping": false,
 	"customEmail": "Nothing here..."
 }
