@@ -1,12 +1,21 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-md-6">
-      <sf-form (onErrorChange)="logErrors($event.value)" [schema]="schema" [model]="model" [validators]="fieldValidators" [actions]="actions">
+    <div class="col-md-4">
+      <sf-form (onErrorChange)="logErrors($event.value)"
+        (onChange)="value=$event.value"
+        [schema]="schema"
+        [model]="model"
+        [validators]="fieldValidators"
+        [actions]="actions">
       </sf-form>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
       <button (click)="changeSchema()">Change schema</button>
       <pre>{{schema | json}}</pre>
+    </div>
+    <div class="col-md-4">
+      <h3>Model:</h3>
+      <pre>{{value | json}}</pre>
     </div>
   </div>
 </div>
