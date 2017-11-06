@@ -1,3 +1,10 @@
+# 1.1.0 (2017-11-06)
+
+## New features
+
+- Added support for multiple select (Gavin Foley)
+- Angular5 and Typescript 2.4.2 support
+
 # 1.0.1 (2017-09-12)
 
 # Bug fixes
