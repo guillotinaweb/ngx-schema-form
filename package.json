@@ -10,7 +10,7 @@
     "build:aot": "ngc -p tsconfig.json",
     "build:jit": "tsc -p tsconfig.json",
     "build": "npm run clean && npm run build:aot",
-    "install:peers": "npm-install-peers"
+    "install:peers": "install-self-peers"
   },
   "repository": {
     "type": "git",
@@ -44,9 +44,9 @@
   "peerDependencies": {
     "@angular/animations": "^4.2.5",
     "@angular/common": "^4.2.5",
-    "@angular/forms": "^4.2.5",
     "@angular/compiler": "^4.2.5",
     "@angular/core": "^4.2.5",
+    "@angular/forms": "^4.2.5",
     "@angular/http": "^4.2.5",
     "@angular/platform-browser": "^4.2.5",
     "core-js": "2.4.1",
@@ -57,9 +57,9 @@
   "devDependencies": {
     "@angular/compiler-cli": "^4.2.5",
     "@angular/platform-server": "^4.2.5",
+    "@team-griffin/install-self-peers": "^1.1.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "6.0.60",
-    "npm-install-peers": "^1.1.0",
     "rimraf": "^2.5.4"
   }
 }
