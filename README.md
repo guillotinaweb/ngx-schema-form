@@ -651,8 +651,15 @@ export class MyWidgetRegistry extends DefaultWidgetRegistry {
 }
 ```
 
-And then you need to provide your registry in your module:
+And, in your module, you need to:
+
+- declare your widget component (like any regular component),
+- declare it as an entry components (it means it can be instanciated dynamically),
+- and provide your registry.
+
 ```javascript
+declarations: [MyStringWidget],
+entryComponents: [MyStringWidget],
 providers: [{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
 ```
 
