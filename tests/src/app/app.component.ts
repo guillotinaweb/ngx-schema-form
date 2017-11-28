@@ -6,7 +6,7 @@ import {
   WidgetRegistry,
   Validator,
   DefaultWidgetRegistry
-} from './lib';
+} from 'angular2-schema-form';
 
 @Component({
   selector: 'sf-demo-app',

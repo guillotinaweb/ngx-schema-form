@@ -5,12 +5,15 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "scripts": {
+    "install:peers": "install-self-peers",
+    "start": "yarn test:updateLib && cd tests && yarn install && yarn start",
     "clean": "rimraf dist/",
-    "test": "cd tests/src/app && ln -s ../../../src/ ./lib && cd ../.. && ng test --single-run",
     "build:aot": "ngc -p tsconfig.json",
     "build:jit": "tsc -p tsconfig.json",
-    "build": "npm run clean && npm run build:aot",
-    "install:peers": "install-self-peers"
+    "build": "yarn run clean && yarn build:aot",
+    "test:updateLib": "cd tests/src && rm -rf ./lib && mkdir lib/ && cp -r ../../src/ lib/angular2-schema-form/ && cd -",
+    "test": "yarn test:updateLib && cd tests && yarn install && ng test --single-run --code-coverage",
+    "testdebug": "yarn test:updateLib && cd tests && ng test --single-run=false --watch"
   },
   "repository": {
     "type": "git",

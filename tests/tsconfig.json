@@ -8,6 +8,12 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "paths": {
+      "angular2-schema-form": ["lib/angular2-schema-form"]
+    },
     "lib": [
       "es2016",
       "dom"
