@@ -54,7 +54,7 @@
     "@angular/platform-browser": "^4.2.5",
     "core-js": "2.4.1",
     "rxjs": "^5.1.0",
-    "typescript": "2.2.2",
+    "typescript": "2.3.4",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {

@@ -4,11 +4,7 @@
     "outDir": "../out-tsc/app",
     "baseUrl": "./",
     "module": "es2015",
-    "types": [],
-    "paths": {
-      "@plone/restapi-angular": ["lib/@plone/restapi-angular"],
-      "angular-traversal": ["lib/angular-traversal"]
-    }
+    "types": ["node"]
   },
   "exclude": [
     "test.ts",
