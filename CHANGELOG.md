@@ -1,3 +1,13 @@
+# 1.1.1 (Unreleased)
+
+## New features
+
+- Use angular-cli 1.5 for the test app (Sune Wøller)
+
+# Bug fixes
+
+- Avoid circular imports (Sune Wøller)
+
 # 1.1.0 (2017-11-06)
 
 ## New features
