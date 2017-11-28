@@ -14,12 +14,14 @@ class FormPropertyImpl extends FormProperty {
   _updateValue() {}
   setValue() {}
   reset() {}
+  _hasValue() {return true;}
 }
 
 class PropertyGroupImpl extends PropertyGroup {
 
   _updateValue() {}
   setValue() {}
+  _hasValue() {return true;}
 
   reset() {}
 }
