@@ -16,7 +16,7 @@ release/
 # test subproject and demo
 /demo
 /tests/dist
-/tests/src/app/lib
+/tests/src/lib/
 /tests/tmp
 /tests/node_modules
 /tests/.idea

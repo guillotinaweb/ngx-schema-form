@@ -18,7 +18,8 @@ describe('WidgetChooserComponent', () => {
         ChangeDetectorRef,
         TerminatorService,
       ]
-    });
+    })
+      .compileComponents();
   });
 
   it('should create a widget which contain an instance', () => {
