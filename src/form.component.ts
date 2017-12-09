@@ -17,7 +17,7 @@ import {
   Validator
 } from './model';
 
-import {SchemaValidatorFactory, ZSchemaValidatorFactory} from './schemavalidatorfactory';
+import {SchemaValidatorFactory} from './schemavalidatorfactory';
 import {WidgetFactory} from './widgetfactory';
 import {TerminatorService} from './terminator.service';
 
@@ -38,9 +38,6 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
     SchemaPreprocessor,
     WidgetFactory,
     {
-      provide: SchemaValidatorFactory,
-      useClass: ZSchemaValidatorFactory
-    }, {
       provide: FormPropertyFactory,
       useFactory: useFactory,
       deps: [SchemaValidatorFactory, ValidatorRegistry]
