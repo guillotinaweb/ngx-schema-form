@@ -1,12 +1,14 @@
-# 1.1.1 (Unreleased)
+# 1.2.0 (2018-01-01)
 
 ## New features
 
 - Use angular-cli 1.5 for the test app (Sune Wøller)
+- Model two way binding (Robert Wurm)
 
 # Bug fixes
 
 - Avoid circular imports (Sune Wøller)
+- Fix SchemaValidatorFactory providing (Daniele Pecora)
 
 # 1.1.0 (2017-11-06)
 
