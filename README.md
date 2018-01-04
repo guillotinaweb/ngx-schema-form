@@ -79,7 +79,7 @@ import { AppComponent } from "./app.component";
 
 @NgModule({
   imports: [
-    SchemaFormModule,
+    SchemaFormModule.forRoot(),
     BrowserModule
   ],
   declarations: [AppComponent],

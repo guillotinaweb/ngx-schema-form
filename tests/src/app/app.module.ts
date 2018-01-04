@@ -5,6 +5,7 @@ import { HttpModule } from '@angular/http';
 
 import { SchemaFormModule } from 'angular2-schema-form';
 import { AppComponent } from './app.component';
+import {SchemaValidatorFactory, ZSchemaValidatorFactory} from '../../../src/schemavalidatorfactory'
 
 @NgModule({
   declarations: [
@@ -16,7 +17,12 @@ import { AppComponent } from './app.component';
     SchemaFormModule,
     HttpModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SchemaValidatorFactory,
+      useClass: ZSchemaValidatorFactory
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
