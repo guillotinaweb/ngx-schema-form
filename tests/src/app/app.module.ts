@@ -13,7 +13,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     FormsModule,
-    SchemaFormModule,
+    SchemaFormModule.forRoot(),
     HttpModule
   ],
   providers: [],
