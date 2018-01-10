@@ -1,3 +1,10 @@
+# 1.2.1 (unreleased)
+
+# Bug fixes
+
+- Render array properly after deletion (Eric Brehault)
+
+
 # 1.2.0 (2018-01-01)
 
 ## New features
