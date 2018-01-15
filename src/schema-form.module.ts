@@ -98,14 +98,7 @@ const moduleProviders = [
 })
 export class SchemaFormModule {
 
-  static forRoot(providers?: [{ provide: any, useClass: any }]): ModuleWithProviders {
-    if (providers) {
-      providers.forEach(provider => {
-        const found = moduleProviders.find(p => p.provide === provider.provide);
-        found.useClass = provider.useClass;
-      });
-    }
-
+  static forRoot(): ModuleWithProviders {
     return {
       ngModule: SchemaFormModule,
       providers: [...moduleProviders]
