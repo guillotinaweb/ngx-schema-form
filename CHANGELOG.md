@@ -3,6 +3,7 @@
 # Bug fixes
 
 - Render array properly after deletion (Eric Brehault)
+- Fix AOT for Angular 5 (Andrea Accardo)
 
 
 # 1.2.0 (2018-01-01)
