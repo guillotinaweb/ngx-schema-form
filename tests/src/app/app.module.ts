@@ -3,9 +3,8 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
-import { SchemaFormModule } from 'angular2-schema-form';
+import { SchemaFormModule, SchemaValidatorFactory, ZSchemaValidatorFactory } from 'angular2-schema-form';
 import { AppComponent } from './app.component';
-import {SchemaValidatorFactory, ZSchemaValidatorFactory} from '../../../src/schemavalidatorfactory'
 
 @NgModule({
   declarations: [
