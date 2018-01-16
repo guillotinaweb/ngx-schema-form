@@ -9,7 +9,7 @@ import { ArrayLayoutWidget } from '../../widget';
 		{{ schema.title }}
 	</label>
 	<span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
-	<div *ngFor="let itemProperty of formProperty.properties; let i=index; trackBy:trackByIndex(i,itemProperty)">
+	<div *ngFor="let itemProperty of formProperty.properties; let i=index; trackBy:trackByIndex">
 		<sf-form-element [formProperty]="itemProperty"></sf-form-element>
 		<button (click)="removeItem(i)" class="btn btn-default array-remove-button">
 			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
