@@ -1,3 +1,9 @@
+# 1.2.2 (unreleased)
+
+# Bug fixes
+
+- Fix model two-way data binding (Eric Brehault / Gavin Foley)
+
 # 1.2.1 (2018-01-16)
 
 # Bug fixes
