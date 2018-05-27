@@ -116,6 +116,46 @@
           }
         }
       }
+    },
+    "schema-form": {
+      "root": "projects/schema-form",
+      "sourceRoot": "projects/schema-form/src",
+      "projectType": "library",
+      "prefix": "sf",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/schema-form/tsconfig.lib.json",
+            "project": "projects/schema-form/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/schema-form/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/schema-form/src/test.ts",
+            "tsConfig": "projects/schema-form/tsconfig.spec.json",
+            "karmaConfig": "projects/schema-form/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/schema-form/tsconfig.lib.json",
+              "projects/schema-form/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "ngx-schema-form"
