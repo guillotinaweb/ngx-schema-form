@@ -1,0 +1,22 @@
+language: node_js
+dist: trusty
+
+node_js:
+  - 'node'
+
+env:
+  global:
+    - DBUS_SESSION_BUS_ADDRESS=/dev/null
+    - DISPLAY=:99.0
+    - CHROME_BIN=chromium-browser
+
+before_script:
+  - sh -e /etc/init.d/xvfb start
+
+install:
+  - npm install && npm install -g @angular/cli
+
+script:
+  - npm run test
+
+sudo: required

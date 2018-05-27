@@ -17,8 +17,8 @@
       "dom"
     ],
     "paths": {
-      "schema-form": [
-        "dist/schema-form"
+      "ngx-schema-form": [
+        "projects/schema-form/src/lib"
       ]
     }
   }

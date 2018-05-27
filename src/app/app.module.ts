@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
+import { SchemaFormModule, SchemaValidatorFactory, ZSchemaValidatorFactory } from 'ngx-schema-form';
 import { AppComponent } from './app.component';
 
 @NgModule({
@@ -8,9 +11,17 @@ import { AppComponent } from './app.component';
     AppComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule,
+    SchemaFormModule,
+    HttpModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: SchemaValidatorFactory,
+      useClass: ZSchemaValidatorFactory
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
