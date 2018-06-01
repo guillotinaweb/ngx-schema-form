@@ -1,68 +1,58 @@
 {
-  "name": "angular2-schema-form",
-  "version": "1.2.2",
-  "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "name": "ngx-schema-form-demo",
+  "version": "0.0.0",
   "scripts": {
-    "install:peers": "install-self-peers",
-    "start": "yarn test:updateLib && cd tests && yarn install && yarn start",
-    "clean": "rimraf dist/",
-    "build:aot": "ngc -p tsconfig.json",
-    "build:jit": "tsc -p tsconfig.json",
-    "build": "yarn run clean && yarn build:aot",
-    "test:updateLib": "cd tests/src && rm -rf ./lib && mkdir lib/ && cp -r ../../src/ lib/angular2-schema-form/ && cd -",
-    "test": "yarn test:updateLib && cd tests && yarn install && ng test --single-run --code-coverage",
-    "testdebug": "yarn test:updateLib && cd tests && ng test --single-run=false --watch"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test schema-form --watch=false",
+    "lint": "ng lint",
+    "e2e": "ng e2e"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/makinacorpus/angular2-schema-form"
-  },
-  "keywords": [
-    "angularjs",
-    "angular",
-    "javascript",
-    "angular2",
-    "schema",
-    "form",
-    "schema form"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/makinacorpus/angular2-schema-form/issues"
-  },
-  "contributors": [
-    "Frank Bessou <fbessou@free.fr>",
-    "Eric Brehault <ebrehault@gmail.com>",
-    "Simon Bats <contact@simonbats.com>",
-    "Ramon Navarro Bosch <ramon.nb@gmail.com>"
-  ],
+  "private": true,
   "dependencies": {
+    "@angular/animations": "^6.0.3",
+    "@angular/common": "^6.0.3",
+    "@angular/compiler": "^6.0.3",
+    "@angular/core": "^6.0.3",
+    "@angular/forms": "^6.0.3",
+    "@angular/http": "^6.0.3",
+    "@angular/platform-browser": "^6.0.3",
+    "@angular/platform-browser-dynamic": "^6.0.3",
+    "@angular/router": "^6.0.3",
     "body-parser": "^1.15.1",
+    "bootstrap": "^3.3.7",
+    "core-js": "^2.5.4",
     "methods": "^1.1.2",
     "raw-loader": "0.5.1",
-    "z-schema": "^3.17.0"
-  },
-  "peerDependencies": {
-    "@angular/animations": "^4.2.5",
-    "@angular/common": "^4.2.5",
-    "@angular/compiler": "^4.2.5",
-    "@angular/core": "^4.2.5",
-    "@angular/forms": "^4.2.5",
-    "@angular/http": "^4.2.5",
-    "@angular/platform-browser": "^4.2.5",
-    "core-js": "2.4.1",
-    "rxjs": "^5.1.0",
-    "typescript": "2.3.4",
-    "zone.js": "^0.8.4"
+    "rxjs": "^6.0.0",
+    "rxjs-compat": "~6.2.0",
+    "z-schema": "^3.17.0",
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^4.2.5",
-    "@angular/platform-server": "^4.2.5",
-    "@team-griffin/install-self-peers": "^1.1.1",
-    "@types/jasmine": "2.5.38",
-    "@types/node": "6.0.60",
-    "rimraf": "^2.5.4"
+    "@angular-devkit/build-angular": "~0.6.5",
+    "@angular-devkit/build-ng-packagr": "~0.6.5",
+    "@angular/cli": "~6.0.5",
+    "@angular/compiler-cli": "^6.0.3",
+    "@angular/language-service": "^6.0.3",
+    "@types/jasmine": "~2.8.6",
+    "@types/jasminewd2": "~2.0.3",
+    "@types/node": "~8.9.5",
+    "codelyzer": "~4.2.1",
+    "jasmine-core": "~2.99.1",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "~1.7.1",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~1.4.2",
+    "karma-jasmine": "~1.1.1",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "ng-packagr": "^3.0.0-rc.2",
+    "protractor": "~5.3.0",
+    "ts-node": "~5.0.1",
+    "tsickle": ">=0.25.5",
+    "tslib": "^1.7.1",
+    "tslint": "~5.9.1",
+    "typescript": "~2.7.2"
   }
 }

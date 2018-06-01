@@ -1,0 +1,43 @@
+{
+  "name": "ngx-schema-form",
+  "version": "2.0.0-beta.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/makinacorpus/ngx-schema-form"
+  },
+  "keywords": [
+    "angular",
+    "angular 6",
+    "schema",
+    "form",
+    "schema form"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/makinacorpus/ngx-schema-form/issues"
+  },
+  "contributors": [
+    "Frank Bessou <fbessou@free.fr>",
+    "Eric Brehault <ebrehault@gmail.com>",
+    "Simon Bats <contact@simonbats.com>",
+    "Gabor Pankotay <gabor.pankotay@swicon.hu>"
+  ],
+  "dependencies": {
+    "body-parser": "^1.15.1",
+    "methods": "^1.1.2",
+    "raw-loader": "0.5.1",
+    "z-schema": "^3.17.0"
+  },
+  "peerDependencies": {
+    "@angular/common": "^6.0.0",
+    "@angular/core": "^6.0.0",
+    "@angular/forms": "^6.0.0",
+    "@angular/http": "^6.0.0",
+    "@angular/platform-browser": "^6.0.0",
+    "core-js": "2.4.1",
+    "rxjs": "^6.2.0",
+    "rxjs-compat": "^6.2.0",
+    "typescript": "2.3.4",
+    "zone.js": "^0.8.4"
+  }
+}

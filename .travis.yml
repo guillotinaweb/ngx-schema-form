@@ -2,7 +2,6 @@ language: node_js
 dist: trusty
 
 node_js:
-  - '6'
   - 'node'
 
 env:
@@ -16,8 +15,6 @@ before_script:
 
 install:
   - npm install && npm install -g @angular/cli
-  - npm info . peerDependencies | sed -n 's/^{\{0,1\}[[:space:]]*'\''\{0,1\}\([^:'\'']*\)'\''\{0,1\}:[[:space:]]'\''\([^'\'']*\).*$/\1@\2/p' | xargs npm i
-  - cd ./tests && npm install && cd ..
 
 script:
   - npm run test

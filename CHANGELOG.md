@@ -1,3 +1,8 @@
+# 2.0.0-beta.1
+
+- Angular 6 compliancy
+- Use default library project structure provided by Angular CLI 6
+
 # 1.2.2 (2018-05-13)
 
 # Bug fixes

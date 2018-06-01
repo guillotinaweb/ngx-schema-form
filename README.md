@@ -1,16 +1,18 @@
-# Angular2 Schema Form [![Build Status](https://travis-ci.org/makinacorpus/angular2-schema-form.svg?branch=master)](https://travis-ci.org/makinacorpus/angular2-schema-form)
+# Ngx Schema Form [![Build Status](https://travis-ci.org/makinacorpus/ngx-schema-form.svg?branch=master)](https://travis-ci.org/makinacorpus/ngx-schema-form)
 
-Angular2 Schema Form is an Angular2 module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
+Ngx Schema Form is an Angular 2+ module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
+
+Note: Version 1.x is compliant with Angular <=4, version 2.x is compliant with Angular >=6.
 
 ## DISCLAIMER
 
-Angular2 Schema Form is **not** related to [angular-schema-form](https://github.com/json-schema-form/angular-schema-form) and [schemaform.io](http://schemaform.io/).
+Ngx Schema Form is **not** related to [angular-schema-form](https://github.com/json-schema-form/angular-schema-form) and [schemaform.io](http://schemaform.io/).
 
-We think `angular-schema-form` is a great Angular 1 library, and when it will move to Angular 2, we will probably join our efforts to produce and maintain a unique Angular 2 solution.
+We think `angular-schema-form` is a great Angular 1 library, and when it will move to Angular 2+, we will probably join our efforts to produce and maintain a unique Angular 2+ solution.
 
 ## Demo
-There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Angular2 Schema Form.
-You can also test the module on [the website](https://makinacorpus.github.io/angular2-schema-form).
+There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Ngx Schema Form.
+You can also test the module on [the website](https://makinacorpus.github.io/ngx-schema-form).
 
 ## Features
 
@@ -21,10 +23,10 @@ You can also test the module on [the website](https://makinacorpus.github.io/ang
 * Allow declaration of custom widgets
 
 ## Installation
-To use Angular2 Schema Form in your project simply execute the following command:
+To use Ngx Schema Form in your project simply execute the following command:
 
 ```bash
-npm install angular2-schema-form --save
+npm install ngx-schema-form --save
 ```
 
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
@@ -68,13 +70,13 @@ export class AppComponent {
 }
 ```
 
-Create a module which import the AppComponent and configure Angular2 schema form.
+Create a module which import the AppComponent and configure Ngx schema form.
 ```js
 //app.module.ts
 
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "angular2-schema-form";
+import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "ngx-schema-form";
 import { AppComponent } from "./app.component";
 
 @NgModule({
@@ -340,7 +342,7 @@ provide the properties `button` and `formProperty` by it self.
 
 ```js
   import {Component} from "@angular/core";
-  import {ButtonWidget} from 'angular2-schema-form/dist/defaultwidgets'
+  import {ButtonWidget} from 'ngx-schema-form/dist/defaultwidgets'
   
   @Component({
     selector: 'sf-button-widget',
@@ -616,7 +618,7 @@ export class MyComponent {
 ```
 
 ## Creating a custom widget
-Angular2 schema form allows you to create your own widget.
+Ngx schema form allows you to create your own widget.
 
 Note: Currently this feature is not completely defined and the API might change.
 
