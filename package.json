@@ -1,6 +1,6 @@
 {
   "name": "angular2-schema-form",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -45,21 +45,21 @@
     "z-schema": "^3.17.0"
   },
   "peerDependencies": {
-    "@angular/animations": "^4.2.5",
-    "@angular/common": "^4.2.5",
-    "@angular/compiler": "^4.2.5",
-    "@angular/core": "^4.2.5",
-    "@angular/forms": "^4.2.5",
-    "@angular/http": "^4.2.5",
-    "@angular/platform-browser": "^4.2.5",
+    "@angular/animations": "<5.0.0",
+    "@angular/common": "<5.0.0",
+    "@angular/compiler": "<5.0.0",
+    "@angular/core": "<5.0.0",
+    "@angular/forms": "<5.0.0",
+    "@angular/http": "<5.0.0",
+    "@angular/platform-browser": "<5.0.0",
     "core-js": "2.4.1",
     "rxjs": "^5.1.0",
     "typescript": "2.3.4",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^4.2.5",
-    "@angular/platform-server": "^4.2.5",
+    "@angular/compiler-cli": "<5.0.0",
+    "@angular/platform-server": "<5.0.0",
     "@team-griffin/install-self-peers": "^1.1.1",
     "@types/jasmine": "2.5.38",
     "@types/node": "6.0.60",

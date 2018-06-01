@@ -1,3 +1,7 @@
+# 1.2.3 (2018-06-01)
+
+- Maintenance release (package renamed ngx-schema-form)
+
 # 1.2.2 (2018-05-13)
 
 # Bug fixes
