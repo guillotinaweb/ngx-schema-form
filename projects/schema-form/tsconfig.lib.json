@@ -11,7 +11,8 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "types": [],
+    "types": [ "node" ],
+    "typeRoots": [ "../../node_modules/@types" ],
     "lib": [
       "dom",
       "es2015"
