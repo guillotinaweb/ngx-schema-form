@@ -6,10 +6,10 @@ import {
   WidgetRegistry,
   Validator,
   DefaultWidgetRegistry
-} from 'angular2-schema-form';
+} from 'ngx-schema-form';
 
 @Component({
-  selector: 'sf-demo-app',
+  selector: 'app-root',
   templateUrl: './app.component.html',
   encapsulation: ViewEncapsulation.None,
   providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }]
