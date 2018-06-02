@@ -26,7 +26,6 @@
     "methods": "^1.1.2",
     "raw-loader": "0.5.1",
     "rxjs": "^6.0.0",
-    "rxjs-compat": "~6.2.0",
     "z-schema": "^3.17.0",
     "zone.js": "^0.8.26"
   },
