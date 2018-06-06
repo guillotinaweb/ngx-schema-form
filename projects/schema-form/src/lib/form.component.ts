@@ -7,15 +7,13 @@ import {
   Output
 } from '@angular/core';
 
-import {
-  Action,
-  ActionRegistry,
-  FormPropertyFactory,
-  FormProperty,
-  SchemaPreprocessor,
-  ValidatorRegistry,
-  Validator
-} from './model';
+import {Action} from './model/action';
+import {ActionRegistry} from './model/actionregistry';
+import {FormProperty} from './model/formproperty';
+import {FormPropertyFactory} from './model/formpropertyfactory';
+import {SchemaPreprocessor} from './model/schemapreprocessor';
+import {ValidatorRegistry} from './model/validatorregistry';
+import {Validator} from './model/validator';
 
 import {SchemaValidatorFactory} from './schemavalidatorfactory';
 import {WidgetFactory} from './widgetfactory';
@@ -23,7 +21,7 @@ import {TerminatorService} from './terminator.service';
 
 export function useFactory(schemaValidatorFactory, validatorRegistry) {
   return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry);
-};
+}
 
 @Component({
   selector: 'sf-form',

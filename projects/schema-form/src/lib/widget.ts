@@ -1,6 +1,9 @@
 import {AfterViewInit} from '@angular/core';
 import {FormControl} from '@angular/forms';
-import {ArrayProperty, FormProperty, ObjectProperty} from './model';
+
+import {ArrayProperty} from './model/arrayproperty';
+import {FormProperty} from './model/formproperty';
+import {ObjectProperty} from './model/objectproperty';
 
 export abstract class Widget<T extends FormProperty> {
   formProperty: T;
