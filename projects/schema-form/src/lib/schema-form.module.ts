@@ -8,27 +8,25 @@ import {
 import {FormElementComponent} from './formelement.component';
 import {FormComponent} from './form.component';
 import {WidgetChooserComponent} from './widgetchooser.component';
-import {
-  ArrayWidget,
-  ButtonWidget,
-  ObjectWidget,
-  CheckboxWidget,
-  FileWidget,
-  IntegerWidget,
-  TextAreaWidget,
-  RadioWidget,
-  RangeWidget,
-  SelectWidget,
-  StringWidget
-} from './defaultwidgets';
+import {ArrayWidget} from './defaultwidgets/array/array.widget';
+import {ButtonWidget} from './defaultwidgets/button/button.widget';
+import {ObjectWidget} from './defaultwidgets/object/object.widget';
+import {CheckboxWidget} from './defaultwidgets/checkbox/checkbox.widget';
+import {FileWidget} from './defaultwidgets/file/file.widget';
+import {IntegerWidget} from './defaultwidgets/integer/integer.widget';
+import {TextAreaWidget} from './defaultwidgets/textarea/textarea.widget';
+import {RadioWidget} from './defaultwidgets/radio/radio.widget';
+import {RangeWidget} from './defaultwidgets/range/range.widget';
+import {SelectWidget} from './defaultwidgets/select/select.widget';
+import {StringWidget} from './defaultwidgets/string/string.widget';
+import {DefaultWidgetRegistry} from './defaultwidgets/defaultwidgetregistry';
 import {
   DefaultWidget
 } from './default.widget';
 
 import {WidgetRegistry} from './widgetregistry';
-import {DefaultWidgetRegistry} from './defaultwidgets';
 import {SchemaValidatorFactory, ZSchemaValidatorFactory} from './schemavalidatorfactory';
-import {FormElementComponentAction} from "./formelement.action.component";
+import {FormElementComponentAction} from './formelement.action.component';
 
 const moduleProviders = [
   {

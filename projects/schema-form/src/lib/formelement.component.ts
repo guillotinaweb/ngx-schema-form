@@ -10,10 +10,8 @@ import {
 
 import { Widget } from './widget';
 
-import {
-  ActionRegistry,
-  FormProperty
-} from './model';
+import {ActionRegistry} from './model/actionregistry';
+import {FormProperty} from './model/formproperty';
 
 @Component({
   selector: 'sf-form-element',
