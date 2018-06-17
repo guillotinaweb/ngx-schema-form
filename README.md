@@ -11,8 +11,8 @@ Ngx Schema Form is **not** related to [angular-schema-form](https://github.com/j
 We think `angular-schema-form` is a great Angular 1 library, and when it will move to Angular 2+, we will probably join our efforts to produce and maintain a unique Angular 2+ solution.
 
 ## Demo
-There is an [example of application](https://github.com/fbessou/angular2-schema-form-demo) using Ngx Schema Form.
-You can also test the module on [the website](https://makinacorpus.github.io/ngx-schema-form).
+
+[Demo](https://makinacorpus.github.io/ngx-schema-form/dist/ngx-schema-form)
 
 ## Features
 
