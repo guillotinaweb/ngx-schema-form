@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build-demo": "ng build --prod --base-href /ngx-schema-form/dist/ngx-schema-form/",
     "test": "ng test schema-form --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
