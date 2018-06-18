@@ -10,8 +10,12 @@
       </sf-form>
     </div>
     <div class="col-md-4">
-      <button (click)="changeSchema()">Change schema</button>
+      <div>
+        <label>Load schema from URL: <input type="text" [(ngModel)]="schemaUrl" name="schemaUrl"></label>
+        <button (click)="load()">Load</button>
+      </div>
       <pre>{{schema | json}}</pre>
+      <button (click)="changeSchema()">Set another schema</button>
     </div>
     <div class="col-md-4">
       <h3>Model:</h3>
