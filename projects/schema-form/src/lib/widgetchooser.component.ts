@@ -8,15 +8,19 @@ import {
   Output,
   ViewChild,
   ViewContainerRef,
+  OnInit,
+  OnDestroy
 } from '@angular/core';
 import { TerminatorService } from './terminator.service';
 import { WidgetFactory } from './widgetfactory';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'sf-widget-chooser',
   template: `<div #target></div>`,
 })
-export class WidgetChooserComponent implements OnChanges {
+export class WidgetChooserComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input() widgetInfo: any;
 
@@ -26,6 +30,7 @@ export class WidgetChooserComponent implements OnChanges {
 
   private widgetInstance: any;
   private ref: ComponentRef<any>;
+  private subs: Subscription;
 
   constructor(
     private widgetFactory: WidgetFactory = null,
@@ -34,11 +39,11 @@ export class WidgetChooserComponent implements OnChanges {
   ) { }
 
   ngOnInit() {
-    this.terminator.onDestroy.subscribe(destroy => {
+    this.subs = this.terminator.onDestroy.subscribe(destroy => {
       if (destroy) {
         this.ref.destroy();
       }
-    })
+    });
   }
 
   ngOnChanges() {
@@ -46,5 +51,9 @@ export class WidgetChooserComponent implements OnChanges {
     this.widgetInstanciated.emit(this.ref.instance);
     this.widgetInstance = this.ref.instance;
     this.cdr.detectChanges();
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 }

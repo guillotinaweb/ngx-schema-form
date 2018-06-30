@@ -1,4 +1,14 @@
-import {Component, ComponentRef, Input, OnChanges, ViewChild, ViewContainerRef} from "@angular/core";
+import {
+  Component,
+  ComponentRef,
+  Input,
+  OnChanges,
+  ViewChild,
+  ViewContainerRef,
+  OnInit,
+  OnDestroy
+} from "@angular/core";
+import {Subscription} from 'rxjs';
 import {WidgetFactory} from "./widgetfactory";
 import {TerminatorService} from "./terminator.service";
 
@@ -6,34 +16,38 @@ import {TerminatorService} from "./terminator.service";
   selector: 'sf-form-element-action',
   template: '<ng-template #target></ng-template>'
 })
-export class FormElementComponentAction implements OnChanges {
+export class FormElementComponentAction implements OnInit, OnChanges, OnDestroy {
 
   @Input()
-  button: any
+  button: any;
 
   @Input()
-  formProperty: any
+  formProperty: any;
 
   @ViewChild('target', {read: ViewContainerRef}) container: ViewContainerRef;
 
   private ref: ComponentRef<any>;
+  private subs: Subscription;
 
   constructor(private widgetFactory: WidgetFactory = null,
               private terminator: TerminatorService) {
   }
 
   ngOnInit() {
-    this.terminator.onDestroy.subscribe(destroy => {
+    this.subs = this.terminator.onDestroy.subscribe(destroy => {
       if (destroy) {
         this.ref.destroy();
       }
-    })
+    });
   }
 
   ngOnChanges() {
     this.ref = this.widgetFactory.createWidget(this.container, this.button.widget || 'button');
-    this.ref.instance.button = this.button
-    this.ref.instance.formProperty = this.formProperty
+    this.ref.instance.button = this.button;
+    this.ref.instance.formProperty = this.formProperty;
   }
 
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 }
