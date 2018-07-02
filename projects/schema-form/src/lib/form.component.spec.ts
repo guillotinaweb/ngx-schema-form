@@ -1,19 +1,6 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  ContentChildren,
-  QueryList,
-  DebugElement
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  async,
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick
-} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { FormComponent } from './form.component';

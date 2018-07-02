@@ -36,3 +36,6 @@ export {
 } from './lib/defaultwidgets/defaultwidgetregistry';
 
 export { SchemaFormModule } from './lib/schema-form.module';
+export { 
+  TemplateSchemaModule
+} from './lib/template-schema/template-schema.module';

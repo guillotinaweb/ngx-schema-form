@@ -4,7 +4,8 @@ import {
   OnChanges,
   EventEmitter,
   Input,
-  Output
+  Output,
+  SimpleChanges
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
@@ -103,7 +104,7 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
   // TODO implement
   // setDisabledState(isDisabled: boolean)?: void
 
-  ngOnChanges(changes: any) {
+  ngOnChanges(changes: SimpleChanges) {
     if (changes.validators) {
       this.setValidators();
     }
@@ -186,7 +187,7 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
     }
 
     // two way binding is used
-    if (this.modelChange.observers.length > 0) { 
+    if (this.modelChange.observers.length > 0) {
       if (!this.onChangeCallback) {
         this.setModel(value);
       }
