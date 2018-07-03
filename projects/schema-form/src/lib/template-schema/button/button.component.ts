@@ -24,6 +24,7 @@ import { TemplateSchemaElement } from '../template-schema-element';
 })
 export class ButtonComponent extends TemplateSchemaElement implements AfterContentInit {
 
+  @Input()
   id: string;
 
   @Input()

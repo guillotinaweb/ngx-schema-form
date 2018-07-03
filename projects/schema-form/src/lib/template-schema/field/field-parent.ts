@@ -28,9 +28,11 @@ export abstract class FieldParent extends TemplateSchemaElement {
 
     return this.childButtons.map((button, index) => {
 
-      const randomString = Math.random().toString(16).substr(2, 8);
-      // generate id for button
-      button.id = this.name + randomString + '_'  + (index + 1);
+      if (!button.id) {
+        const randomString = Math.random().toString(16).substr(2, 8);
+        // generate id for button
+        button.id = this.name + randomString + '_'  + (index + 1);
+      }
 
       // register as button action the EventEmitter click
       this.actionRegistry.register(
@@ -38,11 +40,16 @@ export abstract class FieldParent extends TemplateSchemaElement {
         button.click.emit.bind(button.click)
       );
 
-      return {
+      const _button = <any>{
         id: button.id,
         label: button.label,
-        widget: button.widget
       };
+
+      if (button.widget) {
+        _button.widget = button.widget;
+      }
+
+      return _button;
 
     });
   }
@@ -62,10 +69,6 @@ export abstract class FieldParent extends TemplateSchemaElement {
 
       switch (this.type) {
         case FieldType.Array:
-          if (!schema.items) {
-            schema.items = {};
-          }
-
           schema.items = field.getSchema();
           break;
 

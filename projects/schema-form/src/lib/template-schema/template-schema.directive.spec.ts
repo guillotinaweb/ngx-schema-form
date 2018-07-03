@@ -1,11 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-  ContentChildren,
-  QueryList,
-  DebugElement
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   async,

@@ -251,8 +251,10 @@ describe('FieldComponent', () => {
     const buttons = field.getButtons();
     const schema = field.getSchema();
 
+    expect(schema.type).toEqual('string')
+    expect(schema.title).toEqual('Name')
+    expect(schema.buttons.length).toBe(2)
     expect(buttons.length).toBe(2);
-    expect(schema).toEqual({type: 'string', title: 'Name'});
     expect(buttons[0].label).toEqual('Send');
     expect(buttons[1].label).toEqual('Clear');
     expect(buttons[0].id).toBeDefined();

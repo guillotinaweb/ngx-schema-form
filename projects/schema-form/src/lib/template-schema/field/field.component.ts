@@ -58,6 +58,9 @@ Field, OnChanges, AfterContentInit {
   required: boolean;
 
   @Input()
+  readOnly: boolean;
+
+  @Input()
   title: string;
 
   @Input()
@@ -73,7 +76,7 @@ Field, OnChanges, AfterContentInit {
   validator: Validator;
 
   @Input()
-  schema: object = { };
+  schema: any = { };
 
   constructor(
     private elementRef: ElementRef,
@@ -83,13 +86,11 @@ Field, OnChanges, AfterContentInit {
     super();
   }
 
-  getSchema(): object {
+  getSchema(): any {
 
     const { properties, items, required } = this.getFieldsSchema(
       this.childFields.filter(field => field !== this)
     );
-
-    const { description, placeholder, format, widget } = this;
 
     const oneOf = this.getOneOf();
 
@@ -109,28 +110,38 @@ Field, OnChanges, AfterContentInit {
       schema.items = items;
     }
 
+    // requried child fields
     if (required !== undefined) {
       schema.required = required;
     }
 
-    if (description !== undefined) {
-      schema.description = description;
-    }
-
-    if (placeholder !== undefined) {
-      schema.placeholder = placeholder;
-    }
-
-    if (format !== undefined) {
-      schema.format = format;
-    }
-
-    if (widget !== undefined) {
-      schema.widget = widget;
-    }
-
     if (oneOf !== undefined) {
       schema.oneOf = oneOf;
+    }
+
+    if (this.description !== undefined) {
+      schema.description = this.description;
+    }
+
+    if (this.placeholder !== undefined) {
+      schema.placeholder = this.placeholder;
+    }
+
+    if (this.format !== undefined) {
+      schema.format = this.format;
+    }
+
+    if (this.widget !== undefined) {
+      schema.widget = this.widget;
+    }
+
+    if (this.readOnly !== undefined) {
+      schema.readOnly = this.readOnly;
+    }
+
+    const buttons = this.getButtons();
+    if (buttons.length > 0) {
+      schema.buttons = buttons;
     }
 
     // @Input schema takes precedence
