@@ -17,6 +17,7 @@ We think `angular-schema-form` is a great Angular 1 library, and when it will mo
 ## Features
 
 * Generate a form from a single json schema object
+* Generate a form from a default set of html constructs
 * Allow initialization from previous values
 * Validation handled by z-schema
 * Allow injection of custom validators
@@ -677,6 +678,23 @@ import { ReactiveFormsModule } from '@angular/forms';
   ]
 })
 ```
+
+## Create form from html instead of json schema
+Ngx schema form allows you to create forms from angular html templates too.
+For this you only need to import `TemplateSchemaModule` to your app, and use the 
+directive `templateSchema` on sf-form.
+
+The followin html will generate the same form as the json schema in getting started section.
+
+```html
+<sf-form  [(ngModel)]="model"  templateSchema >
+  <sf-field name="email" format="email" [required]="true"> Email </sf-field>
+  <sf-field name="password" widget="password" [required]="true"> Password </sf-field>
+  <sf-field name="rememberMe" type="boolean"> Remember Me </sf-field>
+</sf-form>
+
+```
+For more details see example app.
 
 ## Development and build
 
