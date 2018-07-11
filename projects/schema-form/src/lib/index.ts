@@ -1,6 +1,6 @@
 export { FormComponent } from './form.component';
 export { FormElementComponent } from './formelement.component';
-export {FormElementComponentAction} from './formelement.action.component'
+export { FormElementComponentAction } from './formelement.action.component';
 export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
 export { Validator } from './model/validator';
@@ -26,3 +26,4 @@ export {
     DefaultWidgetRegistry
 } from './defaultwidgets';
 export { SchemaFormModule } from './schema-form.module';
+export { TemplateSchemaModule } from './template-schema/template-schema.module';

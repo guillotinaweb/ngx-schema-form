@@ -1,0 +1,23 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4">
+      <h3>Form:</h3>
+      <sf-form (onErrorChange)="logErrors($event.value)"
+        (onChange)="setValue($event.value)"
+        [schema]="schema"
+        [model]="model"
+        [validators]="fieldValidators"
+        [actions]="actions">
+      </sf-form>
+    </div>
+    <div class="col-md-4">
+      <h3>Schema:</h3>
+      <pre>{{schema | json}}</pre>
+      <button (click)="changeSchema()">Set another schema</button>
+    </div>
+    <div class="col-md-4">
+      <h3>Model:</h3>
+      <pre>{{value | json}}</pre>
+    </div>
+  </div>
+</div>

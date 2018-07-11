@@ -1,0 +1,308 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Form:</h3>
+            <sf-form #form [(ngModel)]="model" templateSchema>
+                <sf-field name="recipient" type="object">
+                    Part 1 - Recipient
+                    <sf-field
+                        name="firstName"
+                        [required]="true"
+                        description="(First Name)"
+                        placeholder="First Name"
+                        [schema]="{ maxLength: 40, minLength: 2 }">
+                        First Name
+                    </sf-field>
+                    <sf-field
+                        name="lastName"
+                        [required]="true"
+                        description="(Last Name)"
+                        placeholder="Last Name"
+                        [schema]="{ maxLength: 40, minLength: 2 }">
+                        Last Name
+                    </sf-field>
+                    <sf-field name="categories" type="array" widget="checkbox">
+                        Categories
+                        <sf-field type="string">
+                            <sf-item value="dog">Dog</sf-item>
+                            <sf-item value="cat">Cat</sf-item>
+                            <sf-item value="dolphin">Dolphin</sf-item>
+                        </sf-field>
+                    </sf-field>
+                    <sf-field
+                        name="bornOn"
+                        widget="date"
+                        format="date"
+                        [schema]="{ default: '1800-12-12' }"
+                        description="(Born On)"
+                        placeholder="Ex: 2009-03-11">
+                        Born On
+                    </sf-field>
+                    <sf-field
+                        name="moreInfo"
+                        type="boolean"
+                        description="More information?"
+                        widget="checkbox"
+                        [schema]="{ default: true }"></sf-field>
+                    <sf-field
+                        name="favoriteColor"
+                        widget="color"
+                        [schema]="{ default: '#aaa111', pattern: '^#[0-9a-fA-F]{6}$', visibleIf: { moreInfo: [true] } }">
+                        Favorite color
+                    </sf-field>
+                    <sf-field name="colors" type="array" widget="array">
+                        Colors
+                        <sf-field type="string" widget="color">
+                            <sf-button id="Remove" (click)="onClick('Supprimer')">Supprimer</sf-button>
+                        </sf-field>
+                        <sf-button id="addItem" (click)="onClick('Ajouter')">Ajouter</sf-button>
+                        <sf-button id="reset" (click)="onClick('Reset')">Reset</sf-button>
+                    </sf-field>
+                </sf-field>
+
+                <sf-field name="survey" type="object">
+                    Little survey
+                    <sf-field name="q1" description="Enter a number"></sf-field>
+                    <sf-field name="q2" type="object" description="Address">
+                        <sf-field
+                            name="color"
+                            description="Color"
+                            widget="color"
+                            [schema]="{ default: '#aaa000', pattern: 'ff$' }"></sf-field>
+                        <sf-field
+                            name="number"
+                            description="Zip"
+                            widget="number"
+                            [schema]="{ default: 15 }"></sf-field>
+                    </sf-field>
+                </sf-field>
+                <sf-field name="transaction" type="object">
+                    Part 2 - Transactions
+                    <sf-field
+                        name="transactionNumber"
+                        description="Transaction number"
+                        widget="number"
+                        [readOnly]="true"
+                        [schema]="{ default: 15 }"></sf-field>
+                    <sf-field
+                        name="transactionDescription"
+                        widget="textarea"
+                        description="What is being transacted"></sf-field>
+
+                    <sf-field name="promotion" widget="radio" description="promotion">
+                        <sf-item value="student">Student discount (20%)</sf-item>
+                        <sf-item value="summer">Summer 2016 discount (15%)</sf-item>
+                        <sf-item value="none">None</sf-item>
+                    </sf-field>
+
+                    <sf-field name="category" type="array" widget="select" description="Category">
+                        <sf-field type="string">
+                            <sf-item value="design">Design</sf-item>
+                            <sf-item value="hightech">High-Tech</sf-item>
+                            <sf-item value="materials">Materials</sf-item>
+                            <sf-item value="services">Services</sf-item>
+                        </sf-field>
+                    </sf-field>
+                </sf-field>
+
+                <sf-field name="shipping" type="object">
+                    Part 3 - Shipping
+                    <sf-field
+                        name="numberOfBoxes"
+                        description="Number of boxes required"
+                        widget="range"
+                        [schema]="{ minimun: 1, maximun: 10 }"></sf-field>
+
+                    <sf-field
+                        name="delivery"
+                        type="string"
+                        widget="select"
+                        [schema]="{ default: 'fedex' }"
+                        description="Delivery service">
+                        <sf-item value="fedex">Fedex</sf-item>
+                        <sf-item value="ups">UPS</sf-item>
+                        <sf-item value="other">Other</sf-item>
+                    </sf-field>
+
+                </sf-field>
+
+                <sf-field name="contact" type="object">
+                    Part 4 - Email
+                    <sf-field
+                        name="useCustomEmail"
+                        type="boolean"
+                        description="Write a custom email ?"></sf-field>
+                    <sf-field
+                        *ngIf="model?.contact?.useCustomEmail"
+                        name="customEmail"
+                        widget="textarea"
+                        description="Email to send"></sf-field>
+                </sf-field>
+
+                <sf-field name="confirmation" type="object">
+                    Part 5 - Confirmation
+                    <sf-field name="confirmationEmail" format="email" description="Email"></sf-field>
+                    <sf-field name="password" widget="password" description="Password"></sf-field>
+                </sf-field>
+
+                <sf-button (click)="onClick('Something')">Do Something</sf-button>
+            </sf-form>
+
+        </div>
+        <div class="col-md-4" style="height: 1000px">
+            <h3>Template:</h3>
+<textarea class="template-schema" readonly wrap="off" resize="off">
+&lt;sf-form #form [(ngModel)]="model" templateSchema&gt;
+    &lt;sf-field name="recipient" type="object"&gt;
+        Part 1 - Recipient
+        &lt;sf-field
+            name="firstName"
+            [required]="true"
+            description="(First Name)"
+            placeholder="First Name"
+            [schema]="{ maxLength: 40, minLength: 2 }"&gt;
+            First Name
+        &lt;/sf-field&gt;
+        &lt;sf-field
+            name="lastName"
+            [required]="true"
+            description="(Last Name)"
+            placeholder="Last Name"
+            [schema]="{ maxLength: 40, minLength: 2 }"&gt;
+            Last Name
+        &lt;/sf-field&gt;
+        &lt;sf-field name="categories" type="array" widget="checkbox"&gt;
+            Categories
+            &lt;sf-field type="string"&gt;
+                &lt;sf-item value="dog"&gt;Dog&lt;/sf-item&gt;
+                &lt;sf-item value="cat"&gt;Cat&lt;/sf-item&gt;
+                &lt;sf-item value="dolphin"&gt;Dolphin&lt;/sf-item&gt;
+            &lt;/sf-field&gt;
+        &lt;/sf-field&gt;
+        &lt;sf-field
+            name="bornOn"
+            widget="date"
+            format="date"
+            [schema]="{ default: '1800-12-12' }"
+            description="(Born On)"
+            placeholder="Ex: 2009-03-11"&gt;
+            Born On
+        &lt;/sf-field&gt;
+        &lt;sf-field
+            name="moreInfo"
+            type="boolean"
+            description="More information?"
+            widget="checkbox"
+            [schema]="{ default: true }"&gt;&lt;/sf-field&gt;
+        &lt;sf-field
+            name="favoriteColor"
+            widget="color"
+            [schema]="{ default: '#aaa111', pattern: '^#[0-9a-fA-F]{6}$', visibleIf: { moreInfo: [true] } }"&gt;
+            Favorite color
+        &lt;/sf-field&gt;
+        &lt;sf-field name="colors" type="array" widget="array"&gt;
+            Colors
+            &lt;sf-field type="string" widget="color"&gt;
+                &lt;sf-button id="Remove" (click)="onClick('Supprimer')"&gt;Supprimer&lt;/sf-button&gt;
+            &lt;/sf-field&gt;
+            &lt;sf-button id="addItem" (click)="onClick('Ajouter')"&gt;Ajouter&lt;/sf-button&gt;
+            &lt;sf-button id="reset" (click)="onClick('Reset')"&gt;Reset&lt;/sf-button&gt;
+        &lt;/sf-field&gt;
+    &lt;/sf-field&gt;
+
+    &lt;sf-field name="survey" type="object"&gt;
+        Little survey
+        &lt;sf-field name="q1" description="Enter a number"&gt;&lt;/sf-field&gt;
+        &lt;sf-field name="q2" type="object" description="Address"&gt;
+            &lt;sf-field
+                name="color"
+                description="Color"
+                widget="color"
+                [schema]="{ default: '#aaa000', pattern: 'ff$' }"&gt;&lt;/sf-field&gt;
+            &lt;sf-field
+                name="number"
+                description="Zip"
+                widget="number"
+                [schema]="{ default: 15 }"&gt;&lt;/sf-field&gt;
+        &lt;/sf-field&gt;
+    &lt;/sf-field&gt;
+    &lt;sf-field name="transaction" type="object"&gt;
+        Part 2 - Transactions
+        &lt;sf-field
+            name="transactionNumber"
+            description="Transaction number"
+            widget="number"
+            [readOnly]="true"
+            [schema]="{ default: 15 }"&gt;&lt;/sf-field&gt;
+        &lt;sf-field
+            name="transactionDescription"
+            widget="textarea"
+            description="What is being transacted"&gt;&lt;/sf-field&gt;
+
+        &lt;sf-field name="promotion" widget="radio" description="promotion"&gt;
+            &lt;sf-item value="student"&gt;Student discount (20%)&lt;/sf-item&gt;
+            &lt;sf-item value="summer"&gt;Summer 2016 discount (15%)&lt;/sf-item&gt;
+            &lt;sf-item value="none"&gt;None&lt;/sf-item&gt;
+        &lt;/sf-field&gt;
+
+        &lt;sf-field name="category" type="array" widget="select" description="Category"&gt;
+            &lt;sf-field type="string"&gt;
+                &lt;sf-item value="design"&gt;Design&lt;/sf-item&gt;
+                &lt;sf-item value="hightech"&gt;High-Tech&lt;/sf-item&gt;
+                &lt;sf-item value="materials"&gt;Materials&lt;/sf-item&gt;
+                &lt;sf-item value="services"&gt;Services&lt;/sf-item&gt;
+            &lt;/sf-field&gt;
+        &lt;/sf-field&gt;
+    &lt;/sf-field&gt;
+
+    &lt;sf-field name="shipping" type="object"&gt;
+        Part 3 - Shipping
+        &lt;sf-field
+            name="numberOfBoxes"
+            description="Number of boxes required"
+            widget="range"
+            [schema]="{ minimun: 1, maximun: 10 }"&gt;&lt;/sf-field&gt;
+
+        &lt;sf-field
+            name="delivery"
+            type="string"
+            widget="select"
+            [schema]="{ default: 'fedex' }"
+            description="Delivery service"&gt;
+            &lt;sf-item value="fedex"&gt;Fedex&lt;/sf-item&gt;
+            &lt;sf-item value="ups"&gt;UPS&lt;/sf-item&gt;
+            &lt;sf-item value="other"&gt;Other&lt;/sf-item&gt;
+        &lt;/sf-field&gt;
+
+    &lt;/sf-field&gt;
+
+    &lt;sf-field name="contact" type="object"&gt;
+        Part 4 - Email
+        &lt;sf-field
+            name="useCustomEmail"
+            type="boolean"
+            description="Write a custom email ?"&gt;&lt;/sf-field&gt;
+        &lt;sf-field
+            *ngIf="model?.contact?.useCustomEmail"
+            name="customEmail"
+            widget="textarea"
+            description="Email to send"&gt;&lt;/sf-field&gt;
+    &lt;/sf-field&gt;
+
+    &lt;sf-field name="confirmation" type="object"&gt;
+        Part 5 - Confirmation
+        &lt;sf-field name="confirmationEmail" format="email" description="Email"&gt;&lt;/sf-field&gt;
+        &lt;sf-field name="password" widget="password" description="Password"&gt;&lt;/sf-field&gt;
+    &lt;/sf-field&gt;
+
+    &lt;sf-button (click)="onClick('Something')"&gt;Do Something&lt;/sf-button&gt;
+&lt;/sf-form&gt;
+
+</textarea>
+        </div>
+        <div class="col-md-4">
+            <h3>Model:</h3>
+            <pre>{{model | json}}</pre>
+        </div>
+    </div>
+</div>

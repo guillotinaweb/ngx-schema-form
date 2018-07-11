@@ -1,22 +1,43 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule, Routes } from '@angular/router';
+import {
+  SchemaFormModule,
+  SchemaValidatorFactory,
+  ZSchemaValidatorFactory,
+  TemplateSchemaModule,
+  WidgetRegistry,
+  DefaultWidgetRegistry
+} from 'ngx-schema-form';
 
-import { SchemaFormModule, SchemaValidatorFactory, ZSchemaValidatorFactory } from 'ngx-schema-form';
+import { routes } from './app.routes';
 import { AppComponent } from './app.component';
+import {
+  JsonSchemaExampleComponent
+} from './json-schema-example/json-schema-example.component';
+import {
+  TemplateSchemaExampleComponent
+} from './template-schema-example/template-schema-example.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    JsonSchemaExampleComponent,
+    TemplateSchemaExampleComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    SchemaFormModule,
+    ReactiveFormsModule,
     HttpClientModule,
+    RouterModule.forRoot(routes),
+    SchemaFormModule,
+    TemplateSchemaModule
   ],
   providers: [
+    {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
     {
       provide: SchemaValidatorFactory,
       useClass: ZSchemaValidatorFactory
