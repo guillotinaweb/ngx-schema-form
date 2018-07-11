@@ -169,7 +169,8 @@ export class SchemaPreprocessor {
       let k = keys[i];
       let e = extensions.find(e => !!k.match(e.regex));
       if (e) {
-        let copy = JSON.parse(JSON.stringify(e));
+        let v = schema[k];
+        let copy = JSON.parse(JSON.stringify(v));
         schema[e.name] = copy;
       }
     }
