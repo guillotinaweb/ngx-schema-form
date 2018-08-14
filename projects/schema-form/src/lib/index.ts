@@ -4,6 +4,9 @@ export { FormElementComponentAction } from './formelement.action.component';
 export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
 export { Validator } from './model/validator';
+export { ValidatorRegistry } from './model/validatorregistry';
+export { Action } from './model/action';
+export { ActionRegistry } from './model/actionregistry';
 export { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 export {
     Widget,
