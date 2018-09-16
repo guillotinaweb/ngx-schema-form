@@ -111,7 +111,11 @@ export class FormElementComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-
+    if (this.unlisten) {
+      this.unlisten.forEach((item) => {
+        item();
+      });
+    }
   }
 
 }
