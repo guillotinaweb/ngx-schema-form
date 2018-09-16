@@ -16,6 +16,8 @@ import {FormPropertyFactory} from './model/formpropertyfactory';
 import {SchemaPreprocessor} from './model/schemapreprocessor';
 import {ValidatorRegistry} from './model/validatorregistry';
 import {Validator} from './model/validator';
+import {Binding} from './model/binding';
+import {BindingRegistry} from './model/bindingregistry';
 
 import {SchemaValidatorFactory} from './schemavalidatorfactory';
 import {WidgetFactory} from './widgetfactory';
@@ -35,6 +37,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry) {
   providers: [
     ActionRegistry,
     ValidatorRegistry,
+    BindingRegistry,
     SchemaPreprocessor,
     WidgetFactory,
     {
@@ -60,6 +63,8 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
 
   @Input() validators: { [path: string]: Validator } = {};
 
+  @Input() bindings: { [path: string]: Binding } = {};
+
   @Output() onChange = new EventEmitter<{ value: any }>();
 
   @Output() modelChange = new EventEmitter<any>();
@@ -78,6 +83,7 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
     private formPropertyFactory: FormPropertyFactory,
     private actionRegistry: ActionRegistry,
     private validatorRegistry: ValidatorRegistry,
+    private bindingRegistry: BindingRegistry,
     private cdr: ChangeDetectorRef,
     private terminator: TerminatorService
   ) { }
@@ -111,6 +117,10 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
 
     if (changes.actions) {
       this.setActions();
+    }
+
+    if (changes.bindings) {
+      this.setBindings();
     }
 
     if (this.schema && !this.schema.type) {
@@ -163,6 +173,17 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
       for (const actionId in this.actions) {
         if (this.actions.hasOwnProperty(actionId)) {
           this.actionRegistry.register(actionId, this.actions[actionId]);
+        }
+      }
+    }
+  }
+
+  private setBindings() {
+    this.bindingRegistry.clear();
+    if (this.bindings) {
+      for (const bindingPath in this.bindings) {
+        if (this.bindings.hasOwnProperty(bindingPath)) {
+          this.bindingRegistry.register(bindingPath, this.bindings[bindingPath]);
         }
       }
     }
