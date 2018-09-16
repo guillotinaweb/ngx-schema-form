@@ -790,28 +790,19 @@ To work on this package:
 npm install
 ```
 
-You also need the peer dependencies:
-
-```bash
-npm run install:peers
-```
-
 Then you can build:
 
 ```bash
-npm run build
+ng build schema-form
 ```
 
 If you want to work with the demo:
 
 ```bash
 npm install -g @angular/cli
-cd ./tests
-npm install
-cd ./src/app
-ln -s ../../../src/ lib
-cd -
-ng serve
+npm innstall
+ng build schema-from
+npm start
 ```
 
 ## Building the API documentation
