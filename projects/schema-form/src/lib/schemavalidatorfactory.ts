@@ -1,4 +1,4 @@
-let ZSchema = require('z-schema');
+import * as ZSchema from 'z-schema';
 
 export abstract class SchemaValidatorFactory {
   abstract createValidatorFn(schema): (value: any) => any;
