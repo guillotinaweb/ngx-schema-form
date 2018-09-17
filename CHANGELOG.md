@@ -1,3 +1,12 @@
+# 2.2.0-beta.1 (2018-09-17)
+
+- Support custom bindings (Daniele Pecora)
+- Add normalizeExtensions to SchemaPreprocessor (WhileTrueEndWhile)
+
+# 2.1.0-beta.1 (2018-07-11)
+
+- Template schema form (Juan Manuel Verges)
+
 # 2.0.0-beta.1
 
 - Angular 6 compliancy

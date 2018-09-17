@@ -1,6 +1,6 @@
 {
   "name": "ngx-schema-form",
-  "version": "2.1.0-beta.1",
+  "version": "2.2.0-beta.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/makinacorpus/ngx-schema-form"
@@ -21,7 +21,8 @@
     "Eric Brehault <ebrehault@gmail.com>",
     "Simon Bats <contact@simonbats.com>",
     "Gabor Pankotay <gabor.pankotay@swicon.hu>",
-    "Juan Manuel Verges"
+    "Juan Manuel Verges",
+    "Daniele Pecora <daniele.pecora@googlemail.com>"
   ],
   "peerDependencies": {
     "@angular/common": "^6.0.0",
