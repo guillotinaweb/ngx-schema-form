@@ -55,7 +55,6 @@ export class FormElementComponent implements OnInit, OnDestroy {
 
   private setupBindings() {
     const bindings: Binding[] = this.bindingRegistry.get(this.formProperty.path);
-    console.log('setupBindings', this.formProperty.path, bindings, this.bindingRegistry);
     if ((bindings || []).length) {
       bindings.forEach((binding) => {
         for (const eventId in binding) {
