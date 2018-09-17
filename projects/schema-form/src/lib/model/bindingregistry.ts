@@ -1,7 +1,7 @@
 import {Binding} from './binding';
 
 export class BindingRegistry {
-  bindings: Binding[];
+  bindings: Binding[] = [];
 
   clear() {
     this.bindings = [];
