@@ -9,6 +9,11 @@ export { FormElementComponentAction } from './lib/formelement.action.component';
 export { WidgetChooserComponent } from './lib/widgetchooser.component';
 export { WidgetRegistry } from './lib/widgetregistry';
 export { Validator } from './lib/model/validator';
+export { ValidatorRegistry } from './lib/model/validatorregistry';
+export { Action } from './lib/model/action';
+export { ActionRegistry } from './lib/model/actionregistry';
+export { Binding } from './lib/model/binding';
+export { BindingRegistry } from './lib/model/bindingregistry';
 export {
   SchemaValidatorFactory,
   ZSchemaValidatorFactory
@@ -36,3 +41,6 @@ export {
 } from './lib/defaultwidgets/defaultwidgetregistry';
 
 export { SchemaFormModule } from './lib/schema-form.module';
+export {
+  TemplateSchemaModule
+} from './lib/template-schema/template-schema.module';

@@ -1,4 +1,5 @@
 {
+  "title": "Otherschema",
   "fieldsets": [
     {
       "fields": [
@@ -52,5 +53,7 @@
       "widget": "select"
     }
   },
-  "required": ["title"]
+  "required": [
+    "title"
+  ]
 }
