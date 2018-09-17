@@ -7,6 +7,8 @@ export { Validator } from './model/validator';
 export { ValidatorRegistry } from './model/validatorregistry';
 export { Action } from './model/action';
 export { ActionRegistry } from './model/actionregistry';
+export { Binding } from './model/binding';
+export { BindingRegistry } from './model/bindingregistry';
 export { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 export {
     Widget,

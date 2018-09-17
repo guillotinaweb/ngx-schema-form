@@ -12,6 +12,8 @@ export { Validator } from './lib/model/validator';
 export { ValidatorRegistry } from './lib/model/validatorregistry';
 export { Action } from './lib/model/action';
 export { ActionRegistry } from './lib/model/actionregistry';
+export { Binding } from './lib/model/binding';
+export { BindingRegistry } from './lib/model/bindingregistry';
 export {
   SchemaValidatorFactory,
   ZSchemaValidatorFactory

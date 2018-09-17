@@ -1,0 +1,37 @@
+{
+  "type": "object",
+  "title": "Example with custom bindings.",
+  "description": "Type a family name to see how the name gets synchronized with the children.",
+  "properties": {
+    "name": {
+      "type": "string",
+      "title": "Surname"
+    },
+    "forename": {
+      "type": "string",
+      "title": "Forename"
+    },
+    "children": {
+      "type": "array",
+      "title": "Family",
+      "items": {
+        "type": "object",
+        "title": "Children",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Surname"
+          },
+          "forename": {
+            "type": "string",
+            "title": "forename"
+          },
+          "age": {
+            "type": "number",
+            "title": "age"
+          }
+        }
+      }
+    }
+  }
+}
