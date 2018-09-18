@@ -1,6 +1,9 @@
 export * from './action';
 export * from './actionregistry';
 
+export * from './binding';
+export * from './bindingregistry';
+
 export * from './formpropertyfactory';
 export * from './formproperty';
 export * from './atomicproperty';

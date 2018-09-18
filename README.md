@@ -17,10 +17,12 @@ We think `angular-schema-form` is a great Angular 1 library, and when it will mo
 ## Features
 
 * Generate a form from a single json schema object
+* Generate a form from a default set of html constructs
 * Allow initialization from previous values
 * Validation handled by z-schema
 * Allow injection of custom validators
 * Allow declaration of custom widgets
+* Allow injection of custom bindings (new!)
 
 ## Installation
 To use Ngx Schema Form in your project simply execute the following command:
@@ -411,6 +413,91 @@ export class AppComponent {
 }
 ```
 
+### Custom Bindings
+
+Some form field may require a reaction to other forms fields when getting some input.
+The Form component accepts a `bindings` input bound to a map of field paths mapped to event and binding functions.  
+The binding function takes two arguments: the native event, and the property corresponding to it.
+
+The following example creates a form where you will fill in some data for a family.
+When you type in the name of the parent (first person) the name of the children will be kept updated.
+
+```js
+@Component({
+  selector: "minimal-app",
+  // Bind the bindings map to the the "bindings" input
+  template: '<sf-form [schema]="mySchema" [bindings]="myFieldBindings"></sf-form>'
+})
+export class AppComponent {
+  mySchema = 
+  {
+               "type": "object",
+               "title": "Example with custom bindings.",
+               "description": "Type a family name to see how the name gets synchronized with the children.",
+               "properties": {
+                 "name": {
+                   "type": "string",
+                   "title": "Surname"
+                 },
+                 "forename": {
+                   "type": "string",
+                   "title": "Forename"
+                 },
+                 "children": {
+                   "type": "array",
+                   "title": "Family",
+                   "items": {
+                     "type": "object",
+                     "title": "Children",
+                     "properties": {
+                       "name": {
+                         "type": "string",
+                         "title": "Surname"
+                       },
+                       "forename": {
+                         "type": "string",
+                         "title": "forename"
+                       },
+                       "age": {
+                         "type": "number",
+                         "title": "age"
+                       }
+                     }
+                   }
+                 }
+               }
+             }
+
+  // Declare a mapping between field and event-id
+  myFieldBindings = {
+      '/name': [
+        {
+          'input': (event, formProperty: FormProperty) => {
+            const parent: PropertyGroup = formProperty.findRoot();
+
+            /**
+             * Set the input value for the children
+             */
+            const child1: FormProperty = parent.getProperty('children/0/name');
+
+            child1.setValue(formProperty.value, false);
+
+            const child2: FormProperty = parent.getProperty('children/1/name');
+            child2.setValue(event.target.value, false);
+
+            /**
+             * Get the input value for all the children
+             */
+            for (const objectProperty of parent.getProperty('children').properties) {
+              console.log('Value for child ', objectProperty, objectProperty.properties['name'].value);
+            }
+          }
+        }
+      ]
+    };
+}
+```
+
 ### Conditional fields
 It is possible to make the presence of a field depends on another field's value.
 To achieve this you just have to add a `visibleIf` property to a field's definition.
@@ -678,6 +765,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 })
 ```
 
+## Create form from html instead of json schema
+Ngx schema form allows you to create forms from angular html templates too.
+For this you only need to import `TemplateSchemaModule` to your app, and use the 
+directive `templateSchema` on sf-form.
+
+The followin html will generate the same form as the json schema in getting started section.
+
+```html
+<sf-form  [(ngModel)]="model"  templateSchema >
+  <sf-field name="email" format="email" [required]="true"> Email </sf-field>
+  <sf-field name="password" widget="password" [required]="true"> Password </sf-field>
+  <sf-field name="rememberMe" type="boolean"> Remember Me </sf-field>
+</sf-form>
+
+```
+For more details see example app.
+
 ## Development and build
 
 To work on this package:
@@ -686,28 +790,19 @@ To work on this package:
 npm install
 ```
 
-You also need the peer dependencies:
-
-```bash
-npm run install:peers
-```
-
 Then you can build:
 
 ```bash
-npm run build
+ng build schema-form
 ```
 
 If you want to work with the demo:
 
 ```bash
 npm install -g @angular/cli
-cd ./tests
-npm install
-cd ./src/app
-ln -s ../../../src/ lib
-cd -
-ng serve
+npm innstall
+ng build schema-from
+npm start
 ```
 
 ## Building the API documentation

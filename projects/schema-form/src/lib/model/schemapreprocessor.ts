@@ -18,6 +18,7 @@ export class SchemaPreprocessor {
 
   static preprocess(jsonSchema: any, path = '/'): any {
     jsonSchema = jsonSchema || {};
+    SchemaPreprocessor.normalizeExtensions(jsonSchema);
     if (jsonSchema.type === 'object') {
       SchemaPreprocessor.checkProperties(jsonSchema, path);
       SchemaPreprocessor.checkAndCreateFieldsets(jsonSchema, path);
@@ -145,6 +146,32 @@ export class SchemaPreprocessor {
             SchemaPreprocessor.removeRecursiveRefProperties(jsonSchema.properties[fieldId], definitionPath);
           }
         }
+      }
+    }
+  }
+  
+  /**
+   * Enables alias names for JSON schema extensions.
+   *
+   * Copies the value of each alias JSON schema property
+   * to the JSON schema property of ngx-schema-form.
+   *
+   * @param schema JSON schema to enable alias names.
+   */
+  private static normalizeExtensions(schema: any): void {
+    const extensions = [
+        { name: "fieldsets", regex: /^x-?field-?sets$/i },
+        { name: "widget",    regex: /^x-?widget$/i },
+        { name: "visibleIf", regex: /^x-?visible-?if$/i }
+    ];
+    const keys = Object.keys(schema);
+    for (let i = 0; i < keys.length; ++i) {
+      let k = keys[i];
+      let e = extensions.find(e => !!k.match(e.regex));
+      if (e) {
+        let v = schema[k];
+        let copy = JSON.parse(JSON.stringify(v));
+        schema[e.name] = copy;
       }
     }
   }
