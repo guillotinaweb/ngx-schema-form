@@ -86,7 +86,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   }
 
   changeSchemaFirst() {
-    this.schema = sampleSchema2;
+    this.schema = sampleSchema1;
     this.model = sampleModel;
     this.fieldBindings = {};
     this.fieldValidators = {};
