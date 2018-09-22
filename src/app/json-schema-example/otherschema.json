@@ -38,15 +38,9 @@
     },
     "language": {
       "description": "",
-      "choices": [
-        [
-          "es",
-          "Spanish"
-        ],
-        [
-          "fr",
-          "French"
-        ]
+      "oneOf": [
+        {"enum": ["es"], "description": "Spanish"},
+        {"enum": ["fr"], "description": "French"}
       ],
       "title": "Language",
       "type": "string",
