@@ -809,7 +809,7 @@ npm install
 Then you can build:
 
 ```bash
-ng build schema-form
+npm run build:lib
 ```
 
 If you want to work with the demo:
