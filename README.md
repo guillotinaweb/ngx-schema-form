@@ -33,6 +33,22 @@ npm install ngx-schema-form --save
 
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
 
+##### JSON Schema
+With the installation there comes a JSON-Schema file that declares all specific or additional
+properties supported by *ngx-schema-form*.
+
+When using `*.json` files you may declare it with the `$schema` property to let your IDE's autocompletion help you create a schema-form.
+
+```bash
+{
+  "$schema": "./node_modules/ngx-schema-form/ngx-schema-form-schema.json",
+  "title": "My awesome schema-form"
+  ...
+}
+
+```
+
+
 ## Getting started
 Here our goal will be to create a simple login form.
 Let's start by creating a simple AppComponent taking a simple JSON schema as input.
@@ -800,7 +816,7 @@ If you want to work with the demo:
 
 ```bash
 npm install -g @angular/cli
-npm innstall
+npm install
 ng build schema-from
 npm start
 ```
