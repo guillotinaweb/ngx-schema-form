@@ -14,7 +14,6 @@ import {ActionRegistry} from './model/actionregistry';
 import {FormProperty} from './model/formproperty';
 import {BindingRegistry} from './model/bindingregistry';
 import {Binding} from './model/binding';
-import {Function} from 'estree';
 
 @Component({
   selector: 'sf-form-element',
