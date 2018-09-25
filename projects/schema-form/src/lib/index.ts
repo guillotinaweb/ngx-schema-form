@@ -27,6 +27,7 @@ export {
     SelectWidget,
     StringWidget,
     TextAreaWidget,
+    RichtextWidget,
     ButtonWidget,
     DefaultWidgetRegistry
 } from './defaultwidgets';
