@@ -9,6 +9,7 @@ import { RangeWidget } from './range/range.widget';
 import { SelectWidget } from './select/select.widget';
 import { StringWidget } from './string/string.widget';
 import { TextAreaWidget } from './textarea/textarea.widget';
+import { RichtextWidget } from './richtext/richtext.widget';
 
 import { WidgetRegistry } from '../widgetregistry';
 
@@ -35,6 +36,7 @@ export class DefaultWidgetRegistry extends WidgetRegistry {
     this.register('range', RangeWidget);
 
     this.register('textarea', TextAreaWidget);
+    this.register('richtext', RichtextWidget);
 
     this.register('file', FileWidget);
     this.register('select', SelectWidget);
