@@ -1,4 +1,4 @@
-# Ngx Schema Form [![Build Status](https://travis-ci.org/makinacorpus/ngx-schema-form.svg?branch=master)](https://travis-ci.org/makinacorpus/ngx-schema-form)
+# Ngx Schema Form [![Build Status](https://travis-ci.org/guillotinaweb/ngx-schema-form.svg?branch=master)](https://travis-ci.org/guillotinaweb/ngx-schema-form)
 
 Ngx Schema Form is an Angular 2+ module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
 
@@ -12,7 +12,7 @@ We think `angular-schema-form` is a great Angular 1 library, and when it will mo
 
 ## Demo
 
-[Demo](https://makinacorpus.github.io/ngx-schema-form/dist/ngx-schema-form)
+[Demo](https://guillotinaweb.github.io/ngx-schema-form/dist/ngx-schema-form)
 
 ## Features
 
