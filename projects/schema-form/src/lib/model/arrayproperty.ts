@@ -26,8 +26,8 @@ export class ArrayProperty extends PropertyGroup {
     return newProperty;
   }
 
-  removeItem(index: number) {
-    (<FormProperty[]>this.properties).splice(index, 1);
+  removeItem(item: FormProperty) {
+    this.properties = (<FormProperty[]>this.properties).filter(i => i !== item);
     this.updateValueAndValidity(false, true);
   }
 
