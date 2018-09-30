@@ -25,7 +25,15 @@
 			"default": "1800-12-12",
 			"placeholder": "Ex: 2009-03-11",
 			"description": "Born on"
-		},
+    },
+    "contributors": {
+      "description": "Contributors",
+			"type": "array",
+			"items": {
+        "type": "string"
+      },
+      "widget": "array"
+    },
 		"categories": {
 			"type": "array",
 			"items": {
@@ -348,7 +356,8 @@
 			"title": "Part 1 - Recipient",
 			"fields": [
 				"firstName",
-				"lastName",
+        "lastName",
+        "contributors",
 				"categories",
 				"bornOn",
 				"moreInfo",
