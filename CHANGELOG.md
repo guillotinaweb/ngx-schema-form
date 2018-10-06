@@ -1,3 +1,8 @@
+# 2.2.1 (unreleased)
+
+- Fix #233: do not emit modelChange twice (ebrehault)
+- Fix array item remove (ebrehault)
+
 # 2.2.0-beta.1 (2018-09-17)
 
 - Support custom bindings (Daniele Pecora)

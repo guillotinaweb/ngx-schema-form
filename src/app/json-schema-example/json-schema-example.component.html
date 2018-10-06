@@ -13,7 +13,7 @@
       <sf-form (onErrorChange)="logErrors($event.value)"
                (onChange)="setValue($event.value)"
                [schema]="schema"
-               [model]="model"
+               [(model)]="model"
                [validators]="fieldValidators"
                [actions]="actions"
                [bindings]="fieldBindings">

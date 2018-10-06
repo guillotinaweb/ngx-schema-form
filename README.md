@@ -139,6 +139,12 @@ For instance, you can display the current forms's value with the following templ
 template: '<sf-form [schema]="mySchema" (onChange)="value=$event.value"></sf-form>{{value | json}}'
 ```
 
+The `model` property allow two-way data binding:
+
+```
+<sf-form [schema]="mySchema" [(model)]="value"></sf-form>{{value | json}}
+```
+
 ### Widgets
 Each field can be displayed using a specific widget.
 To declare the widget you want to use, add its `id` to the field's definition:
