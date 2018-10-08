@@ -1,6 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "https://ngx-schema-form/schema",
+  "$comment": "Definition of all types supported by ngx-schema-form",
   "title": "JSON Schema ngx-schema-form",
   "type": "object",
   "$ref": "#/definitions/formWidgetType",
@@ -12,11 +13,11 @@
   "definitions": {
     "widgetTypeCustom": {
       "type": "string",
-      "description": "The name of custom widget type to use"
+      "description": "[NSF] - The name of custom widget type to use"
     },
     "widgetTypeSimple": {
       "type": "string",
-      "description": "The name of widget type to use",
+      "description": "[NSF] - The name of widget type to use",
       "enum": [
         "array",
         "object",
@@ -45,10 +46,10 @@
     },
     "widgetType": {
       "type": "object",
-      "description": "The widget type to use.",
+      "description": "[NSF] - The widget type to use.",
       "properties": {
         "id": {
-          "description": "The id of the widget.",
+          "description": "[NSF] - The id of the widget.",
           "oneOf": [
             {
               "$ref": "#/definitions/widgetTypeSimple"
@@ -63,7 +64,7 @@
         },
         "oneOf": {
           "type": "array",
-          "description": "Defines a collection to use for selectable widgets (SELECT, RADIO ...).",
+          "description": "[NSF] - Defines a collection to use for selectable widgets (SELECT, RADIO ...).",
           "items": {
             "properties": {
               "enum": {
@@ -72,29 +73,29 @@
                   "oneOf": [
                     {
                       "type": "string",
-                      "description": "Any string value."
+                      "description": "[NSF] - Any string value."
                     },
                     {
                       "type": "boolean",
-                      "description": "Either true or false."
+                      "description": "[NSF] - Either true or false."
                     },
                     {
                       "type": "number",
-                      "description": "Any number value."
+                      "description": "[NSF] - Any number value."
                     },
                     {
                       "type": "null",
-                      "description": "Null value."
+                      "description": "[NSF] - Null value."
                     }
                   ]
                 },
                 "minItems": 1,
                 "uniqueItems": true,
-                "description": "The value of this item in the selection. Only the first item will be used as value. Any value except object is allowed."
+                "description": "[NSF] - The value of this item in the selection. Only the first item will be used as value. Any value except object is allowed."
               },
               "description": {
                 "type": "string",
-                "description": "The label of this item in the selection."
+                "description": "[NSF] - The label of this item in the selection."
               }
             }
           }
@@ -103,24 +104,24 @@
       "additionalProperties": true
     },
     "buttonType": {
-      "description": "A list of buttons to trigger some action for this field.",
+      "description": "[NSF] - A list of buttons to trigger some action for this field.",
       "type": "object",
       "properties": {
         "label": {
           "type": "string",
-          "description": "The label to show on the button."
+          "description": "[NSF] - The label to show on the button."
         },
         "id": {
           "type": "string",
-          "description": "The action id must match action defined in the action object."
+          "description": "[NSF] - The action id must match action defined in the action object."
         },
         "parameters": {
           "type": "object",
-          "description": "Custom defined properties that will be passed to the action method."
+          "description": "[NSF] - Custom defined properties that will be passed to the action method."
         },
         "widget": {
           "$ref": "#/definitions/widgetTypeCustom",
-          "description": "Custom defined widget id, that will do the rendering of this button. Will render a default button if not set."
+          "description": "[NSF] - Custom defined widget id, that will do the rendering of this button. Will render a default button if not set."
         }
       },
       "required": [
@@ -130,7 +131,7 @@
       "additionalProperties": true
     },
     "buttonArrayType": {
-      "description": "A list of buttons to trigger some action for this field.",
+      "description": "[NSF] - A list of buttons to trigger some action for this field.",
       "type": "array",
       "items": {
         "$ref": "#/definitions/buttonType"
@@ -140,7 +141,7 @@
       "minItems": 1
     },
     "fieldsArrayType": {
-      "description": "A list of field paths.",
+      "description": "[NSF] - A list of field paths.",
       "type": "array",
       "items": {
         "type": "string"
@@ -149,19 +150,19 @@
       "default": []
     },
     "fieldsetsType": {
-      "description": "A section of fields.",
+      "description": "[NSF] - A section of fields.",
       "type": "object",
       "properties": {
         "id": {
           "type": "string",
-          "description": "The section id."
+          "description": "[NSF] - The section id."
         },
         "title": {
           "type": "string",
-          "description": "The label of the section."
+          "description": "[NSF] - The label of the section."
         },
         "fields": {
-          "description": "A list of property keys representing fields that belong to this sections.",
+          "description": "[NSF] - A list of property keys representing fields that belong to this sections.",
           "$ref": "#/definitions/fieldsArrayType"
         }
       },
@@ -172,7 +173,7 @@
       "additionalProperties": true
     },
     "fieldsetsArrayType": {
-      "description": "A list of definitions representing sections of widgets.",
+      "description": "[NSF] - A list of definitions representing sections of widgets.",
       "type": "array",
       "items": {
         "$ref": "#/definitions/fieldsetsType"
@@ -181,11 +182,41 @@
       "default": [],
       "minItems": 1
     },
+    "visibleIfType": {
+      "type": "object",
+      "description": "[NSF] - Definition of when is this widget visible or not. The schema property path of target fields is expected to be separated by '/' and not by '.'. E.g. '/myform/myfield'",
+      "patternProperties": {
+        "^.*$": {
+          "description": "[NSF] - The path to any other property. E.g: /cat/name",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "enum": [
+                  "$ANY$"
+                ],
+                "description": "[NSF] - When the field has any values set."
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          }
+        }
+      }
+    },
     "formWidgetTypeProperties": {
       "properties": {
         "title": {
           "type": "string",
-          "description": "The form title of the root form. Will only be showed when is an inline form"
+          "description": "[NSF] - The form title of the root form. Will only be showed when is an inline form"
         },
         "widget": {
           "oneOf": [
@@ -201,7 +232,7 @@
           ]
         },
         "order": {
-          "description": "A list of unique property keys describing the final order.",
+          "description": "[NSF] - A list of unique property keys describing the final order.",
           "$ref": "#/definitions/fieldsArrayType"
         },
         "fieldsets": {
@@ -212,37 +243,10 @@
         },
         "placeholder": {
           "type": "string",
-          "description": "A placeholder to pre-fill input field. Will work with any HTML element of type input."
+          "description": "[NSF] - A placeholder to pre-fill input field. Will work with any HTML element of type input."
         },
         "visibleIf": {
-          "type": "object",
-          "description": "Definition of when is this widget visible or not. The schema property path of target fields is expected to be separated by '/' and not by '.'. E.g. '/myform/myfield'",
-          "patternProperties": {
-            "^.*$": {
-              "description": "The path to any other property. E.g: /cat/name",
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "enum": [
-                      "$ANY$"
-                    ],
-                    "description": "When the field has any values set."
-                  },
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "boolean"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              }
-            }
-          }
+          "$ref": "#/definitions/visibleIfType"
         },
         "properties": {
           "patternProperties": {
@@ -264,7 +268,7 @@
     "formWidgetType": {
       "$ref": "#/definitions/formWidgetTypeProperties",
       "type": "object",
-      "description": "A form widget.",
+      "description": "[NSF] - A form widget.",
       "additionalProperties": true
     }
   }
