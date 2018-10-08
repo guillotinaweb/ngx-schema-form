@@ -212,7 +212,6 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
       if (!this.onChangeCallback) {
         this.setModel(value);
       }
-      this.modelChange.emit(value);
     }
     this.onChange.emit({value: value});
   }

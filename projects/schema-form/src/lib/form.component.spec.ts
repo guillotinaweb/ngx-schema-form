@@ -160,11 +160,10 @@ describe('FormComponent', () => {
         });
       });
 
-      it('should emit modelChange and onChange events on field value change', () => {
+      it('should emit onChange events on field value change', () => {
         const predicate = By.directive(FormComponent);
         const form = fixture.debugElement.query(predicate).componentInstance;
         spyOn(form.onChange, 'emit');
-        spyOn(form.modelChange, 'emit');
 
         const input = fixture.debugElement.query(By.css('input')).nativeElement;
         fixture.detectChanges();
@@ -175,13 +174,6 @@ describe('FormComponent', () => {
 
           const value = { fieldA: 'CHANGED' };
           expect(form.onChange.emit).toHaveBeenCalledWith({ value });
-
-          if (component instanceof TestAComponent) {
-            expect(form.modelChange.emit).toHaveBeenCalledWith(value);
-          } else {
-            // TestBComponent has no observer to model, it should not emit
-            expect(form.modelChange.emit).not.toHaveBeenCalled();
-          }
         });
       });
     });
