@@ -33,7 +33,7 @@ export class FileWidget extends ControlWidget implements AfterViewInit {
     });
 
     this.reader.onloadend = () => {
-      this.filedata.data = btoa(this.reader.result);
+      this.filedata.data = window.btoa((this.reader.result as string));
       this.formProperty.setValue(this.filedata, false);
     };
   }
