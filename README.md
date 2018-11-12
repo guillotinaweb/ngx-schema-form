@@ -823,7 +823,7 @@ If you want to work with the demo:
 ```bash
 npm install -g @angular/cli
 npm install
-ng build schema-from
+ng build schema-form
 npm start
 ```
 
