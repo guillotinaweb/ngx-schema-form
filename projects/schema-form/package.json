@@ -24,6 +24,9 @@
     "Juan Manuel Verges",
     "Daniele Pecora <daniele.pecora@googlemail.com>"
   ],
+  "dependencies": {
+    "z-schema": "^3.17.0"
+  },
   "peerDependencies": {
     "@angular/common": "^7.0.3",
     "@angular/core": "^7.0.3",
@@ -31,12 +34,8 @@
     "@angular/http": "^7.0.3",
     "@angular/platform-browser": "^7.0.3",
     "body-parser": "^1.18.3",
-    "core-js": "^2.5.4",
-    "methods": "^1.1.2",
-    "raw-loader": "0.5.1",
     "rxjs": "^6.3.3",
     "typescript": "2.3.4",
-    "z-schema": "^3.17.0",
     "zone.js": "^0.8.26"
   }
 }
