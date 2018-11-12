@@ -35,7 +35,7 @@
     "@angular/platform-browser": "^7.0.3",
     "body-parser": "^1.18.3",
     "rxjs": "^6.3.3",
-    "typescript": "2.3.4",
+    "typescript": "^2.3.4",
     "zone.js": "^0.8.26"
   }
 }
