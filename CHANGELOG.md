@@ -1,3 +1,7 @@
+# 2.3.1 (2018-11-14)
+
+- Fix package.json to explicitly support Angular 6 and 7
+
 # 2.3.0 (2018-11-14)
 
 - Fix #233: do not emit modelChange twice (ebrehault)
