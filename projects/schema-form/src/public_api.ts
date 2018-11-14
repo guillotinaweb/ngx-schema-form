@@ -8,16 +8,24 @@ export { FormElementComponent } from './lib/formelement.component';
 export { FormElementComponentAction } from './lib/formelement.action.component';
 export { WidgetChooserComponent } from './lib/widgetchooser.component';
 export { WidgetRegistry } from './lib/widgetregistry';
-export { Validator } from './lib/model/validator';
-export { ValidatorRegistry } from './lib/model/validatorregistry';
-export { Action } from './lib/model/action';
-export { ActionRegistry } from './lib/model/actionregistry';
-export { Binding } from './lib/model/binding';
-export { BindingRegistry } from './lib/model/bindingregistry';
+export {
+  FormProperty,
+  ArrayProperty,
+  FormPropertyFactory,
+  SchemaPreprocessor,
+  Validator,
+  ValidatorRegistry,
+  Action,
+  ActionRegistry,
+  Binding,
+  BindingRegistry,
+} from './lib/model';
 export {
   SchemaValidatorFactory,
   ZSchemaValidatorFactory
 } from './lib/schemavalidatorfactory';
+export { WidgetFactory } from './lib/widgetfactory';
+export { TerminatorService } from './lib/terminator.service';
 export {
   Widget,
   ControlWidget,

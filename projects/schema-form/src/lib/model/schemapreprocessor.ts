@@ -59,13 +59,17 @@ export class SchemaPreprocessor {
       }
     }
 
-    for (let fieldId of fieldsId) {
+    for (const fieldId of fieldsId) {
+      const isRequired = jsonSchema.required && jsonSchema.required.indexOf(fieldId) > -1;
+      if (isRequired && jsonSchema.properties[fieldId]) {
+        jsonSchema.properties[fieldId].required = true;
+      }
       if (usedFields.hasOwnProperty(fieldId)) {
         if (usedFields[fieldId].length > 1) {
           schemaError(`${fieldId} is referenced by more than one fieldset: ${usedFields[fieldId]}`, path);
         }
         delete usedFields[fieldId];
-      } else if (jsonSchema.required.indexOf(fieldId) > -1) {
+      } else if (isRequired) {
         schemaError(`${fieldId} is a required field but it is not referenced as part of a 'order' or a 'fieldset' property`, path);
       } else {
         delete jsonSchema[fieldId];
