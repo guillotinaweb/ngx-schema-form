@@ -1,13 +1,13 @@
 {
   "name": "ngx-schema-form",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/makinacorpus/ngx-schema-form"
   },
   "keywords": [
     "angular",
-    "angular 6",
+    "angular 7",
     "schema",
     "form",
     "schema form"
