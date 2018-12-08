@@ -7,7 +7,7 @@ export abstract class SchemaValidatorFactory {
 
   /**
    * Override this method to reset the schema validator instance.<br/>
-   * This may be required since some schema validators keep a deep<br/>
+   * This may be required since some schema validators keep a deep copy<br/>
    * of your schemas and changes at runtime are not recognized by the schema validator.<br/>
    * In this method you should either re-instantiate the schema validator or
    * clear its cache.<br/>
