@@ -13,11 +13,11 @@ import { ControlWidget } from '../../widget';
 		{{schema.description}}
 	</span>
 
-	<select *ngIf="schema.type!='array'" [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control">
+	<select *ngIf="schema.type!='array'" [formControl]="control" [attr.name]="name" [disabled]="schema.readOnly" class="form-control">
 		<option *ngFor="let option of schema.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
 	</select>
 
-	<select *ngIf="schema.type==='array'" multiple [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control">
+	<select *ngIf="schema.type==='array'" multiple [formControl]="control" [attr.name]="name" [disabled]="schema.readOnly" class="form-control">
 		<option *ngFor="let option of schema.items.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
 	</select>
 
