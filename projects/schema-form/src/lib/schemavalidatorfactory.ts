@@ -4,6 +4,26 @@ export abstract class SchemaValidatorFactory {
   abstract createValidatorFn(schema): (value: any) => any;
 
   abstract getSchema(schema, ref): any;
+
+  /**
+   * Override this method to reset the schema validator instance.<br/>
+   * This may be required since some schema validators keep a deep copy<br/>
+   * of your schemas and changes at runtime are not recognized by the schema validator.<br/>
+   * In this method you should either re-instantiate the schema validator or
+   * clear its cache.<br/>
+   * Example of re-instantiating schema validator
+   * <code>
+   *     reset(){
+   *         this.zschema = new ZSchema({})
+   *     }
+   * </code>
+   * <br/>
+   * Since this method it self does nothing there is <br/>
+   * no need to call the <code>super.reset()</code>
+   */
+  reset() {
+
+  }
 }
 
 export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
@@ -12,9 +32,17 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
   constructor() {
     super();
-    this.zschema = new ZSchema({
-        breakOnFirstError: false
+    this.createSchemaValidator()
+  }
+
+  private createSchemaValidator() {
+    this.zschema =  new ZSchema({
+      breakOnFirstError: false
     });
+  }
+
+  reset() {
+    this.createSchemaValidator()
   }
 
   createValidatorFn(schema: any) {
