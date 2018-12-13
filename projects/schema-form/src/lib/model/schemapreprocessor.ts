@@ -62,7 +62,7 @@ export class SchemaPreprocessor {
     for (const fieldId of fieldsId) {
       const isRequired = jsonSchema.required && jsonSchema.required.indexOf(fieldId) > -1;
       if (isRequired && jsonSchema.properties[fieldId]) {
-        jsonSchema.properties[fieldId].required = true;
+        jsonSchema.properties[fieldId].isRequired = true;
       }
       if (usedFields.hasOwnProperty(fieldId)) {
         if (usedFields[fieldId].length > 1) {
