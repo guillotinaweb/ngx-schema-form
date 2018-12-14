@@ -563,7 +563,7 @@ export class AppComponent {
   }
 }
 ```
-Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden.
+Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden and not present in model.
 ```js
 mySchema = {
     "properties": {
@@ -574,6 +574,29 @@ mySchema = {
     }
   }
 ```
+
+`visibleIf` may also declare conditional binding by using `oneOf` or `allOf` properties.
+Where `oneOf` is handled as `OR` and `allOf` is handled as `AND`.
+```
+  "visibleIf": {
+        "allOf": [
+          {
+            "forename": [
+              "$ANY$"
+            ]
+          },
+          {
+            "name": [
+              "$ANY$"
+            ]
+          }
+        ]
+      }
+```
+The `oneOf` a is prioritized before the `allOf` and both are prioritized before the 
+property binding.
+ 
+_`oneOf` and `allOf` oneOf and allOf are reserved keywords and not suitable as property names_
 
 #### Hidden fields
 When a field has been made invisible by the condition `visibleIf`

@@ -171,8 +171,91 @@ export abstract class FormProperty {
     }
   }
 
+  private __bindVisibility(): boolean {
+    /**
+     * <pre>
+     *     "oneOf":[{
+     *         "path":["value","value"]
+     *     },{
+     *         "path":["value","value"]
+     *     }]
+     *     </pre>
+     * <pre>
+     *     "allOf":[{
+     *         "path":["value","value"]
+     *     },{
+     *         "path":["value","value"]
+     *     }]
+     *     </pre>
+     */
+    const visibleIfProperty = this.schema.visibleIf
+    const visibleIfOf = (visibleIfProperty || {}).oneOf || (visibleIfProperty || {}).allOf;
+    if (visibleIfOf) {
+      for (const visibleIf of visibleIfOf) {
+        if (typeof visibleIf === 'object' && Object.keys(visibleIf).length === 0) {
+          this.setVisible(false);
+        } else if (visibleIf !== undefined) {
+          const propertiesBinding = [];
+          for (const dependencyPath in visibleIf) {
+            if (visibleIf.hasOwnProperty(dependencyPath)) {
+              const property = this.searchProperty(dependencyPath);
+              if (property) {
+                let valueCheck
+                if (this.schema.visibleIf.oneOf) {
+                  valueCheck = property.valueChanges.pipe(map(
+                    value => {
+                      if (visibleIf[dependencyPath].indexOf('$ANY$') !== -1) {
+                        return value.length > 0;
+                      } else {
+                        return visibleIf[dependencyPath].indexOf(value) !== -1;
+                      }
+                    }
+                  ));
+                } else if (this.schema.visibleIf.allOf) {
+                  const _chk = (value) => {
+                    for (const item of this.schema.visibleIf.allOf) {
+                      for (const depPath of Object.keys(item)) {
+                        const prop = this.searchProperty(depPath);
+                        const propVal = prop._value;
+                        let valid = false;
+                        if (item[depPath].indexOf('$ANY$') !== -1) {
+                          valid = propVal.length > 0;
+                        } else {
+                          valid = item[depPath].indexOf(propVal) !== -1;
+                        }
+                        if (!valid) {
+                          return false;
+                        }
+                      }
+                    }
+                    return true;
+                  };
+                  valueCheck = property.valueChanges.pipe(map(_chk));
+                }
+                const visibilityCheck = property._visibilityChanges;
+                const and = combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
+                propertiesBinding.push(and);
+              } else {
+                console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
+              }
+            }
+          }
+
+          combineLatest(propertiesBinding, (...values: boolean[]) => {
+            return values.indexOf(true) !== -1;
+          }).pipe(distinctUntilChanged()).subscribe((visible) => {
+            this.setVisible(visible);
+          });
+        }
+      }
+      return true;
+    }
+  }
+
   // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
   public _bindVisibility() {
+    if(this.__bindVisibility())
+      return
     let visibleIf = this.schema.visibleIf;
     if (typeof visibleIf === 'object' && Object.keys(visibleIf).length === 0) {
       this.setVisible(false);
