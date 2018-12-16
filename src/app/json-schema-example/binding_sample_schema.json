@@ -32,6 +32,24 @@
           }
         }
       }
+    },
+    "test": {
+      "type": "string",
+      "title": "Testparam",
+      "visibleIf": {
+        "allOf": [
+          {
+            "forename": [
+              "$ANY$"
+            ]
+          },
+          {
+            "name": [
+              "$ANY$"
+            ]
+          }
+        ]
+      }
     }
   }
 }
