@@ -1,3 +1,10 @@
+# 2.3.2 (2018-12-17)
+
+- Extend visibleIf condition with `oneOf` and `allOf` (daniele-pecora)
+- Rename the `required` flag, fixed #263. (Invis1ble)
+- Reset SchemaValidator (daniele-pecora)
+- Fix disabled property (Jackson Vaughan)
+
 # 2.3.1 (2018-11-14)
 
 - Fix package.json to explicitly support Angular 6 and 7
