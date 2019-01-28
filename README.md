@@ -219,7 +219,7 @@ mySchema = {
 
 ### Default widget's registry
 Available widgets are managed through a `WidgetRegistry`.
-The default registry ([`DefaultWidgetRegistry`](./src/defaultwidgets/defaultwidgetregistry.ts)) contains many widgets listed below, ordered by type:
+The default registry ([`DefaultWidgetRegistry`](./projects/schema-form/src/lib/defaultwidgets/defaultwidgetregistry.ts)) contains many widgets listed below, ordered by type:
 
 - **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio, richtext
 - **number**: number, integer, range
