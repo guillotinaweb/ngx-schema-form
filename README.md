@@ -598,6 +598,40 @@ property binding.
  
 _`oneOf` and `allOf` oneOf and allOf are reserved keywords and not suitable as property names_
 
+**Arrays**
+
+To address array items or not yet existing properties the `visibleIf` 
+condition path may contain wildcard `*`.
+
+e.g 
+```
+  "visibleIf": {
+        "oneOf": [
+          {
+            "/person/*/age": [
+              "18"
+            ]
+          }
+        ]
+      }
+```
+
+To address a specific item the `visibleIf` 
+condition path should contain the index position.
+
+e.g 
+```
+  "visibleIf": {
+        "oneOf": [
+          {
+            "/person/1/age": [
+              "18"
+            ]
+          }
+        ]
+      }
+```
+
 #### Hidden fields
 When a field has been made invisible by the condition `visibleIf`
 then the property of the invisible field will be missing in the result model.

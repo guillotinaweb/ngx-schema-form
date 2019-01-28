@@ -13,6 +13,7 @@ import sampleModel from './samplemodel.json';
 import binding_sample_schema from './binding_sample_schema.json';
 import binding_sample_model from './binding_sample_model.json';
 import binding_sample_bindings from './binding_sample_bindings';
+import visibility_binding_example from './visibility-binding-example-schema.json';
 
 import {AppService, AppData} from '../app.service';
 
@@ -33,9 +34,10 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   private subs: Subscription;
 
   samples = [
-    {label: 'Sample 1 - General', event: this.changeSchemaFirst, selected: true},
+    {label: 'Sample 1 - General', event: this.changeSchemaFirst, selected: false},
     {label: 'Sample 2 - Custom bindings', event: this.changeSchemaWithBindings, selected: false},
-    {label: 'Sample 3 - Otherschema', event: this.changeSchemaOtherschema, selected: false}
+    {label: 'Sample 3 - Otherschema', event: this.changeSchemaOtherschema, selected: false},
+    {label: 'Sample 4 - Visibility binding', event: this.changeSchemaVisibilityBinding, selected: true},
   ];
 
   constructor(
@@ -77,7 +79,6 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   }
 
   changeSchema(event) {
-    console.log(event);
     for (const sample of this.samples) {
       if (sample.label === event) {
         sample.event.bind(this)();
@@ -195,6 +196,14 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
     this.schema = binding_sample_schema;
     this.model = binding_sample_model;
     this.fieldBindings = binding_sample_bindings;
+    this.fieldValidators = {};
+    this.actions = {};
+  }
+
+  changeSchemaVisibilityBinding() {
+    this.schema = visibility_binding_example;
+    this.model = {};
+    this.fieldBindings = {};
     this.fieldValidators = {};
     this.actions = {};
   }
