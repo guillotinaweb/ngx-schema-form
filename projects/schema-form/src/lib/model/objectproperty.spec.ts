@@ -6,12 +6,14 @@ import {
 } from '../schemavalidatorfactory';
 
 import { ValidatorRegistry } from './validatorregistry';
+import {PropertyBindingRegistry} from '../property-binding-registry';
 
 describe('ObjectProperty', () => {
 
   let A_VALIDATOR_REGISTRY = new ValidatorRegistry();
   let A_SCHEMA_VALIDATOR_FACTORY = new ZSchemaValidatorFactory();
-  let A_FORM_PROPERTY_FACTORY = new FormPropertyFactory(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY);
+  let A_PROPERTY_BINDING_REGISTRY=new PropertyBindingRegistry();
+  let A_FORM_PROPERTY_FACTORY = new FormPropertyFactory(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, A_PROPERTY_BINDING_REGISTRY);
 
 
   let THE_OBJECT_SCHEMA = {
