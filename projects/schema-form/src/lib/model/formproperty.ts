@@ -388,18 +388,24 @@ export abstract class PropertyGroup extends FormProperty {
 
   set properties(properties: FormProperty[] | { [key: string]: FormProperty }) {
     /**
-     * Override the setter to add an observer for new added items to it.<br/>
-     * Adding a new property will check for visibility to be updated<br/>
+     * Override the setter to add an observer that notices when an item is added or removed.<br/>
+     */
+    this._properties = new Proxy(properties, this._propertyProxyHandler);
+  }
+
+  private _propertyProxyHandler: ProxyHandler<FormProperty[] | { [key: string]: FormProperty }> = {
+    /**
+     * When a new item is added it will be checked for visibility updates to proceed <br/>
      * if any other field has a binding reference to it.<br/>
      */
-    const _prop = new Proxy(properties, {
-      set(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey, value: any, receiver: any): boolean {
+    set(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey, value: any, receiver: any): boolean {
 
-        const property = value as FormProperty;
-        /**
-         * 1) Make sure a canonical path is set
-         */
-        if (Array.isArray(target) && value instanceof FormProperty) {
+      /**
+       * 1) Make sure a canonical path is set
+       */
+      const assertCanonicalPath = (propertyValue: any) => {
+        const formProperty = propertyValue as FormProperty;
+        if (Array.isArray(target) && propertyValue instanceof FormProperty) {
           /**
            * Create a canonical path replacing the last '*' with the elements position in array
            * @param propertyPath
@@ -411,35 +417,38 @@ export abstract class PropertyGroup extends FormProperty {
               return propertyPath.substring(0, pos) + indexOfChild.toString() + propertyPath.substring(pos + 1);
             }
           };
-          if (property) {
-            property._canonicalPath = getCanonicalPath(property._canonicalPath, p as number);
+          if (formProperty) {
+            formProperty._canonicalPath = getCanonicalPath(formProperty._canonicalPath, p as number);
           }
         }
 
-        const propertyGroup = property as PropertyGroup;
-        const children = (Array.isArray(propertyGroup.properties) ?
+        const propertyGroup = formProperty as PropertyGroup;
+        const propertyGroupChildren = (Array.isArray(propertyGroup.properties) ?
           propertyGroup.properties :
           Object.values(propertyGroup.properties || {})) as FormProperty[];
-        if ((property.path || '').endsWith('/*')) {
+        if ((formProperty.path || '').endsWith('/*')) {
           /**
            * If it is an array, then all children canonical paths must be computed now.
            * The children don't have the parent's path segment set yet,
            * because they are created before the parent gets attached to its parent.
            */
-          for (const child of children) {
-            child._canonicalPath = property._canonicalPath + child._canonicalPath.substring(property.path.length);
+          for (const child of propertyGroupChildren) {
+            child._canonicalPath = formProperty._canonicalPath + child._canonicalPath.substring(formProperty.path.length);
           }
         }
+        return {property: formProperty, children: propertyGroupChildren};
+      };
+      const {property, children} = assertCanonicalPath(value);
 
+      /**
+       * 2) Add the new property before rebinding, so it can be found by <code>_bindVisibility</code>
+       */
+      const result = target[p as string] = value;
 
-        /**
-         * 2) Add the new property before rebinding, so it can be found by <code>_bindVisibility</code>
-         */
-        const result = target[p as string] = value;
-
-        /**
-         * 3) Re-bind the visibility bindings referencing to this canonical paths
-         */
+      /**
+       * 3) Re-bind the visibility bindings referencing to this canonical paths
+       */
+      const rebindVisibility = () => {
         const rebindAll = [property].concat(children);
         const findPropertiesToRebind = (formProperty: FormProperty) => {
           const propertyBindings = formProperty._propertyBindingRegistry.getPropertyBindingsVisibility();
@@ -473,18 +482,18 @@ export abstract class PropertyGroup extends FormProperty {
             }
           }
         }
+      };
+      rebindVisibility();
 
-        return result;
-      },
-      get(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey, receiver: any): any {
-        return target[p as string];
-      },
-      deleteProperty(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey): boolean {
-        return delete target[p as string];
-      }
-    });
-    this._properties = _prop;
-  }
+      return result;
+    },
+    get(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey, receiver: any): any {
+      return target[p as string];
+    },
+    deleteProperty(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey): boolean {
+      return delete target[p as string];
+    }
+  };
 
   getProperty(path: string) {
     let subPathIdx = path.indexOf('/');
