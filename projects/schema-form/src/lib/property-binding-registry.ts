@@ -42,7 +42,6 @@ export class PropertyBindings {
     for (const res of result.results) {
       values = values.concat(Object.keys(res.value));
     }
-    console.log('::::findByDependencyPath', dependencyPath, result);
     return result.found ? values : [];
   }
 
@@ -91,7 +90,6 @@ export class SimplePropertyIndexer {
       indexPos[SimplePropertyIndexer.MARKER] = indexPos[SimplePropertyIndexer.MARKER] || {};
       indexPos[SimplePropertyIndexer.MARKER][value] = value;
     }
-    console.log(':::INDEX:::', this.index);
   }
 
   /**
