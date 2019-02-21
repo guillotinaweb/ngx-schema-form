@@ -74,7 +74,6 @@
           "title": "Field 4",
           "description": " This field is only visible if any car exists and tire #2 is named 'michelin'",
           "default": "You named the 2nd tire of any car/s MICHELIN",
-          "TODO VISIBILITY-BINDINGS (issue #258) [IN PROGRESS] ": "TODO::// THIS ONLY WILL WORK PROPER IF THE OTHER VISIBLE IF ARE DEACTIVATED",
           "visibleIf": {
             "/garage/cars/*/tires/1/name": [
               "michelin"
