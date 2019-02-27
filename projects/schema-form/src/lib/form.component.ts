@@ -197,7 +197,7 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
 
   private setModel(value: any) {
     if (this.model) {
-      Object.assign(this.model, value);
+      Object.assign(this.model, JSON.parse(JSON.stringify(value)));
     } else {
       this.model = value;
     }
