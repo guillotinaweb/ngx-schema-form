@@ -426,7 +426,8 @@ export class AppComponent {
   // Declare a mapping between action ids and their implementations
   myValidators = {
     "/passwordCheck": (value, property, form) => {
-      if (controls.password !== undefined && controls.password.valid && value !== values.password) {
+      const passwordProperty = formProperty.findRoot().getProperty('password')
+      if (passwordProperty.value !== undefined && property.valid && value !== passwordProperty.value) {
         return { "passwordCheck": { "expectedValue": "same as 'password'" } }
       }
       return null;
