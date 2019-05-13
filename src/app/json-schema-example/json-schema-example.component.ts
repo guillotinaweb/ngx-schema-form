@@ -34,10 +34,10 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   private subs: Subscription;
 
   samples = [
-    {label: 'Sample 1 - General', event: this.changeSchemaFirst, selected: false},
+    {label: 'Sample 1 - General', event: this.changeSchemaFirst, selected: true},
     {label: 'Sample 2 - Custom bindings', event: this.changeSchemaWithBindings, selected: false},
     {label: 'Sample 3 - Otherschema', event: this.changeSchemaOtherschema, selected: false},
-    {label: 'Sample 4 - Visibility binding', event: this.changeSchemaVisibilityBinding, selected: true},
+    {label: 'Sample 4 - Visibility binding', event: this.changeSchemaVisibilityBinding, selected: false},
   ];
 
   constructor(
