@@ -12,7 +12,8 @@
     {
       "fields": [
         "author",
-        "language"
+        "language",
+        "version"
       ],
       "id": "settings",
       "title": "Settings"
@@ -43,6 +44,25 @@
         {"enum": ["fr"], "description": "French"}
       ],
       "title": "Language",
+      "type": "string",
+      "widget": "select"
+    },
+    "version": {
+      "description": "",
+      "enum": [
+        "2.0",
+        "1.9",
+        "1.8",
+        "1.7",
+        "1.6",
+        "1.5",
+        "1.4",
+        "1.3",
+        "1.2",
+        "1.1",
+        "1.0"
+      ],
+      "title": "Version",
       "type": "string",
       "widget": "select"
     }
