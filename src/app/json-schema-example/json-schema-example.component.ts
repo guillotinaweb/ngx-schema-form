@@ -4,7 +4,7 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import {WidgetRegistry, Validator, Binding} from 'ngx-schema-form';
+import {WidgetRegistry, Validator, Binding} from '../../../projects/schema-form/src/public_api';
 import {Subscription} from 'rxjs';
 
 import sampleSchema1 from './sampleschema.json';

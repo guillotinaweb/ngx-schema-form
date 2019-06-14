@@ -6,7 +6,7 @@ import {
   ZSchemaValidatorFactory,
   WidgetRegistry,
   DefaultWidgetRegistry
-} from 'ngx-schema-form';
+} from '../../../projects/schema-form/src/public_api';
 
 
 

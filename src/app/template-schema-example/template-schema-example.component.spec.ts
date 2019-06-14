@@ -8,7 +8,7 @@ import {
   TemplateSchemaModule,
   WidgetRegistry,
   DefaultWidgetRegistry
-} from 'ngx-schema-form';
+} from '../../../projects/schema-form/src/public_api';
 
 import {
   TemplateSchemaExampleComponent
