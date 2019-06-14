@@ -1,3 +1,7 @@
+# 2.3.3 (2019-06-14)
+
+- Update angular to 7.2 (mathilde-pellerin)
+
 # 2.3.2 (2018-12-17)
 
 - Extend visibleIf condition with `oneOf` and `allOf` (daniele-pecora)
