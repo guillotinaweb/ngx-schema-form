@@ -1,6 +1,6 @@
 {
   "name": "ngx-schema-form",
-  "version": "2.3.2",
+  "version": "2.3.3",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/makinacorpus/ngx-schema-form"
@@ -28,13 +28,13 @@
     "z-schema": "^3.17.0"
   },
   "peerDependencies": {
-    "@angular/common": ">=6 <=7",
-    "@angular/core": ">=6 <=7",
-    "@angular/forms": ">=6 <=7",
-    "@angular/http": ">=6 <=7",
-    "@angular/platform-browser": ">=6 <=7",
+    "@angular/common": ">=6 <=7.3",
+    "@angular/core": ">=6 <=7.3",
+    "@angular/forms": ">=6 <=7.3",
+    "@angular/http": ">=6 <=7.3",
+    "@angular/platform-browser": ">=6 <=7.3",
     "rxjs": "^6.3.3",
-    "typescript": "^2.3.4",
+    "typescript": "~3.2.2",
     "zone.js": "^0.8.26"
   }
 }
