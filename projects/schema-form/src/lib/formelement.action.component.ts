@@ -24,7 +24,7 @@ export class FormElementComponentAction implements OnInit, OnChanges, OnDestroy 
   @Input()
   formProperty: any;
 
-  @ViewChild('target', {read: ViewContainerRef}) container: ViewContainerRef;
+  @ViewChild('target', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
 
   private ref: ComponentRef<any>;
   private subs: Subscription;

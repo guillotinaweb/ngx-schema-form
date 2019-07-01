@@ -26,7 +26,7 @@ export class WidgetChooserComponent implements OnInit, OnChanges, OnDestroy {
 
   @Output() widgetInstanciated = new EventEmitter<any>();
 
-  @ViewChild('target', {read: ViewContainerRef}) container: ViewContainerRef;
+  @ViewChild('target', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
 
   private widgetInstance: any;
   private ref: ComponentRef<any>;
