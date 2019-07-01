@@ -1,3 +1,7 @@
+# 2.3.4 (2019-07-01)
+
+- Upgrade to Angular 8 (ebrehault)
+
 # 2.3.3 (2019-06-14)
 
 - Update angular to 7.2 (mathilde-pellerin)
