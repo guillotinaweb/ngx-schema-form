@@ -13,14 +13,14 @@ import { FormProperty } from '../../model';
 	<div *ngFor="let itemProperty of formProperty.properties">
 		<sf-form-element [formProperty]="itemProperty"></sf-form-element>
 		<button (click)="removeItem(itemProperty)" class="btn btn-default array-remove-button"
-			[disabled]="isAddButtonDisabled()" 
+			[disabled]="isRemoveButtonDisabled()" 
 			*ngIf="!(schema.hasOwnProperty('minItems') && schema.hasOwnProperty('maxItems') && schema.minItems === schema.maxItems)"
 			>
 			<span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
 		</button>
 	</div>
 	<button (click)="addItem()" class="btn btn-default array-add-button"
-		[disabled]="isRemoveButtonDisabled()"
+		[disabled]="isAddButtonDisabled()"
 		*ngIf="!(schema.hasOwnProperty('minItems') && schema.hasOwnProperty('maxItems') && schema.minItems === schema.maxItems)"
 	>
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
