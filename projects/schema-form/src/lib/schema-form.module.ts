@@ -27,6 +27,7 @@ import {
 import {WidgetRegistry} from './widgetregistry';
 import {SchemaValidatorFactory, ZSchemaValidatorFactory} from './schemavalidatorfactory';
 import {FormElementComponentAction} from './formelement.action.component';
+import {ExpressionCompilerFactory, JEXLExpressionCompilerFactory} from './expression-compiler-factory';
 
 const moduleProviders = [
   {
@@ -36,6 +37,10 @@ const moduleProviders = [
   {
     provide: SchemaValidatorFactory,
     useClass: ZSchemaValidatorFactory
+  },
+  {
+    provide: ExpressionCompilerFactory,
+    useClass: JEXLExpressionCompilerFactory
   }
 ];
 

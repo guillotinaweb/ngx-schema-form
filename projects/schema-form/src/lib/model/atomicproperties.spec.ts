@@ -13,6 +13,7 @@ import {
 import {
   ZSchemaValidatorFactory
 } from '../schemavalidatorfactory';
+import { JEXLExpressionCompilerFactory } from '../expression-compiler-factory';
 
 class AtomicPropertyImpl extends AtomicProperty {
 
@@ -24,13 +25,14 @@ class AtomicPropertyImpl extends AtomicProperty {
 describe('Atomic properties', () => {
   let A_SCHEMA_VALIDATOR_FACTORY = new ZSchemaValidatorFactory();
   let A_VALIDATOR_REGISTRY = new ValidatorRegistry();
+  let A_EXPRESSION_COMPILER_FACTORY = new JEXLExpressionCompilerFactory();
 
   describe('AtomicProperty', () => {
     let THE_PROPERTY_SCHEMA = {};
     let atomicProperty: AtomicProperty;
 
     beforeEach(() => {
-      atomicProperty = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, THE_PROPERTY_SCHEMA, null, '');
+      atomicProperty = new AtomicPropertyImpl(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, A_EXPRESSION_COMPILER_FACTORY, THE_PROPERTY_SCHEMA, null, '');
     });
 
     it('reset with no argument and default value in schema should use the default value', () => {
@@ -39,6 +41,7 @@ describe('Atomic properties', () => {
       let atomicPropertyWithDefault = new AtomicPropertyImpl(
         A_SCHEMA_VALIDATOR_FACTORY,
         A_VALIDATOR_REGISTRY,
+        A_EXPRESSION_COMPILER_FACTORY,
         A_SCHEMA_WITH_DEFAULT,
         null,
         ''
@@ -67,6 +70,7 @@ describe('Atomic properties', () => {
       let property = new NumberProperty(
         A_SCHEMA_VALIDATOR_FACTORY,
         A_VALIDATOR_REGISTRY,
+        A_EXPRESSION_COMPILER_FACTORY,
         AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM,
         null,
         ''
