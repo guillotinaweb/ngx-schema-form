@@ -23,9 +23,10 @@ import {SchemaValidatorFactory} from './schemavalidatorfactory';
 import {WidgetFactory} from './widgetfactory';
 import {TerminatorService} from './terminator.service';
 import {PropertyBindingRegistry} from './property-binding-registry';
+import { ExpressionCompilerFactory } from './expression-compiler-factory';
 
-export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBindingRegistry) {
-  return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry, propertyBindingRegistry);
+export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBindingRegistry, expressionCompilerFactory) {
+  return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry, propertyBindingRegistry, expressionCompilerFactory);
 }
 
 @Component({
@@ -45,7 +46,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBi
     {
       provide: FormPropertyFactory,
       useFactory: useFactory,
-      deps: [SchemaValidatorFactory, ValidatorRegistry, PropertyBindingRegistry]
+      deps: [SchemaValidatorFactory, ValidatorRegistry, PropertyBindingRegistry, ExpressionCompilerFactory]
     },
     TerminatorService,
     {

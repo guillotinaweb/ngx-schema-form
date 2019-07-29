@@ -33,7 +33,7 @@ import {
     ReactiveFormsModule,
     HttpClientModule,
     RouterModule.forRoot(routes),
-    SchemaFormModule,
+    SchemaFormModule.forRoot(),
     TemplateSchemaModule
   ],
   providers: [

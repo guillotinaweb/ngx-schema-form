@@ -25,7 +25,8 @@
     "Daniele Pecora <daniele.pecora@googlemail.com>"
   ],
   "dependencies": {
-    "z-schema": "^3.17.0"
+    "z-schema": "^3.17.0",
+    "jexl": "^2.1.1"
   },
   "peerDependencies": {
     "@angular/common": ">=6 <=8.1",
