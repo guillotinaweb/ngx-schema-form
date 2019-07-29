@@ -200,6 +200,9 @@ export abstract class FormProperty {
             source: sourceProperty,
             target: targetProperty
           })
+          if (valid) {
+            break
+          }
         }
       } else {
         valid = value.indexOf(expression) !== -1;
