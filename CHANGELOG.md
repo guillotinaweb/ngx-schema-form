@@ -1,3 +1,12 @@
+# 2.4.0 (2019-07-29)
+
+- Feature #228: add support for expression in visibleIf condition (daniele-pecora)
+- Fix #293: hide or disable array widget add and remove button in relation to the settings of 'maxItems' and 'minItems' in schema (daniele-pecora)
+
+# 2.3.5 (2019-07-04)
+
+(fix build)
+
 # 2.3.4 (2019-07-01)
 
 - Upgrade to Angular 8 (ebrehault)
