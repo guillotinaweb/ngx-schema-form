@@ -205,7 +205,7 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = value.indexOf(expression) !== -1;
+        valid = expression.indexOf(value) !== -1;
       }
       return valid
     } catch (error) {
