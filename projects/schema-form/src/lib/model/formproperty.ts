@@ -186,7 +186,7 @@ export abstract class FormProperty {
     targetProperty: FormProperty,
     dependencyPath: string,
     value: any = '',
-    expression: string = ''): boolean {
+    expression: string|string[] = ''): boolean {
     try {
       let valid = false
       if (expression.indexOf('$ANY$') !== -1) {
@@ -209,7 +209,12 @@ export abstract class FormProperty {
       }
       return valid
     } catch (error) {
-      console.error('Error processing "VisibileIf" expression for path: ', dependencyPath, 'source:', sourceProperty, 'target:', targetProperty, 'value:', value, error)
+      console.error('Error processing "VisibileIf" expression for path: ', dependencyPath,
+        `source - ${sourceProperty._canonicalPath}: `, sourceProperty,
+        `target - ${targetProperty._canonicalPath}: `, targetProperty,
+        'value:', value,
+        'expression: ', expression,
+        'error: ', error)
     }
   }
 
@@ -255,7 +260,9 @@ export abstract class FormProperty {
                           for (const depPath of Object.keys(item)) {
                             const prop = this.searchProperty(depPath);
                             const propVal = prop._value;
-                            return this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath]);
+                            if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
+                              return false;
+                            }
                           }
                         }
                         return true;
