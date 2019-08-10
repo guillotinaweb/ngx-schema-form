@@ -1,4 +1,5 @@
 {
+  "name": "My Visibility Binding Form DEMO",
   "type": "object",
   "description": "Some fields will only show if some condition do apply:",
   "properties": {
