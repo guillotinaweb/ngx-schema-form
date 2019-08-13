@@ -190,7 +190,7 @@ export abstract class FormProperty {
     try {
       let valid = false
       if (expression.indexOf('$ANY$') !== -1) {
-        valid = value.length > 0;
+        valid = value && value.length > 0;
       } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
         // since visibleIf condition values are an array... we must do this
         const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
@@ -259,7 +259,7 @@ export abstract class FormProperty {
                         for (const item of this.schema.visibleIf.allOf) {
                           for (const depPath of Object.keys(item)) {
                             const prop = this.searchProperty(depPath);
-                            const propVal = prop._value;
+                            const propVal = prop.value;
                             if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
                               return false;
                             }
