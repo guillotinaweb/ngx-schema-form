@@ -50,6 +50,6 @@ export class JEXLExpressionCompiler implements ExpressionCompiler {
 
 export class JEXLExpressionCompilerVisibiltyIf implements ExpressionCompilerVisibilityIf {
     evaluate(expression: string, context: ExpressionContextVisibilitIf = { source: {} as FormProperty, target: {} as FormProperty }): any {
-        return JEXL.evalSync(expression, context)
+        return new JEXL.Jexl().evalSync(expression, context)
     }
 }
