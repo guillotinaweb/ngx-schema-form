@@ -13,7 +13,7 @@ import { ControlWidget } from '../../widget';
 		{{schema.description}}
 	</span>
 
-	<select *ngIf="schema.type!='array'" [formControl]="control" [attr.name]="name" [disabled]="schema.readOnly" class="form-control">
+	<select *ngIf="schema.type!='array'" [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control">
 		<ng-container *ngIf="schema.oneOf; else use_enum">
 			<option *ngFor="let option of schema.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
 		</ng-container>
@@ -22,7 +22,7 @@ import { ControlWidget } from '../../widget';
 		</ng-template>
 	</select>
 
-	<select *ngIf="schema.type==='array'" multiple [formControl]="control" [attr.name]="name" [disabled]="schema.readOnly" class="form-control">
+	<select *ngIf="schema.type==='array'" multiple [formControl]="control" [attr.name]="name" [attr.disabled]="schema.readOnly" class="form-control">
 		<option *ngFor="let option of schema.items.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
 	</select>
 
