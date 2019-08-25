@@ -44,7 +44,7 @@ export class JEXLExpressionCompilerFactory extends ExpressionCompilerFactory {
 
 export class JEXLExpressionCompiler implements ExpressionCompiler {
     evaluate(expression: string, context: object = {}): any {
-        return JEXL.evalSync(expression, context)
+        return new JEXL.Jexl().evalSync(expression, context)
     }
 }
 
