@@ -10,7 +10,7 @@ import { ControlWidget } from '../../widget';
     </label>
 	<div *ngIf="schema.type!='array'" class="checkbox">
 		<label class="horizontal control-label">
-			<input [formControl]="control" [attr.name]="name" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [disabled]="schema.readOnly">
+			<input [formControl]="control" [attr.name]="name" [attr.id]="id" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [disabled]="schema.readOnly">
 			<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
 			{{schema.description}}
 		</label>
@@ -22,7 +22,9 @@ import { ControlWidget } from '../../widget';
 					value="{{option.enum[0]}}" type="checkbox" 
 					[attr.disabled]="schema.readOnly"
 					(change)="onCheck($event.target)"
-					[attr.checked]="checked[option.enum[0]] ? true : null">
+					[attr.checked]="checked[option.enum[0]] ? true : null"
+					[attr.id]="id + '.' + option.enum[0]"
+					>
 				{{option.description}}
 			</label>
 		</div>
