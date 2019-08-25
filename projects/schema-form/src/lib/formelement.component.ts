@@ -99,7 +99,10 @@ export class FormElementComponent implements OnInit, OnDestroy {
 
   onWidgetInstanciated(widget: Widget<any>) {
     this.widget = widget;
-    let id = 'field' + (FormElementComponent.counter++);
+    let id = this.formProperty.canonicalPathNotation || 'field' + (FormElementComponent.counter++);
+    if (this.formProperty.root.rootName) {
+      id = `${this.formProperty.root.rootName}:${id}`;
+    }
 
     this.widget.formProperty = this.formProperty;
     this.widget.schema = this.formProperty.schema;

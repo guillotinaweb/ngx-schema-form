@@ -20,7 +20,40 @@ export abstract class FormProperty {
   private _parent: PropertyGroup;
   private _path: string;
   _propertyBindingRegistry: PropertyBindingRegistry;
-  _canonicalPath: string;
+  __canonicalPath: string;
+  __canonicalPathNotation: string;
+  
+  /**
+   * Provides the unique path of this form element.<br/>
+   * E.g.: 
+   * <code>/garage/cars</code>,<br/>
+   * <code>/shop/book/0/page/1/</code>
+   */
+  get _canonicalPath() { return this.__canonicalPath; }
+  set _canonicalPath(canonicalPath: string) { 
+    this.__canonicalPath = canonicalPath; 
+    this.__canonicalPathNotation = (this.__canonicalPath||'')
+      .replace(new RegExp('^/', 'ig'), '')
+      .replace(new RegExp('/$', 'ig'), '')
+      .replace(new RegExp('/', 'ig'), '.');
+  }
+  /**
+   * Uses the unique path provided by the property <code>_canonicalPath</code><br/>
+   * but converts it to a HTML Element Attribute ID compliant format.<br/>
+   * E.g.: 
+   * <code>garage.cars</code>,<br/>
+   * <code>shop.book.0.page.1.</code>
+   */
+  get canonicalPathNotation() { return this.__canonicalPathNotation; }
+
+  private _rootName;
+  /**
+   * Provides the HTML Element Attribute ID/NAME compliant representation 
+   * of the root element.<br/>
+   * Represents the HTML FORM NAME.<br/>
+   * Only the root <code>FormProperty</code> will provide a value here.
+   */
+  get rootName() { return this._rootName; }
 
   constructor(schemaValidatorFactory: SchemaValidatorFactory,
               private validatorRegistry: ValidatorRegistry,
@@ -36,8 +69,19 @@ export abstract class FormProperty {
       this._root = parent.root;
     } else if (this instanceof PropertyGroup) {
       this._root = <PropertyGroup><any>this;
+      this._rootName = this.createRootName();
     }
     this._path = path;
+  }
+
+  /**
+   * Creates the HTML ID and NAME attribute compliant string.
+   */
+  private createRootName(): string {
+    if (this.schema && this.schema['name']) {
+      return this._rootName = this.schema['name'].replace(new RegExp('[\\s]+', 'ig'), '_')
+    }
+    return ''
   }
 
   public get valueChanges() {
