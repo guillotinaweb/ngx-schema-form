@@ -27,6 +27,12 @@
       "description": "Is only visible if any car exists and tire #2 is named 'michelin'",
       "properties": {}
     },
+    "description5": {
+      "type": "object",
+      "title": "FIELD 5",
+      "description": "Is only visible if any car has space for more than 3 passengers",
+      "properties": {}
+    },
     "spacer 1": {
       "type": "object",
       "title": " ",
@@ -80,6 +86,17 @@
               "michelin"
             ]
           }
+        },
+        "field5": {
+          "type": "string",
+          "title": "Field 5",
+          "description": " This field is only visible if any car has space for more than 3 passengers",
+          "default": "One car has space for more than 3 passengers",
+          "visibleIf": {
+            "/garage/cars/*/space": [
+              "$EXP$ target.value > 3"
+            ]
+          }
         }
       }
     },
@@ -128,6 +145,13 @@
                     "description": "Renault"
                   }
                 ]
+              },
+              "space": {
+                "type": "number",
+                "title": "How many passengers",
+                "description": "How many passengers do fit in this car?",
+                "min": 3,
+                "max": 5
               },
               "tires": {
                 "title": "Tires",

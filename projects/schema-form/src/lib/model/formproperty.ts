@@ -4,9 +4,11 @@ import {distinctUntilChanged, map} from 'rxjs/operators';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
+import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
+  public expressionCompilerVisibiltyIf: ExpressionCompilerVisibilityIf;
 
   _value: any = null;
   _errors: any = null;
@@ -55,10 +57,12 @@ export abstract class FormProperty {
 
   constructor(schemaValidatorFactory: SchemaValidatorFactory,
               private validatorRegistry: ValidatorRegistry,
+              expressionCompilerFactory: ExpressionCompilerFactory,
               public schema: any,
               parent: PropertyGroup,
               path: string) {
     this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
+    this.expressionCompilerVisibiltyIf = expressionCompilerFactory.createExpressionCompilerVisibilityIf();
 
     this._parent = parent;
     if (parent) {
@@ -218,6 +222,46 @@ export abstract class FormProperty {
     }
   }
 
+  /**
+   * Making use of the expression compiler for the <code>visibleIf</code> condition
+   */
+  private __evaluateVisibilityIf(
+    sourceProperty: FormProperty,
+    targetProperty: FormProperty,
+    dependencyPath: string,
+    value: any = '',
+    expression: string|string[] = ''): boolean {
+    try {
+      let valid = false
+      if (expression.indexOf('$ANY$') !== -1) {
+        valid = value && value.length > 0;
+      } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
+        // since visibleIf condition values are an array... we must do this
+        const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
+        for (const expString of expArray) {
+          const _expresssion = expString.substring('$EXP$'.length);
+          valid = true === this.expressionCompilerVisibiltyIf.evaluate(_expresssion, {
+            source: sourceProperty,
+            target: targetProperty
+          })
+          if (valid) {
+            break
+          }
+        }
+      } else {
+        valid = expression.indexOf(value) !== -1;
+      }
+      return valid
+    } catch (error) {
+      console.error('Error processing "VisibileIf" expression for path: ', dependencyPath,
+        `source - ${sourceProperty._canonicalPath}: `, sourceProperty,
+        `target - ${targetProperty._canonicalPath}: `, targetProperty,
+        'value:', value,
+        'expression: ', expression,
+        'error: ', error)
+    }
+  }
+
   private __bindVisibility(): boolean {
     /**
      * <pre>
@@ -252,27 +296,15 @@ export abstract class FormProperty {
                     let valueCheck;
                     if (this.schema.visibleIf.oneOf) {
                       valueCheck = property.valueChanges.pipe(map(
-                        value => {
-                          if (visibleIf[dependencyPath].indexOf('$ANY$') !== -1) {
-                            return value.length > 0;
-                          } else {
-                            return visibleIf[dependencyPath].indexOf(value) !== -1;
-                          }
-                        }
+                        value => this.__evaluateVisibilityIf(this, property, dependencyPath, value, visibleIf[dependencyPath])
                       ));
                     } else if (this.schema.visibleIf.allOf) {
                       const _chk = (value) => {
                         for (const item of this.schema.visibleIf.allOf) {
                           for (const depPath of Object.keys(item)) {
                             const prop = this.searchProperty(depPath);
-                            const propVal = prop._value;
-                            let valid = false;
-                            if (item[depPath].indexOf('$ANY$') !== -1) {
-                              valid = propVal.length > 0;
-                            } else {
-                              valid = item[depPath].indexOf(propVal) !== -1;
-                            }
-                            if (!valid) {
+                            const propVal = prop.value;
+                            if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
                               return false;
                             }
                           }
@@ -322,13 +354,7 @@ export abstract class FormProperty {
             for (const property of properties) {
               if (property) {
                 const valueCheck = property.valueChanges.pipe(map(
-                  value => {
-                    if (visibleIf[dependencyPath].indexOf('$ANY$') !== -1) {
-                      return value.length > 0;
-                    } else {
-                      return visibleIf[dependencyPath].indexOf(value) !== -1;
-                    }
-                  }
+                  value => this.__evaluateVisibilityIf(this, property, dependencyPath, value, visibleIf[dependencyPath])
                 ));
                 const visibilityCheck = property._visibilityChanges;
                 const and = combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);

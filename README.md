@@ -524,7 +524,7 @@ export class AppComponent {
 ### Conditional fields
 It is possible to make the presence of a field depends on another field's value.
 To achieve this you just have to add a `visibleIf` property to a field's definition.
-Adding the value $ANY$ to the array of conditional values,will make the field visible for any value inserted.
+Adding the value `$ANY$` to the array of conditional values,will make the field visible for any value inserted.
 
 ```js
 @Component({
@@ -632,6 +632,32 @@ e.g
         ]
       }
 ```
+
+**Expressions**
+
+Expressions allow a more complex `visibleIf` condition related to the involded fields.  
+To use an expression the value of the item  
+in the conditional array must start with `$EXP$`.  
+When processing the expression a context is available containing  
+a `source` and a `target` object.  
+Where `source` is the `FormProperty` that has the `visibleIf` condition defined  
+and `target` is the `FormProperty` that has been defined by the `path`.
+
+```
+  "myField" : { // SOURCE
+    "visibleIf": {
+          "oneOf": [
+            {
+              "/person/1/age": // TARGET
+              [
+                "$EXP$ target.value < 18"
+              ]
+            }
+          ]
+        }
+   }
+```
+
 
 #### Hidden fields
 When a field has been made invisible by the condition `visibleIf`

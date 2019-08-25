@@ -2,16 +2,18 @@ import {FormProperty, PropertyGroup} from './formproperty';
 import {FormPropertyFactory} from './formpropertyfactory';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
+import { ExpressionCompilerFactory } from '../expression-compiler-factory';
 
 export class ArrayProperty extends PropertyGroup {
 
   constructor(private formPropertyFactory: FormPropertyFactory,
               schemaValidatorFactory: SchemaValidatorFactory,
               validatorRegistry: ValidatorRegistry,
+              expressionCompilerFactory: ExpressionCompilerFactory,
               schema: any,
               parent: PropertyGroup,
               path: string) {
-    super(schemaValidatorFactory, validatorRegistry, schema, parent, path);
+    super(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path);
   }
 
   addItem(value: any = null): FormProperty {
