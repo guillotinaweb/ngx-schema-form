@@ -1,3 +1,4 @@
+import { PROPERTY_TYPE_MAPPING } from './typemapping';
 import {PropertyGroup} from './formproperty';
 import {FormPropertyFactory} from './formpropertyfactory';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
@@ -85,3 +86,16 @@ export class ObjectProperty extends PropertyGroup {
     this._value = value;
   }
 }
+
+PROPERTY_TYPE_MAPPING.object = (
+    schemaValidatorFactory: SchemaValidatorFactory,
+    validatorRegistry: ValidatorRegistry,
+    expressionCompilerFactory: ExpressionCompilerFactory,
+    schema: any,
+    parent: PropertyGroup,
+    path: string,
+    formPropertyFactory: FormPropertyFactory,
+) => {
+    return new ObjectProperty(
+        formPropertyFactory, schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path);
+};

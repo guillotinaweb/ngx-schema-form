@@ -3,18 +3,7 @@ export { FormElementComponent } from './formelement.component';
 export { FormElementComponentAction } from './formelement.action.component';
 export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
-export {
-  FormProperty,
-  ArrayProperty,
-  FormPropertyFactory,
-  SchemaPreprocessor,
-  Validator,
-  ValidatorRegistry,
-  Action,
-  ActionRegistry,
-  Binding,
-  BindingRegistry,
-} from './model';
+export * from './model';
 export { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
 export {
     Widget,
