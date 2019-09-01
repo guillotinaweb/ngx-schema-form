@@ -1,3 +1,7 @@
+# 2.4.1 (unreleased)
+
+- Fix circular dependency in models (ebrehault)
+
 # 2.4.0 (2019-07-29)
 
 - Feature #228: add support for expression in visibleIf condition (daniele-pecora)

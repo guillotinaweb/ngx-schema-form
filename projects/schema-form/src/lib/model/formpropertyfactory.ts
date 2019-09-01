@@ -1,13 +1,9 @@
 import {FormProperty, PropertyGroup} from './formproperty';
-import {NumberProperty} from './numberproperty';
-import {StringProperty} from './stringproperty';
-import {BooleanProperty} from './booleanproperty';
-import {ObjectProperty} from './objectproperty';
-import {ArrayProperty} from './arrayproperty';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
+import { PROPERTY_TYPE_MAPPING } from './typemapping';
 
 export class FormPropertyFactory {
 
@@ -45,26 +41,17 @@ export class FormPropertyFactory {
       const refSchema = this.schemaValidatorFactory.getSchema(parent.root.schema, schema.$ref);
       newProperty = this.createProperty(refSchema, parent, path);
     } else {
-      switch (schema.type) {
-        case 'integer':
-        case 'number':
-          newProperty = new NumberProperty(this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
-          break;
-        case 'string':
-          newProperty = new StringProperty(this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
-          break;
-        case 'boolean':
-          newProperty = new BooleanProperty(this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
-          break;
-        case 'object':
-          newProperty = new ObjectProperty(this, this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
-          break;
-        case 'array':
-          newProperty = new ArrayProperty(this, this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
-          break;
-        default:
-          throw new TypeError(`Undefined type ${schema.type}`);
-      }
+        if (PROPERTY_TYPE_MAPPING[schema.type]) {
+            if (schema.type === 'object' || schema.type === 'array') {
+                newProperty = PROPERTY_TYPE_MAPPING[schema.type](
+                    this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this);
+            } else {
+                newProperty = PROPERTY_TYPE_MAPPING[schema.type](
+                    this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
+            }
+        } else {
+            throw new TypeError(`Undefined type ${schema.type} (existing: ${Object.keys(PROPERTY_TYPE_MAPPING)})`);
+        }
     }
 
     newProperty._propertyBindingRegistry = this.propertyBindingRegistry;

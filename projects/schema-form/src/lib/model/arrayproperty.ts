@@ -1,5 +1,6 @@
 import {FormProperty, PropertyGroup} from './formproperty';
 import {FormPropertyFactory} from './formpropertyfactory';
+import { PROPERTY_TYPE_MAPPING } from './typemapping';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
@@ -78,3 +79,16 @@ export class ArrayProperty extends PropertyGroup {
     }
   }
 }
+
+PROPERTY_TYPE_MAPPING.array = (
+    schemaValidatorFactory: SchemaValidatorFactory,
+    validatorRegistry: ValidatorRegistry,
+    expressionCompilerFactory: ExpressionCompilerFactory,
+    schema: any,
+    parent: PropertyGroup,
+    path: string,
+    formPropertyFactory: FormPropertyFactory,
+) => {
+    return new ArrayProperty(
+        formPropertyFactory, schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path);
+};
