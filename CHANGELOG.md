@@ -1,4 +1,4 @@
-# 2.4.1 (unreleased)
+# 2.4.1 (2019-09-11)
 
 - Fix circular dependency in models (ebrehault)
 
