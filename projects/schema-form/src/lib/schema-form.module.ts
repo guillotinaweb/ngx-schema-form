@@ -20,6 +20,8 @@ import {RangeWidget} from './defaultwidgets/range/range.widget';
 import {SelectWidget} from './defaultwidgets/select/select.widget';
 import {StringWidget} from './defaultwidgets/string/string.widget';
 import {DefaultWidgetRegistry} from './defaultwidgets/defaultwidgetregistry';
+import {DisableControlDirective} from './defaultwidgets/_directives/disableControl.directive';
+
 import {
   DefaultWidget
 } from './default.widget';
@@ -63,6 +65,7 @@ const moduleProviders = [
     RangeWidget,
     SelectWidget,
     StringWidget,
+    DisableControlDirective
   ],
   entryComponents: [
     FormElementComponent,
@@ -79,7 +82,7 @@ const moduleProviders = [
     RadioWidget,
     RangeWidget,
     SelectWidget,
-    StringWidget,
+    StringWidget
   ],
   exports: [
     FormComponent,
@@ -96,7 +99,8 @@ const moduleProviders = [
     RadioWidget,
     RangeWidget,
     SelectWidget,
-    StringWidget
+    StringWidget,
+    DisableControlDirective
   ]
 })
 export class SchemaFormModule {

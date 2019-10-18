@@ -25,7 +25,8 @@ export {
     StringWidget,
     TextAreaWidget,
     ButtonWidget,
-    DefaultWidgetRegistry
+    DefaultWidgetRegistry,
+    DisableControlDirective
 } from './defaultwidgets';
 export { SchemaFormModule } from './schema-form.module';
 export { TemplateSchemaModule } from './template-schema/template-schema.module';
