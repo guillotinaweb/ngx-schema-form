@@ -47,6 +47,7 @@ export { StringWidget } from './lib/defaultwidgets/string/string.widget';
 export {
   DefaultWidgetRegistry
 } from './lib/defaultwidgets/defaultwidgetregistry';
+export { DisableControlDirective } from './lib/defaultwidgets/_directives/disableControl.directive'
 
 export { SchemaFormModule } from './lib/schema-form.module';
 export {

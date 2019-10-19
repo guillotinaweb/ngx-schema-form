@@ -10,3 +10,4 @@ export { StringWidget } from './string/string.widget';
 export { TextAreaWidget } from './textarea/textarea.widget';
 export { ButtonWidget } from './button/button.widget';
 export { DefaultWidgetRegistry } from './defaultwidgetregistry';
+export { DisableControlDirective } from './_directives/disableControl.directive';

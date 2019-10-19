@@ -4,7 +4,7 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import {WidgetRegistry, Validator, Binding} from '../../../projects/schema-form/src/public_api';
+import {WidgetRegistry, Validator, Binding, FormProperty, PropertyGroup} from 'ngx-schema-form';
 import {Subscription} from 'rxjs';
 
 import sampleSchema1 from './sampleschema.json';
@@ -181,6 +181,9 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
     };
     this.actions['disable'] = this.disableAll.bind(this);
 
+    this.actions['toggle_title'] = (formProperty: FormProperty, form: PropertyGroup, params: any) => {
+      formProperty.schema.readOnly = !formProperty.schema.readOnly;
+    }
 
   }
 

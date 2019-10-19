@@ -2,6 +2,24 @@
 	"$schema": "http://json-schema.org/draft-04/hyper-schema#",
 	"type": "object",
 	"properties": {
+		"title":{
+			"type": "string",
+			"title": "Title",
+			"widget":{
+				"id":"select"
+			},
+			"readOnly":true,
+			"enum": [
+				"Prof",
+				"Dr",
+				"Ms",
+				"Mr"
+			],
+			"buttons":[{
+				"id":"toggle_title",
+				"label":"Toggle title disabled state"
+			}]
+		},
 		"firstName": {
 			"type": "string",
 			"placeholder": "First name",
@@ -355,9 +373,10 @@
 			"id": "part_1",
 			"title": "Part 1 - Recipient",
 			"fields": [
+				"title",
 				"firstName",
-        "lastName",
-        "contributors",
+				"lastName",
+				"contributors",
 				"categories",
 				"bornOn",
 				"moreInfo",
