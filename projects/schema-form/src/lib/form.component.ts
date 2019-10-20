@@ -32,9 +32,8 @@ export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBi
 @Component({
   selector: 'sf-form',
   template: `
-    <form [attr.name]="rootProperty.rootName" [attr.id]="rootProperty.rootName">
-      <sf-form-element
-        *ngIf="rootProperty" [formProperty]="rootProperty"></sf-form-element>
+    <form *ngIf="rootProperty" [attr.name]="rootProperty.rootName" [attr.id]="rootProperty.rootName">
+      <sf-form-element [formProperty]="rootProperty"></sf-form-element>
     </form>`,
   providers: [
     ActionRegistry,
