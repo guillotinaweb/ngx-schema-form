@@ -1,27 +1,14 @@
-import {BehaviorSubject, combineLatest} from 'rxjs';
-import {distinctUntilChanged, map} from 'rxjs/operators';
+import { BehaviorSubject, combineLatest } from 'rxjs';
+import { distinctUntilChanged, map } from 'rxjs/operators';
 
-import {SchemaValidatorFactory} from '../schemavalidatorfactory';
-import {ValidatorRegistry} from './validatorregistry';
-import {PropertyBindingRegistry} from '../property-binding-registry';
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { ValidatorRegistry } from './validatorregistry';
+import { PropertyBindingRegistry } from '../property-binding-registry';
 import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
+import { Error } from './error';
+
 
 export abstract class FormProperty {
-  public schemaValidator: Function;
-  public expressionCompilerVisibiltyIf: ExpressionCompilerVisibilityIf;
-
-  _value: any = null;
-  _errors: any = null;
-  private _valueChanges = new BehaviorSubject<any>(null);
-  private _errorsChanges = new BehaviorSubject<any>(null);
-  private _visible = true;
-  private _visibilityChanges = new BehaviorSubject<boolean>(true);
-  private _root: PropertyGroup;
-  private _parent: PropertyGroup;
-  private _path: string;
-  _propertyBindingRegistry: PropertyBindingRegistry;
-  __canonicalPath: string;
-  __canonicalPathNotation: string;
 
   /**
    * Provides the unique path of this form element.<br/>
@@ -45,8 +32,6 @@ export abstract class FormProperty {
    * <code>shop.book.0.page.1.</code>
    */
   get canonicalPathNotation() { return this.__canonicalPathNotation; }
-
-  private _rootName;
   /**
    * Provides the HTML Element Attribute ID/NAME compliant representation
    * of the root element.<br/>
@@ -72,16 +57,6 @@ export abstract class FormProperty {
       this._rootName = this.createRootName();
     }
     this._path = path;
-  }
-
-  /**
-   * Creates the HTML ID and NAME attribute compliant string.
-   */
-  private createRootName(): string {
-    if (this.schema && this.schema['name']) {
-      return this._rootName = this.schema['name'].replace(new RegExp('[\\s]+', 'ig'), '_');
-    }
-    return '';
   }
 
   public get valueChanges() {
@@ -118,6 +93,48 @@ export abstract class FormProperty {
 
   public get valid() {
     return this._errors === null;
+  }
+  public schemaValidator: Function;
+  public expressionCompilerVisibiltyIf: ExpressionCompilerVisibilityIf;
+
+  _value: any = null;
+  _errors: Error[] = null;
+  private _valueChanges = new BehaviorSubject<any>(null);
+  private _errorsChanges = new BehaviorSubject<Error[]>(null);
+  private _visible = true;
+  private _visibilityChanges = new BehaviorSubject<boolean>(true);
+  private _root: PropertyGroup;
+  private _parent: PropertyGroup;
+  private _path: string;
+  _propertyBindingRegistry: PropertyBindingRegistry;
+  __canonicalPath: string;
+  __canonicalPathNotation: string;
+
+  private _rootName;
+
+  private static mergeErrors(errors: Error[], newErrors: Error[]): Error[] {
+    if (newErrors) {
+      if (Array.isArray(newErrors)) {
+        errors = errors.concat(...newErrors);
+      } else {
+        errors.push(newErrors);
+      }
+    }
+    return errors;
+  }
+
+  private static registerMissingVisibilityBinding(dependencyPath: string, formProperty: FormProperty) {
+    formProperty._propertyBindingRegistry.getPropertyBindingsVisibility().add(dependencyPath, formProperty.path);
+  }
+
+  /**
+   * Creates the HTML ID and NAME attribute compliant string.
+   */
+  private createRootName(): string {
+    if (this.schema && this.schema['name']) {
+      return this._rootName = this.schema['name'].replace(new RegExp('[\\s]+', 'ig'), '_');
+    }
+    return '';
   }
 
   public abstract setValue(value: any, onlySelf: boolean);
@@ -157,7 +174,7 @@ export abstract class FormProperty {
     const customValidator = this.validatorRegistry.get(this.path);
     if (customValidator) {
       const customErrors = customValidator(this.value, this, this.findRoot());
-      errors = this.mergeErrors(errors, customErrors);
+      errors = FormProperty.mergeErrors(errors, customErrors);
     }
     if (errors.length === 0) {
       errors = null;
@@ -167,24 +184,13 @@ export abstract class FormProperty {
     this.setErrors(this._errors);
   }
 
-  private mergeErrors(errors, newErrors) {
-    if (newErrors) {
-      if (Array.isArray(newErrors)) {
-        errors = errors.concat(...newErrors);
-      } else {
-        errors.push(newErrors);
-      }
-    }
-    return errors;
-  }
-
-  private setErrors(errors) {
+  private setErrors(errors: Error[]) {
     this._errors = errors;
     this._errorsChanges.next(errors);
   }
 
-  public extendErrors(errors) {
-    errors = this.mergeErrors(this._errors || [], errors);
+  public extendErrors(errors: Error[]) {
+    errors = FormProperty.mergeErrors(this._errors || [], errors);
     this.setErrors(errors);
   }
 
@@ -299,7 +305,7 @@ export abstract class FormProperty {
                         value => this.__evaluateVisibilityIf(this, property, dependencyPath, value, visibleIf[dependencyPath])
                       ));
                     } else if (this.schema.visibleIf.allOf) {
-                      const _chk = (value) => {
+                      const _chk = () => {
                         for (const item of this.schema.visibleIf.allOf) {
                           for (const depPath of Object.keys(item)) {
                             const prop = this.searchProperty(depPath);
@@ -320,7 +326,7 @@ export abstract class FormProperty {
                 }
               } else {
                 console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
-                this.registerMissingVisibilityBinding(dependencyPath, this);
+                FormProperty.registerMissingVisibilityBinding(dependencyPath, this);
                 // not visible if not existent
                 this.setVisible(false);
               }
@@ -364,7 +370,7 @@ export abstract class FormProperty {
             }
           } else {
             console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
-            this.registerMissingVisibilityBinding(dependencyPath, this);
+            FormProperty.registerMissingVisibilityBinding(dependencyPath, this);
             // not visible if not existent
             this.setVisible(false);
           }
@@ -377,10 +383,6 @@ export abstract class FormProperty {
         this.setVisible(visible);
       });
     }
-  }
-
-  private registerMissingVisibilityBinding(dependencyPath: string, formProperty: FormProperty) {
-    formProperty._propertyBindingRegistry.getPropertyBindingsVisibility().add(dependencyPath, formProperty.path);
   }
 
 
@@ -605,10 +607,6 @@ export abstract class PropertyGroup extends FormProperty {
     this.forEachChildRecursive((property) => {
       property._bindVisibility();
     });
-  }
-
-  public isRoot() {
-    return this === this.root;
   }
 }
 

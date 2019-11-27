@@ -1,7 +1,7 @@
 import { AfterViewInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
-import { ArrayProperty, FormProperty, ObjectProperty } from './model';
+import { ArrayProperty, FormProperty, ObjectProperty, Error } from './model';
 
 export abstract class Widget<T extends FormProperty> {
   formProperty: T;
@@ -22,10 +22,10 @@ export class ControlWidget extends Widget<FormProperty> implements AfterViewInit
         control.setValue(newValue, {emitEvent: false});
       }
     });
-    this.formProperty.errorsChanges.subscribe((errors) => {
+    this.formProperty.errorsChanges.subscribe((errors: Error[]) => {
       control.setErrors(errors, { emitEvent: true });
       const messages = (errors || [])
-        .filter(e => {
+        .filter((e: Error) => {
           return e.path && e.path.slice(1) === this.formProperty.path;
         })
         .map(e => e.message);
