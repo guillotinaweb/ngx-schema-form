@@ -5,7 +5,7 @@
 // export * from './lib/index';
 export { FormComponent } from './lib/form.component';
 export { FormElementComponent } from './lib/formelement.component';
-export { FormElementComponentAction } from './lib/formelement.action.component';
+export { FormElementActionComponent } from './lib/formelement.action.component';
 export { WidgetChooserComponent } from './lib/widgetchooser.component';
 export { WidgetRegistry } from './lib/widgetregistry';
 export {
@@ -47,7 +47,7 @@ export { StringWidget } from './lib/defaultwidgets/string/string.widget';
 export {
   DefaultWidgetRegistry
 } from './lib/defaultwidgets/defaultwidgetregistry';
-export { DisableControlDirective } from './lib/defaultwidgets/_directives/disableControl.directive'
+export { DisableControlDirective } from './lib/defaultwidgets/_directives/disableControl.directive';
 
 export { SchemaFormModule } from './lib/schema-form.module';
 export {

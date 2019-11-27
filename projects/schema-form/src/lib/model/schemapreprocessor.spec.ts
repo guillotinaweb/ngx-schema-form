@@ -2,7 +2,7 @@ import { SchemaPreprocessor } from './schemapreprocessor';
 describe('SchemaPreprocessor', () => {
 
   it('should replace order by fieldsets', () => {
-    let schema: any = {
+    const schema: any = {
       'properties': {
         'name': {},
         'email': {}

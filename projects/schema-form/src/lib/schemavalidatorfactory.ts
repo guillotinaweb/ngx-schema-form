@@ -32,7 +32,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
   constructor() {
     super();
-    this.createSchemaValidator()
+    this.createSchemaValidator();
   }
 
   private createSchemaValidator() {
@@ -42,7 +42,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
   }
 
   reset() {
-    this.createSchemaValidator()
+    this.createSchemaValidator();
   }
 
   createValidatorFn(schema: any) {
@@ -53,7 +53,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
       }
 
       this.zschema.validate(value, schema);
-      let err = this.zschema.getLastErrors();
+      const err = this.zschema.getLastErrors();
 
       this.denormalizeRequiredPropertyPaths(err);
 

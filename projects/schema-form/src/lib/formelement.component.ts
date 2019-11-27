@@ -57,7 +57,9 @@ export class FormElementComponent implements OnInit, OnDestroy {
     if ((bindings || []).length) {
       bindings.forEach((binding) => {
         for (const eventId in binding) {
-          this.createBinding(eventId, binding[eventId]);
+          if (binding.hasOwnProperty(eventId)) {
+            this.createBinding(eventId, binding[eventId]);
+          }
         }
       });
     }
@@ -79,7 +81,7 @@ export class FormElementComponent implements OnInit, OnDestroy {
     if (this.formProperty.schema.buttons !== undefined) {
       this.buttons = this.formProperty.schema.buttons;
 
-      for (let button of this.buttons) {
+      for (const button of this.buttons) {
         this.createButtonCallback(button);
       }
     }

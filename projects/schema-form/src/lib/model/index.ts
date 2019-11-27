@@ -13,6 +13,8 @@ export * from './stringproperty';
 export * from './booleanproperty';
 export * from './numberproperty';
 
+export * from './error';
+
 export * from './validator';
 export * from './validatorregistry';
 

@@ -23,8 +23,8 @@ describe('WidgetChooserComponent', () => {
   });
 
   it('should create a widget which contain an instance', () => {
-    let fixture = TestBed.createComponent(WidgetChooserComponent);
-    let widgetChooserComponent = fixture.debugElement.componentInstance;
+    const fixture = TestBed.createComponent(WidgetChooserComponent);
+    const widgetChooserComponent = fixture.debugElement.componentInstance;
     expect(widgetChooserComponent).toBeDefined();
   });
 

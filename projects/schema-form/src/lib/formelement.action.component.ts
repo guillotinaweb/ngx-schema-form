@@ -7,16 +7,16 @@ import {
   ViewContainerRef,
   OnInit,
   OnDestroy
-} from "@angular/core";
+} from '@angular/core';
 import {Subscription} from 'rxjs';
-import {WidgetFactory} from "./widgetfactory";
-import {TerminatorService} from "./terminator.service";
+import {WidgetFactory} from './widgetfactory';
+import {TerminatorService} from './terminator.service';
 
 @Component({
   selector: 'sf-form-element-action',
   template: '<ng-template #target></ng-template>'
 })
-export class FormElementComponentAction implements OnInit, OnChanges, OnDestroy {
+export class FormElementActionComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input()
   button: any;

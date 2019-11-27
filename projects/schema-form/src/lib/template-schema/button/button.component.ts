@@ -1,13 +1,4 @@
-import {
-  Component,
-  AfterContentInit,
-  Input,
-  Output,
-  ElementRef,
-  EventEmitter,
-  forwardRef
-} from '@angular/core';
-import { Subject } from 'rxjs';
+import { AfterContentInit, Component, ElementRef, EventEmitter, forwardRef, Input, Output } from '@angular/core';
 
 import { TemplateSchemaElement } from '../template-schema-element';
 

@@ -1,9 +1,5 @@
-import {
-  Component,
-  ElementRef,
-  ViewChild,
-} from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, ViewChild, } from '@angular/core';
+import { async, TestBed } from '@angular/core/testing';
 
 import { ActionRegistry } from '../../model/actionregistry';
 import { ButtonComponent } from '../button/button.component';
@@ -251,9 +247,9 @@ describe('FieldComponent', () => {
     const buttons = field.getButtons();
     const schema = field.getSchema();
 
-    expect(schema.type).toEqual('string')
-    expect(schema.title).toEqual('Name')
-    expect(schema.buttons.length).toBe(2)
+    expect(schema.type).toEqual('string');
+    expect(schema.title).toEqual('Name');
+    expect(schema.buttons.length).toBe(2);
     expect(buttons.length).toBe(2);
     expect(buttons[0].label).toEqual('Send');
     expect(buttons[1].label).toEqual('Clear');

@@ -18,7 +18,7 @@ import visibility_binding_example from './visibility-binding-example-schema.json
 import {AppService, AppData} from '../app.service';
 
 @Component({
-  selector: 'sf-json-schema-example',
+  selector: 'app-json-schema-example',
   templateUrl: './json-schema-example.component.html',
   encapsulation: ViewEncapsulation.None,
 })
@@ -141,27 +141,24 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
 
             return [
               {
-                promotion: {
-                  bornOn: {
-                    expectedValue: 'year<' + validYear,
-                    actualValue: actualYear,
-                  },
-                },
-              },
+                code: 'INVALID_DATE',
+                message: `The value ${actualYear} is not valid. Expected year < ${validYear}`,
+                params: ['promotion'],
+                path: '#/promotion'
+              }
             ];
           } catch (e) {
+            return null;
           }
         }
 
         return [
           {
-            promotion: {
-              bornOn: {
-                expectedFormat: 'date',
-                actualValue: bornOn.value,
-              },
-            },
-          },
+            code: 'INVALID_DATE_FORMAT',
+            message: `The value bornOn: ${bornOn.value} is not a valid date`,
+            params: ['bornOn'],
+            path: '#/bornOn'
+          }
         ];
       }
 
@@ -183,7 +180,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
 
     this.actions['toggle_title'] = (formProperty: FormProperty, form: PropertyGroup, params: any) => {
       formProperty.schema.readOnly = !formProperty.schema.readOnly;
-    }
+    };
 
   }
 

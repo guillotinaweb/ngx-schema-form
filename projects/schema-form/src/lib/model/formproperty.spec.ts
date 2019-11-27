@@ -15,24 +15,24 @@ class FormPropertyImpl extends FormProperty {
   _updateValue() {}
   setValue() {}
   reset() {}
-  _hasValue() {return true;}
+  _hasValue() {return true; }
 }
 
 class PropertyGroupImpl extends PropertyGroup {
 
   _updateValue() {}
   setValue() {}
-  _hasValue() {return true;}
+  _hasValue() {return true; }
 
   reset() {}
 }
 
 describe('FormProperty', () => {
-  let THE_SCHEMA_VALIDATOR_FACTORY =  new ZSchemaValidatorFactory();
-  let THE_VALIDATOR_REGISTRY = new ValidatorRegistry();
-  let THE_EXPRESSION_COMPILER_FACTORY = new JEXLExpressionCompilerFactory();
-  let THE_PROPERTY_SCHEMA = {};
-  let THE_PARENT_PROPERTY_SCHEMA = {};
+  const THE_SCHEMA_VALIDATOR_FACTORY =  new ZSchemaValidatorFactory();
+  const THE_VALIDATOR_REGISTRY = new ValidatorRegistry();
+  const THE_EXPRESSION_COMPILER_FACTORY = new JEXLExpressionCompilerFactory();
+  const THE_PROPERTY_SCHEMA = {};
+  const THE_PARENT_PROPERTY_SCHEMA = {};
   let THE_VALIDATOR;
 
   let formProperty: FormProperty;
@@ -86,7 +86,7 @@ describe('FormProperty', () => {
   describe('Without a parent', () => {
 
     it('should not throw when changed', () => {
-      let orphanFormProperty = new FormPropertyImpl(
+      const orphanFormProperty = new FormPropertyImpl(
         THE_SCHEMA_VALIDATOR_FACTORY,
         THE_VALIDATOR_REGISTRY,
         THE_EXPRESSION_COMPILER_FACTORY,
@@ -94,7 +94,7 @@ describe('FormProperty', () => {
         propertyGroup,
         ''
       );
-      let updateValue = (() => { orphanFormProperty.updateValueAndValidity(); });
+      const updateValue = (() => { orphanFormProperty.updateValueAndValidity(); });
 
       expect(updateValue).not.toThrow();
     });

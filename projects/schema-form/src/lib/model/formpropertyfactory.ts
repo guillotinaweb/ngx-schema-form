@@ -29,7 +29,7 @@ export class FormPropertyFactory {
         path += '*';
         _canonicalPath += '*';
       } else {
-        throw 'Instanciation of a FormProperty with an unknown parent type: ' + parent.type;
+        throw new Error('Instanciation of a FormProperty with an unknown parent type: ' + parent.type);
       }
       _canonicalPath = (parent._canonicalPath || parent.path) + _canonicalPath;
     } else {

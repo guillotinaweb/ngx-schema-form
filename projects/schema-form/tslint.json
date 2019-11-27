@@ -4,7 +4,7 @@
         "directive-selector": [
             true,
             "attribute",
-            "sf",
+            ["sf", ""],
             "camelCase"
         ],
         "component-selector": [
@@ -12,6 +12,11 @@
             "element",
             "sf",
             "kebab-case"
+        ],
+        "component-class-suffix": [
+          true,
+          "Component",
+          "Widget"
         ]
     }
 }

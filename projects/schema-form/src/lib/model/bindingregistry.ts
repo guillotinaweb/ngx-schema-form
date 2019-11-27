@@ -1,4 +1,4 @@
-import {Binding} from './binding';
+import { Binding } from './binding';
 
 export class BindingRegistry {
   bindings: Binding[] = [];

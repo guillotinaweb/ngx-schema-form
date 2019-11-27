@@ -1,4 +1,4 @@
-import {FormProperty} from './formproperty';
+import { FormProperty } from './formproperty';
 
 export abstract class AtomicProperty extends FormProperty {
 

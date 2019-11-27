@@ -1,31 +1,12 @@
-import {
-  Component,
-  Input,
-  Output,
-  OnInit,
-  AfterContentInit,
-  ContentChildren,
-  ViewChild,
-  QueryList,
-  ElementRef,
-  forwardRef,
-  SimpleChanges,
-  SimpleChange,
-  OnChanges
-} from '@angular/core';
-import { Observable, merge } from 'rxjs';
-import { filter } from 'rxjs/operators';
-
-import { Action } from '../../model/action';
+import { AfterContentInit, Component, ContentChildren, ElementRef, Input, OnChanges, QueryList, SimpleChanges } from '@angular/core';
+import { merge } from 'rxjs';
 import { ActionRegistry } from '../../model/actionregistry';
 import { Validator } from '../../model/validator';
-
-import { TemplateSchemaElement } from '../template-schema-element';
 import { TemplateSchemaService } from '../template-schema.service';
 import { ButtonComponent } from '../button/button.component';
 
 import { FieldParent } from './field-parent';
-import { FieldType, Field } from './field';
+import { Field, FieldType } from './field';
 import { ItemComponent } from './item/item.component';
 
 

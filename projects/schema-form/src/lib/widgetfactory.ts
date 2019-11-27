@@ -19,9 +19,9 @@ export class WidgetFactory {
   }
 
   createWidget(container: ViewContainerRef, type: string): ComponentRef<any> {
-    let componentClass = this.registry.getWidgetType(type);
+    const componentClass = this.registry.getWidgetType(type);
 
-    let componentFactory = this.resolver.resolveComponentFactory(componentClass);
+    const componentFactory = this.resolver.resolveComponentFactory(componentClass);
     return container.createComponent(componentFactory);
   }
 }

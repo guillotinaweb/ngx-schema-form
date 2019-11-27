@@ -1,10 +1,4 @@
-import {
- Component,
- ElementRef,
- Input,
- OnInit,
- forwardRef
-} from '@angular/core';
+import { Component, ElementRef, Input, OnInit } from '@angular/core';
 
 import { TemplateSchemaElement } from '../../template-schema-element';
 

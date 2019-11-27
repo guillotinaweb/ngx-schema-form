@@ -5,12 +5,12 @@ function formatMessage(message, path) {
 }
 
 function schemaError(message, path): void {
-  let mesg = formatMessage(message, path);
+  const mesg = formatMessage(message, path);
   throw new Error(mesg);
 }
 
 function schemaWarning(message, path): void {
-  let mesg = formatMessage(message, path);
+  const mesg = formatMessage(message, path);
   throw new Error(mesg);
 }
 
@@ -48,10 +48,10 @@ export class SchemaPreprocessor {
   }
 
   private static checkFieldsUsage(jsonSchema, path: string) {
-    let fieldsId: string[] = Object.keys(jsonSchema.properties);
-    let usedFields = {};
-    for (let fieldset of jsonSchema.fieldsets) {
-      for (let fieldId of fieldset.fields) {
+    const fieldsId: string[] = Object.keys(jsonSchema.properties);
+    const usedFields = {};
+    for (const fieldset of jsonSchema.fieldsets) {
+      for (const fieldId of fieldset.fields) {
         if (usedFields[fieldId] === undefined) {
           usedFields[fieldId] = [];
         }
@@ -77,7 +77,7 @@ export class SchemaPreprocessor {
       }
     }
 
-    for (let remainingfieldsId in usedFields) {
+    for (const remainingfieldsId in usedFields) {
       if (usedFields.hasOwnProperty(remainingfieldsId)) {
         schemaWarning(`Referencing non-existent field ${remainingfieldsId} in one or more fieldsets`, path);
       }
@@ -118,16 +118,16 @@ export class SchemaPreprocessor {
 
   private static recursiveCheck(jsonSchema, path: string) {
     if (jsonSchema.type === 'object') {
-      for (let fieldId in jsonSchema.properties) {
+      for (const fieldId in jsonSchema.properties) {
         if (jsonSchema.properties.hasOwnProperty(fieldId)) {
-          let fieldSchema = jsonSchema.properties[fieldId];
+          const fieldSchema = jsonSchema.properties[fieldId];
           SchemaPreprocessor.preprocess(fieldSchema, path + fieldId + '/');
         }
       }
       if (jsonSchema.hasOwnProperty('definitions')) {
-        for (let fieldId in jsonSchema.definitions) {
+        for (const fieldId in jsonSchema.definitions) {
           if (jsonSchema.definitions.hasOwnProperty(fieldId)) {
-            let fieldSchema = jsonSchema.definitions[fieldId];
+            const fieldSchema = jsonSchema.definitions[fieldId];
             SchemaPreprocessor.removeRecursiveRefProperties(fieldSchema, `#/definitions/${fieldId}`);
             SchemaPreprocessor.preprocess(fieldSchema, path + fieldId + '/');
           }
@@ -141,7 +141,7 @@ export class SchemaPreprocessor {
   private static removeRecursiveRefProperties(jsonSchema, definitionPath) {
     // to avoid infinite loop
     if (jsonSchema.type === 'object') {
-      for (let fieldId in jsonSchema.properties) {
+      for (const fieldId in jsonSchema.properties) {
         if (jsonSchema.properties.hasOwnProperty(fieldId)) {
           if (jsonSchema.properties[fieldId].$ref
             && jsonSchema.properties[fieldId].$ref === definitionPath) {
@@ -153,7 +153,7 @@ export class SchemaPreprocessor {
       }
     }
   }
-  
+
   /**
    * Enables alias names for JSON schema extensions.
    *
@@ -164,18 +164,18 @@ export class SchemaPreprocessor {
    */
   private static normalizeExtensions(schema: any): void {
     const extensions = [
-        { name: "fieldsets", regex: /^x-?field-?sets$/i },
-        { name: "widget",    regex: /^x-?widget$/i },
-        { name: "visibleIf", regex: /^x-?visible-?if$/i }
+        { name: 'fieldsets', regex: /^x-?field-?sets$/i },
+        { name: 'widget',    regex: /^x-?widget$/i },
+        { name: 'visibleIf', regex: /^x-?visible-?if$/i }
     ];
     const keys = Object.keys(schema);
     for (let i = 0; i < keys.length; ++i) {
-      let k = keys[i];
-      let e = extensions.find(e => !!k.match(e.regex));
-      if (e) {
-        let v = schema[k];
-        let copy = JSON.parse(JSON.stringify(v));
-        schema[e.name] = copy;
+      const k = keys[i];
+      const ext = extensions.find(e => !!k.match(e.regex));
+      if (ext) {
+        const v = schema[k];
+        const copy = JSON.parse(JSON.stringify(v));
+        schema[ext.name] = copy;
       }
     }
   }

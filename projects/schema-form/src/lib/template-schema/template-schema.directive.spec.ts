@@ -21,7 +21,7 @@ import { TemplateSchemaDirective } from './template-schema.directive';
       <sf-field
           name="username"
           [type]="type"
-          [required]="usernameRequired"
+          [required]=true
           [validator]="validatorA"
           description="A username field">
           Username
@@ -101,7 +101,7 @@ describe('TemplateSchemaDirective', () => {
     const component = fixture.debugElement.query(
       By.directive(FormComponent)
     ).componentInstance;
-    
+
     expect(directive).toBeTruthy();
     expect(component).toBeTruthy();
   });
@@ -139,7 +139,7 @@ describe('TemplateSchemaDirective', () => {
     expect(inputs.length).toBe(2);
 
     component.register = true;
-    fixture.detectChanges()
+    fixture.detectChanges();
 
     inputs = fixture.debugElement.queryAll(By.css('input'));
     expect(inputs.length).toBe(3);
@@ -154,7 +154,7 @@ describe('TemplateSchemaDirective', () => {
     expect(input.nativeElement.type).toBe('text');
 
     component.type = 'number';
-    fixture.detectChanges()
+    fixture.detectChanges();
 
     input = fixture.debugElement.query(By.css('input'));
     expect(input.nativeElement.type).toBe('number');
@@ -233,11 +233,11 @@ describe('TemplateSchemaDirective', () => {
     });
 
     const code = 'USERNAME_NOT_MATCHING';
-    component.validatorA = (value, property, form) => {
+    component.validatorA = (value, prop, form) => {
       if (form.value && value !== 'pepito') {
         return [{
           code,
-          path: '#' + property.path,
+          path: '#' + prop.path,
           message: 'Username should be pepito',
           params: [value]
         }];
@@ -251,7 +251,7 @@ describe('TemplateSchemaDirective', () => {
     property.errorsChanges.pipe(take(1)).subscribe((errors) => {
       expect(errors.length).toBe(1);
       expect(errors[0].code).toEqual(code);
-    })
+    });
 
   });
 

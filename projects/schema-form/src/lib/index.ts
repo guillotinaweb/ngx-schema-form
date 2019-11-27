@@ -1,6 +1,6 @@
 export { FormComponent } from './form.component';
 export { FormElementComponent } from './formelement.component';
-export { FormElementComponentAction } from './formelement.action.component';
+export { FormElementActionComponent } from './formelement.action.component';
 export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
 export * from './model';

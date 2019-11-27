@@ -1,5 +1,5 @@
 import { AtomicProperty } from './atomicproperty';
-import { ValidatorRegistry, PropertyGroup } from '.';
+import { PropertyGroup, ValidatorRegistry } from '.';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
 import { SchemaValidatorFactory } from '../schemavalidatorfactory';
 import { PROPERTY_TYPE_MAPPING } from './typemapping';

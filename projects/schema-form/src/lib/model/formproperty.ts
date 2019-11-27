@@ -22,17 +22,17 @@ export abstract class FormProperty {
   _propertyBindingRegistry: PropertyBindingRegistry;
   __canonicalPath: string;
   __canonicalPathNotation: string;
-  
+
   /**
    * Provides the unique path of this form element.<br/>
-   * E.g.: 
+   * E.g.:
    * <code>/garage/cars</code>,<br/>
    * <code>/shop/book/0/page/1/</code>
    */
   get _canonicalPath() { return this.__canonicalPath; }
-  set _canonicalPath(canonicalPath: string) { 
-    this.__canonicalPath = canonicalPath; 
-    this.__canonicalPathNotation = (this.__canonicalPath||'')
+  set _canonicalPath(canonicalPath: string) {
+    this.__canonicalPath = canonicalPath;
+    this.__canonicalPathNotation = (this.__canonicalPath || '')
       .replace(new RegExp('^/', 'ig'), '')
       .replace(new RegExp('/$', 'ig'), '')
       .replace(new RegExp('/', 'ig'), '.');
@@ -40,7 +40,7 @@ export abstract class FormProperty {
   /**
    * Uses the unique path provided by the property <code>_canonicalPath</code><br/>
    * but converts it to a HTML Element Attribute ID compliant format.<br/>
-   * E.g.: 
+   * E.g.:
    * <code>garage.cars</code>,<br/>
    * <code>shop.book.0.page.1.</code>
    */
@@ -48,7 +48,7 @@ export abstract class FormProperty {
 
   private _rootName;
   /**
-   * Provides the HTML Element Attribute ID/NAME compliant representation 
+   * Provides the HTML Element Attribute ID/NAME compliant representation
    * of the root element.<br/>
    * Represents the HTML FORM NAME.<br/>
    * Only the root <code>FormProperty</code> will provide a value here.
@@ -79,9 +79,9 @@ export abstract class FormProperty {
    */
   private createRootName(): string {
     if (this.schema && this.schema['name']) {
-      return this._rootName = this.schema['name'].replace(new RegExp('[\\s]+', 'ig'), '_')
+      return this._rootName = this.schema['name'].replace(new RegExp('[\\s]+', 'ig'), '_');
     }
-    return ''
+    return '';
   }
 
   public get valueChanges() {
@@ -154,9 +154,9 @@ export abstract class FormProperty {
    */
   public _runValidation(): any {
     let errors = this.schemaValidator(this._value) || [];
-    let customValidator = this.validatorRegistry.get(this.path);
+    const customValidator = this.validatorRegistry.get(this.path);
     if (customValidator) {
-      let customErrors = customValidator(this.value, this, this.findRoot());
+      const customErrors = customValidator(this.value, this, this.findRoot());
       errors = this.mergeErrors(errors, customErrors);
     }
     if (errors.length === 0) {
@@ -232,33 +232,33 @@ export abstract class FormProperty {
     value: any = '',
     expression: string|string[] = ''): boolean {
     try {
-      let valid = false
+      let valid = false;
       if (expression.indexOf('$ANY$') !== -1) {
         valid = value && value.length > 0;
-      } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
+      } else if ((expression || []).toString().indexOf('$EXP$') === 0) {
         // since visibleIf condition values are an array... we must do this
-        const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
+        const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : []);
         for (const expString of expArray) {
           const _expresssion = expString.substring('$EXP$'.length);
           valid = true === this.expressionCompilerVisibiltyIf.evaluate(_expresssion, {
             source: sourceProperty,
             target: targetProperty
-          })
+          });
           if (valid) {
-            break
+            break;
           }
         }
       } else {
         valid = expression.indexOf(value) !== -1;
       }
-      return valid
+      return valid;
     } catch (error) {
       console.error('Error processing "VisibileIf" expression for path: ', dependencyPath,
         `source - ${sourceProperty._canonicalPath}: `, sourceProperty,
         `target - ${targetProperty._canonicalPath}: `, targetProperty,
         'value:', value,
         'expression: ', expression,
-        'error: ', error)
+        'error: ', error);
     }
   }
 
@@ -340,14 +340,15 @@ export abstract class FormProperty {
 
   // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
   public _bindVisibility() {
-    if (this.__bindVisibility())
+    if (this.__bindVisibility()) {
       return;
-    let visibleIf = this.schema.visibleIf;
+    }
+    const visibleIf = this.schema.visibleIf;
     if (typeof visibleIf === 'object' && Object.keys(visibleIf).length === 0) {
       this.setVisible(false);
     } else if (visibleIf !== undefined) {
-      let propertiesBinding = [];
-      for (let dependencyPath in visibleIf) {
+      const propertiesBinding = [];
+      for (const dependencyPath in visibleIf) {
         if (visibleIf.hasOwnProperty(dependencyPath)) {
           const properties = this.findProperties(this, dependencyPath);
           if ((properties || []).length) {
@@ -566,21 +567,21 @@ export abstract class PropertyGroup extends FormProperty {
   };
 
   getProperty(path: string) {
-    let subPathIdx = path.indexOf('/');
-    let propertyId = subPathIdx !== -1 ? path.substr(0, subPathIdx) : path;
+    const subPathIdx = path.indexOf('/');
+    const propertyId = subPathIdx !== -1 ? path.substr(0, subPathIdx) : path;
 
     let property = this.properties[propertyId];
     if (property !== null && subPathIdx !== -1 && property instanceof PropertyGroup) {
-      let subPath = path.substr(subPathIdx + 1);
+      const subPath = path.substr(subPathIdx + 1);
       property = (<PropertyGroup>property).getProperty(subPath);
     }
     return property;
   }
 
   public forEachChild(fn: (formProperty: FormProperty, str: String) => void) {
-    for (let propertyId in this.properties) {
+    for (const propertyId in this.properties) {
       if (this.properties.hasOwnProperty(propertyId)) {
-        let property = this.properties[propertyId];
+        const property = this.properties[propertyId];
         fn(property, propertyId);
       }
     }
