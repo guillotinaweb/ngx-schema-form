@@ -1,3 +1,8 @@
+# 2.4.2 (2020-01-16)
+
+- fix template when no rootProperty (ebrehault)
+- fix disabled state for reactive forms by using directive. fix #287 (daniele-pecora)
+
 # 2.4.1 (2019-09-11)
 
 - Fix circular dependency in models (ebrehault)
