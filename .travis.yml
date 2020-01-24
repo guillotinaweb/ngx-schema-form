@@ -35,8 +35,10 @@ deploy:
       branch: master
   - provider: npm
     email: ebrehault@gmail.com
+    skip_cleanup: true
     api_key:
       secure: Qp/YeV/m9dpJ0vhrEi67qnzyik1CJbJMZr9lqQm9bHAsKTmMj+lQLDRvZ9bwoZy3F3+JHy7m8sdZyfVySr4F8kiI/EVEG2Qw0A89Xsi16L8XxPB8ycBiDnUYPVkwFHnfMG3e+UVW8mLrJkyyWnaSsy4fSjGnArt5bZcGmq4lxRHfWeoO5XU6731FEfMBdiDPQxCUHTFlSe0gRFVyx0wXSQ58RVTDk0OCnRCX0En8L4+Q2JqB6GOAF8N5KtsjN+h15oDoWqLayM2gidkBzET2eLvunPGpT7/6NV4q6Ds0HAglR7ZQLFwp5K4mdTYSBF2QY+FGofQ2hf6VTpWbBL0XCWRVU9W3Ma6dem1UYu3N2XX1K0ogrSRaAD1xy5HLcE5a5yubRRfCdh4fTHlM3OV0/VlfjYuE+QX8f7vT9axKrWdV8vuB68P0RrZb2BoJF124LWrg9h75bWCOxN3aJwxttEobvTqE2s+rCi4cR4Kb30uTPGXpZiY8JTT48YCFsFfulr1FGrzOKbGnCK6wmqrwHRAWHx8DfVbSHkEkzVxPf4mYbCCi+CS3FcAtZqSDYRhMzZvKV7YUf/e78jphBF5rswWR6GBzxTQ13hfg+Ai20tU6er+AJdI1NGvcrv/TZKLw5wWGvF6gKWoZedj7nL1EOoFJx7tVzVTlboXGOWkuQAw=
     on:
       tags: true
       repo: guillotinaweb/ngx-schema-form
+      branch: master
