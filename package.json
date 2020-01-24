@@ -9,7 +9,8 @@
     "build:lib": "ng build --prod schema-form && npm run copy:schema",
     "build-demo": "ng build --prod --base-href /ngx-schema-form/dist/ngx-schema-form/",
     "test": "ng test schema-form --watch=false",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "get_version": "cat ./projects/schema-form/package.json | grep version  | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'"
   },
   "private": true,
   "dependencies": {

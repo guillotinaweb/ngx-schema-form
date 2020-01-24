@@ -1,3 +1,7 @@
+# 2.4.3 (2020-01-24)
+
+- Setup auto-tagging and auto-release on NPM (ebrehault)
+
 # 2.4.2 (2020-01-16)
 
 - fix template when no rootProperty (ebrehault)
