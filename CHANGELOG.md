@@ -1,3 +1,7 @@
+# 2.4.4 (2020-02-26)
+
+- Expose more classes in Public API (anotherpit)
+
 # 2.4.3 (2020-01-24)
 
 - Setup auto-tagging and auto-release on NPM (ebrehault)
