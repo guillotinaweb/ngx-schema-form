@@ -9,16 +9,21 @@ export { FormElementComponentAction } from './lib/formelement.action.component';
 export { WidgetChooserComponent } from './lib/widgetchooser.component';
 export { WidgetRegistry } from './lib/widgetregistry';
 export {
-  FormProperty,
-  ArrayProperty,
-  FormPropertyFactory,
-  SchemaPreprocessor,
-  Validator,
-  ValidatorRegistry,
   Action,
   ActionRegistry,
   Binding,
   BindingRegistry,
+  FormPropertyFactory,
+  FormProperty,
+  AtomicProperty,
+  ObjectProperty,  
+  ArrayProperty,
+  StringProperty,
+  BooleanProperty,
+  NumberProperty,  
+  Validator,
+  ValidatorRegistry,
+  SchemaPreprocessor,
 } from './lib/model';
 export {
   SchemaValidatorFactory,
