@@ -11,7 +11,9 @@ import { StringWidget } from './string/string.widget';
 import { TextAreaWidget } from './textarea/textarea.widget';
 
 import { WidgetRegistry } from '../widgetregistry';
+import { Injectable } from '@angular/core';
 
+@Injectable()
 export class DefaultWidgetRegistry extends WidgetRegistry {
   constructor() {
     super();

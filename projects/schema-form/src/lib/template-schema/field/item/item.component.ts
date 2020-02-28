@@ -3,7 +3,6 @@ import {
  ElementRef,
  Input,
  OnInit,
- forwardRef
 } from '@angular/core';
 
 import { TemplateSchemaElement } from '../../template-schema-element';

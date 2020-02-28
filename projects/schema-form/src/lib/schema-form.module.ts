@@ -105,7 +105,7 @@ const moduleProviders = [
 })
 export class SchemaFormModule {
 
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<SchemaFormModule> {
     return {
       ngModule: SchemaFormModule,
       providers: [...moduleProviders]

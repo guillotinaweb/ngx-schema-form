@@ -1,4 +1,4 @@
-import { ElementRef, QueryList } from '@angular/core';
+import { QueryList } from '@angular/core';
 
 import { Validator } from '../../model/validator';
 import { ActionRegistry } from '../../model/actionregistry';

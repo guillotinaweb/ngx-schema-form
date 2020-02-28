@@ -3,9 +3,7 @@ import {
   ContentChildren,
   QueryList,
   AfterContentInit,
-  HostBinding,
   SimpleChange,
-  SimpleChanges
 } from '@angular/core';
 import { merge } from 'rxjs';
 
@@ -16,7 +14,7 @@ import { TerminatorService } from '../terminator.service';
 
 import { TemplateSchemaService } from './template-schema.service';
 import { FieldComponent } from './field/field.component';
-import { FieldType, Field } from './field/field';
+import { FieldType } from './field/field';
 import { ButtonComponent } from './button/button.component';
 import { FieldParent } from './field/field-parent';
 

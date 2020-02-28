@@ -1,5 +1,7 @@
 import { Action } from './action';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ActionRegistry {
   actions: {[key: string]: Action} = {};
 

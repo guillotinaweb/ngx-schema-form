@@ -7,7 +7,6 @@ import {
   EventEmitter,
   forwardRef
 } from '@angular/core';
-import { Subject } from 'rxjs';
 
 import { TemplateSchemaElement } from '../template-schema-element';
 
