@@ -1,6 +1,8 @@
+import { Injectable } from "@angular/core";
 /**
  * General purpose propery binding registry
  */
+@Injectable()
 export class PropertyBindingRegistry {
 
   private bindings: { [key: string]: PropertyBindings } = {};

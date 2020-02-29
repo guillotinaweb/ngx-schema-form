@@ -1,3 +1,7 @@
+# 2.5.0 (2020-02-28)
+
+- Upgrade to Angular 9 (ebrehault)
+
 # 2.4.4 (2020-02-26)
 
 - Expose more classes in Public API (anotherpit)

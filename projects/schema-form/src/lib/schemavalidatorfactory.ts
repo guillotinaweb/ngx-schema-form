@@ -1,4 +1,5 @@
 import * as ZSchema from 'z-schema';
+import { Injectable } from "@angular/core";
 
 export abstract class SchemaValidatorFactory {
   abstract createValidatorFn(schema): (value: any) => any;
@@ -26,6 +27,7 @@ export abstract class SchemaValidatorFactory {
   }
 }
 
+@Injectable()
 export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
   protected zschema;

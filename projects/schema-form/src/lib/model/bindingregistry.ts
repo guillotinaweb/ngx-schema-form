@@ -1,5 +1,7 @@
 import {Binding} from './binding';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class BindingRegistry {
   bindings: Binding[] = [];
 

@@ -16,7 +16,7 @@ import { ItemComponent } from './item/item.component';
   template: ''
 })
 class TestComponent {
-  @ViewChild(FieldComponent, { static: false })
+  @ViewChild(FieldComponent)
   field: FieldComponent;
 
   validator() { }

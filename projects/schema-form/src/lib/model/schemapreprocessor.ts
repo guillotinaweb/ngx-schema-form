@@ -1,4 +1,5 @@
 import {isBlank} from './utils';
+import { Injectable } from "@angular/core";
 
 function formatMessage(message, path) {
   return `Parsing error on ${path}: ${message}`;
@@ -14,6 +15,7 @@ function schemaWarning(message, path): void {
   throw new Error(mesg);
 }
 
+@Injectable()
 export class SchemaPreprocessor {
 
   static preprocess(jsonSchema: any, path = '/'): any {

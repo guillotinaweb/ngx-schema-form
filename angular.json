@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "dist/ngx-schema-form",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -29,6 +30,12 @@
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -109,7 +116,8 @@
           },
           "configurations": {
             "production": {
-              "project": "projects/schema-form/ng-package.prod.json"
+              "project": "projects/schema-form/ng-package.prod.json",
+              "tsConfig": "projects/schema-form/tsconfig.lib.prod.json"
             }
           }
         },

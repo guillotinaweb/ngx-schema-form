@@ -1,14 +1,14 @@
 {
   "name": "ngx-schema-form",
-  "version": "2.4.4",
+  "version": "2.5.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guillotinaweb/ngx-schema-form"
   },
   "keywords": [
     "angular",
-    "angular 7",
-    "schema",
+    "angular 9",
+    "JSON schema",
     "form",
     "schema form"
   ],
@@ -25,14 +25,14 @@
     "Daniele Pecora <daniele.pecora@googlemail.com>"
   ],
   "peerDependencies": {
-    "@angular/common": ">=6 <=8.1",
-    "@angular/core": ">=6 <=8.1",
-    "@angular/forms": ">=6 <=8.1",
-    "@angular/platform-browser": ">=6 <=8.1",
-    "jexl": "^2.1.1",
-    "rxjs": "^6.3.3",
-    "typescript": "~3.2.2",
-    "z-schema": "^3.17.0",
-    "zone.js": "^0.8.26"
+    "@angular/common": "^9.0.4",
+    "@angular/core": "^9.0.4",
+    "@angular/forms": "^9.0.4",
+    "@angular/platform-browser": "^9.0.4",
+    "jexl": "^2.2.2",
+    "rxjs": "^6.5.4",
+    "typescript": "~3.7.5",
+    "z-schema": "^4.2.2",
+    "zone.js": "~0.10.2"
   }
 }
