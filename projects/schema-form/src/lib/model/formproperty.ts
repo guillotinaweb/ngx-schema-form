@@ -233,7 +233,7 @@ export abstract class FormProperty {
     expression: string|string[] = ''): boolean {
     try {
       let valid = false
-      if (expression.indexOf('$ANY$') !== -1) {
+      if (isNaN(expression) && expression.indexOf('$ANY$') !== -1) {
         valid = value && value.length > 0;
       } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
         // since visibleIf condition values are an array... we must do this
@@ -249,7 +249,7 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = expression.indexOf(value) !== -1;
+        valid = isNaN(value) ? value.indexOf(expression) !== -1 : value === expression;
       }
       return valid
     } catch (error) {
