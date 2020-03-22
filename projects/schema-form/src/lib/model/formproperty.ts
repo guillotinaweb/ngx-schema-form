@@ -22,16 +22,16 @@ export abstract class FormProperty {
   _propertyBindingRegistry: PropertyBindingRegistry;
   __canonicalPath: string;
   __canonicalPathNotation: string;
-  
+
   /**
    * Provides the unique path of this form element.<br/>
-   * E.g.: 
+   * E.g.:
    * <code>/garage/cars</code>,<br/>
    * <code>/shop/book/0/page/1/</code>
    */
   get _canonicalPath() { return this.__canonicalPath; }
-  set _canonicalPath(canonicalPath: string) { 
-    this.__canonicalPath = canonicalPath; 
+  set _canonicalPath(canonicalPath: string) {
+    this.__canonicalPath = canonicalPath;
     this.__canonicalPathNotation = (this.__canonicalPath||'')
       .replace(new RegExp('^/', 'ig'), '')
       .replace(new RegExp('/$', 'ig'), '')
@@ -40,7 +40,7 @@ export abstract class FormProperty {
   /**
    * Uses the unique path provided by the property <code>_canonicalPath</code><br/>
    * but converts it to a HTML Element Attribute ID compliant format.<br/>
-   * E.g.: 
+   * E.g.:
    * <code>garage.cars</code>,<br/>
    * <code>shop.book.0.page.1.</code>
    */
@@ -48,7 +48,7 @@ export abstract class FormProperty {
 
   private _rootName;
   /**
-   * Provides the HTML Element Attribute ID/NAME compliant representation 
+   * Provides the HTML Element Attribute ID/NAME compliant representation
    * of the root element.<br/>
    * Represents the HTML FORM NAME.<br/>
    * Only the root <code>FormProperty</code> will provide a value here.
@@ -230,16 +230,16 @@ export abstract class FormProperty {
     targetProperty: FormProperty,
     dependencyPath: string,
     value: any = '',
-    expression: string|string[] = ''): boolean {
+    expression: string|string[]|number = ''): boolean {
     try {
       let valid = false
-      if (expression.indexOf('$ANY$') !== -1) {
+      if (isNaN(expression as number) && (expression as string).indexOf('$ANY$') !== -1) {
         valid = value && value.length > 0;
       } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
         // since visibleIf condition values are an array... we must do this
         const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
         for (const expString of expArray) {
-          const _expresssion = expString.substring('$EXP$'.length);
+          const _expresssion = (expString as string).substring('$EXP$'.length);
           valid = true === this.expressionCompilerVisibiltyIf.evaluate(_expresssion, {
             source: sourceProperty,
             target: targetProperty
@@ -249,7 +249,7 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = expression.indexOf(value) !== -1;
+        valid = isNaN(value) ? value.indexOf(expression) !== -1 : value === expression;
       }
       return valid
     } catch (error) {
