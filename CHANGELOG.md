@@ -1,3 +1,7 @@
+# 2.5.1 (2020-03-22)
+
+- Allow "VisibleIf" to work with numeric values
+
 # 2.5.0 (2020-02-28)
 
 - Upgrade to Angular 9 (ebrehault)
