@@ -249,7 +249,8 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = isNaN(value) ? value.indexOf(expression) !== -1 : value === expression;
+        valid = !!value ? expression.toString() === value : false;
+
       }
       return valid
     } catch (error) {
