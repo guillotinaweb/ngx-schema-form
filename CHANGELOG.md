@@ -1,6 +1,6 @@
 # 2.5.2 (2020-04-09)
 
-- Allow "VisibleIf" to work with numeric values
+- Fix: visibleIf turn tru even if only part of the value matches the expression
 
 #2.5.1 (2020-03-22)
 
