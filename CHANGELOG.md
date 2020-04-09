@@ -1,4 +1,8 @@
-# 2.5.1 (2020-03-22)
+# 2.5.2 (2020-04-09)
+
+- Allow "VisibleIf" to work with numeric values
+
+#2.5.1 (2020-03-22)
 
 - Allow "VisibleIf" to work with numeric values
 
