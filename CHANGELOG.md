@@ -1,6 +1,6 @@
 # 2.5.2 (2020-04-09)
 
-- Fix: visibleIf turn even if only part of the value matches the expression
+- Fix: visibleIf returns turn even if only part of the value matches the expression
 
 #2.5.1 (2020-03-22)
 
