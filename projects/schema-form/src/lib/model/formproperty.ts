@@ -249,7 +249,7 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = !!value ? expression.toString() === value : false;
+        valid = !!value ? expression.toString() === value.toString() : false;
 
       }
       return valid
