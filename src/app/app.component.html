@@ -1,0 +1,31 @@
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/json">NGX Schema Form</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/json">JSON Schema </a></li>
+        <li routerLinkActive="active"><a routerLink="/template">Template Schema</a></li>
+      </ul>
+      <div *ngIf="page === 'json'" class="navbar-form navbar-right">
+        <div class="form-group">
+          <input type="text" [(ngModel)]="schemaUrl" name="schemaUrl" class="form-control" placeholder="Load schema form URL">
+        </div>
+        <button (click)="loadSchema()" class="btn btn-default" style="margin-left: 5px">Load</button>
+        <button *ngIf="schemaUrl" (click)="removeSchema()" class="btn btn-default" style="margin-left: 5px">Clear</button>
+      </div>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+<router-outlet></router-outlet>

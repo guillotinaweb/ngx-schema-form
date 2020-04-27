@@ -1,45 +1,28 @@
 {
-    "compilerOptions": {
-        "baseUrl": "",
-        "target": "es5",
-        "module": "es2015",
-        "moduleResolution": "node",
-        "declaration": true,
-        "noImplicitAny": false,
-        "strictNullChecks": false,
-        "sourceMap": false,
-        "emitDecoratorMetadata": true,
-        "experimentalDecorators": true,
-        "outDir": "./dist",
-        "rootDir": "./src",
-        "skipLibCheck": true,
-        "stripInternal": true,
-        "typeRoots": ["./node_modules/@types"],
-        "types": [
-            "node"
-        ],
-        "lib": [
-            "dom",
-            "es2015"
-        ],
-        "paths": {
-            "rxjs/*": ["node_modules/rxjs/*"]
-        }
-    },
-    "compileOnSave": false,
-    "buildOnSave": false,
-    "exclude": [
-        "node_modules",
-        "dist",
-        "tests",
-        "**/*.ngfactory.ts",
-        "**/*.shim.ts",
-        "**/*.spec.ts"
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "module": "esnext",
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "target": "es6",
+    "typeRoots": [
+      "node_modules/@types"
     ],
-    "angularCompilerOptions": {
-        "genDir": "dist",
-        "entryModule": "src/schema-form.module#SchemaFormModule",
-        "skipTemplateCodegen": true,
-        "strictMetadataEmit": true
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "paths": {
+      "ngx-schema-form": [
+        "projects/schema-form/src/lib"
+      ]
     }
+  }
 }

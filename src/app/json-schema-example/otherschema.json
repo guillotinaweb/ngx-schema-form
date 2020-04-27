@@ -1,0 +1,73 @@
+{
+  "title": "Otherschema",
+  "fieldsets": [
+    {
+      "fields": [
+        "title",
+        "description"
+      ],
+      "id": "default",
+      "title": "Default"
+    },
+    {
+      "fields": [
+        "author",
+        "language",
+        "version"
+      ],
+      "id": "settings",
+      "title": "Settings"
+    }
+  ],
+  "properties": {
+    "description": {
+      "description": "Short description",
+      "minLength": 0,
+      "title": "Summary",
+      "type": "string",
+      "widget": "textarea"
+    },
+    "title": {
+      "description": "",
+      "title": "Title",
+      "type": "string"
+    },
+    "author": {
+      "description": "",
+      "title": "Author",
+      "type": "string"
+    },
+    "language": {
+      "description": "",
+      "oneOf": [
+        {"enum": ["es"], "description": "Spanish"},
+        {"enum": ["fr"], "description": "French"}
+      ],
+      "title": "Language",
+      "type": "string",
+      "widget": "select"
+    },
+    "version": {
+      "description": "",
+      "enum": [
+        "2.0",
+        "1.9",
+        "1.8",
+        "1.7",
+        "1.6",
+        "1.5",
+        "1.4",
+        "1.3",
+        "1.2",
+        "1.1",
+        "1.0"
+      ],
+      "title": "Version",
+      "type": "string",
+      "widget": "select"
+    }
+  },
+  "required": [
+    "title"
+  ]
+}

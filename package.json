@@ -1,64 +1,56 @@
 {
-  "name": "angular2-schema-form",
-  "version": "1.0.0-beta.7",
-  "description": "Angular2 Schema Form (DISCLAIMER: it is not related to angular-schema-form)",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
+  "name": "ngx-schema-form-demo",
+  "version": "0.0.0",
   "scripts": {
-    "clean": "rimraf dist/",
-    "test": "cd tests/src/app && ln -s ../../../src/ ./lib && cd ../.. && ng test --single-run",
-    "build:aot": "ngc -p tsconfig.json",
-    "build:jit": "tsc -p tsconfig.json",
-    "build": "npm run clean && npm run build:aot",
-    "install:peers": "npm-install-peers"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "copy:schema": "node -e \"var src='./schema/ngx-schema-form-schema.json'; var dest='./dist/schema-form/ngx-schema-form-schema.json'; var fs = require('fs'); if (fs.existsSync(src)) { var data = fs.readFileSync(src, 'utf-8'); fs.writeFileSync(dest, data);}\"",
+    "build:lib": "ng build --prod schema-form && npm run copy:schema",
+    "build-demo": "ng build --prod --base-href /ngx-schema-form/dist/ngx-schema-form/",
+    "test": "ng test schema-form --watch=false",
+    "lint": "ng lint",
+    "get_version": "cat ./projects/schema-form/package.json | grep version  | head -1 | awk -F: '{ print $2 }' | sed 's/[\",]//g' | tr -d '[[:space:]]'"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/makinacorpus/angular2-schema-form"
-  },
-  "keywords": [
-    "angularjs",
-    "angular",
-    "javascript",
-    "angular2",
-    "schema",
-    "form",
-    "schema form"
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/makinacorpus/angular2-schema-form/issues"
-  },
-  "contributors": [
-    "Frank Bessou <fbessou@free.fr>",
-    "Eric Brehault <ebrehault@gmail.com>",
-    "Simon Bats <contact@simonbats.com>",
-    "Ramon Navarro Bosch <ramon.nb@gmail.com>"
-  ],
+  "private": true,
   "dependencies": {
-    "body-parser": "^1.15.1",
-    "methods": "^1.1.2",
-    "raw-loader": "0.5.1",
-    "z-schema": "^3.17.0"
-  },
-  "peerDependencies": {
-    "@angular/common": "^4.0.3",
-    "@angular/forms": "^4.0.3",
-    "@angular/compiler": "^4.0.3",
-    "@angular/core": "^4.0.3",
-    "@angular/http": "^4.0.3",
-    "@angular/platform-browser": "^4.0.3",
-    "core-js": "2.4.1",
-    "rxjs": "^5.1.0",
-    "typescript": "2.2.2",
-    "zone.js": "^0.7.6"
+    "@angular/animations": "~9.0.4",
+    "@angular/common": "~9.0.4",
+    "@angular/compiler": "~9.0.4",
+    "@angular/core": "~9.0.4",
+    "@angular/forms": "~9.0.4",
+    "@angular/platform-browser": "~9.0.4",
+    "@angular/platform-browser-dynamic": "~9.0.4",
+    "@angular/router": "~9.0.4",
+    "bootstrap": "^4.4.1",
+    "core-js": "^2.5.4",
+    "jexl": "^2.2.2",
+    "ngx-schema-form": "file:projects/schema-form",
+    "rxjs": "^6.5.4",
+    "tslib": "^1.10.0",
+    "z-schema": "^4.2.2",
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
-    "@angular/compiler-cli": "^4.0.3",
-    "@angular/platform-server": "^4.0.3",
-    "@types/jasmine": "2.5.38",
-    "@types/node": "6.0.60",
-    "npm-install-peers": "^1.1.0",
-    "rimraf": "^2.5.4"
+    "@angular-devkit/build-angular": "~0.900.4",
+    "@angular-devkit/build-ng-packagr": "~0.900.4",
+    "@angular/cli": "^9.0.4",
+    "@angular/compiler-cli": "~9.0.4",
+    "@angular/language-service": "~9.0.4",
+    "@types/jasmine": "~2.8.11",
+    "@types/jasminewd2": "~2.0.6",
+    "@types/node": "^12.11.1",
+    "codelyzer": "^5.1.2",
+    "jasmine-core": "~3.3.0",
+    "jasmine-spec-reporter": "~4.2.1",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "~2.2.0",
+    "karma-coverage-istanbul-reporter": "~2.0.4",
+    "karma-jasmine": "~1.1.1",
+    "karma-jasmine-html-reporter": "^1.4.0",
+    "ng-packagr": "^9.0.0",
+    "ts-node": "~7.0.1",
+    "tslint": "~5.11.0",
+    "typescript": "~3.7.5"
   }
 }

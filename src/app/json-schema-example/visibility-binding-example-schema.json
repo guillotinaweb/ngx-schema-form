@@ -1,0 +1,206 @@
+{
+  "name": "My Visibility Binding Form DEMO",
+  "type": "object",
+  "description": "Some fields will only show if some condition do apply:",
+  "properties": {
+    "description1": {
+      "type": "object",
+      "title": "FIELD 1",
+      "description": "Is only visible if car #1 exists with name 'fiat'",
+      "properties": {}
+    },
+    "description2": {
+      "type": "object",
+      "title": "FIELD 2",
+      "description": "Is only visible if car #2 exists with name 'renault'",
+      "properties": {}
+    },
+    "description3": {
+      "type": "object",
+      "title": "FIELD 3",
+      "description": "Is only visible if car #2 exists and tire #3 is named 'michelin'",
+      "properties": {}
+    },
+    "description4": {
+      "type": "object",
+      "title": "FIELD 4",
+      "description": "Is only visible if any car exists and tire #2 is named 'michelin'",
+      "properties": {}
+    },
+    "description5": {
+      "type": "object",
+      "title": "FIELD 5",
+      "description": "Is only visible if any car has space for more than 3 passengers",
+      "properties": {}
+    },
+    "spacer 1": {
+      "type": "object",
+      "title": " ",
+      "description": " ",
+      "properties": {}
+    },
+    "fields": {
+      "type": "object",
+      "title": "Fields with visibility bindings",
+      "properties": {
+        "field1": {
+          "type": "string",
+          "title": "Field 1",
+          "description": " This field is only visible if car #1 exists with name 'fiat'",
+          "default": "You named the 1st car FIAT",
+          "visibleIf": {
+            "/garage/cars/0/name": [
+              "fiat"
+            ]
+          }
+        },
+        "field2": {
+          "type": "string",
+          "title": "Field 2",
+          "description": " This field is only visible if car #2 exists with name 'renault'",
+          "default": "You named the 2nd car RENAULT",
+          "visibleIf": {
+            "/garage/cars/1/name": [
+              "renault"
+            ]
+          }
+        },
+        "field3": {
+          "type": "string",
+          "title": "Field 3",
+          "description": " This field is only visible if car #2 exists and tire #3 is named 'michelin'",
+          "default": "You named the 3rd tire of the 2nd car MICHELIN",
+          "visibleIf": {
+            "/garage/cars/1/tires/2/name": [
+              "michelin"
+            ]
+          }
+        },
+        "field4": {
+          "type": "string",
+          "title": "Field 4",
+          "description": " This field is only visible if any car exists and tire #2 is named 'michelin'",
+          "default": "You named the 2nd tire of any car/s MICHELIN",
+          "visibleIf": {
+            "/garage/cars/*/tires/1/name": [
+              "michelin"
+            ]
+          }
+        },
+        "field5": {
+          "type": "string",
+          "title": "Field 5",
+          "description": " This field is only visible if any car has space for more than 3 passengers",
+          "default": "One car has space for more than 3 passengers",
+          "visibleIf": {
+            "/garage/cars/*/space": [
+              "$EXP$ target.value > 3"
+            ]
+          }
+        }
+      }
+    },
+    "spacer 2": {
+      "type": "object",
+      "title": " ",
+      "description": " ",
+      "properties": {}
+    },
+    "garage": {
+      "type": "object",
+      "title": "Garage",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Garage name"
+        },
+        "cars": {
+          "title": "Cars",
+          "type": "array",
+          "items": {
+            "type": "object",
+            "title": "Car",
+            "properties": {
+              "name": {
+                "widget": "select",
+                "type": "string",
+                "title": "Car name",
+                "oneOf": [
+                  {
+                    "enum": [
+                      ""
+                    ],
+                    "description": "Select car name"
+                  },
+                  {
+                    "enum": [
+                      "fiat"
+                    ],
+                    "description": "FIAT"
+                  },
+                  {
+                    "enum": [
+                      "renault"
+                    ],
+                    "description": "Renault"
+                  }
+                ]
+              },
+              "space": {
+                "type": "number",
+                "title": "How many passengers",
+                "description": "How many passengers do fit in this car?",
+                "min": 3,
+                "max": 5
+              },
+              "tires": {
+                "title": "Tires",
+                "type": "array",
+                "maxItems": 4,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "widget": "select",
+                      "type": "string",
+                      "oneOf": [
+                        {
+                          "enum": [
+                            ""
+                          ],
+                          "description": "Select tire name"
+                        },
+                        {
+                          "enum": [
+                            "michelin"
+                          ],
+                          "description": "Michelin"
+                        },
+                        {
+                          "enum": [
+                            "good year"
+                          ],
+                          "description": "Good Year"
+                        }
+                      ]
+                    }
+                  }
+                }
+              },
+              "descriptionTires": {
+                "type": "object",
+                "description": "Press the above buttons 'Add' or 'Remove' to add or remove tires",
+                "properties": {}
+              }
+            }
+          }
+        },
+        "descriptionCars": {
+          "type": "object",
+          "description": "Press the above buttons 'Add' or 'Remove' to add or remove cars",
+          "properties": {}
+        }
+      }
+    }
+  }
+}
