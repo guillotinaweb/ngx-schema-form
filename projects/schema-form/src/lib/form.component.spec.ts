@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import {Component} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
 
-import { FormComponent } from './form.component';
-import { SchemaFormModule } from './schema-form.module';
+import {FormComponent} from './form.component';
+import {SchemaFormModule} from './schema-form.module';
+import {FieldType} from './template-schema/field/field';
+import {ISchema} from './model/ISchema';
 
 class BaseTest {
-  schema: any = {
-    type: 'object',
+  schema: ISchema = {
+    type: FieldType.Object,
     properties: {
       fieldA: {
-        type: 'string',
+        type: FieldType.String,
         title: 'A title',
         description: 'A description'
       }
@@ -45,16 +47,16 @@ class TestAComponent extends BaseTest {}
 })
 class TestBComponent extends BaseTest {}
 
-const schemaB = {
-  type: 'object',
+const schemaB: ISchema = {
+  type: FieldType.Object,
   properties: {
     fieldB: {
-      type: 'string',
+      type: FieldType.String,
       title: 'A title',
       description: 'A description'
     },
     fieldA: {
-      type: 'string',
+      type: FieldType.String,
       title: 'B title',
       description: 'B description'
     }

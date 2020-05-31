@@ -6,6 +6,7 @@ import { ButtonComponent } from '../button/button.component';
 import { TemplateSchemaElement } from '../template-schema-element';
 
 import { Field, FieldType } from './field';
+import {ISchema} from '../../model/ISchema';
 
 export abstract class FieldParent extends TemplateSchemaElement {
 
@@ -64,8 +65,8 @@ export abstract class FieldParent extends TemplateSchemaElement {
 
   }
 
-  protected getFieldsSchema(fields: Field[]) {
-    return fields.reduce((schema: any, field) => {
+  protected getFieldsSchema(fields: Field[]): ISchema {
+    return fields.reduce((schema: ISchema, field: Field) => {
 
       switch (this.type) {
         case FieldType.Array:

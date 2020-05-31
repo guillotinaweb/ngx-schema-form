@@ -1,4 +1,5 @@
 import { Validator } from '../../model/validator';
+import {ISchema} from '../../model/ISchema';
 
 export enum FieldType {
   String = 'string',
@@ -12,7 +13,7 @@ export enum FieldType {
 export interface Field {
   name: string;
   required: boolean;
-  getSchema(): any;
+  getSchema(): ISchema;
   getButtons(): any;
   getValidators(): { path: string, validator: Validator }[];
 }
