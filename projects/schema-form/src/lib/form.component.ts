@@ -58,7 +58,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBi
 })
 export class FormComponent implements OnChanges, ControlValueAccessor {
 
-  @Input() schema: ISchema = null;
+  @Input() schema: ISchema | null = null;
 
   @Input() model: any;
 

@@ -43,7 +43,7 @@ export interface ISchema {
   oneOf?: IOneOf[];
   properties?: IProperties;
   order?: string[];
-  items?: IProperties;
+  items?: ISchema;
   buttons?: IButton[];
   required?: string[];
   readOnly?: boolean;

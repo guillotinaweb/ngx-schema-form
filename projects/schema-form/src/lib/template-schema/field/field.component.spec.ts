@@ -10,6 +10,7 @@ import { ButtonComponent } from '../button/button.component';
 import { TemplateSchemaService } from '../template-schema.service';
 import { FieldComponent } from './field.component';
 import { ItemComponent } from './item/item.component';
+import {ISchema} from '../../model/ISchema';
 
 @Component({
   selector: 'sf-test',
@@ -214,7 +215,7 @@ describe('FieldComponent', () => {
     expect(field.getButtons().length).toBe(0);
     expect(field.getValidators().length).toBe(0);
 
-    const schema = field.getSchema();
+    const schema: ISchema = field.getSchema();
 
     expect(schema).toEqual({
       type: 'array',
