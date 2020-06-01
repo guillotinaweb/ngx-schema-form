@@ -48,7 +48,6 @@ export interface ISchema {
   required?: string[];
   readOnly?: boolean;
   format?: string;
-  isRoot?: boolean;
   widget?: IWidget | any;
   fieldsets?: IFieldSet[];
   [prop: string]: any;
