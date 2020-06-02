@@ -18,6 +18,7 @@ import {
   ZSchemaValidatorFactory
 } from '../schemavalidatorfactory';
 import { JEXLExpressionCompilerFactory } from '../expression-compiler-factory';
+import {ISchema} from './ISchema';
 
 class AtomicPropertyImpl extends AtomicProperty {
 
@@ -68,7 +69,7 @@ describe('Atomic properties', () => {
 
   describe('StringProperty', () => {
 
-    const A_STRING_PROPERTY = {'type': 'string'};
+    const A_STRING_PROPERTY: ISchema = {'type': 'string'};
 
     it('should fallback to empty string', () => {
       const property = new StringProperty(
@@ -88,7 +89,7 @@ describe('Atomic properties', () => {
 
   describe('NumberProperty', () => {
 
-    const AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM = {'type': 'number'};
+    const AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM: ISchema = {'type': 'number'};
 
     it('without minimum in schema should fallback to null on reset', () => {
       const property = new NumberProperty(

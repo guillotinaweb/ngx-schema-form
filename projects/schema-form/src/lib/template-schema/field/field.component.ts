@@ -19,6 +19,7 @@ import { FieldParent } from './field-parent';
 import { FieldType, Field } from './field';
 import { ItemComponent } from './item/item.component';
 import { merge } from 'rxjs';
+import {ISchema} from '../../model/ISchema';
 
 
 @Component({
@@ -68,7 +69,7 @@ Field, OnChanges, AfterContentInit {
   validator: Validator;
 
   @Input()
-  schema: any = { };
+  schema: ISchema = { };
 
   constructor(
     private elementRef: ElementRef,
@@ -78,7 +79,7 @@ Field, OnChanges, AfterContentInit {
     super();
   }
 
-  getSchema(): any {
+  getSchema(): ISchema {
 
     const { properties, items, required } = this.getFieldsSchema(
       this.childFields.filter(field => field !== this)
@@ -86,7 +87,7 @@ Field, OnChanges, AfterContentInit {
 
     const oneOf = this.getOneOf();
 
-    const schema = <any>{
+    const schema: ISchema = {
       type: this.type
     };
 

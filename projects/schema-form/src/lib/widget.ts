@@ -4,6 +4,7 @@ import {FormControl} from '@angular/forms';
 import {ArrayProperty} from './model/arrayproperty';
 import {FormProperty} from './model/formproperty';
 import {ObjectProperty} from './model/objectproperty';
+import {ISchema} from './model/ISchema';
 
 export abstract class Widget<T extends FormProperty> {
   formProperty: T;
@@ -12,7 +13,7 @@ export abstract class Widget<T extends FormProperty> {
 
   id: string = '';
   name: string = '';
-  schema: any = {};
+  schema: ISchema = {};
 }
 
 export class ControlWidget extends Widget<FormProperty> implements AfterViewInit {

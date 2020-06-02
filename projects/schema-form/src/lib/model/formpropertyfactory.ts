@@ -4,6 +4,7 @@ import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
 import { PROPERTY_TYPE_MAPPING } from './typemapping';
+import {ISchema} from './ISchema';
 
 export class FormPropertyFactory {
 
@@ -12,7 +13,7 @@ export class FormPropertyFactory {
               private expressionCompilerFactory: ExpressionCompilerFactory) {
   }
 
-  createProperty(schema: any, parent: PropertyGroup = null, propertyId?: string): FormProperty {
+  createProperty(schema: ISchema, parent: PropertyGroup = null, propertyId?: string): FormProperty {
     let newProperty = null;
     let path = '';
     let _canonicalPath = '';
