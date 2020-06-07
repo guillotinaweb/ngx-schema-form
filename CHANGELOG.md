@@ -1,6 +1,12 @@
-# 2.5.3 (2020-04-12)
+
+# 2.5.4 (2020-04-12)
 
 - Fix: visibleIf returns turn even if only part of the value matches the expression (compare number to string fix)
+=======
+# 2.5.3 (2020-06-02)
+
+- Add extendable TypeScript interfaces for JSON Schema objects (artonio)
+
 
 # 2.5.2 (2020-04-09)
 

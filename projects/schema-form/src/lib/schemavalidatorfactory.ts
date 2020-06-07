@@ -1,5 +1,7 @@
 import * as ZSchema from 'z-schema';
-import { Injectable } from "@angular/core";
+import {Injectable} from '@angular/core';
+import {ISchema} from './model/ISchema';
+import {FieldType} from './template-schema/field/field';
 
 export abstract class SchemaValidatorFactory {
   abstract createValidatorFn(schema): (value: any) => any;
@@ -47,10 +49,10 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
     this.createSchemaValidator()
   }
 
-  createValidatorFn(schema: any) {
+  createValidatorFn(schema: ISchema) {
     return (value): { [key: string]: boolean } => {
 
-      if (schema.type === 'number' || schema.type === 'integer') {
+      if (schema.type === FieldType.Number || schema.type === FieldType.Integer) {
         value = +value;
       }
 

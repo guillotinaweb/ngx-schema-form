@@ -5,6 +5,7 @@ import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
+import {ISchema} from './ISchema';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
@@ -58,7 +59,7 @@ export abstract class FormProperty {
   constructor(schemaValidatorFactory: SchemaValidatorFactory,
               private validatorRegistry: ValidatorRegistry,
               expressionCompilerFactory: ExpressionCompilerFactory,
-              public schema: any,
+              public schema: ISchema,
               parent: PropertyGroup,
               path: string) {
     this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);

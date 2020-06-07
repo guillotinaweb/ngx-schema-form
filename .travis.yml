@@ -19,11 +19,14 @@ before_deploy:
   if [[ $TRAVIS_TAG ]]; then
     cd dist/schema-form;
   else
-    git config --global user.email "build@travis-ci.com" &&
-    git config --global user.name "Travis CI" &&
-    export PACKAGE_VERSION=$(npm run get_version | tail -n 1) &&
-    echo "TAGGING $PACKAGE_VERSION..." &&
-    git tag $PACKAGE_VERSION;
+    git config --global user.email "build@travis-ci.com";
+    git config --global user.name "Travis CI";
+    export PACKAGE_VERSION=$(npm run get_version | tail -n 1);
+    if ! [ $(git tag -l "$PACKAGE_VERSION") ]; then
+      echo "TAGGING $PACKAGE_VERSION...";
+      export PUSH_TAG="ok";
+      git tag $PACKAGE_VERSION;
+    fi
   fi
 deploy:
   - provider: releases
@@ -33,7 +36,9 @@ deploy:
     on:
       repo: guillotinaweb/ngx-schema-form
       branch: master
+      condition: $PUSH_TAG IS present
   - provider: npm
+    edge: true
     email: ebrehault@gmail.com
     skip_cleanup: true
     api_key:

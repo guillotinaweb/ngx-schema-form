@@ -8,6 +8,7 @@ import {
 import { ValidatorRegistry } from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { JEXLExpressionCompilerFactory } from '../expression-compiler-factory';
+import {ISchema} from './ISchema';
 
 describe('ObjectProperty', () => {
 
@@ -18,7 +19,7 @@ describe('ObjectProperty', () => {
   let A_FORM_PROPERTY_FACTORY = new FormPropertyFactory(A_SCHEMA_VALIDATOR_FACTORY, A_VALIDATOR_REGISTRY, A_PROPERTY_BINDING_REGISTRY, A_EXPRESSION_COMPILER_FACTORY);
 
 
-  let THE_OBJECT_SCHEMA = {
+  const THE_OBJECT_SCHEMA: ISchema = {
     type: 'object',
     properties: {
       FOO: {type: 'integer'},

@@ -3,6 +3,7 @@ import { ValidatorRegistry, PropertyGroup } from '.';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
 import { SchemaValidatorFactory } from '../schemavalidatorfactory';
 import { PROPERTY_TYPE_MAPPING } from './typemapping';
+import {ISchema} from './ISchema';
 
 export class NumberProperty extends AtomicProperty {
 
@@ -27,7 +28,7 @@ PROPERTY_TYPE_MAPPING.integer = (
     schemaValidatorFactory: SchemaValidatorFactory,
     validatorRegistry: ValidatorRegistry,
     expressionCompilerFactory: ExpressionCompilerFactory,
-    schema: any,
+    schema: ISchema,
     parent: PropertyGroup,
     path: string
 ) => {
@@ -38,7 +39,7 @@ PROPERTY_TYPE_MAPPING.integer = (
     schemaValidatorFactory: SchemaValidatorFactory,
     validatorRegistry: ValidatorRegistry,
     expressionCompilerFactory: ExpressionCompilerFactory,
-    schema: any,
+    schema: ISchema,
     parent: PropertyGroup,
     path: string
 ) => {

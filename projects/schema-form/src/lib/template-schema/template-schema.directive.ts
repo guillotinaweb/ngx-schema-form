@@ -17,6 +17,7 @@ import { FieldComponent } from './field/field.component';
 import { FieldType } from './field/field';
 import { ButtonComponent } from './button/button.component';
 import { FieldParent } from './field/field-parent';
+import {ISchema} from '../model/ISchema';
 
 
 @Directive({
@@ -47,14 +48,14 @@ export class TemplateSchemaDirective extends FieldParent implements AfterContent
       this.actionRegistry.clear();
       this.validatorRegistry.clear();
 
-      const schema = this.getFieldsSchema(fields);
+      const schema: ISchema = this.getFieldsSchema(fields);
 
       const validators = this.getFieldsValidators(fields);
       validators.forEach(({ path, validator }) => {
         this.validatorRegistry.register(path, validator);
       });
 
-      const previousSchema = this.formComponent.schema;
+      const previousSchema: ISchema = this.formComponent.schema;
       this.formComponent.schema = {
         type: FieldType.Object,
         properties: schema.properties

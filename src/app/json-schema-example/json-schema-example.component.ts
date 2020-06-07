@@ -16,6 +16,7 @@ import binding_sample_bindings from './binding_sample_bindings';
 import visibility_binding_example from './visibility-binding-example-schema.json';
 
 import {AppService, AppData} from '../app.service';
+import {ISchema} from 'ngx-schema-form/src/lib/model/ISchema';
 
 @Component({
   selector: 'sf-json-schema-example',
@@ -23,7 +24,7 @@ import {AppService, AppData} from '../app.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
-  schema: any = {properties: {}};
+  schema: ISchema = {properties: {}};
   model: any = {};
   value: any;
   fieldValidators: { [fieldId: string]: Validator } = {};
@@ -87,7 +88,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   }
 
   changeSchemaFirst() {
-    this.schema = sampleSchema1;
+    this.schema = sampleSchema1 as unknown as ISchema;
     this.model = sampleModel;
     this.fieldBindings = {};
     this.fieldValidators = {};
@@ -183,12 +184,12 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
 
     this.actions['toggle_title'] = (formProperty: FormProperty, form: PropertyGroup, params: any) => {
       formProperty.schema.readOnly = !formProperty.schema.readOnly;
-    }
+    };
 
   }
 
   changeSchemaOtherschema() {
-    this.schema = sampleSchema2;
+    this.schema = sampleSchema1 as unknown as ISchema;
     this.model = {};
     this.fieldBindings = {};
     this.fieldValidators = {};
@@ -196,7 +197,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   }
 
   changeSchemaWithBindings() {
-    this.schema = binding_sample_schema;
+    this.schema = binding_sample_schema as unknown as ISchema;
     this.model = binding_sample_model;
     this.fieldBindings = binding_sample_bindings;
     this.fieldValidators = {};
@@ -204,7 +205,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   }
 
   changeSchemaVisibilityBinding() {
-    this.schema = visibility_binding_example;
+    this.schema = visibility_binding_example as unknown as ISchema;
     this.model = {};
     this.fieldBindings = {};
     this.fieldValidators = {};
