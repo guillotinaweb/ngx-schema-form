@@ -5,11 +5,13 @@
   "properties": {
     "name": {
       "type": "string",
-      "title": "Surname"
+      "title": "Surname",
+      "description": " (Has a click event binding - see console)"
     },
     "forename": {
       "type": "string",
-      "title": "Forename"
+      "title": "Forename",
+      "description": " (Has a mouse over event binding - see console)"
     },
     "children": {
       "type": "array",
