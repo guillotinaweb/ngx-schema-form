@@ -29,7 +29,14 @@ const myFormBindings = {
         console.log('2222 Called event!', event.target, event, formProperty);
       }
     }
-  ]
+  ],
+  '/forename': [{
+    'mouseover': [(event, formProperty: FormProperty) => {
+      console.log('Mouse over event triggered FIRST time!', event.target, event, formProperty);
+    }, (event, formProperty: FormProperty) => {
+      console.log('Mouse over event triggered SECOND time!', event.target, event, formProperty);
+    }]
+  }]
 };
 
 export default myFormBindings;

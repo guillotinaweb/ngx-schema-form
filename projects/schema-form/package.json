@@ -1,6 +1,10 @@
 {
   "name": "ngx-schema-form",
+<<<<<<< HEAD
   "version": "2.5.3",
+=======
+  "version": "2.4.5",
+>>>>>>> 12358cd... related  #338 bindings not supporting multiple event functions
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guillotinaweb/ngx-schema-form"
