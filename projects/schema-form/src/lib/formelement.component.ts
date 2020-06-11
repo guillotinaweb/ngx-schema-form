@@ -63,14 +63,17 @@ export class FormElementComponent implements OnInit, OnDestroy {
     }
   }
 
-  private createBinding(eventId, listener) {
+  private createBinding(eventId, listeners) {
     this.unlisten.push(this.renderer.listen(this.elementRef.nativeElement,
       eventId,
       (event) => {
-        if (listener instanceof Function) {
-          listener(event, this.formProperty);
-        } else {
-          console.warn('Calling non function handler for eventId ' + eventId + ' for path ' + this.formProperty.path);
+        const _listeners = Array.isArray(listeners) ? listeners : [listeners]
+        for (const _listener of _listeners) {
+          if (_listener instanceof Function) {
+            try { _listener(event, this.formProperty); } catch (e) { console.error(`Error calling bindings event listener for '${eventId}'`, e) }
+          } else {
+            console.warn('Calling non function handler for eventId ' + eventId + ' for path ' + this.formProperty.path);
+          }
         }
       }));
   }
