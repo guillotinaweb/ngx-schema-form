@@ -3,12 +3,16 @@ import {FieldType} from '../template-schema/field/field';
 export interface IOneOf {
   enum?: any[];
   description?: string;
+  /** allow additional properties */
+  [prop: string]: any;
 }
 
 export interface IWidget {
   id?: string;
   plugins?: string;
   toolbar?: string;
+  /** allow additional properties */
+  [prop: string]: any;
 }
 
 export interface IFieldSet {
@@ -17,12 +21,16 @@ export interface IFieldSet {
   name: string;
   description: string;
   fields: string[];
+  /** allow additional properties */
+  [prop: string]: any;
 }
 
 export interface IButton {
   id: string;
   label: string;
   widget?: string | object;
+  /** allow additional properties */
+  [prop: string]: any;
 }
 
 export interface IProperties {
@@ -50,5 +58,6 @@ export interface ISchema {
   format?: string;
   widget?: IWidget | any;
   fieldsets?: IFieldSet[];
+  /** allow additional properties */
   [prop: string]: any;
 }
