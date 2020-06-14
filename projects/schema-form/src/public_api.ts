@@ -29,6 +29,15 @@ export {
   SchemaValidatorFactory,
   ZSchemaValidatorFactory
 } from './lib/schemavalidatorfactory';
+export { 
+  ExpressionCompilerFactory, 
+  ExpressionCompiler, 
+  ExpressionCompilerVisibilityIf, 
+  ExpressionContextVisibilitIf,
+  JEXLExpressionCompilerFactory,
+  JEXLExpressionCompiler,
+  JEXLExpressionCompilerVisibiltyIf
+} from './lib/expression-compiler-factory';
 export { WidgetFactory } from './lib/widgetfactory';
 export { TerminatorService } from './lib/terminator.service';
 export {
