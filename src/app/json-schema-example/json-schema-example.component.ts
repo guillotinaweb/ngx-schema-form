@@ -16,7 +16,7 @@ import binding_sample_bindings from './binding_sample_bindings';
 import visibility_binding_example from './visibility-binding-example-schema.json';
 
 import {AppService, AppData} from '../app.service';
-import {ISchema} from 'ngx-schema-form/src/lib/model/ISchema';
+import {ISchema} from 'ngx-schema-form';
 
 @Component({
   selector: 'sf-json-schema-example',
