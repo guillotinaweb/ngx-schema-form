@@ -18,3 +18,5 @@ export * from './validatorregistry';
 
 export * from './schemapreprocessor';
 export * from './typemapping';
+
+export * from './ISchema';

@@ -24,6 +24,14 @@ export {
   Validator,
   ValidatorRegistry,
   SchemaPreprocessor,
+  // <schema def>
+  IButton,
+  IFieldSet,
+  IOneOf,
+  IProperties,
+  ISchema,
+  IWidget
+  // </schema def>
 } from './lib/model';
 export {
   SchemaValidatorFactory,
