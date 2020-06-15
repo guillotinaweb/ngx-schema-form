@@ -5,6 +5,15 @@ export { WidgetChooserComponent } from './widgetchooser.component';
 export { WidgetRegistry } from './widgetregistry';
 export * from './model';
 export { SchemaValidatorFactory, ZSchemaValidatorFactory } from './schemavalidatorfactory';
+export { 
+        ExpressionCompilerFactory, 
+        ExpressionCompiler, 
+        ExpressionCompilerVisibilityIf, 
+        ExpressionContextVisibilitIf,
+        JEXLExpressionCompilerFactory,
+        JEXLExpressionCompiler,
+        JEXLExpressionCompilerVisibiltyIf
+} from './expression-compiler-factory';
 export {
     Widget,
     ControlWidget,
