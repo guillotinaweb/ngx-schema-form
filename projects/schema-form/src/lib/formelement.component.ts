@@ -1,7 +1,7 @@
 import {
   Component, ElementRef,
   Input, OnDestroy,
-  OnInit, Renderer2, Optional
+  OnInit, Renderer2
 } from '@angular/core';
 
 import {
@@ -46,7 +46,6 @@ export class FormElementComponent implements OnInit, OnDestroy {
               private bindingRegistry: BindingRegistry,
               private renderer: Renderer2,
               private elementRef: ElementRef,
-              @Optional()
               private logger: LogService) {
   }
 

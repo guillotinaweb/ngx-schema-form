@@ -15,7 +15,7 @@ export enum LogLevel {
 export abstract class LogService {
 
     constructor(@Optional() @Inject(LOG_LEVEL) public logLevel: LogLevel) {
-        console.log('***** set log level:', this.logLevel)
+
     }
     /**
      * Equals `console.warn`
@@ -57,7 +57,6 @@ export class DefaultLogService extends LogService {
 
     constructor(@Optional() @Inject(LOG_LEVEL) public logLevel: LogLevel) {
         super(logLevel)
-        console.log('*** DefaultLogService: ', logLevel)
     }
 
     /**
