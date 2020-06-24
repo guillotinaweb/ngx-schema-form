@@ -5,6 +5,7 @@ import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
+import { LogService } from '../log.service';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
@@ -60,7 +61,8 @@ export abstract class FormProperty {
               expressionCompilerFactory: ExpressionCompilerFactory,
               public schema: any,
               parent: PropertyGroup,
-              path: string) {
+              path: string,
+              private logger: LogService) {
     this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
     this.expressionCompilerVisibiltyIf = expressionCompilerFactory.createExpressionCompilerVisibilityIf();
 
@@ -253,7 +255,7 @@ export abstract class FormProperty {
       }
       return valid
     } catch (error) {
-      console.error('Error processing "VisibileIf" expression for path: ', dependencyPath,
+      this.logger.error('Error processing "VisibileIf" expression for path: ', dependencyPath,
         `source - ${sourceProperty._canonicalPath}: `, sourceProperty,
         `target - ${targetProperty._canonicalPath}: `, targetProperty,
         'value:', value,
@@ -319,7 +321,7 @@ export abstract class FormProperty {
                   }
                 }
               } else {
-                console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
+                this.logger.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
                 this.registerMissingVisibilityBinding(dependencyPath, this);
                 // not visible if not existent
                 this.setVisible(false);
@@ -362,7 +364,7 @@ export abstract class FormProperty {
               }
             }
           } else {
-            console.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
+            this.logger.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
             this.registerMissingVisibilityBinding(dependencyPath, this);
             // not visible if not existent
             this.setVisible(false);
@@ -548,7 +550,7 @@ export abstract class PropertyGroup extends FormProperty {
                 rebindProp._bindVisibility();
               }
             } catch (e) {
-              console.error('Rebinding visibility error at path:', _property.path, 'property:', _property, e);
+              this.logger.error('Rebinding visibility error at path:', _property.path, 'property:', _property, e);
             }
           }
         }

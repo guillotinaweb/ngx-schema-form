@@ -4,6 +4,7 @@ import { PROPERTY_TYPE_MAPPING } from './typemapping';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
+import { LogService } from '../log.service';
 
 export class ArrayProperty extends PropertyGroup {
 
@@ -13,8 +14,9 @@ export class ArrayProperty extends PropertyGroup {
               expressionCompilerFactory: ExpressionCompilerFactory,
               schema: any,
               parent: PropertyGroup,
-              path: string) {
-    super(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path);
+              path: string,
+              logger: LogService) {
+    super(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
   }
 
   addItem(value: any = null): FormProperty {
@@ -88,7 +90,8 @@ PROPERTY_TYPE_MAPPING.array = (
     parent: PropertyGroup,
     path: string,
     formPropertyFactory: FormPropertyFactory,
+    logger: LogService
 ) => {
     return new ArrayProperty(
-        formPropertyFactory, schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path);
+        formPropertyFactory, schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
 };
