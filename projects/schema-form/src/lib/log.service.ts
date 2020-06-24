@@ -59,35 +59,7 @@ export class DefaultLogService extends LogService {
         super(logLevel)
         this.logLevel = logLevel as LogLevel
     }
-
-    /**
-     * Equals `console.warn`
-     * @param message 
-     * @param optionalParams 
-     */
-    warn(message?: any, ...optionalParams: any[]): void {
-        if (!this.isWarnEnabled())
-            return
-        console.warn(message, optionalParams)
-    }
-    /**
-     * Equals `console.error`
-     * @param message 
-     * @param optionalParams 
-     */
-    error(message?: any, ...optionalParams: any[]): void {
-        if (!this.isErrorEnabled())
-            return
-        console.error(message, optionalParams)
-    }
-    /**
-     * Equals `console.log`
-     * @param message 
-     * @param optionalParams 
-     */
-    log(message?: any, ...optionalParams: any[]): void {
-        if (!this.isLogEnabled())
-            return
-        console.log(message, optionalParams)
-    }
+    warn = (!this.isWarnEnabled() ? () => { } : console.warn)
+    error = (!this.isErrorEnabled() ? () => { } : console.error)
+    log = (!this.isLogEnabled() ? () => { } : console.log)
 }
