@@ -4,6 +4,7 @@ import { PropertyGroup } from './formproperty';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
 import { ValidatorRegistry } from './validatorregistry';
 import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { LogService } from '../log.service';
 
 export class StringProperty extends AtomicProperty {
 
@@ -19,7 +20,8 @@ PROPERTY_TYPE_MAPPING.string = (
     expressionCompilerFactory: ExpressionCompilerFactory,
     schema: any,
     parent: PropertyGroup,
-    path: string
+    path: string,
+    logger: LogService
 ) => {
-    return new StringProperty(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path);
+    return new StringProperty(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
 };

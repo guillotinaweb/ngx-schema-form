@@ -4,12 +4,14 @@ import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
 import { PROPERTY_TYPE_MAPPING } from './typemapping';
+import { LogService } from '../log.service';
 
 export class FormPropertyFactory {
 
   constructor(private schemaValidatorFactory: SchemaValidatorFactory, private validatorRegistry: ValidatorRegistry,
               private propertyBindingRegistry: PropertyBindingRegistry,
-              private expressionCompilerFactory: ExpressionCompilerFactory) {
+              private expressionCompilerFactory: ExpressionCompilerFactory,
+              private logger: LogService) {
   }
 
   createProperty(schema: any, parent: PropertyGroup = null, propertyId?: string): FormProperty {
@@ -44,10 +46,10 @@ export class FormPropertyFactory {
         if (PROPERTY_TYPE_MAPPING[schema.type]) {
             if (schema.type === 'object' || schema.type === 'array') {
                 newProperty = PROPERTY_TYPE_MAPPING[schema.type](
-                    this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this);
+                    this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this, this.logger);
             } else {
                 newProperty = PROPERTY_TYPE_MAPPING[schema.type](
-                    this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path);
+                    this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this.logger);
             }
         } else {
             throw new TypeError(`Undefined type ${schema.type} (existing: ${Object.keys(PROPERTY_TYPE_MAPPING)})`);
