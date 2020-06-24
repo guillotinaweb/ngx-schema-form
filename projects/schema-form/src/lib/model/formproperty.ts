@@ -549,7 +549,11 @@ export abstract class PropertyGroup extends FormProperty {
               const rebindPaths = findPropertiesToRebind(_property);
               for (const rebindPropPath of rebindPaths) {
                 const rebindProp = _property.searchProperty(rebindPropPath);
-                rebindProp._bindVisibility();
+                if (!rebindProp) {
+                  this.logger.warn('Can\'t find property to rebind visibility at path:', _property.path, 'property:', _property);
+                } else {
+                  rebindProp._bindVisibility();
+                }
               }
             } catch (e) {
               this.logger.error('Rebinding visibility error at path:', _property.path, 'property:', _property, e);
