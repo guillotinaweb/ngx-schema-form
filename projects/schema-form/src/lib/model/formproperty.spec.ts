@@ -6,6 +6,7 @@ import {
 
 import { ValidatorRegistry } from './validatorregistry';
 import { JEXLExpressionCompilerFactory } from '../expression-compiler-factory';
+import { DefaultLogService, LogLevel } from '../log.service';
 
 class FormPropertyImpl extends FormProperty {
 
@@ -34,6 +35,7 @@ describe('FormProperty', () => {
   let THE_PROPERTY_SCHEMA = {};
   let THE_PARENT_PROPERTY_SCHEMA = {};
   let THE_VALIDATOR;
+  let THE_LOGGER = new DefaultLogService(LogLevel.off);
 
   let formProperty: FormProperty;
   let propertyGroup: PropertyGroup;
@@ -48,7 +50,8 @@ describe('FormProperty', () => {
       THE_EXPRESSION_COMPILER_FACTORY,
       THE_PARENT_PROPERTY_SCHEMA,
       null,
-      ''
+      '',
+      THE_LOGGER
     );
     spyOn(propertyGroup, 'updateValueAndValidity');
     formProperty = new FormPropertyImpl(
@@ -57,7 +60,8 @@ describe('FormProperty', () => {
       THE_EXPRESSION_COMPILER_FACTORY,
       THE_PROPERTY_SCHEMA,
       propertyGroup,
-      ''
+      '',
+      THE_LOGGER
     );
   });
 
@@ -92,7 +96,8 @@ describe('FormProperty', () => {
         THE_EXPRESSION_COMPILER_FACTORY,
         THE_PROPERTY_SCHEMA,
         propertyGroup,
-        ''
+        '',
+        THE_LOGGER
       );
       let updateValue = (() => { orphanFormProperty.updateValueAndValidity(); });
 
