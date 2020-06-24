@@ -31,6 +31,8 @@ import {SchemaValidatorFactory, ZSchemaValidatorFactory} from './schemavalidator
 import {FormElementComponentAction} from './formelement.action.component';
 import {ExpressionCompilerFactory, JEXLExpressionCompilerFactory} from './expression-compiler-factory';
 
+import { LOG_LEVEL, LogLevel, LogService, DefaultLogService } from './log.service';
+
 const moduleProviders = [
   {
     provide: WidgetRegistry,
@@ -43,6 +45,14 @@ const moduleProviders = [
   {
     provide: ExpressionCompilerFactory,
     useClass: JEXLExpressionCompilerFactory
+  },
+  {
+    provide: LOG_LEVEL,
+    useValue: LogLevel.off
+  },
+  {
+    provide: LogService,
+    useClass: DefaultLogService
   }
 ];
 
