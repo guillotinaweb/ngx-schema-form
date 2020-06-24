@@ -5,17 +5,17 @@ export const LOG_LEVEL = new InjectionToken<LogLevel>('Logging level');
 /**
  * Represents the different logging levels of the `console` output.
  */
-export enum LogLevel {
-    log = 'log',
-    warn = 'warn',
-    error = 'error',
-    off = 'off'
+export const enum LogLevel {
+    log,
+    warn,
+    error,
+    off
 }
 
 export abstract class LogService {
-
-    constructor(@Optional() @Inject(LOG_LEVEL) public logLevel: LogLevel) {
-
+    public logLevel = LogLevel.off;
+    constructor(@Optional() @Inject(LOG_LEVEL) public level: any /* should be of type `LogLevel` but AOT fails with : 'Error encountered in metadata generated for exported symbol 'DefaultLogService':"Could not resolve type LogLevel." */) {
+        this.logLevel = level as LogLevel
     }
     /**
      * Equals `console.warn`
@@ -55,8 +55,9 @@ export abstract class LogService {
 @Injectable()
 export class DefaultLogService extends LogService {
 
-    constructor(@Optional() @Inject(LOG_LEVEL) public logLevel: LogLevel) {
+    constructor(@Optional() @Inject(LOG_LEVEL) public logLevel: any /* should be of type `LogLevel` but AOT fails with : 'Error encountered in metadata generated for exported symbol 'DefaultLogService':"Could not resolve type LogLevel." */) {
         super(logLevel)
+        this.logLevel = logLevel as LogLevel
     }
 
     /**
