@@ -9,7 +9,8 @@ export const enum LogLevel {
     log,
     warn,
     error,
-    off
+    off,
+    all
 }
 
 export abstract class LogService {
@@ -37,15 +38,15 @@ export abstract class LogService {
     public abstract log(message?: any, ...optionalParams: any[]): void
 
     isWarnEnabled() {
-        return LogLevel.warn === this.logLevel
+        return LogLevel.all === this.logLevel || LogLevel.warn === this.logLevel
     }
 
     isErrorEnabled() {
-        return LogLevel.error === this.logLevel
+        return LogLevel.all === this.logLevel || LogLevel.error === this.logLevel
     }
 
     isLogEnabled() {
-        return LogLevel.log === this.logLevel
+        return LogLevel.all === this.logLevel || LogLevel.log === this.logLevel
     }
 }
 
