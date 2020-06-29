@@ -75,3 +75,4 @@ export { SchemaFormModule } from './lib/schema-form.module';
 export {
   TemplateSchemaModule
 } from './lib/template-schema/template-schema.module';
+export { LogService, LogLevel, LOG_LEVEL } from './lib/log.service';
