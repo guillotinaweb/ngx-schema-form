@@ -62,7 +62,7 @@ export abstract class FormProperty {
               public schema: any,
               parent: PropertyGroup,
               path: string,
-              private logger: LogService) {
+              protected logger: LogService) {
     this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
     this.expressionCompilerVisibiltyIf = expressionCompilerFactory.createExpressionCompilerVisibilityIf();
 
