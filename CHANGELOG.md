@@ -1,8 +1,11 @@
 
-# 2.5.4 (2020-04-12)
+# 2.5.4 (2020-07-13)
 
+- Log service (daniele-pecora)
+- Allow custom properties in schema (daniele-pecora)
+- Fix #338 bindings not supporting multiple event functions (daniele-pecora)
 - Fix: visibleIf returns turn even if only part of the value matches the expression (compare number to string fix)
-=======
+
 # 2.5.3 (2020-06-02)
 
 - Add extendable TypeScript interfaces for JSON Schema objects (artonio)
