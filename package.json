@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "copy:schema": "node -e \"var src='./schema/ngx-schema-form-schema.json'; var dest='./dist/schema-form/ngx-schema-form-schema.json'; var fs = require('fs'); if (fs.existsSync(src)) { var data = fs.readFileSync(src, 'utf-8'); fs.writeFileSync(dest, data);}\"",
-    "build:lib": "ng build --prod schema-form && npm run copy:schema",
+    "build:lib": "ng build --prod schema-form && npm run copy:schema && cp ./README.md ./dist/schema-form/",
     "build-demo": "ng build --prod --base-href /ngx-schema-form/dist/ngx-schema-form/",
     "test": "ng test schema-form --watch=false",
     "lint": "ng lint",
