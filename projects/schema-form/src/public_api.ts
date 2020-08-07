@@ -15,6 +15,7 @@ export {
   BindingRegistry,
   FormPropertyFactory,
   FormProperty,
+  PropertyGroup,
   AtomicProperty,
   ObjectProperty,  
   ArrayProperty,
