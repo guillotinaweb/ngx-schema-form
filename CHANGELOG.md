@@ -1,3 +1,8 @@
+# 2.5.6 (2020-07-16)
+- Fix #358 Completing Public API
+
+# 2.5.5 (2020-07-16)
+- Fix #355 add README in dist
 
 # 2.5.4 (2020-07-13)
 
