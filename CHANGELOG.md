@@ -1,3 +1,9 @@
+# 2.5.7 (2020-08-17)
+
+- fix #360: VisibleIf-oneOf with 2+ conditions has same property name is not working (daniele-pecora)
+- fix #331: visibleIf stopped working in 2.5.2 (daniele-pecora)
+- fix #329: visibleIf "allOf" Edge case BUG (daniele-pecora)
+
 # 2.5.6 (2020-07-16)
 - Fix #358 Completing Public API
 
