@@ -355,7 +355,7 @@ export abstract class FormProperty {
               return values.indexOf(false) === -1;
             }
             return values.indexOf(true) !== -1;
-          }).pipe(distinctUntilChanged()).subscribe((visible) => {
+          }).subscribe((visible) => {
             this.setVisible(visible);
           });
         }
