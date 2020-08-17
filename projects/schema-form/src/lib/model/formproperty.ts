@@ -233,7 +233,7 @@ export abstract class FormProperty {
     targetProperty: FormProperty,
     dependencyPath: string,
     value: any = '',
-    expression: string|string[]|number = ''): boolean {
+    expression: string | string[] | number | number[] | boolean | boolean[]): boolean {
     try {
       let valid = false
       if (isNaN(expression as number) && (expression as string).indexOf('$ANY$') !== -1) {
@@ -252,8 +252,13 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = !!value ? expression.toString() === value.toString() : false;
-
+        const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
+        for (const expString of expArray) {
+          valid = !!value ? `${expString}` === `${value}` : false;
+          if (valid) {
+            break
+          }
+        }
       }
       return valid
     } catch (error) {
@@ -265,6 +270,7 @@ export abstract class FormProperty {
         'error: ', error)
     }
   }
+
   /**
    * binds visibility conditions of type `oneOf` and `allOf`.
    * @returns `true` if any visibility binding of type `oneOf` or `allOf` has been processed. Otherwise `false`.
