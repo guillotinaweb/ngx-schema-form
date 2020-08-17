@@ -232,16 +232,16 @@ export abstract class FormProperty {
     targetProperty: FormProperty,
     dependencyPath: string,
     value: any = '',
-    expression: string|string[] = ''): boolean {
+    expression: string | string[] | number | number[] | boolean | boolean[]): boolean {
     try {
       let valid = false
-      if (expression.indexOf('$ANY$') !== -1) {
+      if (isNaN(expression as number) && (expression as string).indexOf('$ANY$') !== -1) {
         valid = value && value.length > 0;
       } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
         // since visibleIf condition values are an array... we must do this
         const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
         for (const expString of expArray) {
-          const _expresssion = expString.substring('$EXP$'.length);
+          const _expresssion = (expString as string).substring('$EXP$'.length);
           valid = true === this.expressionCompilerVisibiltyIf.evaluate(_expresssion, {
             source: sourceProperty,
             target: targetProperty
@@ -251,7 +251,13 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = expression.indexOf(value) !== -1;
+        const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
+        for (const expString of expArray) {
+          valid = !!value ? `${expString}` === `${value}` : false;
+          if (valid) {
+            break
+          }
+        }
       }
       return valid
     } catch (error) {
