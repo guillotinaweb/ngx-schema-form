@@ -8,6 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class TemplateSchemaExampleComponent implements OnInit {
 
   model: any = {};
+  /**
+   * Using a separate variable for showing the model prevents from: 
+   * `Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value:` 
+   */
+  value;
 
   constructor() { }
 
@@ -16,6 +21,20 @@ export class TemplateSchemaExampleComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  setValue(value) {
+    if (undefined === this.value) {
+      /**
+       * If the first time the variable is set, then setting timeout will prevents error: 
+       * `Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value:` 
+       */
+      setTimeout(() => {
+        this.value = value;
+      }, 0);
+      return
+    }
+    this.value = value;
   }
 
 }

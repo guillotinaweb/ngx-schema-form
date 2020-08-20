@@ -1,0 +1,442 @@
+{
+  "properties": {
+      "demo": {
+          "type": "object",
+          "properties": {
+              "typeTest": {
+                  "fieldsets": [
+                      {
+                          "id": "bool",
+                          "title": "",
+                          "description": "# 1. Test boolean",
+                          "name": "",
+                          "fields": [
+                              "checkbool",
+                              "testbool",
+                              "checkboolstring",
+                              "testboolstring"
+                          ]
+                      },
+                      {
+                          "id": "num",
+                          "title": "",
+                          "description": "# 2. Test number",
+                          "name": "",
+                          "fields": [
+                              "checknum",
+                              "testnum",
+                              "checknumstring",
+                              "testnumstring"
+                          ]
+                      },
+                      {
+                          "id": "num",
+                          "title": "",
+                          "description": "# 3. Test string",
+                          "name": "",
+                          "fields": [
+                              "checkstring",
+                              "teststring"
+                          ]
+                      }
+                  ],
+                  "type": "object",
+                  "properties": {
+                      "checkbool": {
+                          "type": "boolean",
+                          "description": "Boolean test (true) as boolean"
+                      },
+                      "testbool": {
+                          "type": "string",
+                          "description": "Visible if value is 'true' as boolean",
+                          "visibleIf": {
+                              "checkbool": true
+                          }
+                      },
+                      "checkboolstring": {
+                          "type": "string",
+                          "widget": "radio",
+                          "description": "Boolean test (\"true\") as string",
+                          "oneOf": [
+                              {
+                                  "description": "String 'true'",
+                                  "enum": [
+                                      "true"
+                                  ]
+                              },
+                              {
+                                  "description": "String 'false'",
+                                  "enum": [
+                                      "false"
+                                  ]
+                              }
+                          ]
+                      },
+                      "testboolstring": {
+                          "type": "string",
+                          "description": "Visible if value is 'true' as string",
+                          "visibleIf": {
+                              "checkboolstring": "true"
+                          }
+                      },
+                      "checknum": {
+                          "type": "number",
+                          "description": "Number test (1)"
+                      },
+                      "testnum": {
+                          "type": "string",
+                          "description": "Visible if value is '1' as number",
+                          "visibleIf": {
+                              "checknum": 1
+                          }
+                      },
+                      "checknumstring": {
+                          "type": "string",
+                          "description": "Number test (\"1\") as string",
+                          "widget": "select",
+                          "oneOf": [
+                              {
+                                  "description": "Select a number",
+                                  "enum": [
+                                      ""
+                                  ]
+                              },
+                              {
+                                  "description": "Number 1",
+                                  "enum": [
+                                      "1"
+                                  ]
+                              },
+                              {
+                                  "description": "Number 2",
+                                  "enum": [
+                                      "2"
+                                  ]
+                              }
+                          ]
+                      },
+                      "testnumstring": {
+                          "type": "string",
+                          "description": "Visible if value is '1' as string",
+                          "visibleIf": {
+                              "checknumstring": "1"
+                          }
+                      },
+                      "checkstring": {
+                          "type": "string",
+                          "description": "String test (a)"
+                      },
+                      "teststring": {
+                          "type": "string",
+                          "description": "Visible if value is 'a' as string",
+                          "visibleIf": {
+                              "checkstring": "a"
+                          }
+                      }
+                  }
+              },
+              "visibleIfBinding1a": {
+                  "description": "# 4. Test 'VisibleIf' with default 'one-of' with multiple values",
+                  "type": "object",
+                  "properties": {
+                      "status1a": {
+                          "type": "string",
+                          "description": "Visible component shows up if status is 'Warn' or 'Fail'",
+                          "oneOf": [
+                              {
+                                  "description": "Pass",
+                                  "enum": [
+                                      "Pass"
+                                  ]
+                              },
+                              {
+                                  "description": "Warn",
+                                  "enum": [
+                                      "Warn"
+                                  ]
+                              },
+                              {
+                                  "description": "Fail",
+                                  "enum": [
+                                      "Fail"
+                                  ]
+                              }
+                          ],
+                          "widget": "radio"
+                      },
+                      "visibleComponent1a": {
+                          "type": "string",
+                          "description": "Visible component if status is 'Warn' or 'Fail'",
+                          "visibleIf": {
+                              "/demo/visibleIfBinding1a/status1a": [
+                                  "Warn",
+                                  "Fail"
+                              ]
+                          }
+                      }
+                  }
+              },
+              "visibleIfBinding1b": {
+                  "description": "# 5. Test 'VisibleIf' with 'oneOf' condition",
+                  "type": "object",
+                  "properties": {
+                      "status1b": {
+                          "type": "string",
+                          "description": "Visible component shows up if status is 'Warn' or 'Fail'",
+                          "oneOf": [
+                              {
+                                  "description": "Pass",
+                                  "enum": [
+                                      "Pass"
+                                  ]
+                              },
+                              {
+                                  "description": "Warn",
+                                  "enum": [
+                                      "Warn"
+                                  ]
+                              },
+                              {
+                                  "description": "Fail",
+                                  "enum": [
+                                      "Fail"
+                                  ]
+                              }
+                          ],
+                          "widget": "radio"
+                      },
+                      "visibleComponent1b": {
+                          "type": "string",
+                          "description": "Visible component if status is 'Warn' or 'Fail'",
+                          "visibleIf": {
+                              "oneOf": [
+                                  {
+                                      "/demo/visibleIfBinding1b/status1b": [
+                                          "Warn"
+                                      ]
+                                  },
+                                  {
+                                      "/demo/visibleIfBinding1b/status1b": [
+                                          "Fail"
+                                      ]
+                                  }
+                              ]
+                          }
+                      }
+                  }
+              },
+              "visibleIfBinding2a": {
+                  "description": "# 6. Test Boolean 'VisibleIf' with 'allOf' condition (check 'Warn' and 'Fail')",
+                  "type": "object",
+                  "properties": {
+                      "status2a": {
+                          "type": "boolean",
+                          "description": "Pass",
+                          "widget": "checkbox"
+                      },
+                      "status2b": {
+                          "type": "boolean",
+                          "description": "Warn",
+                          "widget": "checkbox"
+                      },
+                      "status2c": {
+                          "type": "boolean",
+                          "description": "Fail",
+                          "widget": "checkbox"
+                      },
+                      "visibleComponent2a": {
+                          "type": "string",
+                          "description": "Visible component if status 'Warn' and 'Fail' are checked",
+                          "visibleIf": {
+                              "allOf": [
+                                  {
+                                      "/demo/visibleIfBinding2a/status2b": [
+                                          true
+                                      ]
+                                  },
+                                  {
+                                      "/demo/visibleIfBinding2a/status2c": [
+                                          true
+                                      ]
+                                  }
+                              ]
+                          }
+                      }
+                  }
+              },
+              "visibleIfBinding2b": {
+                  "description": "# 7. Test String 'VisibleIf' with 'allOf' condition (select 'Warn' and 'Fail')",
+                  "type": "object",
+                  "properties": {
+                      "status2a": {
+                          "type": "string",
+                          "oneOf": [
+                              {
+                                  "description": "...",
+                                  "enum": [
+                                      ""
+                                  ]
+                              },
+                              {
+                                  "description": "Pass",
+                                  "enum": [
+                                      "Pass"
+                                  ]
+                              },
+                              {
+                                  "description": "Warn",
+                                  "enum": [
+                                      "Warn"
+                                  ]
+                              },
+                              {
+                                  "description": "Fail",
+                                  "enum": [
+                                      "Fail"
+                                  ]
+                              }
+                          ],
+                          "widget": "select"
+                      },
+                      "status2b": {
+                          "type": "string",
+                          "oneOf": [
+                              {
+                                  "description": "Select 'Warn' here",
+                                  "enum": [
+                                      ""
+                                  ]
+                              },
+                              {
+                                  "description": "Pass",
+                                  "enum": [
+                                      "Pass"
+                                  ]
+                              },
+                              {
+                                  "description": "Warn",
+                                  "enum": [
+                                      "Warn"
+                                  ]
+                              },
+                              {
+                                  "description": "Fail",
+                                  "enum": [
+                                      "Fail"
+                                  ]
+                              }
+                          ],
+                          "widget": "select"
+                      },
+                      "status2c": {
+                          "type": "string",
+                          "oneOf": [
+                              {
+                                  "description": "Select 'Fail' here",
+                                  "enum": [
+                                      ""
+                                  ]
+                              },
+                              {
+                                  "description": "Pass",
+                                  "enum": [
+                                      "Pass"
+                                  ]
+                              },
+                              {
+                                  "description": "Warn",
+                                  "enum": [
+                                      "Warn"
+                                  ]
+                              },
+                              {
+                                  "description": "Fail",
+                                  "enum": [
+                                      "Fail"
+                                  ]
+                              }
+                          ],
+                          "widget": "select"
+                      },
+                      "visibleComponent2b": {
+                          "type": "string",
+                          "description": "Visible component if status 'Warn' and 'Fail' are checked",
+                          "visibleIf": {
+                              "allOf": [
+                                  {
+                                      "/demo/visibleIfBinding2b/status2b": [
+                                          "Warn"
+                                      ]
+                                  },
+                                  {
+                                      "/demo/visibleIfBinding2b/status2c": [
+                                          "Fail"
+                                      ]
+                                  }
+                              ]
+                          }
+                      }
+                  }
+              },
+              "updateVisibiltyTest": {
+                  "type": "object",
+                  "description": "Test oneOf - Set age to 15, set last name to 'aaa'",
+                  "properties": {
+                      "age": {
+                          "id": "age",
+                          "name": "age",
+                          "title": "Age",
+                          "type": "string",
+                          "widget": {
+                              "id": "string"
+                          }
+                      },
+                      "firstName": {
+                          "id": "firstName",
+                          "name": "firstName",
+                          "title": "First Name",
+                          "type": "string",
+                          "visibleIfOperator": "and",
+                          "widget": {
+                              "id": "string"
+                          },
+                          "visibleIf": {
+                              "allOf": [
+                                  {
+                                      "lastName": "aaa"
+                                  },
+                                  {
+                                      "age": 15
+                                  }
+                              ]
+                          }
+                      },
+                      "lastName": {
+                          "id": "lastName",
+                          "name": "lastName",
+                          "title": "Last Name",
+                          "type": "string",
+                          "widget": {
+                              "id": "select"
+                          },
+                          "oneOf": [
+                              {
+                                  "description": "AAA",
+                                  "enum": [
+                                      "aaa"
+                                  ]
+                              },
+                              {
+                                  "description": "BBB",
+                                  "enum": [
+                                      "bbb"
+                                  ]
+                              }
+                          ]
+                      }
+                  }
+              }
+          }
+      }
+  }
+}

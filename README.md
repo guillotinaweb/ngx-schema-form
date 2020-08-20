@@ -522,9 +522,16 @@ export class AppComponent {
 ```
 
 ### Conditional fields
-It is possible to make the presence of a field depends on another field's value.
-To achieve this you just have to add a `visibleIf` property to a field's definition.
-Adding the value `$ANY$` to the array of conditional values,will make the field visible for any value inserted.
+It is possible to make the presence of a field depends on another field's value.  
+To achieve this you just have to add a `visibleIf` property to a field's definition.  
+
+**Value**  
+The value to match is set as array item.  
+Setting multiple items will make the visiblity condition `true` if one of the values matches.  
+If it is required to match all values head over to the section `visibleIf` with `allOf` condition.  
+
+**$ANY$**  
+Adding the value `$ANY$` to the array of conditional values, will make the field visible for any value inserted. 
 
 ```js
 @Component({
@@ -564,7 +571,9 @@ export class AppComponent {
   }
 }
 ```
+**$EMPTY$**  
 Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden and not present in model.
+
 ```js
 mySchema = {
     "properties": {

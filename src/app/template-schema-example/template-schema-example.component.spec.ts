@@ -21,7 +21,7 @@ describe('TemplateSchemaExampleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SchemaFormModule,
+        SchemaFormModule.forRoot(),
         TemplateSchemaModule,
         HttpClientModule,
         FormsModule

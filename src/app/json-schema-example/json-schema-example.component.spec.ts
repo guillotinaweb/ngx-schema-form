@@ -19,7 +19,7 @@ describe('JsonSchemaExampleComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        SchemaFormModule,
+        SchemaFormModule.forRoot(),
         HttpClientModule
       ],
       declarations: [ JsonSchemaExampleComponent ],
