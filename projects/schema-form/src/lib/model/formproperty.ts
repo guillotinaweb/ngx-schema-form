@@ -232,16 +232,16 @@ export abstract class FormProperty {
     targetProperty: FormProperty,
     dependencyPath: string,
     value: any = '',
-    expression: string|string[] = ''): boolean {
+    expression: string | string[] | number | number[] | boolean | boolean[]): boolean {
     try {
       let valid = false
-      if (expression.indexOf('$ANY$') !== -1) {
+      if (isNaN(expression as number) && (expression as string).indexOf('$ANY$') !== -1) {
         valid = value && value.length > 0;
       } else if ((expression||[]).toString().indexOf('$EXP$') === 0) {
         // since visibleIf condition values are an array... we must do this
         const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
         for (const expString of expArray) {
-          const _expresssion = expString.substring('$EXP$'.length);
+          const _expresssion = (expString as string).substring('$EXP$'.length);
           valid = true === this.expressionCompilerVisibiltyIf.evaluate(_expresssion, {
             source: sourceProperty,
             target: targetProperty
@@ -251,7 +251,13 @@ export abstract class FormProperty {
           }
         }
       } else {
-        valid = expression.indexOf(value) !== -1;
+        const expArray = Array.isArray(expression) ? expression : (expression ? [expression] : [])
+        for (const expString of expArray) {
+          valid = !!value ? `${expString}` === `${value}` : false;
+          if (valid) {
+            break
+          }
+        }
       }
       return valid
     } catch (error) {
@@ -264,7 +270,12 @@ export abstract class FormProperty {
     }
   }
 
-  private __bindVisibility(): boolean {
+  /**
+   * binds visibility conditions of type `oneOf` and `allOf`.
+   * @returns `true` if any visibility binding of type `oneOf` or `allOf` has been processed. Otherwise `false`.
+   */
+  private __bindVisibility_oneOf_or_allOf(): boolean {
+    /**
     /**
      * <pre>
      *     "oneOf":[{
@@ -297,9 +308,19 @@ export abstract class FormProperty {
                   if (property) {
                     let valueCheck;
                     if (this.schema.visibleIf.oneOf) {
-                      valueCheck = property.valueChanges.pipe(map(
-                        value => this.__evaluateVisibilityIf(this, property, dependencyPath, value, visibleIf[dependencyPath])
-                      ));
+                      const _chk = (value) => {
+                        for (const item of this.schema.visibleIf.oneOf) {
+                          for (const depPath of Object.keys(item)) {
+                            const prop = this.searchProperty(depPath);
+                            const propVal = prop.value;
+                            if (this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
+                              return true
+                            }
+                          }
+                        }
+                        return false;
+                      };
+                      valueCheck = property.valueChanges.pipe(map(_chk));
                     } else if (this.schema.visibleIf.allOf) {
                       const _chk = (value) => {
                         for (const item of this.schema.visibleIf.allOf) {
@@ -330,8 +351,11 @@ export abstract class FormProperty {
           }
 
           combineLatest(propertiesBinding, (...values: boolean[]) => {
+            if (this.schema.visibleIf.allOf) {
+              return values.indexOf(false) === -1;
+            }
             return values.indexOf(true) !== -1;
-          }).pipe(distinctUntilChanged()).subscribe((visible) => {
+          }).subscribe((visible) => {
             this.setVisible(visible);
           });
         }
@@ -342,7 +366,7 @@ export abstract class FormProperty {
 
   // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
   public _bindVisibility() {
-    if (this.__bindVisibility())
+    if (this.__bindVisibility_oneOf_or_allOf())
       return;
     let visibleIf = this.schema.visibleIf;
     if (typeof visibleIf === 'object' && Object.keys(visibleIf).length === 0) {
