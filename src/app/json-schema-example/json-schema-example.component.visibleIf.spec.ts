@@ -121,6 +121,10 @@ describe('JsonSchemaExampleComponent - visibleIf - data-types', () => {
       let _test_boolean_visible = fixture.debugElement.query(By.css('#demo\\.typeTest\\.testbool'));
       expect(_test_boolean_visible).toBeNull()
 
+      let _test_boolean_visible_negative = fixture.debugElement.query(By.css('#demo\\.typeTest\\.testboolnegative'));
+      expect(_test_boolean_visible_negative).toBeTruthy()
+
+
       // positive state
       _test_boolean_check.nativeElement.checked = true
       _test_boolean_check.nativeElement.dispatchEvent(new Event('change'));
@@ -129,6 +133,10 @@ describe('JsonSchemaExampleComponent - visibleIf - data-types', () => {
       _test_boolean_visible = fixture.debugElement.query(By.css('#demo\\.typeTest\\.testbool'));
       expect(_test_boolean_visible).toBeTruthy()
 
+      _test_boolean_visible_negative = fixture.debugElement.query(By.css('#demo\\.typeTest\\.testboolnegative'));
+      expect(_test_boolean_visible_negative).toBeNull()
+
+
       // negative state
       _test_boolean_check.nativeElement.checked = false
       _test_boolean_check.nativeElement.dispatchEvent(new Event('change'));
@@ -136,6 +144,10 @@ describe('JsonSchemaExampleComponent - visibleIf - data-types', () => {
 
       _test_boolean_visible = fixture.debugElement.query(By.css('#demo\\.typeTest\\.testbool'));
       expect(_test_boolean_visible).toBeNull()
+
+      _test_boolean_visible_negative = fixture.debugElement.query(By.css('#demo\\.typeTest\\.testboolnegative'));
+      expect(_test_boolean_visible_negative).toBeTruthy()
+
     });
 
   }));
