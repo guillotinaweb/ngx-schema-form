@@ -32,7 +32,7 @@ deploy:
     name: Build $PACKAGE_VERSION
     on:
       repo: guillotinaweb/ngx-schema-form
-      branch: master
+      branch: 2.4.x
   - provider: npm
     email: ebrehault@gmail.com
     skip_cleanup: true
@@ -41,4 +41,4 @@ deploy:
     on:
       tags: true
       repo: guillotinaweb/ngx-schema-form
-      branch: master
+      branch: 2.4.x
