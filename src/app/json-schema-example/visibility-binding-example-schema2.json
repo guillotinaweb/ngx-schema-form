@@ -13,8 +13,10 @@
                           "fields": [
                               "checkbool",
                               "testbool",
+                              "testboolnegative",
                               "checkboolstring",
-                              "testboolstring"
+                              "testboolstring",
+                              "testboolstringnegative"
                           ]
                       },
                       {
@@ -53,6 +55,13 @@
                               "checkbool": true
                           }
                       },
+                      "testboolnegative": {
+                          "type": "string",
+                          "description": "Visible if value is 'false' as boolean",
+                          "visibleIf": {
+                              "checkbool": false
+                          }
+                      },                      
                       "checkboolstring": {
                           "type": "string",
                           "widget": "radio",
@@ -78,6 +87,13 @@
                           "visibleIf": {
                               "checkboolstring": "true"
                           }
+                      },
+                      "testboolstringnegative": {
+                        "type": "string",
+                        "description": "Visible if value is 'false' as string",
+                        "visibleIf": {
+                            "checkboolstring": "false"
+                        }
                       },
                       "checknum": {
                           "type": "number",

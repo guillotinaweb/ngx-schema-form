@@ -1,3 +1,6 @@
+# 2.5.8 (2020-11-12)
+- fix #367: Fix boolean negative visiblityIf condition. Add array support for $EXP$ as visibilityIf condition.
+
 # 2.5.7 (2020-08-17)
 
 - fix #360: VisibleIf-oneOf with 2+ conditions has same property name is not working (daniele-pecora)
