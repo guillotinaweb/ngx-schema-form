@@ -226,6 +226,11 @@ export abstract class FormProperty {
 
   /**
    * Making use of the expression compiler for the <code>visibleIf</code> condition
+   * @param sourceProperty The source property where the `visibleIf` condition is set.
+   * @param targetProperty  The target property what provided the `value` on which the `visibleIf` condition will be checked against. May be `null` or `undefined`
+   * @param dependencyPath The dependency path of the `targetProperty`
+   * @param value The value of the `targetProperty` to check the `visiblityIf` condintion against. May be `null` or `undefined`
+   * @param expression The value or expression to check against the `value` for the `targetProperty`. May be `null` or `undefined`
    */
   private __evaluateVisibilityIf(
     sourceProperty: FormProperty,
@@ -259,8 +264,8 @@ export abstract class FormProperty {
       return valid
     } catch (error) {
       this.logger.error('Error processing "VisibileIf" expression for path: ', dependencyPath,
-        `source - ${sourceProperty._canonicalPath}: `, sourceProperty,
-        `target - ${targetProperty._canonicalPath}: `, targetProperty,
+        `source - ${(sourceProperty ? sourceProperty._canonicalPath : '<no-sourceProperty>')}: `, sourceProperty,
+        `target - ${(targetProperty ? targetProperty._canonicalPath : '<no-targetProperty>')}: `, targetProperty,
         'value:', value,
         'expression: ', expression,
         'error: ', error)
@@ -272,7 +277,6 @@ export abstract class FormProperty {
    * @returns `true` if any visibility binding of type `oneOf` or `allOf` has been processed. Otherwise `false`.
    */
   private __bindVisibility_oneOf_or_allOf(): boolean {
-    /**
     /**
      * <pre>
      *     "oneOf":[{
