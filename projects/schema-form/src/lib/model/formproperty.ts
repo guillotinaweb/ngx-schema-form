@@ -314,7 +314,7 @@ export abstract class FormProperty {
                         for (const item of this.schema.visibleIf.oneOf) {
                           for (const depPath of Object.keys(item)) {
                             const prop = this.searchProperty(depPath);
-                            const propVal = prop.value;
+                            const propVal = prop ? prop.value : null;
                             if (this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
                               return true
                             }
@@ -328,7 +328,7 @@ export abstract class FormProperty {
                         for (const item of this.schema.visibleIf.allOf) {
                           for (const depPath of Object.keys(item)) {
                             const prop = this.searchProperty(depPath);
-                            const propVal = prop.value;
+                            const propVal = prop ? prop.value : null;
                             if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
                               return false;
                             }
