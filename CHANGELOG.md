@@ -1,3 +1,9 @@
+# 2.5.10 (2020-12-03)
+- fix #373: add support for array items with different schema definitions
+
+# 2.5.9 (2020-12-03)
+- fix #370: handle non existing fields in visibleIf - oneOf and allOf as null value.
+
 # 2.5.8 (2020-11-12)
 - fix #367: Fix boolean negative visiblityIf condition. Add array support for $EXP$ as visibilityIf condition.
 
