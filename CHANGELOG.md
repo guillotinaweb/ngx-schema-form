@@ -1,3 +1,6 @@
+# 2.4.12 (2020-12-03)
+- fix #373: missing schemaprocessor implementation
+
 # 2.4.11 (2020-12-03)
 - fix #373: add support for array items with different schema definitions
 
