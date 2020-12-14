@@ -134,7 +134,16 @@ export class SchemaPreprocessor {
         }
       }
     } else if (jsonSchema.type === 'array') {
-      SchemaPreprocessor.preprocess(jsonSchema.items, path + '*/');
+      if (Array.isArray(jsonSchema.items || {})) {
+        for (let i = 0; i < jsonSchema.items.length; i++) {
+          SchemaPreprocessor.preprocess(jsonSchema.items[i], path + '*/');
+        }
+      } else {
+        SchemaPreprocessor.preprocess(jsonSchema.items, path + '*/');
+      }
+      if (jsonSchema.additionalItems) {
+        SchemaPreprocessor.preprocess(jsonSchema.additionalItems, path + '*/');
+      }
     }
   }
 
