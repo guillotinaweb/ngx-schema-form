@@ -4,8 +4,10 @@
   "$comment": "Definition of all types supported by ngx-schema-form",
   "title": "JSON Schema ngx-schema-form",
   "type": "object",
-  "$ref": "#/definitions/formWidgetType",
   "allOf": [
+    {
+      "$ref": "#/definitions/formWidgetType"
+    },
     {
       "$ref": "http://json-schema.org/draft-07/schema#"
     }
