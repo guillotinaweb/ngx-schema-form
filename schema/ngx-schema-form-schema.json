@@ -52,7 +52,7 @@
       "properties": {
         "id": {
           "description": "[NSF] - The id of the widget.",
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/widgetTypeSimple"
             },
@@ -221,7 +221,7 @@
           "description": "[NSF] - The form title of the root form. Will only be showed when is an inline form"
         },
         "widget": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/widgetTypeSimple"
             },
