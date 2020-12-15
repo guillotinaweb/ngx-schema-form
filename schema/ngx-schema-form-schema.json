@@ -208,6 +208,9 @@
               },
               {
                 "type": "null"
+              },
+              {
+                "type": "number"
               }
             ]
           }
