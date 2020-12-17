@@ -4,15 +4,17 @@
   "$comment": "Definition of all types supported by ngx-schema-form",
   "title": "JSON Schema ngx-schema-form",
   "type": "object",
-  "$ref": "#/definitions/formWidgetType",
   "allOf": [
+    {
+      "$ref": "#/definitions/formWidgetType"
+    },
     {
       "$ref": "http://json-schema.org/draft-07/schema#"
     }
   ],
   "definitions": {
     "widgetTypeCustom": {
-      "type": "string",
+      "$ref": "#/definition/stringNotBlank",
       "description": "[NSF] - The name of custom widget type to use"
     },
     "widgetTypeSimple": {
@@ -50,7 +52,7 @@
       "properties": {
         "id": {
           "description": "[NSF] - The id of the widget.",
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/widgetTypeSimple"
             },
@@ -206,6 +208,9 @@
               },
               {
                 "type": "null"
+              },
+              {
+                "type": "number"
               }
             ]
           }
@@ -219,7 +224,7 @@
           "description": "[NSF] - The form title of the root form. Will only be showed when is an inline form"
         },
         "widget": {
-          "oneOf": [
+          "anyOf": [
             {
               "$ref": "#/definitions/widgetTypeSimple"
             },
@@ -270,6 +275,11 @@
       "type": "object",
       "description": "[NSF] - A form widget.",
       "additionalProperties": true
+    },
+    "stringNotBlank": {
+      "type": "string",
+      "pattern": "^\\S*$",
+      "minLength": 1
     }
   }
 }
