@@ -14,7 +14,7 @@
   ],
   "definitions": {
     "widgetTypeCustom": {
-      "type": "string",
+      "$ref": "#/definition/stringNotBlank",
       "description": "[NSF] - The name of custom widget type to use"
     },
     "widgetTypeSimple": {
@@ -275,6 +275,11 @@
       "type": "object",
       "description": "[NSF] - A form widget.",
       "additionalProperties": true
+    },
+    "stringNotBlank": {
+      "type": "string",
+      "pattern": "^\\S*$",
+      "minLength": 1
     }
   }
 }
