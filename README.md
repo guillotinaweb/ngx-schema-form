@@ -1,4 +1,4 @@
-# Ngx Schema Form [![Build Status](https://travis-ci.org/guillotinaweb/ngx-schema-form.svg?branch=master)](https://travis-ci.org/guillotinaweb/ngx-schema-form)
+# Ngx Schema Form [![Build Status](https://github.com/guillotinaweb/ngx-schema-form/workflows/CI/badge.svg)](https://github.com/guillotinaweb/ngx-schema-form/actions?query=workflow%3ACI)
 
 Ngx Schema Form is an Angular 2+ module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
 
@@ -12,19 +12,20 @@ We think `angular-schema-form` is a great Angular 1 library, and when it will mo
 
 ## Demo
 
-[Demo](https://guillotinaweb.github.io/ngx-schema-form/dist/ngx-schema-form)
+[Demo](https://guillotinaweb.github.io/ngx-schema-form/)
 
 ## Features
 
-* Generate a form from a single json schema object
-* Generate a form from a default set of html constructs
-* Allow initialization from previous values
-* Validation handled by z-schema
-* Allow injection of custom validators
-* Allow declaration of custom widgets
-* Allow injection of custom bindings (new!)
+- Generate a form from a single json schema object
+- Generate a form from a default set of html constructs
+- Allow initialization from previous values
+- Validation handled by z-schema
+- Allow injection of custom validators
+- Allow declaration of custom widgets
+- Allow injection of custom bindings (new!)
 
 ## Installation
+
 To use Ngx Schema Form in your project simply execute the following command:
 
 ```bash
@@ -34,8 +35,9 @@ npm install ngx-schema-form --save
 You just have to check that all the peer-dependencies of this module are satisfied in your package.json.
 
 ##### JSON Schema
+
 With the installation there comes a JSON-Schema file that declares all specific or additional
-properties supported by *ngx-schema-form*.
+properties supported by _ngx-schema-form_.
 
 When using `*.json` files you may declare it with the `$schema` property to let your IDE's autocompletion help you create a schema-form.
 
@@ -48,8 +50,8 @@ When using `*.json` files you may declare it with the `$schema` property to let 
 
 ```
 
-
 ## Getting started
+
 Here our goal will be to create a simple login form.
 Let's start by creating a simple AppComponent taking a simple JSON schema as input.
 
@@ -59,51 +61,52 @@ Let's start by creating a simple AppComponent taking a simple JSON schema as inp
 import { Component } from "@angular/core";
 
 @Component({
-  selector:"minimal-app",
+  selector: "minimal-app",
   // Bind the "mySchema" member to the schema input of the Form component.
-  template: '<sf-form [schema]="mySchema"></sf-form>'
+  template: '<sf-form [schema]="mySchema"></sf-form>',
 })
-
 export class AppComponent {
   // The schema that will be used to generate a form
   mySchema = {
-    "properties": {
-      "email": {
-        "type": "string",
-        "description": "email",
-        "format": "email"
+    properties: {
+      email: {
+        type: "string",
+        description: "email",
+        format: "email",
       },
-      "password": {
-        "type": "string",
-        "description": "Password"
+      password: {
+        type: "string",
+        description: "Password",
       },
-      "rememberMe": {
-        "type": "boolean",
-        "default": false,
-        "description": "Remember me"
-      }
+      rememberMe: {
+        type: "boolean",
+        default: false,
+        description: "Remember me",
+      },
     },
-    "required": ["email","password","rememberMe"]
-  }
+    required: ["email", "password", "rememberMe"],
+  };
 }
 ```
 
 Create a module which import the AppComponent and configure Ngx schema form.
+
 ```js
 //app.module.ts
 
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
-import { SchemaFormModule, WidgetRegistry, DefaultWidgetRegistry } from "ngx-schema-form";
+import {
+  SchemaFormModule,
+  WidgetRegistry,
+  DefaultWidgetRegistry,
+} from "ngx-schema-form";
 import { AppComponent } from "./app.component";
 
 @NgModule({
-  imports: [
-    SchemaFormModule.forRoot(),
-    BrowserModule
-  ],
+  imports: [SchemaFormModule.forRoot(), BrowserModule],
   declarations: [AppComponent],
-  providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}]
+  providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }],
 })
 export class AppModule {}
 ```
@@ -117,9 +120,9 @@ The input schema support almost all the features listed on the [JSON schema spec
 ### Accessing the form's value
 
 #### Input binding
+
 It is possible to provide initial values to the form.
 You can set the initial form's value through the `model` input:
-
 
 ```js
 @Component({
@@ -132,11 +135,12 @@ export class AppComponent {
 ```
 
 #### Output binding
+
 The Form component provides the `onChange` output binding of which value represents the value of the form.
 For instance, you can display the current forms's value with the following template:
 
 ```js
-template: '<sf-form [schema]="mySchema" (onChange)="value=$event.value"></sf-form>{{value | json}}'
+template: '<sf-form [schema]="mySchema" (onChange)="value=$event.value"></sf-form>{{value | json}}';
 ```
 
 The `model` property allow two-way data binding:
@@ -146,29 +150,30 @@ The `model` property allow two-way data binding:
 ```
 
 ### Widgets
+
 Each field can be displayed using a specific widget.
 To declare the widget you want to use, add its `id` to the field's definition:
 
 ```js
 mySchema = {
-  "properties": {
-    "email": {
-      "type": "string",
-      "description": "email",
-      "format": "email"
+  properties: {
+    email: {
+      type: "string",
+      description: "email",
+      format: "email",
     },
-    "password": {
-      "type": "string",
-      "description": "Password",
-      "widget": "password"// == "widget": {"id": "password"}
+    password: {
+      type: "string",
+      description: "Password",
+      widget: "password", // == "widget": {"id": "password"}
     },
-    "rememberMe": {
-      "type": "boolean",
-      "default": false,
-      "description": "Remember me"
-    }
-  }
-}
+    rememberMe: {
+      type: "boolean",
+      default: false,
+      description: "Remember me",
+    },
+  },
+};
 ```
 
 If there is no widget declared in a given property's schema, its type is used as widget id and the [default registry](#default-widgets-registry) gives a default widget (see details below).
@@ -177,47 +182,48 @@ The following JSON schema is equivalent with the above example:
 
 ```js
 mySchema = {
-  "properties": {
-    "email": {
-      "type": "string",
-      "description": "email",
-      "format": "email",
-      "widget": "string"
+  properties: {
+    email: {
+      type: "string",
+      description: "email",
+      format: "email",
+      widget: "string",
     },
-    "password": {
-      "type": "string",
-      "description": "Password",
-      "widget": "password"// == "widget": {"id": "password"}
+    password: {
+      type: "string",
+      description: "Password",
+      widget: "password", // == "widget": {"id": "password"}
     },
-    "rememberMe": {
-      "type": "boolean",
-      "default": false,
-      "description": "Remember me",
-      "widget": "boolean"
-    }
-  }
-}
+    rememberMe: {
+      type: "boolean",
+      default: false,
+      description: "Remember me",
+      widget: "boolean",
+    },
+  },
+};
 ```
 
 Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly within the `widget` property (here the [TinyMCE widget](https://github.com/fbessou/ng2sf-tinymce) ):
 
 ```js
 mySchema = {
-  "properties": {
-    "pageContent": {
-      "type": "string",
-      "description": "Page content",
-      "widget": {
-        "id": "richtext",
-        "plugins": "textcolor colorpicker",
-        "toolbar": "forecolor backcolor"
-      }
-    }
-  }
-}
+  properties: {
+    pageContent: {
+      type: "string",
+      description: "Page content",
+      widget: {
+        id: "richtext",
+        plugins: "textcolor colorpicker",
+        toolbar: "forecolor backcolor",
+      },
+    },
+  },
+};
 ```
 
 ### Default widget's registry
+
 Available widgets are managed through a `WidgetRegistry`.
 The default registry ([`DefaultWidgetRegistry`](./projects/schema-form/src/lib/defaultwidgets/defaultwidgetregistry.ts)) contains many widgets listed below, ordered by type:
 
@@ -262,6 +268,7 @@ Note that the select and radio widgets rely on the `oneOf` property:
 ```
 
 ### Actions and buttons
+
 Each schema can be extended by adding buttons after its widget.
 
 ```js
@@ -269,65 +276,73 @@ Each schema can be extended by adding buttons after its widget.
 @Component({
   selector: "minimal-app",
   // Bind the actions map to the the "actions" input
-  template: '<sf-form [schema]="mySchema" [actions]="myActions"></sf-form>'
+  template: '<sf-form [schema]="mySchema" [actions]="myActions"></sf-form>',
 })
 export class AppComponent {
   // The schema that will be used to generate a form
   mySchema = {
-    "properties": {
-      "email": {
-        "type": "string",
-        "description": "email",
-        "format": "email"
+    properties: {
+      email: {
+        type: "string",
+        description: "email",
+        format: "email",
       },
-      "password": {
-        "type": "string",
-        "description": "Password",
-        "buttons": [{
-          "id": "reset",
-          "label": "Reset"
-        }]
+      password: {
+        type: "string",
+        description: "Password",
+        buttons: [
+          {
+            id: "reset",
+            label: "Reset",
+          },
+        ],
       },
-      "rememberMe": {
-        "type": "boolean",
-        "default": false,
-        "description": "Remember me"
-      }
+      rememberMe: {
+        type: "boolean",
+        default: false,
+        description: "Remember me",
+      },
     },
-    "required": ["email", "password", "rememberMe"],
-    "buttons": [{
-      "id": "alert", // the id of the action callback
-      "label": "Alert !" // the text inside the button
-    }]
-  }
+    required: ["email", "password", "rememberMe"],
+    buttons: [
+      {
+        id: "alert", // the id of the action callback
+        label: "Alert !", // the text inside the button
+      },
+    ],
+  };
 
   // Declare a mapping between action ids and their event listener
   myActions = {
-    "alert": (property) => { alert(JSON.stringify(property.value)) },
-    "reset": (property) => { property.reset() }
-  }
+    alert: (property) => {
+      alert(JSON.stringify(property.value));
+    },
+    reset: (property) => {
+      property.reset();
+    },
+  };
 }
 ```
 
 #### Render buttons
 
-You may define you own widget to create buttons by 
+You may define you own widget to create buttons by
 overriding the default widget for action buttons
 or create completely customized button widgets.
 
 ##### Override
 
-Override the default action button widget 
+Override the default action button widget
 in your `WidgetRegistry` implementation
 and register your own button widget.
 
 ```js
-    this.register('button', MyButtonWidgetComponent);
+this.register("button", MyButtonWidgetComponent);
 ```
 
 ##### Custom
 
-Define a custom button widget by 
+Define a custom button widget by
 setting the property `button.widget` in the schema
 
 ```json
@@ -346,35 +361,33 @@ setting the property `button.widget` in the schema
       }
     ]
   }
-``` 
+```
 
 and then register it in your `WidgetRegistry` implementation
 
 ```js
-    this.register('my_custom_button', MyCustomButtonWidgetComponent);
+this.register("my_custom_button", MyCustomButtonWidgetComponent);
 ```
-  
+
 ##### Binding
 
 The button widget will get provided the `button` object form the schema
-including the `button.action` from the action registry 
+including the `button.action` from the action registry
 and the `formProperty` object.
 
-To be fully AOT compatible 
-the custom button widget may then extend `ButtonWidget` or 
+To be fully AOT compatible
+the custom button widget may then extend `ButtonWidget` or
 provide the properties `button` and `formProperty` by it self.
 
 ```js
-  import {Component} from "@angular/core";
-  import {ButtonWidget} from 'ngx-schema-form/dist/defaultwidgets'
-  
-  @Component({
-    selector: 'sf-button-widget',
-    templateUrl: 'custom-button.widget.html'
-  })
-  export class CustomWidgetComponent extends ButtonWidget {
-  
-  }
+import { Component } from "@angular/core";
+import { ButtonWidget } from "ngx-schema-form/dist/defaultwidgets";
+
+@Component({
+  selector: "sf-button-widget",
+  templateUrl: "custom-button.widget.html",
+})
+export class CustomWidgetComponent extends ButtonWidget {}
 ```
 
 ```js
@@ -389,6 +402,7 @@ provide the properties `button` and `formProperty` by it self.
 ```
 
 ### Advanced validation
+
 JSON schema provides validation against a static schema but its often necessary to provide other validation rules.
 The Form component accepts a `validators` input bound to a map between a field id and a validation function.
 The validation function takes three arguments: the value of the field, the property corresponding to it and the form object.
@@ -401,38 +415,43 @@ To perform this check we create a custom validator:
 @Component({
   selector: "minimal-app",
   // Bind the validator map to the the "validators" input
-  template: '<sf-form [schema]="mySchema" [validators]="myValidators"></sf-form>'
+  template:
+    '<sf-form [schema]="mySchema" [validators]="myValidators"></sf-form>',
 })
 export class AppComponent {
   mySchema = {
-    "properties": {
-      "email": {
-        "type": "string",
-        "description": "email",
-        "format": "email"
+    properties: {
+      email: {
+        type: "string",
+        description: "email",
+        format: "email",
       },
-      "password": {
-        "type": "string",
-        "description": "Password"
+      password: {
+        type: "string",
+        description: "Password",
       },
-      "passwordCheck": {
-        "type": "string",
-        "description": "Password (verification)"
-      }
+      passwordCheck: {
+        type: "string",
+        description: "Password (verification)",
+      },
     },
-    "required": ["email", "password", "passwordCheck"]
-  }
+    required: ["email", "password", "passwordCheck"],
+  };
 
   // Declare a mapping between action ids and their implementations
   myValidators = {
     "/passwordCheck": (value, property, form) => {
-      const passwordProperty = formProperty.findRoot().getProperty('password')
-      if (passwordProperty.value !== undefined && property.valid && value !== passwordProperty.value) {
-        return { "passwordCheck": { "expectedValue": "same as 'password'" } }
+      const passwordProperty = formProperty.findRoot().getProperty("password");
+      if (
+        passwordProperty.value !== undefined &&
+        property.valid &&
+        value !== passwordProperty.value
+      ) {
+        return { passwordCheck: { expectedValue: "same as 'password'" } };
       }
       return null;
-    }
-  }
+    },
+  };
 }
 ```
 
@@ -449,144 +468,153 @@ When you type in the name of the parent (first person) the name of the children 
 @Component({
   selector: "minimal-app",
   // Bind the bindings map to the the "bindings" input
-  template: '<sf-form [schema]="mySchema" [bindings]="myFieldBindings"></sf-form>'
+  template:
+    '<sf-form [schema]="mySchema" [bindings]="myFieldBindings"></sf-form>',
 })
 export class AppComponent {
-  mySchema = 
-  {
-               "type": "object",
-               "title": "Example with custom bindings.",
-               "description": "Type a family name to see how the name gets synchronized with the children.",
-               "properties": {
-                 "name": {
-                   "type": "string",
-                   "title": "Surname"
-                 },
-                 "forename": {
-                   "type": "string",
-                   "title": "Forename"
-                 },
-                 "children": {
-                   "type": "array",
-                   "title": "Family",
-                   "items": {
-                     "type": "object",
-                     "title": "Children",
-                     "properties": {
-                       "name": {
-                         "type": "string",
-                         "title": "Surname"
-                       },
-                       "forename": {
-                         "type": "string",
-                         "title": "forename"
-                       },
-                       "age": {
-                         "type": "number",
-                         "title": "age"
-                       }
-                     }
-                   }
-                 }
-               }
-             }
+  mySchema = {
+    type: "object",
+    title: "Example with custom bindings.",
+    description:
+      "Type a family name to see how the name gets synchronized with the children.",
+    properties: {
+      name: {
+        type: "string",
+        title: "Surname",
+      },
+      forename: {
+        type: "string",
+        title: "Forename",
+      },
+      children: {
+        type: "array",
+        title: "Family",
+        items: {
+          type: "object",
+          title: "Children",
+          properties: {
+            name: {
+              type: "string",
+              title: "Surname",
+            },
+            forename: {
+              type: "string",
+              title: "forename",
+            },
+            age: {
+              type: "number",
+              title: "age",
+            },
+          },
+        },
+      },
+    },
+  };
 
   // Declare a mapping between field and event-id
   myFieldBindings = {
-      '/name': [
-        {
-          'input': (event, formProperty: FormProperty) => {
-            const parent: PropertyGroup = formProperty.findRoot();
+    "/name": [
+      {
+        input: (event, formProperty: FormProperty) => {
+          const parent: PropertyGroup = formProperty.findRoot();
 
-            /**
-             * Set the input value for the children
-             */
-            const child1: FormProperty = parent.getProperty('children/0/name');
+          /**
+           * Set the input value for the children
+           */
+          const child1: FormProperty = parent.getProperty("children/0/name");
 
-            child1.setValue(formProperty.value, false);
+          child1.setValue(formProperty.value, false);
 
-            const child2: FormProperty = parent.getProperty('children/1/name');
-            child2.setValue(event.target.value, false);
+          const child2: FormProperty = parent.getProperty("children/1/name");
+          child2.setValue(event.target.value, false);
 
-            /**
-             * Get the input value for all the children
-             */
-            for (const objectProperty of parent.getProperty('children').properties) {
-              console.log('Value for child ', objectProperty, objectProperty.properties['name'].value);
-            }
+          /**
+           * Get the input value for all the children
+           */
+          for (const objectProperty of parent.getProperty("children")
+            .properties) {
+            console.log(
+              "Value for child ",
+              objectProperty,
+              objectProperty.properties["name"].value
+            );
           }
-        }
-      ]
-    };
+        },
+      },
+    ],
+  };
 }
 ```
 
 ### Conditional fields
+
 It is possible to make the presence of a field depends on another field's value.  
-To achieve this you just have to add a `visibleIf` property to a field's definition.  
+To achieve this you just have to add a `visibleIf` property to a field's definition.
 
 **Value**  
 The value to match is set as array item.  
 Setting multiple items will make the visiblity condition `true` if one of the values matches.  
-If it is required to match all values head over to the section `visibleIf` with `allOf` condition.  
+If it is required to match all values head over to the section `visibleIf` with `allOf` condition.
 
 **$ANY$**  
-Adding the value `$ANY$` to the array of conditional values, will make the field visible for any value inserted. 
+Adding the value `$ANY$` to the array of conditional values, will make the field visible for any value inserted.
 
 ```js
 @Component({
   selector: "minimal-app",
-  template: '<sf-form [schema]="mySchema"></sf-form>'
+  template: '<sf-form [schema]="mySchema"></sf-form>',
 })
 export class AppComponent {
   mySchema = {
-    "properties": {
-      "name": {
-        "type": "string",
-        "description": "Username"
+    properties: {
+      name: {
+        type: "string",
+        description: "Username",
       },
-      "comment": {
-        "type": "string",
-        "description": "Comment"
+      comment: {
+        type: "string",
+        description: "Comment",
       },
-      "registerNewsletter": {
-        "type": "boolean",
-        "description": "I want to receive the newsletter",
-        "default": false,
-        "visibleIf": {
-          "comment": ['$ANY$']
-        }
+      registerNewsletter: {
+        type: "boolean",
+        description: "I want to receive the newsletter",
+        default: false,
+        visibleIf: {
+          comment: ["$ANY$"],
+        },
       },
-      "registerEmail": {
-        "type": "string",
-        "description": "Email",
-        "format": "email",
+      registerEmail: {
+        type: "string",
+        description: "Email",
+        format: "email",
         // Declare that this field must be displayed only if registerNewsletter is true
-        "visibleIf": {
-          "registerNewsletter": [true]
-        }
-      }
+        visibleIf: {
+          registerNewsletter: [true],
+        },
+      },
     },
-    "required": ["name", "comment", "registerToNewsletter"]
-  }
+    required: ["name", "comment", "registerToNewsletter"],
+  };
 }
 ```
+
 **$EMPTY$**  
 Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden and not present in model.
 
 ```js
 mySchema = {
-    "properties": {
-      "hidden": {
-        "type": "boolean",
-        "visibleIf": { }
-      }
-    }
-  }
+  properties: {
+    hidden: {
+      type: "boolean",
+      visibleIf: {},
+    },
+  },
+};
 ```
 
 `visibleIf` may also declare conditional binding by using `oneOf` or `allOf` properties.
 Where `oneOf` is handled as `OR` and `allOf` is handled as `AND`.
+
 ```
   "visibleIf": {
         "allOf": [
@@ -603,17 +631,19 @@ Where `oneOf` is handled as `OR` and `allOf` is handled as `AND`.
         ]
       }
 ```
-The `oneOf` a is prioritized before the `allOf` and both are prioritized before the 
+
+The `oneOf` a is prioritized before the `allOf` and both are prioritized before the
 property binding.
- 
+
 _`oneOf` and `allOf` oneOf and allOf are reserved keywords and not suitable as property names_
 
 **Arrays**
 
-To address array items or not yet existing properties the `visibleIf` 
+To address array items or not yet existing properties the `visibleIf`
 condition path may contain wildcard `*`.
 
-e.g 
+e.g
+
 ```
   "visibleIf": {
         "oneOf": [
@@ -626,10 +656,11 @@ e.g
       }
 ```
 
-To address a specific item the `visibleIf` 
+To address a specific item the `visibleIf`
 condition path should contain the index position.
 
-e.g 
+e.g
+
 ```
   "visibleIf": {
         "oneOf": [
@@ -667,13 +698,14 @@ and `target` is the `FormProperty` that has been defined by the `path`.
    }
 ```
 
-
 #### Hidden fields
+
 When a field has been made invisible by the condition `visibleIf`
 then the property of the invisible field will be missing in the result model.
 
 If there is need to submit default values that are not visible for the form
 the `widget.id` `hidden` might be the better choice
+
 ```js
   mySchema = {
     "properties": {
@@ -689,6 +721,7 @@ the `widget.id` `hidden` might be the better choice
     }
   }
 ```
+
 so the value of the hidden field will be bound to the output model
 
 ```js
@@ -700,10 +733,12 @@ so the value of the hidden field will be bound to the output model
 ```
 
 ### Fields presentation and ordering
+
 As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built.
 The `order` and `fieldsets` entries of the schema are here to organize your fields.
 
 #### Ordering
+
 The `order` entry is an array listing all the fields ids in the order they must appear in the form:
 
 ```js
@@ -718,6 +753,7 @@ The `order` entry is an array listing all the fields ids in the order they must 
 ```
 
 #### Fieldsets
+
 With the `fieldsets` property, you can describe the different parts of the form and the fields they contain:
 
 ```js
@@ -820,37 +856,46 @@ export class MyComponent {
 ```
 
 ## Creating a custom widget
+
 Ngx schema form allows you to create your own widget.
 
 Note: Currently this feature is not completely defined and the API might change.
 
 You need to derivate the widget you want to customize:
+
 ```javascript
 @Component({
-  selector: 'mdl-sf-string-widget',
-  templateUrl: './string.widget.html'
+  selector: "mdl-sf-string-widget",
+  templateUrl: "./string.widget.html",
 })
 export class MyStringWidget extends StringWidget {}
 ```
 
 You need to provide its html template (let's imagine we want to use the Material Design text field):
+
 ```html
-<mdl-textfield [label]="schema.description" type="string" floating-label 
-    [name]="name" [attr.readonly]="schema.readOnly?true:null"
-    [attr.id]="id"
-    [attr.disabled]="schema.readOnly?true:null"
-    [formControl]="control"></mdl-textfield>
+<mdl-textfield
+  [label]="schema.description"
+  type="string"
+  floating-label
+  [name]="name"
+  [attr.readonly]="schema.readOnly?true:null"
+  [attr.id]="id"
+  [attr.disabled]="schema.readOnly?true:null"
+  [formControl]="control"
+></mdl-textfield>
 ```
 
 And you need to declare it in a custom registry:
+
 ```javascript
-import { MyStringWidget } from './mystring';
+import { MyStringWidget } from "./mystring";
 
 export class MyWidgetRegistry extends DefaultWidgetRegistry {
   constructor() {
     super();
 
-    this.register('string',  MyStringWidget);
+    this.register("string", MyStringWidget);
   }
 }
 ```
@@ -868,6 +913,7 @@ providers: [{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
 ```
 
 Note: you will also need to import `ReactiveFormsModule` if you want to be able to use form control:
+
 ```javascript
 import { ReactiveFormsModule } from '@angular/forms';
 ...
@@ -881,20 +927,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 ```
 
 ## Create form from html instead of json schema
+
 Ngx schema form allows you to create forms from angular html templates too.
-For this you only need to import `TemplateSchemaModule` to your app, and use the 
+For this you only need to import `TemplateSchemaModule` to your app, and use the
 directive `templateSchema` on sf-form.
 
 The followin html will generate the same form as the json schema in getting started section.
 
 ```html
-<sf-form  [(ngModel)]="model"  templateSchema >
+<sf-form [(ngModel)]="model" templateSchema>
   <sf-field name="email" format="email" [required]="true"> Email </sf-field>
-  <sf-field name="password" widget="password" [required]="true"> Password </sf-field>
+  <sf-field name="password" widget="password" [required]="true">
+    Password
+  </sf-field>
   <sf-field name="rememberMe" type="boolean"> Remember Me </sf-field>
 </sf-form>
-
 ```
+
 For more details see example app.
 
 ## Development and build
@@ -921,6 +970,7 @@ npm start
 ```
 
 ## Building the API documentation
+
 You can build an HTML version of the API documentation by running the following command:
 
 ```bash
