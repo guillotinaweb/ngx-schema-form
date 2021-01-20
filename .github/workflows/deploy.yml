@@ -1,0 +1,30 @@
+name: Deploy
+env:
+  CI: true
+on:
+  push:
+    branches:
+      - master
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v1
+      - run: npm install
+      - name: Github pages
+        uses: sterlingwes/gh-pages-deploy-action@v1.1
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          source-directory: dist/ngx-schema-form
+          build-command: npm run build-demo
+      - name: Tag
+        run: ./tag-version.sh
+      - run: npm run build:lib
+      - name: Publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./dist/schema-form/package.json
