@@ -313,10 +313,13 @@ export abstract class FormProperty {
                       const _chk = (value) => {
                         for (const item of this.schema.visibleIf.oneOf) {
                           for (const depPath of Object.keys(item)) {
-                            const prop = this.searchProperty(depPath);
-                            const propVal = prop ? prop.value : null;
-                            if (this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
-                              return true
+                            const paths = this.findPropertyPaths(property, depPath);
+                            for(const path of paths) {
+                              const prop = this.searchProperty(path);
+                              const propVal = prop ? prop.value : null;
+                              if (this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
+                                  return true
+                              }
                             }
                           }
                         }
@@ -327,10 +330,13 @@ export abstract class FormProperty {
                       const _chk = (value) => {
                         for (const item of this.schema.visibleIf.allOf) {
                           for (const depPath of Object.keys(item)) {
-                            const prop = this.searchProperty(depPath);
-                            const propVal = prop ? prop.value : null;
-                            if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
-                              return false;
+                            const paths = this.findPropertyPaths(property, depPath);
+                            for(const path of paths) {
+                              const prop = this.searchProperty(path);
+                              const propVal = prop ? prop.value : null;
+                              if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
+                                return false;
+                              }
                             }
                           }
                         }
