@@ -1,3 +1,7 @@
+# 2.6.1 (2021-03-08)
+
+- Fix for visibleIf using wildcards in oneOf and allOf (bennmapes)
+
 # 2.6.0 (2021-01-20)
 
 - Upgrade to Angular 11
