@@ -1,3 +1,7 @@
+# 2.6.2 (2021-03-09)
+
+- Fix inconsistency when paths in visibleIf do not contain a leading '/' (bennmapes)
+
 # 2.6.1 (2021-03-08)
 
 - Fix for visibleIf using wildcards in oneOf and allOf (bennmapes)
