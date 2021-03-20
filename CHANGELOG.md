@@ -1,3 +1,7 @@
+# 2.6.3 (2021-03-20)
+
+- Fix dependencies for Angular 11.2
+
 # 2.6.2 (2021-03-09)
 
 - Fix inconsistency when paths in visibleIf do not contain a leading '/' (bennmapes)
