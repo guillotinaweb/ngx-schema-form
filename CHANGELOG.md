@@ -1,3 +1,7 @@
+# 2.6.4 (2021-04-22)
+
+- Fix UMD (iperevozchikov)
+
 # 2.6.3 (2021-03-20)
 
 - Fix dependencies for Angular 11.2
