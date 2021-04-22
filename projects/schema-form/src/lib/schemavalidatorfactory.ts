@@ -1,4 +1,4 @@
-import * as ZSchema from 'z-schema';
+import ZSchema from 'z-schema';
 import {Injectable} from '@angular/core';
 import {ISchema} from './model/ISchema';
 import {FieldType} from './template-schema/field/field';
@@ -36,7 +36,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
   constructor() {
     super();
-    this.createSchemaValidator()
+    this.createSchemaValidator();
   }
 
   private createSchemaValidator() {
@@ -46,7 +46,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
   }
 
   reset() {
-    this.createSchemaValidator()
+    this.createSchemaValidator();
   }
 
   createValidatorFn(schema: ISchema) {
@@ -57,6 +57,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
       }
 
       this.zschema.validate(value, schema);
+      // tslint:disable-next-line:prefer-const
       let err = this.zschema.getLastErrors();
 
       this.denormalizeRequiredPropertyPaths(err);
