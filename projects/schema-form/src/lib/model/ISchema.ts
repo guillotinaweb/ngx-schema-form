@@ -1,4 +1,4 @@
-import {FieldType} from '../template-schema/field/field';
+import { FieldType, TNullableFieldType } from '../template-schema/field/field';
 
 export interface IOneOf {
   enum?: any[];
@@ -37,9 +37,11 @@ export interface IProperties {
   [prop: string]: ISchema;
 }
 
+export type TSchemaPropertyType = FieldType | TNullableFieldType | 'string' | 'object' | 'array' | 'boolean' | 'integer' | 'number';
+
 export interface ISchema {
   $schema?: string;
-  type?: FieldType | 'string' | 'object' | 'array' | 'boolean' | 'integer' | 'number';
+  type?: TSchemaPropertyType;
   title?: string;
   name?: string;
   description?: string;

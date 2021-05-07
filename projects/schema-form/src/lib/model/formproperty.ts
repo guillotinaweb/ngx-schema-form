@@ -5,7 +5,7 @@ import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
-import {ISchema} from './ISchema';
+import { ISchema, TSchemaPropertyType } from './ISchema';
 import { LogService } from '../log.service';
 
 export abstract class FormProperty {
@@ -84,7 +84,7 @@ export abstract class FormProperty {
     if (this.schema && this.schema['name']) {
       return this._rootName = this.schema['name'].replace(new RegExp('[\\s]+', 'ig'), '_')
     }
-    return ''
+    return '';
   }
 
   public get valueChanges() {
@@ -95,7 +95,7 @@ export abstract class FormProperty {
     return this._errorsChanges;
   }
 
-  public get type(): string {
+  public get type(): TSchemaPropertyType {
     return this.schema.type;
   }
 
