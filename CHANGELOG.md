@@ -1,3 +1,7 @@
+# 2.6.5 (2021-05-07)
+
+- Add support of nullable union type for oneOf case (iperevozchikov)
+
 # 2.6.4 (2021-04-22)
 
 - Fix UMD (iperevozchikov)
