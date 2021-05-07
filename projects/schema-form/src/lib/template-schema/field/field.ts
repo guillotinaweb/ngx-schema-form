@@ -10,6 +10,9 @@ export enum FieldType {
   Number = 'number',
 }
 
+export type TNullableFieldType = [FieldType.String | FieldType.Number | FieldType.Boolean | FieldType.Integer, 'null']
+  | ['null', FieldType.String | FieldType.Number | FieldType.Boolean | FieldType.Integer];
+
 export interface Field {
   name: string;
   required: boolean;
