@@ -1,0 +1,17 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Test and build
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.17
+      - run: npm install
+      - run: npm run test
+        env:
+          CI: true

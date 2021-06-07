@@ -1,0 +1,27 @@
+name: Deploy
+env:
+  CI: true
+on:
+  push:
+    branches:
+      - master
+      - 2.5.x
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: setup Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.17
+      - run: npm install
+      - name: Tag
+        run: ./tag-version.sh
+      - run: npm run build:lib
+      - name: Publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./dist/schema-form/package.json

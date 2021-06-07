@@ -1,13 +1,23 @@
+# 2.5.12 (2020-06-07)
+
+- fix: ngx form json schema definition (#378) [Guillem CANAL]
+- #386 fix for visibleIf using wildcards in oneOf and [Benn Mapes]
+- Add support of nullable union type for oneOf case [iperevozchikov]
+
 # 2.5.11 (2020-12-03)
+
 - fix #373: missing schemaprocessor implementation
 
 # 2.5.10 (2020-12-03)
+
 - fix #373: add support for array items with different schema definitions
 
 # 2.5.9 (2020-12-03)
+
 - fix #370: handle non existing fields in visibleIf - oneOf and allOf as null value.
 
 # 2.5.8 (2020-11-12)
+
 - fix #367: Fix boolean negative visiblityIf condition. Add array support for $EXP$ as visibilityIf condition.
 
 # 2.5.7 (2020-08-17)
@@ -17,9 +27,11 @@
 - fix #329: visibleIf "allOf" Edge case BUG (daniele-pecora)
 
 # 2.5.6 (2020-07-16)
+
 - Fix #358 Completing Public API
 
 # 2.5.5 (2020-07-16)
+
 - Fix #355 add README in dist
 
 # 2.5.4 (2020-07-13)
@@ -32,7 +44,6 @@
 # 2.5.3 (2020-06-02)
 
 - Add extendable TypeScript interfaces for JSON Schema objects (artonio)
-
 
 # 2.5.2 (2020-04-09)
 
@@ -125,7 +136,6 @@
 - Render array properly after deletion (Eric Brehault)
 - Fix AOT for Angular 5 (Andrea Accardo)
 
-
 # 1.2.0 (2018-01-01)
 
 ## New features
@@ -185,7 +195,7 @@
 - Fix export for ButtonWidget (Brian Glass)
 - number and boolean fallback values fixed (mrpanky)
 - legacy required property check removed, schemavalidator denormalizes object's required field paths, objectproper
-ty extends subject field's errors (Gabor Pankotay)
+  ty extends subject field's errors (Gabor Pankotay)
 - ArrayLayoutWidget, ObjectLayoutWidget implements AfterViewInit interface (Gabor Pankotay)
 
 # 1.0.0-beta.10 (2017-08-17)
