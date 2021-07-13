@@ -131,6 +131,8 @@ export abstract class FormProperty {
     this._updateValue();
 
     if (emitEvent) {
+      // TODO remove debug console
+      console.log(`updateValueAndValidity: ${this._canonicalPath}`, this.value)
       this.valueChanges.next(this.value);
     }
 
@@ -220,9 +222,6 @@ export abstract class FormProperty {
     this._visible = visible;
     this._visibilityChanges.next(visible);
     this.updateValueAndValidity();
-    if (this.parent) {
-      this.parent.updateValueAndValidity(false, true);
-    }
   }
 
   /**
