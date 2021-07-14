@@ -131,8 +131,6 @@ export abstract class FormProperty {
     this._updateValue();
 
     if (emitEvent) {
-      // TODO remove debug console
-      console.log(`updateValueAndValidity: ${this._canonicalPath}`, this.value)
       this.valueChanges.next(this.value);
     }
 
