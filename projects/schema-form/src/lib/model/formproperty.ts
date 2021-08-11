@@ -571,20 +571,33 @@ export class ExtendedProxyHandler implements ProxyHandler<FormProperty[] | { [ke
         }
       }
 
-      const propertyGroup = formProperty as PropertyGroup;
-      const propertyGroupChildren = (Array.isArray(propertyGroup.properties) ?
-        propertyGroup.properties :
-        Object.values(propertyGroup.properties || {})) as FormProperty[];
-      if ((formProperty.path || '').endsWith('/*')) {
-        /**
-         * If it is an array, then all children canonical paths must be computed now.
-         * The children don't have the parent's path segment set yet,
-         * because they are created before the parent gets attached to its parent.
-         */
-        for (const child of propertyGroupChildren) {
-          child._canonicalPath = formProperty._canonicalPath + child._canonicalPath.substring(formProperty.path.length);
+      const recalculateCanonicalPath = (formProperty: FormProperty) => {
+        if (!(formProperty instanceof PropertyGroup))
+          return
+        const propertyGroup = formProperty as PropertyGroup;
+        const propertyGroupChildren = (Array.isArray(propertyGroup.properties) ?
+          propertyGroup.properties :
+          Object.values(propertyGroup.properties || {})) as FormProperty[];
+        if (propertyGroupChildren.length || (formProperty.path || '').endsWith('/*')) {
+          /**
+           * If it is an array, then all children canonical paths must be computed now.
+           * The children don't have the parent's path segment set yet,
+           * because they are created before the parent gets attached to its parent.
+           */
+          for (const child of propertyGroupChildren) {
+            if (child.__canonicalPath.indexOf('*')) {
+              const p_path = formProperty._canonicalPath.split('/')
+              child._canonicalPath = p_path.concat(child._canonicalPath.split('/').splice(p_path.length)).join('/')
+            }
+            recalculateCanonicalPath(child)
+          }
         }
       }
+      recalculateCanonicalPath(formProperty)
+      const propertyGroup = formProperty as PropertyGroup;
+      const propertyGroupChildren = (Array.isArray(propertyGroup.properties) ?
+      propertyGroup.properties :
+      Object.values(propertyGroup.properties || {})) as FormProperty[];
       return { property: formProperty, children: propertyGroupChildren };
     };
     const { property, children } = assertCanonicalPath(value);
