@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "form": {
+      "type": "array",
+      "title": "Test canonical path",
+      "items": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "default": "unset",
+            "widget": {
+              "id": "hidden"
+            }
+          },
+          "prop1": {
+            "type": "object",
+            "title": "",
+            "properties": {
+              "subProp1": {
+                "type": "boolean",
+                "title": "This checkbox label must have correct 'for' attribute set",
+                "widget": {
+                  "id": "checkbox"
+                },
+                "default": false
+              },
+              "subProp2": {
+                "type": "string",
+                "title": "This is only visible if the checkbox above is checked",
+                "visibleIf": 
+                  {
+                    "subProp1": [true]
+                  }
+              }
+            }
+          }
+        }
+      },
+      "minItems": 1,
+      "maxItems": 3
+    }
+  }
+}
