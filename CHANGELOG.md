@@ -1,3 +1,7 @@
+# 2.6.6 (2021-08-12)
+
+- Fix HTML IDs in elements nested in arrays
+
 # 2.6.5 (2021-05-07)
 
 - Add support of nullable union type for oneOf case (iperevozchikov)
