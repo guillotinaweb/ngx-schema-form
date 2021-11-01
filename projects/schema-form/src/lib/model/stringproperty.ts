@@ -10,7 +10,7 @@ import { LogService } from '../log.service';
 export class StringProperty extends AtomicProperty {
 
   fallbackValue() {
-    return '';
+    return this.isNullableType ? null : '';
   }
 
 }
