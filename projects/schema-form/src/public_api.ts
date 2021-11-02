@@ -17,11 +17,12 @@ export {
   FormProperty,
   PropertyGroup,
   AtomicProperty,
-  ObjectProperty,  
+  ObjectProperty,
   ArrayProperty,
   StringProperty,
   BooleanProperty,
-  NumberProperty,  
+  NumberProperty,
+  NullProperty,
   Validator,
   ValidatorRegistry,
   SchemaPreprocessor,
@@ -31,7 +32,8 @@ export {
   IOneOf,
   IProperties,
   ISchema,
-  IWidget
+  IWidget,
+  TSchemaPropertyType,
   // </schema def>
 } from './lib/model';
 export {
