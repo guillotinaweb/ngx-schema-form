@@ -12,7 +12,7 @@ export class NullProperty extends AtomicProperty {
   }
 }
 
-PROPERTY_TYPE_MAPPING.boolean = (
+PROPERTY_TYPE_MAPPING.null = (
     schemaValidatorFactory: SchemaValidatorFactory,
     validatorRegistry: ValidatorRegistry,
     expressionCompilerFactory: ExpressionCompilerFactory,
