@@ -16,7 +16,7 @@ import { TemplateSchemaService } from '../template-schema.service';
 import { ButtonComponent } from '../button/button.component';
 
 import { FieldParent } from './field-parent';
-import { FieldType, Field } from './field';
+import { FieldType, Field, TNullableFieldType } from './field';
 import { ItemComponent } from './item/item.component';
 import { merge } from 'rxjs';
 import {ISchema} from '../../model/ISchema';
@@ -42,7 +42,7 @@ Field, OnChanges, AfterContentInit {
   name: string;
 
   @Input()
-  type = FieldType.String;
+  type: FieldType | TNullableFieldType = FieldType.String;
 
   @Input()
   format: string;
