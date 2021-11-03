@@ -17,11 +17,12 @@ export {
   FormProperty,
   PropertyGroup,
   AtomicProperty,
-  ObjectProperty,  
+  ObjectProperty,
   ArrayProperty,
   StringProperty,
   BooleanProperty,
-  NumberProperty,  
+  NumberProperty,
+  NullProperty,
   Validator,
   ValidatorRegistry,
   SchemaPreprocessor,
@@ -31,17 +32,18 @@ export {
   IOneOf,
   IProperties,
   ISchema,
-  IWidget
+  IWidget,
+  TSchemaPropertyType,
   // </schema def>
 } from './lib/model';
 export {
   SchemaValidatorFactory,
   ZSchemaValidatorFactory
 } from './lib/schemavalidatorfactory';
-export { 
-  ExpressionCompilerFactory, 
-  ExpressionCompiler, 
-  ExpressionCompilerVisibilityIf, 
+export {
+  ExpressionCompilerFactory,
+  ExpressionCompiler,
+  ExpressionCompilerVisibilityIf,
   ExpressionContextVisibilitIf,
   JEXLExpressionCompilerFactory,
   JEXLExpressionCompiler,
@@ -70,10 +72,12 @@ export { StringWidget } from './lib/defaultwidgets/string/string.widget';
 export {
   DefaultWidgetRegistry
 } from './lib/defaultwidgets/defaultwidgetregistry';
-export { DisableControlDirective } from './lib/defaultwidgets/_directives/disableControl.directive'
+export { DisableControlDirective } from './lib/defaultwidgets/_directives/disableControl.directive';
 
 export { SchemaFormModule } from './lib/schema-form.module';
 export {
   TemplateSchemaModule
 } from './lib/template-schema/template-schema.module';
+// Util types for TemplateSchemaModule
+export { FieldType, TNullableFieldType } from './lib/template-schema/field/field';
 export { LogService, LogLevel, LOG_LEVEL } from './lib/log.service';

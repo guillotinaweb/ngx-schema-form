@@ -1,21 +1,18 @@
 import { AtomicProperty } from './atomicproperty';
-import { PROPERTY_TYPE_MAPPING } from './typemapping';
-import { PropertyGroup } from './formproperty';
+import { ValidatorRegistry, PropertyGroup } from '.';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
-import { ValidatorRegistry } from './validatorregistry';
 import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { PROPERTY_TYPE_MAPPING } from './typemapping';
 import {ISchema} from './ISchema';
 import { LogService } from '../log.service';
 
-export class StringProperty extends AtomicProperty {
-
+export class NullProperty extends AtomicProperty {
   fallbackValue() {
-    return this.isNullableType ? null : '';
+    return null;
   }
-
 }
 
-PROPERTY_TYPE_MAPPING.string = (
+PROPERTY_TYPE_MAPPING.null = (
     schemaValidatorFactory: SchemaValidatorFactory,
     validatorRegistry: ValidatorRegistry,
     expressionCompilerFactory: ExpressionCompilerFactory,
@@ -24,5 +21,5 @@ PROPERTY_TYPE_MAPPING.string = (
     path: string,
     logger: LogService
 ) => {
-    return new StringProperty(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
+    return new NullProperty(schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
 };

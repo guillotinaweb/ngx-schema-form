@@ -33,7 +33,7 @@ export class FormPropertyFactory {
         path += '*';
         _canonicalPath += '*';
       } else {
-        throw 'Instanciation of a FormProperty with an unknown parent type: ' + parent.type;
+        throw new Error('Instanciation of a FormProperty with an unknown parent type: ' + parent.type);
       }
       _canonicalPath = (parent._canonicalPath || parent.path) + _canonicalPath;
     } else {
@@ -45,9 +45,7 @@ export class FormPropertyFactory {
       const refSchema = this.schemaValidatorFactory.getSchema(parent.root.schema, schema.$ref);
       newProperty = this.createProperty(refSchema, parent, path);
     } else {
-      const type: FieldType = this.isUnionType(schema.type)
-        && this.isValidNullableUnionType(schema.type as TNullableFieldType)
-        && this.isAllowedToUsingNullableUnionTypeBySchemaContext(schema)
+      const type: FieldType = this.isUnionType(schema.type) && this.isValidNullableUnionType(schema.type as TNullableFieldType)
           ? this.extractTypeFromNullableUnionType(schema.type as TNullableFieldType)
           :  schema.type as FieldType;
 
@@ -84,7 +82,7 @@ export class FormPropertyFactory {
   }
 
   private isValidNullableUnionType(unionType: TNullableFieldType): boolean {
-    if (!unionType.some(subType => subType === 'null')) {
+    if (!unionType.some(subType => subType === FieldType.Null)) {
       throw new TypeError(`Unsupported union type ${unionType}. Supports only nullable union types, for example ["string", "null"]`);
     }
 
@@ -103,13 +101,5 @@ export class FormPropertyFactory {
 
   private extractTypeFromNullableUnionType(unionType: TNullableFieldType): FieldType | undefined {
     return unionType.filter(type => type !== 'null')?.[0] as FieldType | undefined;
-  }
-
-  private isAllowedToUsingNullableUnionTypeBySchemaContext(schema: ISchema): boolean {
-    if (!schema.oneOf) {
-      throw new TypeError(`Unsupported using of nullable union type without "oneOf" attribute`);
-    }
-
-    return true;
   }
 }

@@ -7,6 +7,7 @@ import {PropertyBindingRegistry} from '../property-binding-registry';
 import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
 import { ISchema, TSchemaPropertyType } from './ISchema';
 import { LogService } from '../log.service';
+import { FieldType } from '../template-schema/field/field';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
@@ -97,6 +98,10 @@ export abstract class FormProperty {
 
   public get type(): TSchemaPropertyType {
     return this.schema.type;
+  }
+
+  public get isNullableType(): boolean {
+    return Array.isArray(this.schema.type) && this.schema.type.some(type => type === FieldType.Null);
   }
 
   public get parent(): PropertyGroup {

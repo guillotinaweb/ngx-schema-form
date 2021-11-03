@@ -12,6 +12,7 @@ export * from './arrayproperty';
 export * from './stringproperty';
 export * from './booleanproperty';
 export * from './numberproperty';
+export * from './nullproperty';
 
 export * from './validator';
 export * from './validatorregistry';

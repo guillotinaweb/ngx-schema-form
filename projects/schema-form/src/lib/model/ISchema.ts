@@ -1,4 +1,5 @@
 import { FieldType, TNullableFieldType } from '../template-schema/field/field';
+import { TUnorderedPair } from './utils';
 
 export interface IOneOf {
   enum?: any[];
@@ -37,7 +38,20 @@ export interface IProperties {
   [prop: string]: ISchema;
 }
 
-export type TSchemaPropertyType = FieldType | TNullableFieldType | 'string' | 'object' | 'array' | 'boolean' | 'integer' | 'number';
+export type TSchemaScalarPrimitiveType = 'string' | 'boolean' | 'integer' | 'number';
+export type TSchemaComplexPrimitiveType = 'object' | 'array';
+export type TSchemaNullPrimitiveType = 'null';
+export type TSchemaPrimitiveType = TSchemaComplexPrimitiveType | TSchemaScalarPrimitiveType | TSchemaNullPrimitiveType;
+
+export type TSchemaNullableScalarPrimitiveType = TUnorderedPair<
+  TSchemaNullPrimitiveType,
+  TSchemaScalarPrimitiveType
+>;
+
+export type TSchemaPropertyType = FieldType
+  | TNullableFieldType
+  | TSchemaPrimitiveType
+  | TSchemaNullableScalarPrimitiveType;
 
 export interface ISchema {
   $schema?: string;
