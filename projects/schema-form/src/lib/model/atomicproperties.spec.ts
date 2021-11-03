@@ -11,6 +11,10 @@ import {
 } from './numberproperty';
 
 import {
+  NullProperty
+} from './nullproperty';
+
+import {
   ValidatorRegistry
 } from './validatorregistry';
 
@@ -73,6 +77,7 @@ describe('Atomic properties', () => {
   describe('StringProperty', () => {
 
     const A_STRING_PROPERTY: ISchema = {'type': 'string'};
+    const A_NULLABLE_STRING_PROPERTY: ISchema = {'type': ['string', 'null']};
 
     it('should fallback to empty string', () => {
       const property = new StringProperty(
@@ -89,6 +94,22 @@ describe('Atomic properties', () => {
 
       expect(property.value).toBe('');
     });
+
+    it('should fallback to null if type is nullable', () => {
+      const property = new StringProperty(
+        A_SCHEMA_VALIDATOR_FACTORY,
+        A_VALIDATOR_REGISTRY,
+        A_EXPRESSION_COMPILER_FACTORY,
+        A_NULLABLE_STRING_PROPERTY,
+        null,
+        '',
+        A_LOGGER
+      );
+
+      property.reset();
+
+      expect(property.value).toBe(null);
+    });
   });
 
   describe('NumberProperty', () => {
@@ -101,6 +122,27 @@ describe('Atomic properties', () => {
         A_VALIDATOR_REGISTRY,
         A_EXPRESSION_COMPILER_FACTORY,
         AN_INT_PROPERTY_SCHEMA_WITHOUT_MINIMUM,
+        null,
+        '',
+        A_LOGGER
+      );
+
+      property.reset();
+
+      expect(property.value).toBe(null);
+    });
+  });
+
+  describe('NullProperty', () => {
+
+    const AN_NULL_PROPERTY_SCHEMA_WITHOUT_DEFAULT: ISchema = {'type': 'null'};
+
+    it('without default in schema should fallback to null on reset', () => {
+      const property = new NumberProperty(
+        A_SCHEMA_VALIDATOR_FACTORY,
+        A_VALIDATOR_REGISTRY,
+        A_EXPRESSION_COMPILER_FACTORY,
+        AN_NULL_PROPERTY_SCHEMA_WITHOUT_DEFAULT,
         null,
         '',
         A_LOGGER

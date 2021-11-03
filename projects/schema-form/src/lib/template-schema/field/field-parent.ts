@@ -5,13 +5,13 @@ import { ActionRegistry } from '../../model/actionregistry';
 import { ButtonComponent } from '../button/button.component';
 import { TemplateSchemaElement } from '../template-schema-element';
 
-import { Field, FieldType } from './field';
+import { Field, FieldType, TNullableFieldType } from './field';
 import {ISchema} from '../../model/ISchema';
 
 export abstract class FieldParent extends TemplateSchemaElement {
 
   name = '';
-  type: FieldType;
+  type: FieldType | TNullableFieldType;
 
   get path(): string {
     if (!this.name) {
