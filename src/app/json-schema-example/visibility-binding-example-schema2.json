@@ -241,8 +241,75 @@
                       }
                   }
               },
+              "visibleIfBinding1c": {
+                "description": "# 6. Test 'VisibleIf' with 'oneOf' and '$ANY$' condition",
+                "type": "object",
+                "properties": {
+                    "anyString1c": {
+                        "type": "string",
+                        "description": "Visible component shows up with any string here.",
+                        "widget": "string"
+                    },
+                    "anyNum1c": {
+                        "type": "number",
+                        "description": "Visible component shows up if any number here",
+                        "widget": "number"
+                    },
+                    "anyBoolean1c": {
+                        "type": "boolean",
+                        "description": "Visible component shows up if any checked state",
+                        "widget": "checkbox"
+                    },
+                    "anyArary1c": {
+                        "type": "array",
+                        "widget": "select",
+                        "items": {
+                            "type": "string",
+                            "oneOf": [
+                                {
+                                    "description": "Option1",
+                                    "enum": [
+                                        "Option1"
+                                    ]
+                                },
+                                {
+                                    "description": "Option2",
+                                    "enum": [
+                                        "Option2"
+                                    ]
+                                },
+                                {
+                                    "description": "Option3",
+                                    "enum": [
+                                        "Option3"
+                                    ]
+                                },
+                                {
+                                    "description": "Option4",
+                                    "enum": [
+                                        "Option4"
+                                    ]
+                                }
+                            ]
+                        },
+                        "description": "Visible component shows up if any selection here"
+                    },
+                    "visibleComponent1c": {
+                        "type": "string",
+                        "description": "Visible if any values exist in a test input",
+                        "visibleIf": {
+                            "oneOf": [
+                                {"anyString1c": ["$ANY$"]},
+                                {"anyNum2c": ["$ANY$"]},
+                                {"anyBoolean2c": ["$ANY$"]},
+                                {"anyArary2c": ["$ANY$"]}
+                            ]
+                        }
+                    }
+                }
+              },
               "visibleIfBinding2a": {
-                  "description": "# 6. Test Boolean 'VisibleIf' with 'allOf' condition (check 'Warn' and 'Fail')",
+                  "description": "# 7. Test Boolean 'VisibleIf' with 'allOf' condition (check 'Warn' and 'Fail')",
                   "type": "object",
                   "properties": {
                       "status2a": {
@@ -281,7 +348,7 @@
                   }
               },
               "visibleIfBinding2b": {
-                  "description": "# 7. Test String 'VisibleIf' with 'allOf' condition (select 'Warn' and 'Fail')",
+                  "description": "# 8. Test String 'VisibleIf' with 'allOf' condition (select 'Warn' and 'Fail')",
                   "type": "object",
                   "properties": {
                       "status2a": {

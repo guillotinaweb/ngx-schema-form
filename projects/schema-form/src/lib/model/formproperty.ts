@@ -250,7 +250,17 @@ export abstract class FormProperty {
         } else if (typeof expString === 'number') {
           valid = !!value ? `${expString}` === `${value}` : false;
         } else if (-1 !== `${expString}`.indexOf('$ANY$')) {
-          valid = value && value.length > 0;
+          if(Array.isArray(value)) {
+            valid = value.length > 0;
+          } else if(typeof value === "number") {
+            valid = true;
+          } else if(typeof value === "boolean") {
+            valid = true;
+          } else if(typeof value === "string") {
+            valid = value !== '';
+          } else if(typeof value === "object") {
+            valid = value !== null && value !== {};
+          }
         } else if (0 === `${expString}`.indexOf('$EXP$')) {
           const _expresssion = (expString as string).substring('$EXP$'.length);
           valid = true === this.expressionCompilerVisibiltyIf.evaluate(_expresssion, {
