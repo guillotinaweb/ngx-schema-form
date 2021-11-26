@@ -1,3 +1,7 @@
+# 2.6.8 (2021-11-26)
+
+- Fix validation of ANY to validate more types of values (bennmapes)
+
 # 2.6.7 (2021-11-03)
 
 - Remove constraint of using nullable unions (iperevozchikov)
