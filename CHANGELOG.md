@@ -1,9 +1,14 @@
+# 2.5.18 (2021-12-08)
+  - Cherry pick #415 fixes validation of ANY to validate more types of values 
+  - Cherry pick #413 Remove constraint of using nullable unions
+
 # 2.5.17 (2021-08-12)
   - Add support of nullable union type for oneOf case
   - fix #389 Updates to vivibleIf's for oneOf and allOf
   - fix #407 - element id in nested array items (#408)
   - remove duplicated unnecessary cycles of updating value and validity for parent. Fixes major performance issues using 'visibleIf'
   - Fix HTML IDs in elements nested in arrays
+
 # 2.5.14 (2021-08-12)
   
 # 2.5.12 (2020-06-07)
