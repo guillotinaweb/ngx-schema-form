@@ -8,6 +8,7 @@ import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../ex
 import { ISchema, TSchemaPropertyType } from './ISchema';
 import { LogService } from '../log.service';
 import { FieldType } from '../template-schema/field/field';
+import { isEmptyObject } from './utils';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
@@ -259,7 +260,7 @@ export abstract class FormProperty {
           } else if(typeof value === "string") {
             valid = value !== '';
           } else if(typeof value === "object") {
-            valid = value !== null && value !== {};
+            valid = !isEmptyObject(value);
           }
         } else if (0 === `${expString}`.indexOf('$EXP$')) {
           const _expresssion = (expString as string).substring('$EXP$'.length);

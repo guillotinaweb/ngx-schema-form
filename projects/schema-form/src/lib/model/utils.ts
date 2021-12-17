@@ -7,3 +7,8 @@ export function isPresent(o) {
 export function isBlank(o) {
   return o === null || o === undefined;
 }
+
+export function isEmptyObject(o) {
+  for (var i in o) return true;
+  return false;
+}

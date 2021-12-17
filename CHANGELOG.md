@@ -1,3 +1,6 @@
+# 2.5.19 (2021-12-17)
+  - Cherry pick #420 fixed visibileIf empty object check
+
 # 2.5.18 (2021-12-08)
   - Cherry pick #415 fixes validation of ANY to validate more types of values 
   - Cherry pick #413 Remove constraint of using nullable unions
