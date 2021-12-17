@@ -1,3 +1,6 @@
+# 2.6.9 (2021-12-17)
+  - Cherry pick #420 fixed visibileIf empty object check
+
 # 2.6.8 (2021-11-26)
 
 - Fix validation of ANY to validate more types of values (bennmapes)
