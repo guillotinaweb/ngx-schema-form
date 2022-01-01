@@ -1,5 +1,10 @@
+# 2.7.0 (2022-01-01)
+
+- Upgrade to Angular 13 (ebrehault)
+
 # 2.6.9 (2021-12-17)
-  - Cherry pick #420 fixed visibileIf empty object check
+
+- Cherry pick #420 fixed visibileIf empty object check
 
 # 2.6.8 (2021-11-26)
 
