@@ -3,8 +3,5 @@
   "dest": "../../dist/schema-form",
   "lib": {
     "entryFile": "src/public_api.ts"
-  },
-  "whitelistedNonPeerDependencies": [
-    "z-schema"
-  ]
+  }
 }
