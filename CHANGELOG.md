@@ -1,3 +1,6 @@
+# 2.5.20 (2022-01-28)
+  - Built-in ability to let compile the schema so defs and refs get resolved
+
 # 2.5.19 (2021-12-17)
   - Cherry pick #420 fixed visibileIf empty object check
 
