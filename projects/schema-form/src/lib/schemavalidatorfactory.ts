@@ -27,6 +27,15 @@ export abstract class SchemaValidatorFactory {
   reset() {
 
   }
+
+  /**
+   * Override this method if the validator instance supports compiling a schema an resolve all refs and defs.
+   * @param schema The schema to be compiled and get its refs, deps, etc. resolved
+   * @returns The compiled schema. Per default it does simply return the give schema.
+   */
+  compile(schema:any){
+    return schema
+  }
 }
 
 @Injectable()
@@ -47,6 +56,12 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
   reset() {
     this.createSchemaValidator();
+  }
+
+  compile(schema: any) {
+    const zSchema = new ZSchema({}) as any;
+    zSchema.compileSchema(schema);
+    return zSchema.getResolvedSchema(schema);
   }
 
   createValidatorFn(schema: ISchema) {
