@@ -5,7 +5,7 @@ import { ControlWidget } from '../../widget';
 @Component({
 	selector: 'sf-select-widget',
 	template: `<div class="widget form-group">
-	<label [attr.for]="id" class="horizontal control-label">
+	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>
 

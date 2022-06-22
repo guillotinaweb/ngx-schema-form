@@ -4,11 +4,10 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
-import {WidgetRegistry, Validator, Binding, FormProperty, PropertyGroup} from 'ngx-schema-form';
+import {Validator, Binding, FormProperty, PropertyGroup} from 'ngx-schema-form';
 import {Subscription} from 'rxjs';
 
 import sampleSchema1 from './sampleschema.json';
-import sampleSchema2 from './otherschema.json';
 import sampleModel from './samplemodel.json';
 import binding_sample_schema from './binding_sample_schema.json';
 import binding_sample_model from './binding_sample_model.json';
@@ -46,7 +45,6 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    registry: WidgetRegistry,
     private appService: AppService
   ) {
 
@@ -177,9 +175,6 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
         console.log(child.valid, child);
       });
       alert(JSON.stringify(property.value));
-    };
-    this.actions['reset'] = (form, options) => {
-      form.reset();
     };
     this.actions['reset'] = (form, options) => {
       form.reset();

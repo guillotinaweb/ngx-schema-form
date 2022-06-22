@@ -8,7 +8,7 @@ import { ControlWidget } from '../../widget';
   [attr.name]="name" type="hidden" [formControl]="control">
 <ng-template #notHiddenFieldBlock>
 <div class="widget form-group">
-    <label [attr.for]="id" class="horizontal control-label">
+    <label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
     	{{ schema.title }}
     </label>
     <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
