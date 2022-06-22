@@ -1,3 +1,7 @@
+# 2.7.1 (2022-06-2)
+
+- Do not display labels if no title (Anton)
+
 # 2.7.0 (2022-01-01)
 
 - Upgrade to Angular 13 (ebrehault)
