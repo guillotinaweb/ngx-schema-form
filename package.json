@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "copy:schema": "node -e \"var src='./schema/ngx-schema-form-schema.json'; var dest='./dist/schema-form/ngx-schema-form-schema.json'; var fs = require('fs'); if (fs.existsSync(src)) { var data = fs.readFileSync(src, 'utf-8'); fs.writeFileSync(dest, data);}\"",
-    "build:lib": "ng build --configuration production schema-form && npm run copy:schema && cp ./README.md ./dist/schema-form/",
+    "build:lib": "ng build --configuration production schema-form && npm run copy:schema && ncp ./README.md ./dist/schema-form/",
     "build-demo": "ng build --configuration production --base-href /ngx-schema-form/",
     "test:lib": "ng test schema-form --watch=false",
     "test": "ng test --watch=false",
@@ -49,6 +49,7 @@
     "ng-packagr": "^13.1.2",
     "ts-node": "~7.0.1",
     "tslint": "~6.1.0",
-    "typescript": "~4.5.4"
+    "typescript": "~4.5.4",
+    "ncp": "~2.0.0"
   }
 }
