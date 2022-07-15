@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 
 import {
-  FormControl
+  UntypedFormControl
 } from '@angular/forms';
 
 import {Widget} from './widget';
@@ -34,7 +34,7 @@ export class FormElementComponent implements OnInit, OnDestroy {
   private static counter = 0;
 
   @Input() formProperty: FormProperty;
-  control: FormControl = new FormControl('', () => null);
+  control: UntypedFormControl = new UntypedFormControl('', () => null);
 
   widget: Widget<any> = null;
 

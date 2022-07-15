@@ -1,5 +1,5 @@
 import { AfterViewInit, Directive } from "@angular/core";
-import { FormControl } from "@angular/forms";
+import { UntypedFormControl } from "@angular/forms";
 
 import { ArrayProperty } from "./model/arrayproperty";
 import { FormProperty } from "./model/formproperty";
@@ -8,7 +8,7 @@ import { ISchema } from "./model/ISchema";
 
 export abstract class Widget<T extends FormProperty> {
   formProperty: T;
-  control: FormControl;
+  control: UntypedFormControl;
   errorMessages: string[];
 
   id: string = "";
