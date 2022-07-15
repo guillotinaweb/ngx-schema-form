@@ -1,3 +1,7 @@
+# 2.8.0 (2022-07-15)
+
+- Upgrade to Angular 14 (ebrehault)
+
 # 2.7.2 (2022-07-15)
 
 - Use DisableControlDirective for widgets to remove warnings for reactive forms (Kevin Broichhausen)

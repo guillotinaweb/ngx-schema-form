@@ -123,6 +123,5 @@
         }
       }
     }
-  },
-  "defaultProject": "ngx-schema-form"
+  }
 }
