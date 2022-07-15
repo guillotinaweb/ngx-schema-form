@@ -1,4 +1,10 @@
-# 2.7.1 (2022-06-2)
+# 2.7.2 (2022-07-15)
+
+- Use DisableControlDirective for widgets to remove warnings for reactive forms (Kevin Broichhausen)
+- Changed cp command in build:lib (Kevin Broichhausen)
+- Fix zero value checking (Kevin Broichhausen)
+
+# 2.7.1 (2022-06-02)
 
 - Do not display labels if no title (Anton)
 
