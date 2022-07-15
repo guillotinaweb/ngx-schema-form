@@ -249,7 +249,7 @@ export abstract class FormProperty {
         if (typeof expString === 'boolean') {
           valid = !expString ? !value : value
         } else if (typeof expString === 'number') {
-          valid = !!value ? `${expString}` === `${value}` : false;
+          valid = (!!value || value == 0) ? `${expString}` === `${value}` : false;
         } else if (-1 !== `${expString}`.indexOf('$ANY$')) {
           if(Array.isArray(value)) {
             valid = value.length > 0;
