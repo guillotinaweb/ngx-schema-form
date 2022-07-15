@@ -19,7 +19,7 @@ import { ControlWidget } from '../../widget';
     [attr.maxLength]="schema.maxLength || null"
     [attr.minLength]="schema.minLength || null"
     [attr.required]="schema.isRequired || null"
-    [attr.disabled]="(schema.widget.id=='color' && schema.readOnly)?true:null">
+	[disableControl]="(schema.widget.id=='color' && schema.readOnly)?true:null">
     <input *ngIf="(schema.widget.id==='color' && schema.readOnly)" [attr.name]="name" type="hidden" [formControl]="control">
 </div>
 </ng-template>`
