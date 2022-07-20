@@ -1,3 +1,7 @@
+# 2.8.1 (2022-07-20)
+
+- Fix dependencies version
+
 # 2.8.0 (2022-07-15)
 
 - Upgrade to Angular 14 (ebrehault)
