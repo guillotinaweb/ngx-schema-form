@@ -92,7 +92,7 @@ describe('JsonSchemaExampleComponent - canonical-path', () => {
 
     // select demo sample
     const select: HTMLSelectElement = fixture.debugElement.query(By.css('#samples')).nativeElement;
-    select.value = select.options[5].value;  // <-- select a new value
+    select.value = select.options[6].value;  // <-- select a new value
     select.dispatchEvent(new Event('change'));
     fixture.detectChanges();
   });

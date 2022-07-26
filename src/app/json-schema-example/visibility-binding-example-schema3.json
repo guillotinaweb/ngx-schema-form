@@ -1,0 +1,205 @@
+{
+  "properties": {
+    "demo": {
+      "type": "object",
+      "properties": {
+        "visibleIfBinding1": {
+          "description": "# 1. Test 'VisibleIf' with 'all-of' of 'one-of's. One of 1a and 1b must be Pass and one of 1c and 1d must be Pass",
+          "type": "object",
+          "properties": {
+            "status1a": {
+              "type": "string",
+              "description": "Status 1a",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "status1b": {
+              "type": "string",
+              "description": "Status 1b",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "status1c": {
+              "type": "string",
+              "description": "Status 1c",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "status1d": {
+              "type": "string",
+              "description": "Status 1d",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "visibleComponent1a": {
+              "type": "string",
+              "description": "Visible component if above condition is fulfilled",
+              "visibleIf": {
+                "allOf": [
+                  {
+                    "oneOf": [{ "/demo/visibleIfBinding1/status1a": ["Pass"] }, { "/demo/visibleIfBinding1/status1b": ["Pass"] }]
+                  },
+                  {
+                    "oneOf": [{ "/demo/visibleIfBinding1/status1c": ["Pass"] }, { "/demo/visibleIfBinding1/status1d": ["Pass"] }]
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "visibleIfBinding2": {
+          "description": "# 2. Test 'VisibleIf' with 'one-of' of 'all-of's. All of 2a, 2b and 2c must be Fail or 2d must be Fail",
+          "type": "object",
+          "properties": {
+            "status2a": {
+              "type": "string",
+              "description": "Status 2a",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "status2b": {
+              "type": "string",
+              "description": "Status 2b",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "status2c": {
+              "type": "string",
+              "description": "Status 2c",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "status2d": {
+              "type": "string",
+              "description": "Status 2d",
+              "oneOf": [
+                {
+                  "description": "Pass",
+                  "enum": ["Pass"]
+                },
+                {
+                  "description": "Warn",
+                  "enum": ["Warn"]
+                },
+                {
+                  "description": "Fail",
+                  "enum": ["Fail"]
+                }
+              ],
+              "widget": "select"
+            },
+            "visibleComponent2a": {
+              "type": "string",
+              "description": "Visible component if above condition is fulfilled",
+              "visibleIf": {
+                "oneOf": [
+                  {
+                    "allOf": [
+                      { "/demo/visibleIfBinding2/status2a": ["Fail"] },
+                      { "/demo/visibleIfBinding2/status2b": ["Fail"] },
+                      { "/demo/visibleIfBinding2/status2c": ["Fail"] }
+                    ]
+                  },
+                  {
+                    "allOf": [{ "/demo/visibleIfBinding2/status2d": ["Fail"] }]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

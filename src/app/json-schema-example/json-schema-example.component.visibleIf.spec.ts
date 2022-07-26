@@ -689,3 +689,131 @@ describe('JsonSchemaExampleComponent - visibleIf - condition-types', () => {
 
 });
 
+describe("JsonSchemaExampleComponent - visibleIf - condition-types (chained conditions)", () => {
+  let component: JsonSchemaExampleComponent;
+  let fixture: ComponentFixture<JsonSchemaExampleComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [SchemaFormModule.forRoot(), HttpClientModule, FormsModule, ReactiveFormsModule],
+      declarations: [JsonSchemaExampleComponent],
+      providers: [
+        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {
+          provide: SchemaValidatorFactory,
+          useClass: ZSchemaValidatorFactory
+        }
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(JsonSchemaExampleComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  beforeEach(() => {
+    // select demo sample
+    const select: HTMLSelectElement = fixture.debugElement.query(By.css("#samples")).nativeElement;
+    select.value = select.options[5].value; // <-- select a new value
+    select.dispatchEvent(new Event("change"));
+    fixture.detectChanges();
+  });
+
+  it(`# 1. Test 'VisibleIf' with 'all-of' of 'one-of's. One of 1a and 1b must be Pass and one of 1c and 1d must be Pass`, async(() => {
+    // Visible component shows up if status value is 'Warn' or 'Fail'
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+      // expect page containing a sf-form element
+      let sf_form = fixture.debugElement.query(By.css("sf-form"));
+      expect(sf_form).toBeTruthy();
+
+      // initial state
+      let _test_status1a = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.status1a")).nativeElement;
+      expect(_test_status1a.value).toBe("");
+      let _test_status1b = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.status1b")).nativeElement;
+      expect(_test_status1b.value).toBe("");
+      let _test_status1c = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.status1c")).nativeElement;
+      expect(_test_status1c.value).toBe("");
+      let _test_status1d = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.status1d")).nativeElement;
+      expect(_test_status1d.value).toBe("");
+
+      let _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.visibleComponent1a"));
+      expect(_test_visbility).toBeNull();
+
+      // change some values which still not met the condition
+      _test_status1a.value = _test_status1a.options[0].value;
+      _test_status1b.value = _test_status1b.options[0].value;
+      _test_status1a.dispatchEvent(new Event("change"));
+      _test_status1b.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.visibleComponent1a"));
+      expect(_test_visbility).toBeNull();
+
+      // change state to make field visible
+      _test_status1c.value = _test_status1c.options[0].value;
+      _test_status1c.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding1\\.visibleComponent1a"));
+      expect(_test_visbility).toBeTruthy();
+    });
+  }));
+
+  it(`# 2. Test 'VisibleIf' with 'one-of' of 'all-of's. All of 2a, 2b and 2c must be Fail or 2d must be Fail`, async(() => {
+    // Visible component shows up if status value is 'Warn' or 'Fail'
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+      // expect page containing a sf-form element
+      let sf_form = fixture.debugElement.query(By.css("sf-form"));
+      expect(sf_form).toBeTruthy();
+
+      // initial state
+      let _test_status2a = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.status2a")).nativeElement;
+      expect(_test_status2a.value).toBe("");
+      let _test_status2b = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.status2b")).nativeElement;
+      expect(_test_status2b.value).toBe("");
+      let _test_status2c = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.status2c")).nativeElement;
+      expect(_test_status2c.value).toBe("");
+      let _test_status2d = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.status2d")).nativeElement;
+      expect(_test_status2d.value).toBe("");
+
+      let _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.visibleComponent2a"));
+      expect(_test_visbility).toBeNull();
+
+      // change some values which still not met the condition
+      _test_status2a.value = _test_status2a.options[2].value;
+      _test_status2b.value = _test_status2b.options[2].value;
+      _test_status2a.dispatchEvent(new Event("change"));
+      _test_status2b.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.visibleComponent2a"));
+      expect(_test_visbility).toBeNull();
+
+      // change state to make field visible
+      _test_status2c.value = _test_status2c.options[2].value;
+      _test_status2c.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.visibleComponent2a"));
+      expect(_test_visbility).toBeTruthy();
+
+      // change state to make field invisible
+      _test_status2c.value = _test_status2c.options[0].value;
+      _test_status2c.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.visibleComponent2a"));
+      expect(_test_visbility).toBeNull();
+
+      // change state to make field visible
+      _test_status2d.value = _test_status2c.options[2].value;
+      _test_status2d.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _test_visbility = fixture.debugElement.query(By.css("#demo\\.visibleIfBinding2\\.visibleComponent2a"));
+      expect(_test_visbility).toBeTruthy();
+    });
+  }));
+});
