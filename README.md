@@ -635,6 +635,20 @@ Where `oneOf` is handled as `OR` and `allOf` is handled as `AND`.
 The `oneOf` a is prioritized before the `allOf` and both are prioritized before the
 property binding.
 
+Chaining of `oneOf` and `allOf` is possible like in the exmaple below:
+```
+"visibleIf": {
+  "allOf": [
+    {
+      "oneOf": [{ "/demo/visibleIfBinding1/status1a": ["Pass"] }, { "/demo/visibleIfBinding1/status1b": ["Pass"] }]
+    },
+    {
+      "oneOf": [{ "/demo/visibleIfBinding1/status1c": ["Pass"] }, { "/demo/visibleIfBinding1/status1d": ["Pass"] }]
+    }
+  ]
+}
+```
+
 _`oneOf` and `allOf` oneOf and allOf are reserved keywords and not suitable as property names_
 
 **Arrays**

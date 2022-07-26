@@ -1,4 +1,4 @@
-import {BehaviorSubject, combineLatest} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable, of} from 'rxjs';
 import {distinctUntilChanged, map} from 'rxjs/operators';
 
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
@@ -298,89 +298,109 @@ export abstract class FormProperty {
      *     },{
      *         "path":["value","value"]
      *     }]
-     *     </pre>
+     * </pre>
      * <pre>
      *     "allOf":[{
      *         "path":["value","value"]
      *     },{
      *         "path":["value","value"]
      *     }]
-     *     </pre>
+     * </pre>
      */
+    // get the visibleIf property and check if it has a oneOf or allOf property
     const visibleIfProperty = this.schema.visibleIf;
-    const visibleIfOf = (visibleIfProperty || {}).oneOf || (visibleIfProperty || {}).allOf;
-    if (visibleIfOf) {
-      for (const visibleIf of visibleIfOf) {
-        if (typeof visibleIf === 'object' && Object.keys(visibleIf).length === 0) {
-          this.setVisible(false);
-        } else if (visibleIf !== undefined) {
-          const propertiesBinding = [];
-          for (const dependencyPath in visibleIf) {
-            if (visibleIf.hasOwnProperty(dependencyPath)) {
-              const properties = this.findProperties(this, dependencyPath);
-              if ((properties || []).length) {
-                for (const property of properties) {
-                  if (property) {
-                    let valueCheck;
-                    if (this.schema.visibleIf.oneOf) {
-                      const _chk = (value) => {
-                        for (const item of this.schema.visibleIf.oneOf) {
-                          for (const depPath of Object.keys(item)) {
-                            const props = this.findProperties(this, depPath);
-                            for(const prop of props) {
-                              const propVal = prop ? prop.value : null;
-                              if (this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
-                                  return true
-                              }
-                            }
-                          }
-                        }
-                        return false;
-                      };
-                      valueCheck = property.valueChanges.pipe(map(_chk));
-                    } else if (this.schema.visibleIf.allOf) {
-                      const _chk = (value) => {
-                        for (const item of this.schema.visibleIf.allOf) {
-                          for (const depPath of Object.keys(item)) {
-                            const props = this.findProperties(this, depPath);
-                            for(const prop of props) {
-                              const propVal = prop ? prop.value : null;
-                              if (!this.__evaluateVisibilityIf(this, prop, dependencyPath, propVal, item[depPath])) {
-                                return false;
-                              }
-                            }
-                          }
-                        }
-                        return true;
-                      };
-                      valueCheck = property.valueChanges.pipe(map(_chk));
-                    }
-                    const visibilityCheck = property._visibilityChanges;
-                    const and = combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
-                    propertiesBinding.push(and);
-                  }
-                }
-              } else {
-                this.logger.warn('Can\'t find property ' + dependencyPath + ' for visibility check of ' + this.path);
-                this.registerMissingVisibilityBinding(dependencyPath, this);
-                // not visible if not existent
-                this.setVisible(false);
-              }
-            }
-          }
+    let oneOfOrAllOf;
+    if (visibleIfProperty) {
+      if (!!visibleIfProperty.oneOf) oneOfOrAllOf = visibleIfProperty.oneOf;
+      else if (!!visibleIfProperty.allOf) oneOfOrAllOf = visibleIfProperty.allOf;
+    }
 
-          combineLatest(propertiesBinding, (...values: boolean[]) => {
-            if (this.schema.visibleIf.allOf) {
-              return values.indexOf(false) === -1;
-            }
-            return values.indexOf(true) !== -1;
-          }).subscribe((visible) => {
-            this.setVisible(visible);
-          });
-        }
-      }
+    // oneOf or allOf is set so this method handles the binding
+    if (visibleIfProperty && oneOfOrAllOf) {
+      const finalObservable: Observable<boolean> = this.__bindConditionalVisiblityChain(oneOfOrAllOf, !!visibleIfProperty.oneOf, !!visibleIfProperty.allOf);
+      // subscribe to the last observable which collects all temporary results
+      finalObservable.subscribe(visible => {
+        this.setVisible(visible);
+      });
       return true;
     }
+
+    // oneOf and allOf is not set. this method does not handle the logic
+    return false;
+  }
+
+  /**
+   * helper function to recursively bind visibilty in an arbitrary chain oneOf allOf chain
+   * @param visbilityElement The element from the visibitly chain. Can be an array from e.g. {"oneOf": [...]} or an element with one property for the dependency path e.g. {"textField1": ...}
+   * @param isOneOf Boolean to chain the oberservables as oneOf
+   * @param isAllOf Boolean to chain the oberservables as allOf
+   * @returns An Array with one
+   */
+  private __bindConditionalVisiblityChain(visbilityElement: any, isOneOf: boolean, isAllOf: boolean): Observable<boolean> {
+    // all observables are added to this array, if the element is oneOf or allOf
+    const visibiltyBindings: Array<Observable<boolean>> = [];
+
+    // oneOf or allOf = visibiltyElement must be an array
+    if (isOneOf || isAllOf) {
+      for (const objInOf of visbilityElement) {
+        // bind all elements recursively with the same function.
+        // objInOf must be an object, which may contain allOf or oneOf again but this is checked by the recursive call to this method
+        visibiltyBindings.push(this.__bindConditionalVisiblityChain(objInOf, false, false));
+      }
+      // visibiltyElement must be an obj, which may contain oneOf or allOf again
+    } else {
+      const containsOneOf = visbilityElement.hasOwnProperty("oneOf");
+      const containsAllOf = visbilityElement.hasOwnProperty("allOf");
+
+      let visibleIfOf: any = null;
+      if (containsOneOf) visibleIfOf = visbilityElement.oneOf;
+      else if (containsAllOf) visibleIfOf = visbilityElement.allOf;
+
+      // if oneOf or allOf is present check if it is an array with at least 1 element
+      if (visibleIfOf) {
+        // empty arrays just return boolean false
+        if (visibleIfOf.length == 0) return of(false);
+        // recursive call if visbilityElement has oneOf or allOf in it
+        return this.__bindConditionalVisiblityChain(visibleIfOf, containsOneOf, containsAllOf);
+      } else {
+        // it's a dependency path
+        return this.__handleDependencyPath(visbilityElement);
+      }
+    }
+
+    // combine all observables to one boolean by using logical and or logical or. eventually return the observable
+    let ret;
+    if (isAllOf) ret = combineLatest(visibiltyBindings, (...values: boolean[]) => values.indexOf(false) === -1);
+    else if (isOneOf) ret = combineLatest(visibiltyBindings, (...values: boolean[]) => values.indexOf(true) !== -1);
+    return ret;
+  }
+
+  /**
+   * Handles a dependency path in a oneOf or allOf
+   * @param dependencyElement An element / object which contains neither a field with oneOf or allOf as name. Handled as dependency path in json
+   * @returns An oberservable boolean containing the evaluation of the statement, where the statement is the value of the dependency path field
+   */
+  private __handleDependencyPath(dependencyElement: any): Observable<boolean> {
+    const dependencyPath = Object.keys(dependencyElement)[0];
+
+    const properties = this.findProperties(this, dependencyPath);
+    if ((properties || []).length) {
+      for (const property of properties) {
+        if (property) {
+          let valueCheck;
+          const _chk = value => this.__evaluateVisibilityIf(this, property, dependencyPath, value, dependencyElement[dependencyPath]) ? true : false;
+
+          valueCheck = property.valueChanges.pipe(map(_chk));
+          const visibilityCheck = property._visibilityChanges;
+          const and = combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
+          return and;
+        }
+      }
+    } else {
+      this.logger.warn("Can't find property " + dependencyPath + " for visibility check of " + this.path);
+      this.registerMissingVisibilityBinding(dependencyPath, this);
+    }
+    return of(false);
   }
 
   // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
