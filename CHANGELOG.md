@@ -1,3 +1,7 @@
+# 2.8.2 (2022-07-26)
+
+- Added chainable oneOf and allOf in visibleIf (Kevin Broichhausen)
+
 # 2.8.1 (2022-07-20)
 
 - Fix dependencies version
