@@ -319,7 +319,7 @@ export abstract class FormProperty {
     if (visibleIfProperty && oneOfOrAllOf) {
       const finalObservable: Observable<boolean> = this.__bindConditionalVisiblityChain(oneOfOrAllOf, !!visibleIfProperty.oneOf, !!visibleIfProperty.allOf);
       // subscribe to the last observable which collects all temporary results
-      finalObservable.subscribe(visible => {
+      finalObservable.pipe(distinctUntilChanged()).subscribe((visible) => {
         this.setVisible(visible);
       });
       return true;
