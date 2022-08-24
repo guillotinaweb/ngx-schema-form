@@ -1,3 +1,7 @@
+# 2.8.3 (2022-08-24)
+
+- Two-way data binding fix (Kevin Broichhausen)
+
 # 2.8.2 (2022-07-26)
 
 - Added chainable oneOf and allOf in visibleIf (Kevin Broichhausen)
