@@ -1,3 +1,7 @@
+# 2.8.4 (2022-09-09)
+
+- Improved performance of visibility binding for nested objects (Kevin Broichhausen)
+
 # 2.8.3 (2022-08-24)
 
 - Two-way data binding fix (Kevin Broichhausen)
