@@ -364,8 +364,8 @@ export abstract class FormProperty {
         return this.__bindConditionalVisiblityChain(visibleIfOf, containsOneOf, containsAllOf);
       } else {
         // it's a dependency path
-        const obsersables = this.__handleDependencyPath(visbilityElement);
-		return combineLatest(obsersables, (...values: boolean[]) => values.indexOf(true) !== -1);
+        const observables = this.__handleDependencyPath(visbilityElement);
+        return combineLatest(observables, (...values: boolean[]) => values.indexOf(true) !== -1);
       }
     }
 
@@ -385,7 +385,7 @@ export abstract class FormProperty {
     const dependencyPath = Object.keys(dependencyElement)[0];
 
     const propertiesBinding = [];
-	const properties = this.findProperties(this, dependencyPath);
+    const properties = this.findProperties(this, dependencyPath);
     if ((properties || []).length) {
       for (const property of properties) {
         if (property) {
@@ -395,7 +395,7 @@ export abstract class FormProperty {
           valueCheck = property.valueChanges.pipe(map(_chk));
           const visibilityCheck = property._visibilityChanges;
           const and = combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
-		  propertiesBinding.push(and);
+          propertiesBinding.push(and);
         }
       }
 	  return propertiesBinding;

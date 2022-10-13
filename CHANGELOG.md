@@ -1,3 +1,8 @@
+# 2.8.5 (2022-10-13)
+
+- Fixed bug with wildcards introduced by version 2.8.2 (Kevin Broichhausen)
+- Bind visiblity checks after properties are created for better performance (Kevin Broichhausen)
+
 # 2.8.4 (2022-09-09)
 
 - Improved performance of visibility binding for nested objects (Kevin Broichhausen)
