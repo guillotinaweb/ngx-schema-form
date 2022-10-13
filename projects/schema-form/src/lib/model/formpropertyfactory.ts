@@ -65,6 +65,8 @@ export class FormPropertyFactory {
     newProperty._propertyBindingRegistry = this.propertyBindingRegistry;
     newProperty._canonicalPath = _canonicalPath;
 
+    if (newProperty instanceof PropertyGroup) newProperty.reset(null, true);
+
     return newProperty;
   }
 
