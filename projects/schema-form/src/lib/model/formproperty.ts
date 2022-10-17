@@ -364,7 +364,8 @@ export abstract class FormProperty {
         return this.__bindConditionalVisiblityChain(visibleIfOf, containsOneOf, containsAllOf);
       } else {
         // it's a dependency path
-        return this.__handleDependencyPath(visbilityElement);
+        const observables = this.__handleDependencyPath(visbilityElement);
+        return combineLatest(observables, (...values: boolean[]) => values.indexOf(true) !== -1);
       }
     }
 
@@ -380,9 +381,10 @@ export abstract class FormProperty {
    * @param dependencyElement An element / object which contains neither a field with oneOf or allOf as name. Handled as dependency path in json
    * @returns An oberservable boolean containing the evaluation of the statement, where the statement is the value of the dependency path field
    */
-  private __handleDependencyPath(dependencyElement: any): Observable<boolean> {
+  private __handleDependencyPath(dependencyElement: any): Array<Observable<any>> {
     const dependencyPath = Object.keys(dependencyElement)[0];
 
+    const propertiesBinding = [];
     const properties = this.findProperties(this, dependencyPath);
     if ((properties || []).length) {
       for (const property of properties) {
@@ -393,14 +395,15 @@ export abstract class FormProperty {
           valueCheck = property.valueChanges.pipe(map(_chk));
           const visibilityCheck = property._visibilityChanges;
           const and = combineLatest([valueCheck, visibilityCheck], (v1, v2) => v1 && v2);
-          return and;
+          propertiesBinding.push(and);
         }
       }
+      return propertiesBinding;
     } else {
       this.logger.warn("Can't find property " + dependencyPath + " for visibility check of " + this.path);
       this.registerMissingVisibilityBinding(dependencyPath, this);
     }
-    return of(false);
+    return [of(false)];
   }
 
   // A field is visible if AT LEAST ONE of the properties it depends on is visible AND has a value in the list
