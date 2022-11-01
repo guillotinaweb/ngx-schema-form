@@ -268,7 +268,9 @@ export abstract class FormProperty {
             source: sourceProperty,
             target: targetProperty
           })
-        } else {
+        } else if (Array.isArray(value)) {
+			    valid = value.some((val) => `${val}` === `${expString}`);
+		    } else {
           valid = !!value ? `${expString}` === `${value}` : false;
         }
         if (valid) {
