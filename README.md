@@ -59,6 +59,7 @@ Let's start by creating a simple AppComponent taking a simple JSON schema as inp
 // app.component.ts
 
 import { Component } from "@angular/core";
+import { ISchema } from 'ngx-schema-form';
 
 @Component({
   selector: "minimal-app",
@@ -67,7 +68,7 @@ import { Component } from "@angular/core";
 })
 export class AppComponent {
   // The schema that will be used to generate a form
-  mySchema = {
+  mySchema: ISchema = {
     properties: {
       email: {
         type: "string",
