@@ -1,3 +1,7 @@
+# 2.9.1 (2023-05-02)
+
+- Fix dependencies (Shailee Mehta)
+
 # 2.9.0 (2022-12-23)
 
 - Remove invisible elements from model at root level (Kevin Broichhausen)
