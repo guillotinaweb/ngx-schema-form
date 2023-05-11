@@ -7,29 +7,30 @@ import {
   ElementRef,
   SimpleChanges,
   OnChanges,
-} from '@angular/core';
+  forwardRef,
+} from "@angular/core";
 
-import { ActionRegistry } from '../../model/actionregistry';
-import { Validator } from '../../model/validator';
+import { ActionRegistry } from "../../model/actionregistry";
+import { Validator } from "../../model/validator";
 
-import { TemplateSchemaService } from '../template-schema.service';
-import { ButtonComponent } from '../button/button.component';
+import { TemplateSchemaService } from "../template-schema.service";
+import { ButtonComponent } from "../button/button.component";
 
-import { FieldParent } from './field-parent';
-import { FieldType, Field, TNullableFieldType } from './field';
-import { ItemComponent } from './item/item.component';
-import { merge } from 'rxjs';
-import {ISchema} from '../../model/ISchema';
-
+import { FieldParent } from "./field-parent";
+import { FieldType, Field, TNullableFieldType } from "./field";
+import { ItemComponent } from "./item/item.component";
+import { merge } from "rxjs";
+import { ISchema } from "../../model/ISchema";
 
 @Component({
-  selector: 'sf-field',
-  templateUrl: './field.component.html'
+  selector: "sf-field",
+  templateUrl: "./field.component.html",
 })
-export class FieldComponent extends FieldParent implements
-Field, OnChanges, AfterContentInit {
-
-  @ContentChildren(FieldComponent)
+export class FieldComponent
+  extends FieldParent
+  implements Field, OnChanges, AfterContentInit
+{
+  @ContentChildren(forwardRef(() => FieldComponent))
   childFields: QueryList<FieldComponent>;
 
   @ContentChildren(ItemComponent)
@@ -69,7 +70,7 @@ Field, OnChanges, AfterContentInit {
   validator: Validator;
 
   @Input()
-  schema: ISchema = { };
+  schema: ISchema = {};
 
   constructor(
     private elementRef: ElementRef,
@@ -80,15 +81,14 @@ Field, OnChanges, AfterContentInit {
   }
 
   getSchema(): ISchema {
-
     const { properties, items, required } = this.getFieldsSchema(
-      this.childFields.filter(field => field !== this)
+      this.childFields.filter((field) => field !== this)
     );
 
     const oneOf = this.getOneOf();
 
     const schema: ISchema = {
-      type: this.type
+      type: this.type,
     };
 
     if (this.title !== undefined) {
@@ -139,19 +139,17 @@ Field, OnChanges, AfterContentInit {
 
     // @Input schema takes precedence
     return Object.assign(schema, this.schema);
-
   }
 
-  getValidators(): { path: string, validator: Validator }[] {
-
+  getValidators(): { path: string; validator: Validator }[] {
     // registering validator here is not possible since prop full path is needed
     const childValidators = this.getFieldsValidators(
-      this.childFields.filter(field => field !== this)
+      this.childFields.filter((field) => field !== this)
     );
     const validators = childValidators.map(({ path, validator }) => {
       return {
         path: this.path + path,
-        validator
+        validator,
       };
     });
 
@@ -164,7 +162,6 @@ Field, OnChanges, AfterContentInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-
     const keys = Object.keys(changes);
     if (keys.length > 0) {
       for (const key of keys) {
@@ -175,12 +172,9 @@ Field, OnChanges, AfterContentInit {
         }
       }
     }
-
   }
 
-
   private getOneOf() {
-
     if (this.childItems.length === 0) {
       return;
     }
@@ -200,7 +194,6 @@ Field, OnChanges, AfterContentInit {
     return items;
   }
 
-
   private setTitleFromContent() {
     const textContent = this.getTextContent(this.elementRef);
 
@@ -211,7 +204,6 @@ Field, OnChanges, AfterContentInit {
   }
 
   ngAfterContentInit() {
-
     // cache it
     this.setTitleFromContent();
 
@@ -219,8 +211,6 @@ Field, OnChanges, AfterContentInit {
       this.childFields.changes,
       this.childItems.changes,
       this.childButtons.changes
-    )
-    .subscribe(() => this.templateSchemaService.changed());
+    ).subscribe(() => this.templateSchemaService.changed());
   }
-
 }

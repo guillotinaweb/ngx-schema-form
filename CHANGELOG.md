@@ -1,3 +1,7 @@
+# 2.10.0 (2023-05-11)
+
+- Upgrade to Angular 16 (ebrehault)
+
 # 2.9.1 (2023-05-02)
 
 - Fix dependencies (Shailee Mehta)
