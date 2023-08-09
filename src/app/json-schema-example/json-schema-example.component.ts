@@ -15,6 +15,7 @@ import binding_sample_bindings from './binding_sample_bindings';
 import visibility_binding_example from './visibility-binding-example-schema.json';
 import visibility_binding_example2 from './visibility-binding-example-schema2.json';
 import visibility_binding_example3 from './visibility-binding-example-schema3.json';
+import visibility_binding_example4 from './visibility-binding-example-schema4.json';
 import sample_canonical_path from './sample-canonical-path.json';
 
 import {AppService, AppData} from '../app.service';
@@ -43,7 +44,8 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
     {label: 'Sample 4 - Visibility binding', event: this.changeSchemaVisibilityBinding, selected: false},
     {label: 'Sample 5 - Visibility binding 2', event: this.changeSchemaVisibilityBinding2, selected: false},
     {label: 'Sample 6 - Visibility binding 3', event: this.changeSchemaVisibilityBinding3, selected: false},
-    {label: 'Sample 7 - Canonical path', event: this.changeSchemaCanonicalPath, selected: false},
+    {label: 'Sample 7 - Visibility binding 4', event: this.changeSchemaVisibilityBinding4, selected: false},
+    {label: 'Sample 8 - Canonical path', event: this.changeSchemaCanonicalPath, selected: false},
   ];
 
   constructor(
@@ -223,6 +225,14 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
 
   changeSchemaVisibilityBinding3() {
     this.schema = visibility_binding_example3 as unknown as ISchema;
+    this.model = {};
+    this.fieldBindings = {};
+    this.fieldValidators = {};
+    this.actions = {};
+  }
+
+  changeSchemaVisibilityBinding4() {
+    this.schema = visibility_binding_example4 as unknown as ISchema;
     this.model = {};
     this.fieldBindings = {};
     this.fieldValidators = {};

@@ -817,3 +817,67 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types (chained cond
     });
   }));
 });
+
+
+describe("JsonSchemaExampleComponent - visibleIf - array items have visibleIf fields", () => {
+  let component: JsonSchemaExampleComponent;
+  let fixture: ComponentFixture<JsonSchemaExampleComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: [SchemaFormModule.forRoot(), HttpClientModule, FormsModule, ReactiveFormsModule],
+      declarations: [JsonSchemaExampleComponent],
+      providers: [
+        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {
+          provide: SchemaValidatorFactory,
+          useClass: ZSchemaValidatorFactory
+        }
+      ]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(JsonSchemaExampleComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  beforeEach(() => {
+    // select demo sample
+    const select: HTMLSelectElement = fixture.debugElement.query(By.css("#samples")).nativeElement;
+    select.value = select.options[6].value; // <-- select a new value
+    select.dispatchEvent(new Event("change"));
+    fixture.detectChanges();
+  });
+
+  it(`# 1. Test 'VisibleIf' within an element of an array`, async(() => {
+    // Visible component shows up if status value is 'Warn' or 'Fail'
+
+    fixture.whenStable().then(() => {
+      fixture.detectChanges();
+
+      // expect page containing a sf-form element
+      const sf_form = fixture.debugElement.query(By.css("sf-form"));
+      expect(sf_form).toBeTruthy();
+
+      // Add an element
+      const _add_button = fixture.debugElement.query(By.css(".array-add-button")).nativeElement;
+      _add_button.click();
+      fixture.detectChanges();
+      // initial state
+      const _select: HTMLSelectElement = fixture.debugElement.query(By.css("#arrayObject\\.0\\.showHiddenField")).nativeElement;
+      let _input = fixture.debugElement.query(By.css("#arrayObject\\.0\\.visibleTest"));
+      expect(_select).toBeDefined();
+      expect(_input).toBeNull();
+
+      // change state to make field visible
+      _select.value = _select.options[1].value;
+      _select.dispatchEvent(new Event("change"));
+      fixture.detectChanges();
+      _input = fixture.debugElement.query(By.css("#arrayObject\\.0\\.visibleTest")).nativeElement;
+      expect(_input).toBeDefined();
+    });
+  }));
+
+});

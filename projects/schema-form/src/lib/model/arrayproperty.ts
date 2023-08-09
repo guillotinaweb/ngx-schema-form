@@ -23,6 +23,7 @@ export class ArrayProperty extends PropertyGroup {
   addItem(value: any = null): FormProperty {
     let newProperty = this.addProperty();
     newProperty.reset(value, false);
+    newProperty._bindVisibility();
     return newProperty;
   }
 
