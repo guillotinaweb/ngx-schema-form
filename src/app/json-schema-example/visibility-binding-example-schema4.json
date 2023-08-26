@@ -1,0 +1,41 @@
+{
+  "type": "object",
+  "title": "Example of visibleIf inside of an array item",
+  "description": "This example shows how to use visibility options inside of items of an array",
+  "properties": {
+    "arrayObject": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "title": "Object with visibleIf properties.",
+        "properties": {
+          "showHiddenField": {
+            "type": "integer",
+            "widget": "select",
+            "title": "Choose 1 to show the hidden field or 0 to hide it. By default the field is hidden.",
+            "oneOf": [
+              {
+                "enum": [0],
+                "description": "Hide field."
+              },
+              {
+                "enum": [1],
+                "description": "Show hidden field."
+              }
+            ]
+          },
+          "visibleTest": {
+            "type": "string",
+            "title": "This is shown if previous field is 1.",
+            "visibleIf": {
+              "showHiddenField": [1]
+            }
+          }
+        }
+      }
+    }
+  },
+  "required": [
+    "arrayObject"
+  ]
+}
