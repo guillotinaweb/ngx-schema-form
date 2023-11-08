@@ -1,3 +1,7 @@
+# 2.11.0 (2023-11-08)
+
+- Upgrade to Angular 17 (ebrehault)
+
 # 2.10.1 (2023-08-26)
 
 - Fixing issue when using visibleIf in array items (Saeleas)
