@@ -10,7 +10,7 @@ jobs:
       - name: Test and build
         uses: actions/setup-node@v1
         with:
-          node-version: 16.15
+          node-version: 18.15
       - run: npm install
       - run: npm run test
         env:
