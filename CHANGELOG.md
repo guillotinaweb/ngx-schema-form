@@ -1,3 +1,7 @@
+# 2.12.0 (2023-11-08)
+
+- Upgrade to Angular 18 (ebrehault)
+
 # 2.11.0 (2023-11-08)
 
 - Upgrade to Angular 17 (ebrehault)

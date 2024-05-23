@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import {
   SchemaFormModule,
@@ -21,28 +21,22 @@ import {
   TemplateSchemaExampleComponent
 } from './template-schema-example/template-schema-example.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    JsonSchemaExampleComponent,
-    TemplateSchemaExampleComponent
-  ],
-  imports: [
-    BrowserModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    RouterModule.forRoot(routes),
-    SchemaFormModule.forRoot(),
-    TemplateSchemaModule
-  ],
-  providers: [
-    {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
-    {
-      provide: SchemaValidatorFactory,
-      useClass: ZSchemaValidatorFactory
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        JsonSchemaExampleComponent,
+        TemplateSchemaExampleComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(routes),
+        SchemaFormModule.forRoot(),
+        TemplateSchemaModule], providers: [
+        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {
+            provide: SchemaValidatorFactory,
+            useClass: ZSchemaValidatorFactory
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
