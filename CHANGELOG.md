@@ -1,3 +1,7 @@
+# 2.11.0 (2024-05-23)
+
+- Upgrade to Angular 18 (Wooshaah)
+
 # 2.11.0 (2023-11-08)
 
 - Upgrade to Angular 17 (ebrehault)
