@@ -1,42 +1,37 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+import { FormsModule } from "@angular/forms";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 import {
   SchemaFormModule,
   SchemaValidatorFactory,
   ZSchemaValidatorFactory,
   TemplateSchemaModule,
   WidgetRegistry,
-  DefaultWidgetRegistry
-} from '../../../projects/schema-form/src/public_api';
+  DefaultWidgetRegistry,
+} from "../../../projects/schema-form/src/public_api";
 
-import {
-  TemplateSchemaExampleComponent
-} from './template-schema-example.component';
+import { TemplateSchemaExampleComponent } from "./template-schema-example.component";
 
-describe('TemplateSchemaExampleComponent', () => {
+describe("TemplateSchemaExampleComponent", () => {
   let component: TemplateSchemaExampleComponent;
   let fixture: ComponentFixture<TemplateSchemaExampleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SchemaFormModule.forRoot(),
-        TemplateSchemaModule,
-        HttpClientModule,
-        FormsModule
-      ],
-      declarations: [ TemplateSchemaExampleComponent ],
+      declarations: [TemplateSchemaExampleComponent],
+      imports: [SchemaFormModule.forRoot(), TemplateSchemaModule, FormsModule],
       providers: [
-        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
+        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
           provide: SchemaValidatorFactory,
-          useClass: ZSchemaValidatorFactory
-        }
-      ]
-
-    })
-    .compileComponents();
+          useClass: ZSchemaValidatorFactory,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -45,7 +40,7 @@ describe('TemplateSchemaExampleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

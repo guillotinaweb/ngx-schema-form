@@ -1,37 +1,35 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientModule } from '@angular/common/http';
+import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from "@angular/common/http";
 import {
   SchemaFormModule,
   SchemaValidatorFactory,
   ZSchemaValidatorFactory,
   WidgetRegistry,
-  DefaultWidgetRegistry
-} from '../../../projects/schema-form/src/public_api';
+  DefaultWidgetRegistry,
+} from "../../../projects/schema-form/src/public_api";
 
+import { JsonSchemaExampleComponent } from "./json-schema-example.component";
 
-
-import { JsonSchemaExampleComponent } from './json-schema-example.component';
-
-describe('JsonSchemaExampleComponent', () => {
+describe("JsonSchemaExampleComponent", () => {
   let component: JsonSchemaExampleComponent;
   let fixture: ComponentFixture<JsonSchemaExampleComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SchemaFormModule.forRoot(),
-        HttpClientModule
-      ],
-      declarations: [ JsonSchemaExampleComponent ],
+      declarations: [JsonSchemaExampleComponent],
+      imports: [SchemaFormModule.forRoot()],
       providers: [
-        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
+        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
           provide: SchemaValidatorFactory,
-          useClass: ZSchemaValidatorFactory
-        }
-      ]
-    })
-    .compileComponents();
+          useClass: ZSchemaValidatorFactory,
+        },
+        provideHttpClient(withInterceptorsFromDi()),
+      ],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -40,7 +38,7 @@ describe('JsonSchemaExampleComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
