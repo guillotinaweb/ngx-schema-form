@@ -1,0 +1,157 @@
+{
+  "properties": {
+    "checkbox": {
+      "type": "boolean",
+      "title": "Checkbox",
+      "widget": "checkbox"
+    },
+    "select": {
+      "type": "string",
+      "title": "Select",
+      "widget": "select",
+      "oneOf": [
+        {
+          "description": "Option #1",
+          "enum": ["Option #1"]
+        },
+        {
+          "description": "Option #2",
+          "enum": ["Option #2"]
+        },
+        {
+          "description": "Option #3",
+          "enum": ["Option #3"]
+        }
+      ],
+      "visibleIf": {
+        "checkbox": [true]
+      }
+    },
+    "multi-select": {
+      "type": "array",
+      "title": "Multi Select",
+      "widget": "select",
+      "minItems": 2,
+      "items": {
+        "type": "string",
+        "oneOf": [
+          {
+            "description": "Option #1",
+            "enum": ["Option #1"]
+          },
+          {
+            "description": "Option #2",
+            "enum": ["Option #2"]
+          },
+          {
+            "description": "Option #3",
+            "enum": ["Option #3"]
+          }
+        ]
+      },
+      "visibleIf": {
+        "checkbox": [true]
+      }
+    },
+    "string": {
+      "type": "string",
+      "title": "String - Visible if Checkbox is checked",
+      "visibleIf": {
+        "checkbox": [true]
+      }
+    },
+    "number": {
+      "type": "number",
+      "title": "Number - Visible if String is 'a'",
+      "widget": "number",
+      "visibleIf": {
+        "string": ["a"]
+      }
+    },
+    "array": {
+      "type": "array",
+      "title": "Array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "properties": {
+          "array-checkbox": {
+            "type": "boolean",
+            "title": "Checkbox",
+            "widget": "checkbox"
+          },
+          "array-select": {
+            "type": "string",
+            "title": "Select",
+            "widget": "select",
+            "oneOf": [
+              {
+                "description": "Option #1",
+                "enum": ["Option #1"]
+              },
+              {
+                "description": "Option #2",
+                "enum": ["Option #2"]
+              },
+              {
+                "description": "Option #3",
+                "enum": ["Option #3"]
+              }
+            ],
+            "visibleIf": {
+              "array-checkbox": [true]
+            }
+          },
+          "array-multi-select": {
+            "type": "array",
+            "title": "Multi Select",
+            "widget": "select",
+            "minItems": 2,
+            "items": {
+              "type": "string",
+              "oneOf": [
+                {
+                  "description": "Option #1",
+                  "enum": ["Option #1"]
+                },
+                {
+                  "description": "Option #2",
+                  "enum": ["Option #2"]
+                },
+                {
+                  "description": "Option #3",
+                  "enum": ["Option #3"]
+                }
+              ]
+            },
+            "visibleIf": {
+              "array-checkbox": [true]
+            }
+          },
+          "array-string": {
+            "type": "string",
+            "title": "String - Visible if Checkbox is checked",
+            "visibleIf": {
+              "array-checkbox": [true]
+            }
+          },
+          "array-number": {
+            "type": "number",
+            "title": "Number - Visible if String is 'a'",
+            "widget": "number",
+            "visibleIf": {
+              "array-string": ["a"]
+            }
+          }
+        },
+        "required": [
+          "array-select",
+          "array-multi-select",
+          "array-string",
+          "array-number"
+        ]
+      }
+    }
+  },
+  "required": ["select", "multi-select", "string", "number", "array"]
+}
