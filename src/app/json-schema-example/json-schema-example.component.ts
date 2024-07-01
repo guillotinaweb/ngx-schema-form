@@ -17,6 +17,7 @@ import visibility_binding_example2 from './visibility-binding-example-schema2.js
 import visibility_binding_example3 from './visibility-binding-example-schema3.json';
 import visibility_binding_example4 from './visibility-binding-example-schema4.json';
 import sample_canonical_path from './sample-canonical-path.json';
+import required_only_if_visible from './required-only-if-visible.json';
 
 import {AppService, AppData} from '../app.service';
 import {ISchema} from 'ngx-schema-form';
@@ -46,6 +47,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
     {label: 'Sample 6 - Visibility binding 3', event: this.changeSchemaVisibilityBinding3, selected: false},
     {label: 'Sample 7 - Visibility binding 4', event: this.changeSchemaVisibilityBinding4, selected: false},
     {label: 'Sample 8 - Canonical path', event: this.changeSchemaCanonicalPath, selected: false},
+    {label: 'Sample 9 - Required only if visible', event: this.changeSchemaRequiredOnlyIfVisible, selected: false},
   ];
 
   constructor(
@@ -241,6 +243,14 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
 
   changeSchemaCanonicalPath(){
     this.schema = sample_canonical_path as unknown as ISchema;
+    this.model = {};
+    this.fieldBindings = {};
+    this.fieldValidators = {};
+    this.actions = {};
+  }
+
+  changeSchemaRequiredOnlyIfVisible() {
+    this.schema = required_only_if_visible as unknown as ISchema;
     this.model = {};
     this.fieldBindings = {};
     this.fieldValidators = {};
