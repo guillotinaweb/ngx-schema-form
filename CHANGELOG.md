@@ -1,3 +1,7 @@
+# 2.12.2 (2024-09-27)
+
+- Throw required error only if property is visible (Adithya Jayasankar)
+
 # 2.12.1 (2024-08-23)
 
 - Update dependencies & migrate to eslint (krishna217)
