@@ -91,6 +91,15 @@
               "src/assets"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     },
@@ -120,8 +129,23 @@
             "tsConfig": "projects/schema-form/tsconfig.spec.json",
             "karmaConfig": "projects/schema-form/karma.conf.js"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "projects/schema-form/**/*.ts",
+              "projects/schema-form/**/*.html"
+            ],
+            "eslintConfig": "projects/schema-form/eslint.config.js"
+          }
         }
       }
     }
+  },
+  "cli": {
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }

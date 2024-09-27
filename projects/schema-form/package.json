@@ -1,6 +1,6 @@
 {
   "name": "ngx-schema-form",
-  "version": "2.12.0",
+  "version": "2.12.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/guillotinaweb/ngx-schema-form"
@@ -32,9 +32,9 @@
     "@angular/forms": "^18.0.0",
     "@angular/platform-browser": "^18.0.0",
     "jexl": "^2.2.2",
-    "rxjs": "~7.4.0",
+    "rxjs": "~7.8.0",
     "typescript": "^5.4.5",
-    "z-schema": "^4.2.2",
-    "zone.js": "~0.14.2"
+    "z-schema": "^6.0.0",
+    "zone.js": "~0.14.10"
   }
 }

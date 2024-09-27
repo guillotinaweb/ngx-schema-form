@@ -1,3 +1,7 @@
+# 2.12.1 (2024-08-23)
+
+- Update dependencies & migrate to eslint (krishna217)
+
 # 2.12.0 (2023-11-08)
 
 - Upgrade to Angular 18 (ebrehault)
