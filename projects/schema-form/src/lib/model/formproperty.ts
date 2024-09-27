@@ -163,6 +163,22 @@ export abstract class FormProperty {
    */
   public _runValidation(): any {
     let errors = this.schemaValidator(this._value) || [];
+
+    // remove missing required property error if property is not visible
+    for (let i = errors.length - 1; i >= 0; i -= 1) {
+      const error = errors[i];
+      if (error.code === "OBJECT_MISSING_REQUIRED_PROPERTY") {
+        let path = `${error.path.substring(1)}`;
+        if (path.substring(1) !== error.params[0]) {
+          path += `/${error.params.join("/")}`;
+        }
+        const requiredProperty = this.searchProperty(path);
+        if (requiredProperty && requiredProperty.visible === false) {
+          errors.splice(i, 1);
+        }
+      }
+    }
+
     let customValidator = this.validatorRegistry.get(this.path);
     if (customValidator) {
       let customErrors = customValidator(this.value, this, this.findRoot());
