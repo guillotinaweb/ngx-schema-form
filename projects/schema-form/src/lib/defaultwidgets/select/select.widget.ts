@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ControlWidget } from '../../widget';
 
 @Component({
-	selector: 'sf-select-widget',
-	template: `<div class="widget form-group">
+    selector: 'sf-select-widget',
+    template: `<div class="widget form-group">
 	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>
@@ -27,6 +27,7 @@ import { ControlWidget } from '../../widget';
 	</select>
 
 	<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
-</div>`
+</div>`,
+    standalone: false
 })
 export class SelectWidget extends ControlWidget {}

@@ -10,8 +10,8 @@ import { TemplateSchemaModule } from "./template-schema.module";
 import { TemplateSchemaDirective } from "./template-schema.directive";
 
 @Component({
-  selector: "sf-test",
-  template: `
+    selector: "sf-test",
+    template: `
     <sf-form templateSchema [(ngModel)]="model">
       <sf-field
         name="username"
@@ -45,6 +45,7 @@ import { TemplateSchemaDirective } from "./template-schema.directive";
       <sf-button (click)="onClickB($event)">Cancel</sf-button>
     </sf-form>
   `,
+    standalone: false
 })
 class TestComponent {
   model: any = {};

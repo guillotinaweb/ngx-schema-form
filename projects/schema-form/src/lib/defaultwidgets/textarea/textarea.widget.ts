@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: 'sf-textarea-widget',
-  template: `<div class="widget form-group">
+    selector: 'sf-textarea-widget',
+    template: `<div class="widget form-group">
 	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>
@@ -16,6 +16,7 @@ import { ControlWidget } from '../../widget';
 		[attr.maxLength]="schema.maxLength || null"
     [attr.minLength]="schema.minLength || null"
 		[formControl]="control"></textarea>
-</div>`
+</div>`,
+    standalone: false
 })
 export class TextAreaWidget extends ControlWidget {}

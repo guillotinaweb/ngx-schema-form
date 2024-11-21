@@ -26,14 +26,16 @@ class BaseTest {
 }
 
 @Component({
-  selector: "sf-test",
-  template: ` <sf-form [schema]="schema" [(model)]="modelA"> </sf-form> `,
+    selector: "sf-test",
+    template: ` <sf-form [schema]="schema" [(model)]="modelA"> </sf-form> `,
+    standalone: false
 })
 class TestAComponent extends BaseTest {}
 
 @Component({
-  selector: "sf-test",
-  template: ` <sf-form [schema]="schema" [(ngModel)]="modelA"> </sf-form> `,
+    selector: "sf-test",
+    template: ` <sf-form [schema]="schema" [(ngModel)]="modelA"> </sf-form> `,
+    standalone: false
 })
 class TestBComponent extends BaseTest {}
 

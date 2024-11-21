@@ -9,8 +9,9 @@ import { ItemComponent } from "./item/item.component";
 import { ISchema } from "../../model/ISchema";
 
 @Component({
-  selector: "sf-test",
-  template: "",
+    selector: "sf-test",
+    template: "",
+    standalone: false
 })
 class TestComponent {
   @ViewChild(FieldComponent)

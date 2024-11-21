@@ -21,10 +21,11 @@ import {ISchema} from '../model/ISchema';
 
 
 @Directive({
-  selector: 'sf-form[templateSchema]',
-  providers: [
-    TemplateSchemaService
-  ]
+    selector: 'sf-form[templateSchema]',
+    providers: [
+        TemplateSchemaService
+    ],
+    standalone: false
 })
 export class TemplateSchemaDirective extends FieldParent implements AfterContentInit {
 

@@ -3,8 +3,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: 'sf-checkbox-widget',
-  template: `<div class="widget form-group">
+    selector: 'sf-checkbox-widget',
+    template: `<div class="widget form-group">
     <label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
         {{ schema.title }}
     </label>
@@ -29,7 +29,8 @@ import { ControlWidget } from '../../widget';
 			</label>
 		</div>
 	</ng-container>
-</div>`
+</div>`,
+    standalone: false
 })
 export class CheckboxWidget extends ControlWidget implements AfterViewInit {
 

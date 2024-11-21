@@ -23,8 +23,9 @@ import { merge } from "rxjs";
 import { ISchema } from "../../model/ISchema";
 
 @Component({
-  selector: "sf-field",
-  templateUrl: "./field.component.html",
+    selector: "sf-field",
+    templateUrl: "./field.component.html",
+    standalone: false
 })
 export class FieldComponent
   extends FieldParent

@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: 'sf-radio-widget',
-  template: `<div class="widget form-group">
+    selector: 'sf-radio-widget',
+    template: `<div class="widget form-group">
 	<label *ngIf="schema.title">{{schema.title}}</label>
   <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
 	<div *ngFor="let option of schema.oneOf" class="radio">
@@ -14,6 +14,7 @@ import { ControlWidget } from '../../widget';
 		</label>
 	</div>
 	<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
-</div>`
+</div>`,
+    standalone: false
 })
 export class RadioWidget extends ControlWidget {}

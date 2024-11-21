@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: 'sf-string-widget',
-  template: `<input *ngIf="this.schema.widget.id ==='hidden'; else notHiddenFieldBlock"
+    selector: 'sf-string-widget',
+    template: `<input *ngIf="this.schema.widget.id ==='hidden'; else notHiddenFieldBlock"
   [attr.name]="name" type="hidden" [formControl]="control">
 <ng-template #notHiddenFieldBlock>
 <div class="widget form-group">
@@ -22,7 +22,8 @@ import { ControlWidget } from '../../widget';
 	[disableControl]="(schema.widget.id=='color' && schema.readOnly)?true:null">
     <input *ngIf="(schema.widget.id==='color' && schema.readOnly)" [attr.name]="name" type="hidden" [formControl]="control">
 </div>
-</ng-template>`
+</ng-template>`,
+    standalone: false
 })
 export class StringWidget extends ControlWidget {
 

@@ -4,8 +4,8 @@ import { ArrayLayoutWidget } from '../../widget';
 import { FormProperty } from '../../model';
 
 @Component({
-  selector: 'sf-array-widget',
-  template: `<div class="widget form-group">
+    selector: 'sf-array-widget',
+    template: `<div class="widget form-group">
 	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>
@@ -25,7 +25,8 @@ import { FormProperty } from '../../model';
 	>
 		<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
 	</button>
-</div>`
+</div>`,
+    standalone: false
 })
 export class ArrayWidget extends ArrayLayoutWidget {
   buttonDisabledAdd:boolean

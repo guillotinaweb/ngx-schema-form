@@ -32,30 +32,31 @@ export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBi
 }
 
 @Component({
-  selector: 'sf-form',
-  template: `
+    selector: 'sf-form',
+    template: `
     <form *ngIf="rootProperty" [attr.name]="rootProperty.rootName" [attr.id]="rootProperty.rootName">
       <sf-form-element [formProperty]="rootProperty"></sf-form-element>
     </form>`,
-  providers: [
-    ActionRegistry,
-    ValidatorRegistry,
-    PropertyBindingRegistry,
-    BindingRegistry,
-    SchemaPreprocessor,
-    WidgetFactory,
-    {
-      provide: FormPropertyFactory,
-      useFactory: useFactory,
-      deps: [SchemaValidatorFactory, ValidatorRegistry, PropertyBindingRegistry, ExpressionCompilerFactory, LogService]
-    },
-    TerminatorService,
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: FormComponent,
-      multi: true
-    }
-  ]
+    providers: [
+        ActionRegistry,
+        ValidatorRegistry,
+        PropertyBindingRegistry,
+        BindingRegistry,
+        SchemaPreprocessor,
+        WidgetFactory,
+        {
+            provide: FormPropertyFactory,
+            useFactory: useFactory,
+            deps: [SchemaValidatorFactory, ValidatorRegistry, PropertyBindingRegistry, ExpressionCompilerFactory, LogService]
+        },
+        TerminatorService,
+        {
+            provide: NG_VALUE_ACCESSOR,
+            useExisting: FormComponent,
+            multi: true
+        }
+    ],
+    standalone: false
 })
 export class FormComponent implements OnChanges, ControlValueAccessor {
 

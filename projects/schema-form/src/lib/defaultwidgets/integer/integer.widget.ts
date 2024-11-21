@@ -5,8 +5,8 @@ import {
 import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: 'sf-integer-widget',
-  template: `<div class="widget form-group">
+    selector: 'sf-integer-widget',
+    template: `<div class="widget form-group">
 	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>
@@ -18,6 +18,7 @@ import { ControlWidget } from '../../widget';
 	[attr.placeholder]="schema.placeholder"
 	[attr.maxLength]="schema.maxLength || null"
   [attr.minLength]="schema.minLength || null">
-</div>`
+</div>`,
+    standalone: false
 })
 export class IntegerWidget extends ControlWidget {}
