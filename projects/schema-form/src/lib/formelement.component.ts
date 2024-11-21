@@ -17,8 +17,8 @@ import {Binding} from './model/binding';
 import { LogService } from './log.service';
 
 @Component({
-  selector: 'sf-form-element',
-  template: `
+    selector: 'sf-form-element',
+    template: `
     <div *ngIf="formProperty.visible"
          [class.has-error]="!control.valid"
          [class.has-success]="control.valid">
@@ -27,7 +27,8 @@ import { LogService } from './log.service';
         [widgetInfo]="formProperty.schema.widget">
       </sf-widget-chooser>
       <sf-form-element-action *ngFor="let button of buttons" [button]="button" [formProperty]="formProperty"></sf-form-element-action>
-    </div>`
+    </div>`,
+    standalone: false
 })
 export class FormElementComponent implements OnInit, OnDestroy {
 

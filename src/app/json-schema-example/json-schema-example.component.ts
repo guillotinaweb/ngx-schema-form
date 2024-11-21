@@ -23,9 +23,10 @@ import {AppService, AppData} from '../app.service';
 import {ISchema} from 'ngx-schema-form';
 
 @Component({
-  selector: 'sf-json-schema-example',
-  templateUrl: './json-schema-example.component.html',
-  encapsulation: ViewEncapsulation.None,
+    selector: 'sf-json-schema-example',
+    templateUrl: './json-schema-example.component.html',
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   schema: ISchema = {properties: {}};

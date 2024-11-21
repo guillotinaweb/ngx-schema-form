@@ -3,8 +3,8 @@ import { Component, AfterViewInit } from '@angular/core';
 import { ControlWidget } from '../../widget';
 
 @Component({
-  selector: 'sf-file-widget',
-  template: `<div class="widget form-group">
+    selector: 'sf-file-widget',
+    template: `<div class="widget form-group">
 	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
 		{{ schema.title }}
 	</label>
@@ -13,7 +13,8 @@ import { ControlWidget } from '../../widget';
     [formControl]="control" type="file" [attr.disabled]="schema.readOnly?true:null"
     (change)="onFileChange($event)">
 	<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
-</div>`
+</div>`,
+    standalone: false
 })
 export class FileWidget extends ControlWidget implements AfterViewInit {
 
