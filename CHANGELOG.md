@@ -1,3 +1,7 @@
+# 2.13.1 (2025-02-03)
+
+- Fix a bug in inserting new items in array properties (Ajay Kanduru).
+
 # 2.12.2 (2024-09-27)
 
 - Throw required error only if property is visible (Adithya Jayasankar)
