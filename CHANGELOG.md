@@ -1,3 +1,7 @@
+# 2.14.1 (2025-11-20)
+
+- Fix a bug in inserting new items in array properties (Ajay Kanduru).
+
 # 2.14.0 (2025-11-17)
 
 - Upgrade to Angular 20 (krishna217)
