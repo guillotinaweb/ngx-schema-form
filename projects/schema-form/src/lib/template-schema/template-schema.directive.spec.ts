@@ -19,7 +19,7 @@ import { TemplateSchemaDirective } from "./template-schema.directive";
         [required]="usernameRequired"
         [validator]="validatorA"
         description="A username field"
-      >
+        >
         Username
       </sf-field>
       <sf-field name="credentials" type="object">
@@ -29,22 +29,23 @@ import { TemplateSchemaDirective } from "./template-schema.directive";
           widget="password"
           [required]="true"
           description="A password field"
-        >
+          >
           Password
         </sf-field>
-        <sf-field
-          *ngIf="register"
-          name="passwordConfirm"
-          widget="password"
-          [required]="true"
-        >
-          Confirm Password
-        </sf-field>
+        @if (register) {
+          <sf-field
+            name="passwordConfirm"
+            widget="password"
+            [required]="true"
+            >
+            Confirm Password
+          </sf-field>
+        }
       </sf-field>
       <sf-button (click)="onClickA($event)">Send</sf-button>
       <sf-button (click)="onClickB($event)">Cancel</sf-button>
     </sf-form>
-  `,
+    `,
     standalone: false
 })
 class TestComponent {
