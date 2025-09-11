@@ -1,19 +1,16 @@
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
-import { FormsModule } from "@angular/forms";
+import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
+import {FormsModule} from "@angular/forms";
+import {provideHttpClient, withInterceptorsFromDi,} from "@angular/common/http";
 import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
-import {
+  DefaultWidgetRegistry,
   SchemaFormModule,
   SchemaValidatorFactory,
-  ZSchemaValidatorFactory,
   TemplateSchemaModule,
   WidgetRegistry,
-  DefaultWidgetRegistry,
+  ZSchemaValidatorFactory,
 } from "../../../projects/schema-form/src/public_api";
 
-import { TemplateSchemaExampleComponent } from "./template-schema-example.component";
+import {TemplateSchemaExampleComponent} from "./template-schema-example.component";
 
 describe("TemplateSchemaExampleComponent", () => {
   let component: TemplateSchemaExampleComponent;
@@ -24,7 +21,7 @@ describe("TemplateSchemaExampleComponent", () => {
       declarations: [TemplateSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), TemplateSchemaModule, FormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,

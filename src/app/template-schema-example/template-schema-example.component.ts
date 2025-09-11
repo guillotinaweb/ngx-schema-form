@@ -1,21 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-    selector: 'app-template-schema-example',
-    templateUrl: './template-schema-example.component.html',
-    styleUrls: ['./template-schema-example.component.css'],
-    standalone: false
+  selector: 'app-template-schema-example',
+  templateUrl: './template-schema-example.component.html',
+  styleUrls: ['./template-schema-example.component.css'],
+  standalone: false
 })
 export class TemplateSchemaExampleComponent implements OnInit {
 
   model: any = {};
   /**
-   * Using a separate variable for showing the model prevents from: 
-   * `Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value:` 
+   * Using a separate variable for showing the model prevents from:
+   * `Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value:`
    */
   value;
 
-  constructor() { }
+  constructor() {
+  }
 
   onClick(message: string) {
     alert(message);
@@ -27,8 +28,8 @@ export class TemplateSchemaExampleComponent implements OnInit {
   setValue(value) {
     if (undefined === this.value) {
       /**
-       * If the first time the variable is set, then setting timeout will prevents error: 
-       * `Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value:` 
+       * If the first time the variable is set, then setting timeout will prevents error:
+       * `Error: ExpressionChangedAfterItHasBeenCheckedError: Expression has changed after it was checked. Previous value:`
        */
       setTimeout(() => {
         this.value = value;

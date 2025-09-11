@@ -1,11 +1,6 @@
-import {
-  ViewContainerRef,
-  ComponentRef,
-  ComponentFactoryResolver,
-  Injectable
-} from '@angular/core';
+import {ComponentFactoryResolver, ComponentRef, inject, Injectable, ViewContainerRef} from '@angular/core';
 
-import { WidgetRegistry } from './widgetregistry';
+import {WidgetRegistry} from './widgetregistry';
 
 @Injectable()
 export class WidgetFactory {
@@ -13,7 +8,10 @@ export class WidgetFactory {
   private resolver: ComponentFactoryResolver;
   private registry: WidgetRegistry;
 
-  constructor(registry: WidgetRegistry, resolver: ComponentFactoryResolver) {
+  constructor() {
+    const registry = inject(WidgetRegistry);
+    const resolver = inject(ComponentFactoryResolver);
+
     this.registry = registry;
     this.resolver = resolver;
   }

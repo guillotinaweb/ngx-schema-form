@@ -1,23 +1,27 @@
 import {
   Component,
   ComponentRef,
+  inject,
   Input,
   OnChanges,
-  ViewChild,
-  ViewContainerRef,
+  OnDestroy,
   OnInit,
-  OnDestroy
+  ViewChild,
+  ViewContainerRef
 } from "@angular/core";
 import {Subscription} from 'rxjs';
 import {WidgetFactory} from "./widgetfactory";
 import {TerminatorService} from "./terminator.service";
 
 @Component({
-    selector: 'sf-form-element-action',
-    template: '<ng-template #target></ng-template>',
-    standalone: false
+  selector: 'sf-form-element-action',
+  template: '<ng-template #target></ng-template>',
+  standalone: false
 })
 export class FormElementComponentAction implements OnInit, OnChanges, OnDestroy {
+  private widgetFactory = inject(WidgetFactory) ?? null;
+  private terminator = inject(TerminatorService);
+
 
   @Input()
   button: any;
@@ -25,14 +29,10 @@ export class FormElementComponentAction implements OnInit, OnChanges, OnDestroy 
   @Input()
   formProperty: any;
 
-  @ViewChild('target', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
+  @ViewChild('target', {read: ViewContainerRef, static: true}) container: ViewContainerRef;
 
   private ref: ComponentRef<any>;
   private subs: Subscription;
-
-  constructor(private widgetFactory: WidgetFactory = null,
-              private terminator: TerminatorService) {
-  }
 
   ngOnInit() {
     this.subs = this.terminator.onDestroy.subscribe(destroy => {

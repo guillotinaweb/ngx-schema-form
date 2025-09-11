@@ -1,14 +1,17 @@
 # Ngx Schema Form [![Build Status](https://github.com/guillotinaweb/ngx-schema-form/workflows/CI/badge.svg)](https://github.com/guillotinaweb/ngx-schema-form/actions?query=workflow%3ACI)
 
-Ngx Schema Form is an Angular 2+ module allowing you to instanciate an HTML form from a [JSON schema](http://json-schema.org/).
+Ngx Schema Form is an Angular 2+ module allowing you to instanciate an HTML form from
+a [JSON schema](http://json-schema.org/).
 
 Note: Version 1.x is compliant with Angular <=4, version 2.x is compliant with Angular >=6.
 
 ## DISCLAIMER
 
-Ngx Schema Form is **not** related to [angular-schema-form](https://github.com/json-schema-form/angular-schema-form) and [schemaform.io](http://schemaform.io/).
+Ngx Schema Form is **not** related to [angular-schema-form](https://github.com/json-schema-form/angular-schema-form)
+and [schemaform.io](http://schemaform.io/).
 
-We think `angular-schema-form` is a great Angular 1 library, and when it will move to Angular 2+, we will probably join our efforts to produce and maintain a unique Angular 2+ solution.
+We think `angular-schema-form` is a great Angular 1 library, and when it will move to Angular 2+, we will probably join
+our efforts to produce and maintain a unique Angular 2+ solution.
 
 ## Demo
 
@@ -39,7 +42,8 @@ You just have to check that all the peer-dependencies of this module are satisfi
 With the installation there comes a JSON-Schema file that declares all specific or additional
 properties supported by _ngx-schema-form_.
 
-When using `*.json` files you may declare it with the `$schema` property to let your IDE's autocompletion help you create a schema-form.
+When using `*.json` files you may declare it with the `$schema` property to let your IDE's autocompletion help you
+create a schema-form.
 
 ```bash
 {
@@ -58,8 +62,8 @@ Let's start by creating a simple AppComponent taking a simple JSON schema as inp
 ```js
 // app.component.ts
 
-import { Component } from "@angular/core";
-import { ISchema } from 'ngx-schema-form';
+import {Component} from "@angular/core";
+import {ISchema} from 'ngx-schema-form';
 
 @Component({
   selector: "minimal-app",
@@ -95,25 +99,27 @@ Create a module which import the AppComponent and configure Ngx schema form.
 ```js
 //app.module.ts
 
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
+import {NgModule} from "@angular/core";
+import {BrowserModule} from "@angular/platform-browser";
 import {
   SchemaFormModule,
   WidgetRegistry,
   DefaultWidgetRegistry,
 } from "ngx-schema-form";
-import { AppComponent } from "./app.component";
+import {AppComponent} from "./app.component";
 
 @NgModule({
   imports: [SchemaFormModule.forRoot(), BrowserModule],
   declarations: [AppComponent],
-  providers: [{ provide: WidgetRegistry, useClass: DefaultWidgetRegistry }],
+  providers: [{provide: WidgetRegistry, useClass: DefaultWidgetRegistry}],
 })
-export class AppModule {}
+export class AppModule {
+}
 ```
 
 The code above creates a form with three required fields.
-The validation state of each field is reflected by the class of each of them which can be either "has-error" or "has-success".
+The validation state of each field is reflected by the class of each of them which can be either "has-error" or "
+has-success".
 Validation is done everytime a field's value changes.
 Basic validation is made by testing the value of the field against its corresponding schema.
 The input schema support almost all the features listed on the [JSON schema specification](http://json-schema.org/).
@@ -126,12 +132,13 @@ It is possible to provide initial values to the form.
 You can set the initial form's value through the `model` input:
 
 ```js
+
 @Component({
-template: '<sf-form [schema]="mySchema" [model]="myModel"></sf-form>'
+  template: '<sf-form [schema]="mySchema" [model]="myModel"></sf-form>'
 })
 export class AppComponent {
   mySchema = {...};
-  myModel = {email:" john.doe@example.com"};
+  myModel = {email: " john.doe@example.com"};
 }
 ```
 
@@ -177,7 +184,8 @@ mySchema = {
 };
 ```
 
-If there is no widget declared in a given property's schema, its type is used as widget id and the [default registry](#default-widgets-registry) gives a default widget (see details below).
+If there is no widget declared in a given property's schema, its type is used as widget id and
+the [default registry](#default-widgets-registry) gives a default widget (see details below).
 For instance, a string property will use the "string" widget.
 The following JSON schema is equivalent with the above example:
 
@@ -205,7 +213,8 @@ mySchema = {
 };
 ```
 
-Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly within the `widget` property (here the [TinyMCE widget](https://github.com/fbessou/ng2sf-tinymce) ):
+Some widgets accept parameters as input, in such cases, it is possible to provide them in the schema directly within the
+`widget` property (here the [TinyMCE widget](https://github.com/fbessou/ng2sf-tinymce) ):
 
 ```js
 mySchema = {
@@ -226,9 +235,11 @@ mySchema = {
 ### Default widget's registry
 
 Available widgets are managed through a `WidgetRegistry`.
-The default registry ([`DefaultWidgetRegistry`](./projects/schema-form/src/lib/defaultwidgets/defaultwidgetregistry.ts)) contains many widgets listed below, ordered by type:
+The default registry ([`DefaultWidgetRegistry`](./projects/schema-form/src/lib/defaultwidgets/defaultwidgetregistry.ts))
+contains many widgets listed below, ordered by type:
 
-- **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio, richtext
+- **string**: string, search, tel, url, email, password, color, date, date-time, time, textarea, select, file, radio,
+  richtext
 - **number**: number, integer, range
 - **integer**: integer, range
 - **boolean**: boolean, checkbox
@@ -236,9 +247,15 @@ The default registry ([`DefaultWidgetRegistry`](./projects/schema-form/src/lib/d
 Note that the select and radio widgets rely on the `oneOf` property:
 
 ```javascript
-"operatingSystem": {
-  "type": "string",
-  "oneOf": [
+"operatingSystem"
+:
+{
+  "type"
+:
+  "string",
+    "oneOf"
+:
+  [
     {
       "enum": [
         "linux"
@@ -264,7 +281,9 @@ Note that the select and radio widgets rely on the `oneOf` property:
       "description": "Other"
     }
   ],
-  "default": "other"
+    "default"
+:
+  "other"
 }
 ```
 
@@ -348,20 +367,20 @@ setting the property `button.widget` in the schema
 
 ```json
   "password": {
-    "type": "string",
-    "description": "Password",
-    "buttons": [
-      {
-        "id": "reset",
-        "label": "Reset"
-      },
-      {
-        "id": "custom_b",
-        "label": "My custom button",
-        "widget": "my_custom_button" // custom widget name for this button
-      }
-    ]
-  }
+"type": "string",
+"description": "Password",
+"buttons": [
+{
+"id": "reset",
+"label": "Reset"
+},
+{
+"id": "custom_b",
+"label": "My custom button",
+"widget": "my_custom_button" // custom widget name for this button
+}
+]
+}
 ```
 
 and then register it in your `WidgetRegistry` implementation
@@ -381,38 +400,42 @@ the custom button widget may then extend `ButtonWidget` or
 provide the properties `button` and `formProperty` by it self.
 
 ```js
-import { Component } from "@angular/core";
-import { ButtonWidget } from "ngx-schema-form/dist/defaultwidgets";
+import {Component} from "@angular/core";
+import {ButtonWidget} from "ngx-schema-form/dist/defaultwidgets";
 
 @Component({
   selector: "sf-button-widget",
   templateUrl: "custom-button.widget.html",
 })
-export class CustomWidgetComponent extends ButtonWidget {}
+export class CustomWidgetComponent extends ButtonWidget {
+}
 ```
 
 ```js
-  @Component({
-    selector: 'sf-button-widget',
-    templateUrl: 'custom-button.widget.html'
-  })
-  export class CustomWidgetComponent {
-    public button
-    public formProperty
-  }
+
+@Component({
+  selector: 'sf-button-widget',
+  templateUrl: 'custom-button.widget.html'
+})
+export class CustomWidgetComponent {
+  public button
+  public formProperty
+}
 ```
 
 ### Advanced validation
 
 JSON schema provides validation against a static schema but its often necessary to provide other validation rules.
 The Form component accepts a `validators` input bound to a map between a field id and a validation function.
-The validation function takes three arguments: the value of the field, the property corresponding to it and the form object.
+The validation function takes three arguments: the value of the field, the property corresponding to it and the form
+object.
 
 In the following example we create a simple registration form.
 The user have to enter his password twice.
 To perform this check we create a custom validator:
 
 ```js
+
 @Component({
   selector: "minimal-app",
   // Bind the validator map to the the "validators" input
@@ -448,7 +471,7 @@ export class AppComponent {
         property.valid &&
         value !== passwordProperty.value
       ) {
-        return { passwordCheck: { expectedValue: "same as 'password'" } };
+        return {passwordCheck: {expectedValue: "same as 'password'"}};
       }
       return null;
     },
@@ -466,6 +489,7 @@ The following example creates a form where you will fill in some data for a fami
 When you type in the name of the parent (first person) the name of the children will be kept updated.
 
 ```js
+
 @Component({
   selector: "minimal-app",
   // Bind the bindings map to the the "bindings" input
@@ -561,6 +585,7 @@ If it is required to match all values head over to the section `visibleIf` with 
 Adding the value `$ANY$` to the array of conditional values, will make the field visible for any value inserted.
 
 ```js
+
 @Component({
   selector: "minimal-app",
   template: '<sf-form [schema]="mySchema"></sf-form>',
@@ -600,7 +625,8 @@ export class AppComponent {
 ```
 
 **$EMPTY$**  
-Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden and not present in model.
+Assigning an empty Object to 'visibleIf' is interpreted as _visibleIf_ nothing, thereby the widget is hidden and not
+present in model.
 
 ```js
 mySchema = {
@@ -637,6 +663,7 @@ The `oneOf` a is prioritized before the `allOf` and both are prioritized before 
 property binding.
 
 Chaining of `oneOf` and `allOf` is possible like in the example below:
+
 ```
 "visibleIf": {
   "allOf": [
@@ -723,33 +750,38 @@ the `widget.id` `hidden` might be the better choice
 
 ```js
   mySchema = {
-    "properties": {
-      "hiddenInput": {
-        "type": "boolean",
-        "widget": "hidden",
-        "default": true
-      },
-      "lastName": {
-        "type": "string",
-        ...
-      }
+  "properties": {
+    "hiddenInput": {
+      "type": "boolean",
+      "widget": "hidden",
+      "default": true
+    },
+    "lastName": {
+      "type": "string",
+      ...
     }
   }
+}
 ```
 
 so the value of the hidden field will be bound to the output model
 
 ```js
   {
-    "hiddenInput": true,
-    "lastName": "Doe",
-    ...
-  }
+  "hiddenInput"
+:
+  true,
+    "lastName"
+:
+  "Doe",
+...
+}
 ```
 
 ### Fields presentation and ordering
 
-As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is built.
+As a JSON object is an unordered collection you can't be sure your fields will be correctly ordered when the form is
+built.
 The `order` and `fieldsets` entries of the schema are here to organize your fields.
 
 #### Ordering
@@ -758,12 +790,43 @@ The `order` entry is an array listing all the fields ids in the order they must 
 
 ```js
 {
-  "properties": {
-    "firstName": {"type": "string","description": "First name"},
-    "lastName": {"type": "string","description": "Last name"},
-    "email": {"type": "string","description": "Email"}
-  },
-  "order": ["firstName", "lastName", "email"]
+  "properties"
+:
+  {
+    "firstName"
+  :
+    {
+      "type"
+    :
+      "string", "description"
+    :
+      "First name"
+    }
+  ,
+    "lastName"
+  :
+    {
+      "type"
+    :
+      "string", "description"
+    :
+      "Last name"
+    }
+  ,
+    "email"
+  :
+    {
+      "type"
+    :
+      "string", "description"
+    :
+      "Email"
+    }
+  }
+,
+  "order"
+:
+  ["firstName", "lastName", "email"]
 }
 ```
 
@@ -773,24 +836,57 @@ With the `fieldsets` property, you can describe the different parts of the form 
 
 ```js
 {
-  "properties": {
-    "firstName": {
-      "type": "string",
-      "description": "First name"
-    },
-    "lastName": {
-      "type": "string",
-      "description": "Last name"
-    },
-    "email": {
-      "type": "string",
-      "description": "Email"
-    },
-    "notificationsFrequency": {
-      "type": "string",
-      "description": "Notifications frequency",
-      "widget": "select",
-      "oneOf": [
+  "properties"
+:
+  {
+    "firstName"
+  :
+    {
+      "type"
+    :
+      "string",
+        "description"
+    :
+      "First name"
+    }
+  ,
+    "lastName"
+  :
+    {
+      "type"
+    :
+      "string",
+        "description"
+    :
+      "Last name"
+    }
+  ,
+    "email"
+  :
+    {
+      "type"
+    :
+      "string",
+        "description"
+    :
+      "Email"
+    }
+  ,
+    "notificationsFrequency"
+  :
+    {
+      "type"
+    :
+      "string",
+        "description"
+    :
+      "Notifications frequency",
+        "widget"
+    :
+      "select",
+        "oneOf"
+    :
+      [
         {
           "description": "Daily",
           "enum": [
@@ -810,10 +906,15 @@ With the `fieldsets` property, you can describe the different parts of the form 
           ]
         }
       ],
-      "default": "daily"
+        "default"
+    :
+      "daily"
     }
-  },
-  "fieldsets": [
+  }
+,
+  "fieldsets"
+:
+  [
     {
       "title": "Personal information",
       "fields": [
@@ -837,9 +938,11 @@ The `title` entry of each fieldset is optional.
 ## Fixing the schema or model before rendering
 
 Sometimes your schema (or model) is provided by a backend you cannot control.
-If it is not formatted the way Angular 2 Schema Form expects or if some elements are missing (for instance the fieldsets, some widgets, etc.), you can fix it very easily in your component:
+If it is not formatted the way Angular 2 Schema Form expects or if some elements are missing (for instance the
+fieldsets, some widgets, etc.), you can fix it very easily in your component:
 
 ```javascript
+
 @Component({
   selector: 'plone-view-edit',
   template: '<sf-form [schema]="schema" [model]="model" [actions]="actions"></sf-form>'
@@ -851,22 +954,27 @@ export class MyComponent {
   private actions: any = {};
   private model: any = {};
 
-  constructor(private http: Http) { }
+  constructor(private
 
-  ngOnInit() {
-    this.http.get('http://mybackend/schema').subscribe(res => {
-      let schema = res.json();
+  http: Http
+) {
+}
 
-      // FIXES
-      // the "description" field must be rendered with tinymce
-      schema.properties.description.widget = 'tinymce'
+ngOnInit()
+{
+  this.http.get('http://mybackend/schema').subscribe(res => {
+    let schema = res.json();
 
-      // the "publication" field is required
-      schema.required = ['publication'];
+    // FIXES
+    // the "description" field must be rendered with tinymce
+    schema.properties.description.widget = 'tinymce'
 
-      this.schema = schema;
-    });
-  }
+    // the "publication" field is required
+    schema.required = ['publication'];
+
+    this.schema = schema;
+  });
+}
 }
 ```
 
@@ -879,16 +987,19 @@ Note: Currently this feature is not completely defined and the API might change.
 You need to derivate the widget you want to customize:
 
 ```javascript
+
 @Component({
   selector: "mdl-sf-string-widget",
   templateUrl: "./string.widget.html",
 })
-export class MyStringWidget extends StringWidget {}
+export class MyStringWidget extends StringWidget {
+}
 ```
 
 You need to provide its html template (let's imagine we want to use the Material Design text field):
 
 ```html
+
 <mdl-textfield
   [label]="schema.description"
   type="string"
@@ -904,7 +1015,7 @@ You need to provide its html template (let's imagine we want to use the Material
 And you need to declare it in a custom registry:
 
 ```javascript
-import { MyStringWidget } from "./mystring";
+import {MyStringWidget} from "./mystring";
 
 export class MyWidgetRegistry extends DefaultWidgetRegistry {
   constructor() {
@@ -923,21 +1034,27 @@ And, in your module, you need to:
 
 ```javascript
 declarations: [MyStringWidget],
-entryComponents: [MyStringWidget],
-providers: [{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
+  entryComponents
+:
+[MyStringWidget],
+  providers
+:
+[{provide: WidgetRegistry, useClass: MyWidgetRegistry}],
 ```
 
 Note: you will also need to import `ReactiveFormsModule` if you want to be able to use form control:
 
 ```javascript
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+
 ...
 @NgModule({
   ...
-  imports: [
-    ...
+    imports:
+[
+  ...
     ReactiveFormsModule,
-  ]
+]
 })
 ```
 
@@ -950,12 +1067,13 @@ directive `templateSchema` on sf-form.
 The followin html will generate the same form as the json schema in getting started section.
 
 ```html
+
 <sf-form [(ngModel)]="model" templateSchema>
-  <sf-field name="email" format="email" [required]="true"> Email </sf-field>
+  <sf-field name="email" format="email" [required]="true"> Email</sf-field>
   <sf-field name="password" widget="password" [required]="true">
     Password
   </sf-field>
-  <sf-field name="rememberMe" type="boolean"> Remember Me </sf-field>
+  <sf-field name="rememberMe" type="boolean"> Remember Me</sf-field>
 </sf-form>
 ```
 

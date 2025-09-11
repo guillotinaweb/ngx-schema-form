@@ -181,7 +181,8 @@
 # 2.4.0 (2019-07-29)
 
 - Feature #228: add support for expression in visibleIf condition (daniele-pecora)
-- Fix #293: hide or disable array widget add and remove button in relation to the settings of 'maxItems' and 'minItems' in schema (daniele-pecora)
+- Fix #293: hide or disable array widget add and remove button in relation to the settings of 'maxItems' and 'minItems'
+  in schema (daniele-pecora)
 
 # 2.3.5 (2019-07-04)
 
@@ -369,7 +370,8 @@
 
 ## BREAKING CHANGES
 
-- Now module, components and other elements must be imported from 'angular2-schema-form' and not 'angular2-schema-form/src'
+- Now module, components and other elements must be imported from 'angular2-schema-form' and not '
+  angular2-schema-form/src'
 
 # 1.0.0-beta.2 (2017-03-13)
 

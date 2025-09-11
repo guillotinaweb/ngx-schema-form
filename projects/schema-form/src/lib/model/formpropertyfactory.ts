@@ -1,12 +1,12 @@
-import { FormProperty, PropertyGroup } from './formproperty';
-import { SchemaValidatorFactory } from '../schemavalidatorfactory';
-import { ValidatorRegistry } from './validatorregistry';
-import { PropertyBindingRegistry } from '../property-binding-registry';
-import { ExpressionCompilerFactory } from '../expression-compiler-factory';
-import { PROPERTY_TYPE_MAPPING } from './typemapping';
-import { ISchema, TSchemaPropertyType } from './ISchema';
-import { LogService } from '../log.service';
-import { TNullableFieldType, FieldType } from '../template-schema/field/field';
+import {FormProperty, PropertyGroup} from './formproperty';
+import {SchemaValidatorFactory} from '../schemavalidatorfactory';
+import {ValidatorRegistry} from './validatorregistry';
+import {PropertyBindingRegistry} from '../property-binding-registry';
+import {ExpressionCompilerFactory} from '../expression-compiler-factory';
+import {PROPERTY_TYPE_MAPPING} from './typemapping';
+import {ISchema, TSchemaPropertyType} from './ISchema';
+import {LogService} from '../log.service';
+import {FieldType, TNullableFieldType} from '../template-schema/field/field';
 
 export class FormPropertyFactory {
 
@@ -46,16 +46,16 @@ export class FormPropertyFactory {
       newProperty = this.createProperty(refSchema, parent, path);
     } else {
       const type: FieldType = this.isUnionType(schema.type) && this.isValidNullableUnionType(schema.type as TNullableFieldType)
-          ? this.extractTypeFromNullableUnionType(schema.type as TNullableFieldType)
-          :  schema.type as FieldType;
+        ? this.extractTypeFromNullableUnionType(schema.type as TNullableFieldType)
+        : schema.type as FieldType;
 
       if (PROPERTY_TYPE_MAPPING[type]) {
         if (type === 'object' || type === 'array') {
           newProperty = PROPERTY_TYPE_MAPPING[type](
-          this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this, this.logger);
+            this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this, this.logger);
         } else {
           newProperty = PROPERTY_TYPE_MAPPING[type](
-          this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this.logger);
+            this.schemaValidatorFactory, this.validatorRegistry, this.expressionCompilerFactory, schema, parent, path, this.logger);
         }
       } else {
         throw new TypeError(`Undefined type ${type} (existing: ${Object.keys(PROPERTY_TYPE_MAPPING)})`);

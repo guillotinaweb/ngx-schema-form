@@ -4,11 +4,11 @@ import {distinctUntilChanged, map} from 'rxjs/operators';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
 import {PropertyBindingRegistry} from '../property-binding-registry';
-import { ExpressionCompilerFactory, ExpressionCompilerVisibilityIf } from '../expression-compiler-factory';
-import { ISchema, TSchemaPropertyType } from './ISchema';
-import { LogService } from '../log.service';
-import { FieldType } from '../template-schema/field/field';
-import { isEmptyObject } from './utils';
+import {ExpressionCompilerFactory, ExpressionCompilerVisibilityIf} from '../expression-compiler-factory';
+import {ISchema, TSchemaPropertyType} from './ISchema';
+import {LogService} from '../log.service';
+import {FieldType} from '../template-schema/field/field';
+import {isEmptyObject} from './utils';
 
 export abstract class FormProperty {
   public schemaValidator: Function;
@@ -33,14 +33,18 @@ export abstract class FormProperty {
    * <code>/garage/cars</code>,<br/>
    * <code>/shop/book/0/page/1/</code>
    */
-  get _canonicalPath() { return this.__canonicalPath; }
+  get _canonicalPath() {
+    return this.__canonicalPath;
+  }
+
   set _canonicalPath(canonicalPath: string) {
     this.__canonicalPath = canonicalPath;
-    this.__canonicalPathNotation = (this.__canonicalPath||'')
+    this.__canonicalPathNotation = (this.__canonicalPath || '')
       .replace(new RegExp('^/', 'ig'), '')
       .replace(new RegExp('/$', 'ig'), '')
       .replace(new RegExp('/', 'ig'), '.');
   }
+
   /**
    * Uses the unique path provided by the property <code>_canonicalPath</code><br/>
    * but converts it to a HTML Element Attribute ID compliant format.<br/>
@@ -48,7 +52,9 @@ export abstract class FormProperty {
    * <code>garage.cars</code>,<br/>
    * <code>shop.book.0.page.1.</code>
    */
-  get canonicalPathNotation() { return this.__canonicalPathNotation; }
+  get canonicalPathNotation() {
+    return this.__canonicalPathNotation;
+  }
 
   private _rootName;
   /**
@@ -57,7 +63,9 @@ export abstract class FormProperty {
    * Represents the HTML FORM NAME.<br/>
    * Only the root <code>FormProperty</code> will provide a value here.
    */
-  get rootName() { return this._rootName; }
+  get rootName() {
+    return this._rootName;
+  }
 
   constructor(schemaValidatorFactory: SchemaValidatorFactory,
               private validatorRegistry: ValidatorRegistry,
@@ -267,15 +275,15 @@ export abstract class FormProperty {
         } else if (typeof expString === 'number') {
           valid = (!!value || value == 0) ? `${expString}` === `${value}` : false;
         } else if (-1 !== `${expString}`.indexOf('$ANY$')) {
-          if(Array.isArray(value)) {
+          if (Array.isArray(value)) {
             valid = value.length > 0;
-          } else if(typeof value === "number") {
+          } else if (typeof value === "number") {
             valid = true;
-          } else if(typeof value === "boolean") {
+          } else if (typeof value === "boolean") {
             valid = true;
-          } else if(typeof value === "string") {
+          } else if (typeof value === "string") {
             valid = value !== '';
-          } else if(typeof value === "object") {
+          } else if (typeof value === "object") {
             valid = !isEmptyObject(value);
           }
         } else if (0 === `${expString}`.indexOf('$EXP$')) {
@@ -285,8 +293,8 @@ export abstract class FormProperty {
             target: targetProperty
           })
         } else if (Array.isArray(value)) {
-			    valid = value.some((val) => `${val}` === `${expString}`);
-		    } else {
+          valid = value.some((val) => `${val}` === `${expString}`);
+        } else {
           valid = !!value ? `${expString}` === `${value}` : false;
         }
         if (valid) {
@@ -325,7 +333,7 @@ export abstract class FormProperty {
      *     }]
      * </pre>
      */
-    // get the visibleIf property and check if it has a oneOf or allOf property
+      // get the visibleIf property and check if it has a oneOf or allOf property
     const visibleIfProperty = this.schema.visibleIf;
     let oneOfOrAllOf;
     if (visibleIfProperty) {
@@ -538,7 +546,10 @@ export abstract class PropertyGroup extends FormProperty {
 
   _properties: FormProperty[] | { [key: string]: FormProperty } = null;
 
-  get properties() {
+  // Return the properties.
+  // INFO:
+  //   Temporarily trick the compiler into ignoring the [Symbol.iterator()].
+  get properties(): any {
     return this._properties;
   }
 
@@ -548,7 +559,7 @@ export abstract class PropertyGroup extends FormProperty {
      */
     this._properties = new Proxy(properties, this._propertyProxyHandler);
   }
-  
+
   private _propertyProxyHandler = new ExtendedProxyHandler(this.logger)
 
   getProperty(path: string) {
@@ -596,7 +607,9 @@ export abstract class PropertyGroup extends FormProperty {
 
 
 export class ExtendedProxyHandler implements ProxyHandler<FormProperty[] | { [key: string]: FormProperty }> {
-  constructor(private logger: LogService) { }
+  constructor(private logger: LogService) {
+  }
+
   /**
    * When a new item is added it will be checked for visibility updates to proceed <br/>
    * if any other field has a binding reference to it.<br/>
@@ -650,11 +663,11 @@ export class ExtendedProxyHandler implements ProxyHandler<FormProperty[] | { [ke
       recalculateCanonicalPath(formProperty)
       const propertyGroup = formProperty as PropertyGroup;
       const propertyGroupChildren = (Array.isArray(propertyGroup.properties) ?
-      propertyGroup.properties :
-      Object.values(propertyGroup.properties || {})) as FormProperty[];
-      return { property: formProperty, children: propertyGroupChildren };
+        propertyGroup.properties :
+        Object.values(propertyGroup.properties || {})) as FormProperty[];
+      return {property: formProperty, children: propertyGroupChildren};
     };
-    const { property, children } = assertCanonicalPath(value);
+    const {property, children} = assertCanonicalPath(value);
 
     /**
      * 2) Add the new property before rebinding, so it can be found by <code>_bindVisibility</code>
@@ -707,9 +720,11 @@ export class ExtendedProxyHandler implements ProxyHandler<FormProperty[] | { [ke
 
     return result;
   }
+
   get(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey, receiver: any): any {
     return target[p as string];
   }
+
   deleteProperty(target: FormProperty[] | { [p: string]: FormProperty }, p: PropertyKey): boolean {
     return delete target[p as string];
   }

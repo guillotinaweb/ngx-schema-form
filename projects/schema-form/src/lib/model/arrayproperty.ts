@@ -1,11 +1,11 @@
 import {FormProperty, PropertyGroup} from './formproperty';
 import {FormPropertyFactory} from './formpropertyfactory';
-import { PROPERTY_TYPE_MAPPING } from './typemapping';
+import {PROPERTY_TYPE_MAPPING} from './typemapping';
 import {SchemaValidatorFactory} from '../schemavalidatorfactory';
 import {ValidatorRegistry} from './validatorregistry';
-import { ExpressionCompilerFactory } from '../expression-compiler-factory';
+import {ExpressionCompilerFactory} from '../expression-compiler-factory';
 import {ISchema} from './ISchema';
-import { LogService } from '../log.service';
+import {LogService} from '../log.service';
 
 export class ArrayProperty extends PropertyGroup {
 
@@ -97,15 +97,15 @@ export class ArrayProperty extends PropertyGroup {
 }
 
 PROPERTY_TYPE_MAPPING.array = (
-    schemaValidatorFactory: SchemaValidatorFactory,
-    validatorRegistry: ValidatorRegistry,
-    expressionCompilerFactory: ExpressionCompilerFactory,
-    schema: ISchema,
-    parent: PropertyGroup,
-    path: string,
-    formPropertyFactory: FormPropertyFactory,
-    logger: LogService
+  schemaValidatorFactory: SchemaValidatorFactory,
+  validatorRegistry: ValidatorRegistry,
+  expressionCompilerFactory: ExpressionCompilerFactory,
+  schema: ISchema,
+  parent: PropertyGroup,
+  path: string,
+  formPropertyFactory: FormPropertyFactory,
+  logger: LogService
 ) => {
-    return new ArrayProperty(
-        formPropertyFactory, schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
+  return new ArrayProperty(
+    formPropertyFactory, schemaValidatorFactory, validatorRegistry, expressionCompilerFactory, schema, parent, path, logger);
 };

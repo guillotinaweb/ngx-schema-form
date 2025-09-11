@@ -30,10 +30,11 @@
               "subProp2": {
                 "type": "string",
                 "title": "This is only visible if the checkbox above is checked",
-                "visibleIf": 
-                  {
-                    "subProp1": [true]
-                  }
+                "visibleIf": {
+                  "subProp1": [
+                    true
+                  ]
+                }
               }
             }
           }

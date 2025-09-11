@@ -1,29 +1,17 @@
-import {
-  AtomicProperty
-} from './atomicproperty';
+import {AtomicProperty} from './atomicproperty';
 
-import {
-  StringProperty
-} from './stringproperty';
+import {StringProperty} from './stringproperty';
 
-import {
-  NumberProperty
-} from './numberproperty';
+import {NumberProperty} from './numberproperty';
 
-import {
-  NullProperty
-} from './nullproperty';
+import {NullProperty} from './nullproperty';
 
-import {
-  ValidatorRegistry
-} from './validatorregistry';
+import {ValidatorRegistry} from './validatorregistry';
 
-import {
-  ZSchemaValidatorFactory
-} from '../schemavalidatorfactory';
-import { JEXLExpressionCompilerFactory } from '../expression-compiler-factory';
+import {ZSchemaValidatorFactory} from '../schemavalidatorfactory';
+import {JEXLExpressionCompilerFactory} from '../expression-compiler-factory';
 import {ISchema} from './ISchema';
-import { DefaultLogService, LogLevel } from '../log.service';
+import {DefaultLogService, LogLevel} from '../log.service';
 
 class AtomicPropertyImpl extends AtomicProperty {
 
@@ -48,7 +36,7 @@ describe('Atomic properties', () => {
 
     it('reset with no argument and default value in schema should use the default value', () => {
       const THE_DEFAULT_VALUE = Symbol();
-      const A_SCHEMA_WITH_DEFAULT = {'default': THE_DEFAULT_VALUE };
+      const A_SCHEMA_WITH_DEFAULT = {'default': THE_DEFAULT_VALUE};
       const atomicPropertyWithDefault = new AtomicPropertyImpl(
         A_SCHEMA_VALIDATOR_FACTORY,
         A_VALIDATOR_REGISTRY,

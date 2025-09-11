@@ -1,33 +1,52 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
-import { ControlWidget } from '../../widget';
+import {ControlWidget} from '../../widget';
 
 @Component({
-    selector: 'sf-select-widget',
-    template: `<div class="widget form-group">
-	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
-		{{ schema.title }}
-	</label>
+  selector: 'sf-select-widget',
+  template: `
+    <div class="widget form-group">
+      @if (schema.title) {
+        <label [attr.for]="id" class="horizontal control-label">
+          {{ schema.title }}
+        </label>
+      }
 
-	<span *ngIf="schema.description" class="formHelp">
-		{{schema.description}}
-	</span>
+      @if (schema.description) {
+        <span class="formHelp">
+	      {{ schema.description }}
+	    </span>
+      }
 
-	<select *ngIf="schema.type!='array'" [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly" class="form-control">
-		<ng-container *ngIf="schema.oneOf; else use_enum">
-			<option *ngFor="let option of schema.oneOf" [ngValue]="option.enum[0]" >{{option.description}}</option>
-		</ng-container>
-		<ng-template #use_enum>
-			<option *ngFor="let option of schema.enum" [ngValue]="option" >{{option}}</option>
-		</ng-template>
-	</select>
+      @if (schema.type != 'array') {
+        <select [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly"
+                class="form-control">
+          @if (schema.oneOf) {
+            @for (option of schema.oneOf; track option) {
+              <option [ngValue]="option.enum[0]">{{ option.description }}</option>
+            }
+          } @else {
+            @for (option of schema.enum; track option) {
+              <option [ngValue]="option">{{ option }}</option>
+            }
+          }
+        </select>
+      }
 
-	<select *ngIf="schema.type==='array'" multiple [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly" class="form-control">
-    <option *ngFor="let option of schema.items.oneOf" [ngValue]="option.enum[0]" [disabled]="option.readOnly">{{option.description}}</option>
-	</select>
+      @if (schema.type === 'array') {
+        <select multiple [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly"
+                class="form-control">
+          @for (option of schema.items.oneOf; track option) {
+            <option [ngValue]="option.enum[0]" [disabled]="option.readOnly">{{ option.description }}</option>
+          }
+        </select>
+      }
 
-	<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
-</div>`,
-    standalone: false
+      @if (schema.readOnly) {
+        <input [attr.name]="name" type="hidden" [formControl]="control">
+      }
+    </div>`,
+  standalone: false
 })
-export class SelectWidget extends ControlWidget {}
+export class SelectWidget extends ControlWidget {
+}

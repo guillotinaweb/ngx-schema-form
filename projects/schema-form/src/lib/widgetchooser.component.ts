@@ -1,43 +1,46 @@
 import {
+  ChangeDetectorRef,
   Component,
   ComponentRef,
-  ChangeDetectorRef,
   EventEmitter,
+  inject,
   Input,
   OnChanges,
+  OnDestroy,
+  OnInit,
   Output,
   ViewChild,
-  ViewContainerRef,
-  OnInit,
-  OnDestroy
+  ViewContainerRef
 } from '@angular/core';
-import { TerminatorService } from './terminator.service';
-import { WidgetFactory } from './widgetfactory';
-import { Subscription } from 'rxjs';
+import {TerminatorService} from './terminator.service';
+import {WidgetFactory} from './widgetfactory';
+import {Subscription} from 'rxjs';
 
 
 @Component({
-    selector: 'sf-widget-chooser',
-    template: `<div #target></div>`,
-    standalone: false
+  selector: 'sf-widget-chooser',
+  template: `
+    <div #target></div>`,
+  standalone: false
 })
 export class WidgetChooserComponent implements OnInit, OnChanges, OnDestroy {
+  private widgetFactory = inject(WidgetFactory) ?? null;
+  private cdr = inject(ChangeDetectorRef);
+  private terminator = inject(TerminatorService);
+
 
   @Input() widgetInfo: any;
 
   @Output() widgetInstanciated = new EventEmitter<any>();
 
-  @ViewChild('target', { read: ViewContainerRef, static: true }) container: ViewContainerRef;
+  @ViewChild('target', {read: ViewContainerRef, static: true}) container: ViewContainerRef;
 
   private widgetInstance: any;
   private ref: ComponentRef<any>;
   private subs: Subscription;
 
-  constructor(
-    private widgetFactory: WidgetFactory = null,
-    private cdr: ChangeDetectorRef,
-    private terminator: TerminatorService,
-  ) { }
+  constructor() {
+  }
 
   ngOnInit() {
     this.subs = this.terminator.onDestroy.subscribe(destroy => {

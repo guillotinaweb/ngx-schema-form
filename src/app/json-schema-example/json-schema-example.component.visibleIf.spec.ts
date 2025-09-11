@@ -3,22 +3,19 @@
 // ng test --include='**/json-schema-example/*.visibleIf.spec.ts' --watch=true`
 // - - - - - - - - - - - - - - - - - -
 
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
+import {provideHttpClient, withInterceptorsFromDi,} from "@angular/common/http";
 import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
-import {
+  DefaultWidgetRegistry,
   SchemaFormModule,
   SchemaValidatorFactory,
-  ZSchemaValidatorFactory,
   WidgetRegistry,
-  DefaultWidgetRegistry,
+  ZSchemaValidatorFactory,
 } from "../../../projects/schema-form/src/public_api";
 
-import { JsonSchemaExampleComponent } from "./json-schema-example.component";
-import { By } from "@angular/platform-browser";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {JsonSchemaExampleComponent} from "./json-schema-example.component";
+import {By} from "@angular/platform-browser";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe("JsonSchemaExampleComponent", () => {
   let component: JsonSchemaExampleComponent;
@@ -29,7 +26,7 @@ describe("JsonSchemaExampleComponent", () => {
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,
@@ -59,7 +56,7 @@ describe("JsonSchemaExampleComponent - visibleIf - data-types", () => {
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,
@@ -372,7 +369,7 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types", () => {
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,
@@ -583,13 +580,13 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types", () => {
 
       let combinations = [
         //         'Pass', 'Warn', 'Fail', 'Should component show up?'
-        { values: [false, false, false], visible: false, emit: false }, // the initial state
-        { values: [true, false, false], visible: false, emit: false },
-        { values: [false, true, false], visible: false, emit: false },
-        { values: [false, false, true], visible: false, emit: false },
-        { values: [true, true, false], visible: false, emit: false },
-        { values: [true, true, true], visible: true, emit: false },
-        { values: [false, true, true], visible: true, emit: false },
+        {values: [false, false, false], visible: false, emit: false}, // the initial state
+        {values: [true, false, false], visible: false, emit: false},
+        {values: [false, true, false], visible: false, emit: false},
+        {values: [false, false, true], visible: false, emit: false},
+        {values: [true, true, false], visible: false, emit: false},
+        {values: [true, true, true], visible: true, emit: false},
+        {values: [false, true, true], visible: true, emit: false},
       ];
       combinations = combinations.concat(
         // same as above but this forces emitting the change event
@@ -674,15 +671,15 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types", () => {
 
       let combinations = [
         //         'Pass', 'Warn', 'Fail', 'Should component show up?'
-        { values: ["", "", ""], visible: false, emit: false }, // the initial state
+        {values: ["", "", ""], visible: false, emit: false}, // the initial state
 
-        { values: ["Pass", "", ""], visible: false, emit: false },
-        { values: ["", "Warn", ""], visible: false, emit: false },
-        { values: ["", "", "Fail"], visible: false, emit: false },
-        { values: ["", "Pass", "Fail"], visible: true, emit: false },
-        { values: ["Pass", "Warn", "Pass"], visible: true, emit: false },
-        { values: ["", "Warn", "Fail"], visible: true, emit: false },
-        { values: ["Pass", "Warn", "Fail"], visible: true, emit: false },
+        {values: ["Pass", "", ""], visible: false, emit: false},
+        {values: ["", "Warn", ""], visible: false, emit: false},
+        {values: ["", "", "Fail"], visible: false, emit: false},
+        {values: ["", "Pass", "Fail"], visible: true, emit: false},
+        {values: ["Pass", "Warn", "Pass"], visible: true, emit: false},
+        {values: ["", "Warn", "Fail"], visible: true, emit: false},
+        {values: ["Pass", "Warn", "Fail"], visible: true, emit: false},
       ];
       combinations = combinations.concat(
         // same as above but this forces emitting the change event
@@ -758,13 +755,13 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types", () => {
 
       let combinations = [
         //         'Pass', 'Warn', 'Fail', 'Should component show up?'
-        { values: ["", ""], visible: false, emit: false }, // the initial state
-        { values: [0, ""], visible: false, emit: false },
-        { values: [0, "bbb"], visible: false, emit: false },
-        { values: [0, "aaa"], visible: false, emit: false },
-        { values: [15, "aaa"], visible: true, emit: false },
-        { values: [15, "bbb"], visible: false, emit: false },
-        { values: [155, "aaa"], visible: false, emit: false },
+        {values: ["", ""], visible: false, emit: false}, // the initial state
+        {values: [0, ""], visible: false, emit: false},
+        {values: [0, "bbb"], visible: false, emit: false},
+        {values: [0, "aaa"], visible: false, emit: false},
+        {values: [15, "aaa"], visible: true, emit: false},
+        {values: [15, "bbb"], visible: false, emit: false},
+        {values: [155, "aaa"], visible: false, emit: false},
       ];
       combinations = combinations.concat(
         // same as above but this forces emitting the change event
@@ -818,7 +815,7 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types (chained cond
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,
@@ -982,7 +979,7 @@ describe("JsonSchemaExampleComponent - visibleIf - array items have visibleIf fi
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,

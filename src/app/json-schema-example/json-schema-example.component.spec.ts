@@ -1,17 +1,14 @@
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
+import {provideHttpClient, withInterceptorsFromDi,} from "@angular/common/http";
 import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
-import {
+  DefaultWidgetRegistry,
   SchemaFormModule,
   SchemaValidatorFactory,
-  ZSchemaValidatorFactory,
   WidgetRegistry,
-  DefaultWidgetRegistry,
+  ZSchemaValidatorFactory,
 } from "../../../projects/schema-form/src/public_api";
 
-import { JsonSchemaExampleComponent } from "./json-schema-example.component";
+import {JsonSchemaExampleComponent} from "./json-schema-example.component";
 
 describe("JsonSchemaExampleComponent", () => {
   let component: JsonSchemaExampleComponent;
@@ -22,7 +19,7 @@ describe("JsonSchemaExampleComponent", () => {
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot()],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,

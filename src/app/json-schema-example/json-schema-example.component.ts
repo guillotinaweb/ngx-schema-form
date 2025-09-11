@@ -1,10 +1,5 @@
-import {
-  Component,
-  ViewEncapsulation,
-  OnInit,
-  OnDestroy
-} from '@angular/core';
-import {Validator, Binding, FormProperty, PropertyGroup} from 'ngx-schema-form';
+import {Component, inject, OnDestroy, OnInit, ViewEncapsulation} from '@angular/core';
+import {Binding, FormProperty, ISchema, PropertyGroup, Validator} from 'ngx-schema-form';
 import {Subscription} from 'rxjs';
 
 import sampleSchema1 from './sampleschema.json';
@@ -19,16 +14,17 @@ import visibility_binding_example4 from './visibility-binding-example-schema4.js
 import sample_canonical_path from './sample-canonical-path.json';
 import required_only_if_visible from './required-only-if-visible.json';
 
-import {AppService, AppData} from '../app.service';
-import {ISchema} from 'ngx-schema-form';
+import {AppData, AppService} from '../app.service';
 
 @Component({
-    selector: 'sf-json-schema-example',
-    templateUrl: './json-schema-example.component.html',
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'sf-json-schema-example',
+  templateUrl: './json-schema-example.component.html',
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
+  private appService = inject(AppService);
+
   schema: ISchema = {properties: {}};
   model: any = {};
   value: any;
@@ -50,13 +46,6 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
     {label: 'Sample 8 - Canonical path', event: this.changeSchemaCanonicalPath, selected: false},
     {label: 'Sample 9 - Required only if visible', event: this.changeSchemaRequiredOnlyIfVisible, selected: false},
   ];
-
-  constructor(
-    private appService: AppService
-  ) {
-
-
-  }
 
   ngOnInit() {
 
@@ -242,7 +231,7 @@ export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
     this.actions = {};
   }
 
-  changeSchemaCanonicalPath(){
+  changeSchemaCanonicalPath() {
     this.schema = sample_canonical_path as unknown as ISchema;
     this.model = {};
     this.fieldBindings = {};

@@ -1,20 +1,27 @@
-import { Component, AfterViewInit } from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 
-import { ControlWidget } from '../../widget';
+import {ControlWidget} from '../../widget';
 
 @Component({
-    selector: 'sf-file-widget',
-    template: `<div class="widget form-group">
-	<label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
-		{{ schema.title }}
-	</label>
-  <span *ngIf="schema.description" class="formHelp">{{schema.description}}</span>
-  <input [name]="name" class="text-widget file-widget" [attr.id]="id"
-    [formControl]="control" type="file" [attr.disabled]="schema.readOnly?true:null"
-    (change)="onFileChange($event)">
-	<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
-</div>`,
-    standalone: false
+  selector: 'sf-file-widget',
+  template: `
+    <div class="widget form-group">
+      @if (schema.title) {
+        <label [attr.for]="id" class="horizontal control-label">
+          {{ schema.title }}
+        </label>
+      }
+      @if (schema.description) {
+        <span class="formHelp">{{ schema.description }}</span>
+      }
+      <input [name]="name" class="text-widget file-widget" [attr.id]="id"
+             [formControl]="control" type="file" [attr.disabled]="schema.readOnly?true:null"
+             (change)="onFileChange($event)">
+      @if (schema.readOnly) {
+        <input [attr.name]="name" type="hidden" [formControl]="control">
+      }
+    </div>`,
+  standalone: false
 })
 export class FileWidget extends ControlWidget implements AfterViewInit {
 
@@ -30,7 +37,7 @@ export class FileWidget extends ControlWidget implements AfterViewInit {
     // file inputs
     const control = this.control;
     this.formProperty.errorsChanges.subscribe((errors) => {
-      control.setErrors(errors, { emitEvent: true });
+      control.setErrors(errors, {emitEvent: true});
     });
 
     this.reader.onloadend = () => {

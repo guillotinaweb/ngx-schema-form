@@ -1,17 +1,17 @@
-import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
-import { take } from "rxjs/operators";
+import {Component} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
+import {By} from "@angular/platform-browser";
+import {take} from "rxjs/operators";
 
-import { FormComponent } from "../form.component";
-import { SchemaFormModule } from "../schema-form.module";
-import { TemplateSchemaModule } from "./template-schema.module";
-import { TemplateSchemaDirective } from "./template-schema.directive";
+import {FormComponent} from "../form.component";
+import {SchemaFormModule} from "../schema-form.module";
+import {TemplateSchemaModule} from "./template-schema.module";
+import {TemplateSchemaDirective} from "./template-schema.directive";
 
 @Component({
-    selector: "sf-test",
-    template: `
+  selector: "sf-test",
+  template: `
     <sf-form templateSchema [(ngModel)]="model">
       <sf-field
         name="username"
@@ -32,20 +32,21 @@ import { TemplateSchemaDirective } from "./template-schema.directive";
         >
           Password
         </sf-field>
-        <sf-field
-          *ngIf="register"
-          name="passwordConfirm"
-          widget="password"
-          [required]="true"
-        >
-          Confirm Password
-        </sf-field>
+        @if (register) {
+          <sf-field
+            name="passwordConfirm"
+            widget="password"
+            [required]="true"
+          >
+            Confirm Password
+          </sf-field>
+        }
       </sf-field>
       <sf-button (click)="onClickA($event)">Send</sf-button>
       <sf-button (click)="onClickB($event)">Cancel</sf-button>
     </sf-form>
   `,
-    standalone: false
+  standalone: false
 })
 class TestComponent {
   model: any = {};
@@ -53,8 +54,11 @@ class TestComponent {
   type = "string";
   register = false;
 
-  onClickA(event: any) {}
-  onClickB(event: any) {}
+  onClickA(event: any) {
+  }
+
+  onClickB(event: any) {
+  }
 
   validatorA(value, property, form): any {
     return null;

@@ -1,25 +1,25 @@
-import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import {Component, inject, OnInit, ViewEncapsulation} from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
+import {filter} from 'rxjs/operators';
 
-import { AppService } from './app.service';
+import {AppService} from './app.service';
 
 @Component({
-    selector: 'app-root',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css'],
-    encapsulation: ViewEncapsulation.None,
-    standalone: false
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None,
+  standalone: false
 })
 export class AppComponent implements OnInit {
+  private appService = inject(AppService);
+  private router = inject(Router);
 
   page: string;
   schemaUrl: string;
 
-  constructor(
-    private appService: AppService,
-    private router: Router
-  ) { }
+  constructor() {
+  }
 
   loadSchema() {
     this.appService.loadSchema(this.schemaUrl);

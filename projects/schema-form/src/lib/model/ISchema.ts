@@ -1,9 +1,10 @@
-import { FieldType, TNullableFieldType } from '../template-schema/field/field';
-import { TUnorderedPair } from './utils';
+import {FieldType, TNullableFieldType} from '../template-schema/field/field';
+import {TUnorderedPair} from './utils';
 
 export interface IOneOf {
   enum?: any[];
   description?: string;
+
   /** allow additional properties */
   [prop: string]: any;
 }
@@ -12,6 +13,7 @@ export interface IWidget {
   id?: string;
   plugins?: string;
   toolbar?: string;
+
   /** allow additional properties */
   [prop: string]: any;
 }
@@ -22,6 +24,7 @@ export interface IFieldSet {
   name: string;
   description: string;
   fields: string[];
+
   /** allow additional properties */
   [prop: string]: any;
 }
@@ -30,6 +33,7 @@ export interface IButton {
   id: string;
   label: string;
   widget?: string | object;
+
   /** allow additional properties */
   [prop: string]: any;
 }
@@ -74,6 +78,7 @@ export interface ISchema {
   format?: string;
   widget?: IWidget | any;
   fieldsets?: IFieldSet[];
+
   /** allow additional properties */
   [prop: string]: any;
 }

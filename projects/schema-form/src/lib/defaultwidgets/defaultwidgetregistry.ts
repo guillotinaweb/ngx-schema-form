@@ -1,25 +1,25 @@
-import { ArrayWidget } from './array/array.widget';
-import { ButtonWidget } from './button/button.widget';
-import { CheckboxWidget } from './checkbox/checkbox.widget';
-import { FileWidget } from './file/file.widget';
-import { IntegerWidget } from './integer/integer.widget';
-import { ObjectWidget } from './object/object.widget';
-import { RadioWidget } from './radio/radio.widget';
-import { RangeWidget } from './range/range.widget';
-import { SelectWidget } from './select/select.widget';
-import { StringWidget } from './string/string.widget';
-import { TextAreaWidget } from './textarea/textarea.widget';
+import {ArrayWidget} from './array/array.widget';
+import {ButtonWidget} from './button/button.widget';
+import {CheckboxWidget} from './checkbox/checkbox.widget';
+import {FileWidget} from './file/file.widget';
+import {IntegerWidget} from './integer/integer.widget';
+import {ObjectWidget} from './object/object.widget';
+import {RadioWidget} from './radio/radio.widget';
+import {RangeWidget} from './range/range.widget';
+import {SelectWidget} from './select/select.widget';
+import {StringWidget} from './string/string.widget';
+import {TextAreaWidget} from './textarea/textarea.widget';
 
-import { WidgetRegistry } from '../widgetregistry';
-import { Injectable } from '@angular/core';
+import {WidgetRegistry} from '../widgetregistry';
+import {Injectable} from '@angular/core';
 
 @Injectable()
 export class DefaultWidgetRegistry extends WidgetRegistry {
   constructor() {
     super();
 
-    this.register('array',  ArrayWidget);
-    this.register('object',  ObjectWidget);
+    this.register('array', ArrayWidget);
+    this.register('object', ObjectWidget);
 
     this.register('string', StringWidget);
     this.register('search', StringWidget);

@@ -1,31 +1,43 @@
-import { FormProperty, PropertyGroup } from "./formproperty";
+import {FormProperty, PropertyGroup} from "./formproperty";
 
-import { ZSchemaValidatorFactory } from "../schemavalidatorfactory";
+import {ZSchemaValidatorFactory} from "../schemavalidatorfactory";
 
-import { ValidatorRegistry } from "./validatorregistry";
-import { JEXLExpressionCompilerFactory } from "../expression-compiler-factory";
-import { DefaultLogService, LogLevel } from "../log.service";
+import {ValidatorRegistry} from "./validatorregistry";
+import {JEXLExpressionCompilerFactory} from "../expression-compiler-factory";
+import {DefaultLogService, LogLevel} from "../log.service";
 
 class FormPropertyImpl extends FormProperty {
   fallbackValue() {
     return Symbol();
   }
-  _updateValue() {}
-  setValue() {}
-  reset() {}
+
+  _updateValue() {
+  }
+
+  setValue() {
+  }
+
+  reset() {
+  }
+
   _hasValue() {
     return true;
   }
 }
 
 class PropertyGroupImpl extends PropertyGroup {
-  _updateValue() {}
-  setValue() {}
+  _updateValue() {
+  }
+
+  setValue() {
+  }
+
   _hasValue() {
     return true;
   }
 
-  reset() {}
+  reset() {
+  }
 }
 
 describe("FormProperty", () => {

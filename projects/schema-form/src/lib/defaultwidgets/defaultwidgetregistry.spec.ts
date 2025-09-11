@@ -1,10 +1,6 @@
-import {
-  IntegerWidget,
-  TextAreaWidget,
-  StringWidget
-} from './';
+import {IntegerWidget, StringWidget, TextAreaWidget} from './';
 
-import { DefaultWidgetRegistry } from './defaultwidgetregistry';
+import {DefaultWidgetRegistry} from './defaultwidgetregistry';
 
 describe('DefaultWidgetRegistry', () => {
 
@@ -13,9 +9,11 @@ describe('DefaultWidgetRegistry', () => {
   let TEXTAREA_TYPE = 'textarea';
 
   let A_NOT_REGISTERED_TYPE = 'FOOBARSTRING';
-  let THE_DEFAULT_FIELD_TYPE = class { };
+  let THE_DEFAULT_FIELD_TYPE = class {
+  };
   let THE_TYPE = 'date';
-  let THE_FIELD_TYPE = class { };
+  let THE_FIELD_TYPE = class {
+  };
 
   let registry: DefaultWidgetRegistry;
 
