@@ -33,7 +33,7 @@ export abstract class SchemaValidatorFactory {
    * @param schema The schema to be compiled and get its refs, deps, etc. resolved
    * @returns The compiled schema. Per default it does simply return the give schema.
    */
-  compile(schema:any){
+  compile(schema: any) {
     return schema
   }
 }
@@ -49,7 +49,7 @@ export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
   }
 
   private createSchemaValidator() {
-    this.zschema =  new ZSchema({
+    this.zschema = new ZSchema({
       breakOnFirstError: false
     });
   }

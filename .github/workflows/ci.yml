@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [ push, pull_request ]
 
 jobs:
   build:
@@ -10,7 +10,7 @@ jobs:
       - name: Test and build
         uses: actions/setup-node@v1
         with:
-          node-version: 20.11
+          node-version: 22.19
       - run: npm install
       - run: npm run test
         env:

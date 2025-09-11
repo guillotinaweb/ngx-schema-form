@@ -15,11 +15,15 @@
             "title": "Choose 1 to show the hidden field or 0 to hide it. By default the field is hidden.",
             "oneOf": [
               {
-                "enum": [0],
+                "enum": [
+                  0
+                ],
                 "description": "Hide field."
               },
               {
-                "enum": [1],
+                "enum": [
+                  1
+                ],
                 "description": "Show hidden field."
               }
             ]
@@ -28,7 +32,9 @@
             "type": "string",
             "title": "This is shown if previous field is 1.",
             "visibleIf": {
-              "showHiddenField": [1]
+              "showHiddenField": [
+                1
+              ]
             }
           }
         }

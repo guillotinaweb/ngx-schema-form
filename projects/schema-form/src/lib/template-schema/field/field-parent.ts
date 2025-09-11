@@ -1,11 +1,11 @@
-import { QueryList } from '@angular/core';
+import {QueryList} from '@angular/core';
 
-import { Validator } from '../../model/validator';
-import { ActionRegistry } from '../../model/actionregistry';
-import { ButtonComponent } from '../button/button.component';
-import { TemplateSchemaElement } from '../template-schema-element';
+import {Validator} from '../../model/validator';
+import {ActionRegistry} from '../../model/actionregistry';
+import {ButtonComponent} from '../button/button.component';
+import {TemplateSchemaElement} from '../template-schema-element';
 
-import { Field, FieldType, TNullableFieldType } from './field';
+import {Field, FieldType, TNullableFieldType} from './field';
 import {ISchema} from '../../model/ISchema';
 
 export abstract class FieldParent extends TemplateSchemaElement {
@@ -32,7 +32,7 @@ export abstract class FieldParent extends TemplateSchemaElement {
       if (!button.id) {
         const randomString = Math.random().toString(16).substr(2, 8);
         // generate id for button
-        button.id = this.name + randomString + '_'  + (index + 1);
+        button.id = this.name + randomString + '_' + (index + 1);
       }
 
       // register as button action the EventEmitter click

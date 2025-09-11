@@ -40,8 +40,18 @@
     "language": {
       "description": "",
       "oneOf": [
-        {"enum": ["es"], "description": "Spanish"},
-        {"enum": ["fr"], "description": "French"}
+        {
+          "enum": [
+            "es"
+          ],
+          "description": "Spanish"
+        },
+        {
+          "enum": [
+            "fr"
+          ],
+          "description": "French"
+        }
       ],
       "title": "Language",
       "type": "string",

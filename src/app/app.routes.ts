@@ -1,12 +1,7 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 
-import {
-  JsonSchemaExampleComponent
-} from './json-schema-example/json-schema-example.component';
-import {
-  TemplateSchemaExampleComponent
-} from './template-schema-example/template-schema-example.component';
-
+import {JsonSchemaExampleComponent} from './json-schema-example/json-schema-example.component';
+import {TemplateSchemaExampleComponent} from './template-schema-example/template-schema-example.component';
 
 
 export const routes: Routes = [

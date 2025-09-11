@@ -1,5 +1,5 @@
-import { Validator } from './validator';
-import { Injectable } from "@angular/core";
+import {Validator} from './validator';
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class ValidatorRegistry {

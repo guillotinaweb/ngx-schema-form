@@ -1,9 +1,9 @@
-import { Action } from './action';
-import { Injectable } from "@angular/core";
+import {Action} from './action';
+import {Injectable} from "@angular/core";
 
 @Injectable()
 export class ActionRegistry {
-  actions: {[key: string]: Action} = {};
+  actions: { [key: string]: Action } = {};
 
   clear() {
     this.actions = {};

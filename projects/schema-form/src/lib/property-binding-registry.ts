@@ -1,4 +1,5 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
+
 /**
  * General purpose propery binding registry
  */

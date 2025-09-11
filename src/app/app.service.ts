@@ -1,7 +1,6 @@
-import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, BehaviorSubject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject} from 'rxjs';
 
 const DATA = 'data';
 
@@ -10,8 +9,10 @@ export interface AppData {
   schema: object;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class AppService {
+  private http = inject(HttpClient);
+
 
   dataChanged = new BehaviorSubject<AppData | null>(null);
 
@@ -36,7 +37,8 @@ export class AppService {
 
   private _data: AppData;
 
-  constructor(private http: HttpClient) { }
+  constructor() {
+  }
 
 
   loadSchema(url?: string): AppData {
@@ -46,7 +48,7 @@ export class AppService {
     }
 
     this.http.get(url).subscribe((schema) => {
-      this.data = { url, schema };
+      this.data = {url, schema};
       this.dataChanged.next(this.data);
     });
 
@@ -58,7 +60,6 @@ export class AppService {
     this._data = undefined;
     this.dataChanged.next(null);
   }
-
 
 
 }

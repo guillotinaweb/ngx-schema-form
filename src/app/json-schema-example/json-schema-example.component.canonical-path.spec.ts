@@ -3,22 +3,19 @@
 // ng test --include='**/json-schema-example/*.visibleIf.spec.ts' --watch=true`
 // - - - - - - - - - - - - - - - - - -
 
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
+import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
+import {provideHttpClient, withInterceptorsFromDi,} from "@angular/common/http";
 import {
-  provideHttpClient,
-  withInterceptorsFromDi,
-} from "@angular/common/http";
-import {
+  DefaultWidgetRegistry,
   SchemaFormModule,
   SchemaValidatorFactory,
-  ZSchemaValidatorFactory,
   WidgetRegistry,
-  DefaultWidgetRegistry,
+  ZSchemaValidatorFactory,
 } from "../../../projects/schema-form/src/public_api";
 
-import { JsonSchemaExampleComponent } from "./json-schema-example.component";
-import { By } from "@angular/platform-browser";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import {JsonSchemaExampleComponent} from "./json-schema-example.component";
+import {By} from "@angular/platform-browser";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 describe("JsonSchemaExampleComponent", () => {
   let component: JsonSchemaExampleComponent;
@@ -29,7 +26,7 @@ describe("JsonSchemaExampleComponent", () => {
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,
@@ -59,7 +56,7 @@ describe("JsonSchemaExampleComponent - canonical-path", () => {
       declarations: [JsonSchemaExampleComponent],
       imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
-        { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
+        {provide: WidgetRegistry, useClass: DefaultWidgetRegistry},
         {
           provide: SchemaValidatorFactory,
           useClass: ZSchemaValidatorFactory,

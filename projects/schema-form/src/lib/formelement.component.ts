@@ -1,12 +1,6 @@
-import {
-  Component, ElementRef,
-  Input, OnDestroy,
-  OnInit, Renderer2
-} from '@angular/core';
+import {Component, ElementRef, inject, Input, OnDestroy, OnInit, Renderer2} from '@angular/core';
 
-import {
-  UntypedFormControl
-} from '@angular/forms';
+import {UntypedFormControl} from '@angular/forms';
 
 import {Widget} from './widget';
 
@@ -14,23 +8,33 @@ import {ActionRegistry} from './model/actionregistry';
 import {FormProperty} from './model/formproperty';
 import {BindingRegistry} from './model/bindingregistry';
 import {Binding} from './model/binding';
-import { LogService } from './log.service';
+import {LogService} from './log.service';
 
 @Component({
-    selector: 'sf-form-element',
-    template: `
-    <div *ngIf="formProperty.visible"
-         [class.has-error]="!control.valid"
-         [class.has-success]="control.valid">
-      <sf-widget-chooser
-        (widgetInstanciated)="onWidgetInstanciated($event)"
-        [widgetInfo]="formProperty.schema.widget">
-      </sf-widget-chooser>
-      <sf-form-element-action *ngFor="let button of buttons" [button]="button" [formProperty]="formProperty"></sf-form-element-action>
-    </div>`,
-    standalone: false
+  selector: 'sf-form-element',
+  template: `
+    @if (formProperty.visible) {
+      <div
+        [class.has-error]="!control.valid"
+        [class.has-success]="control.valid">
+        <sf-widget-chooser
+          (widgetInstanciated)="onWidgetInstanciated($event)"
+          [widgetInfo]="formProperty.schema.widget">
+        </sf-widget-chooser>
+        @for (button of buttons; track button) {
+          <sf-form-element-action [button]="button" [formProperty]="formProperty"></sf-form-element-action>
+        }
+      </div>
+    }`,
+  standalone: false
 })
 export class FormElementComponent implements OnInit, OnDestroy {
+  private actionRegistry = inject(ActionRegistry);
+  private bindingRegistry = inject(BindingRegistry);
+  private renderer = inject(Renderer2);
+  private elementRef = inject(ElementRef);
+  private logger = inject(LogService);
+
 
   private static counter = 0;
 
@@ -42,13 +46,6 @@ export class FormElementComponent implements OnInit, OnDestroy {
   buttons = [];
 
   unlisten = [];
-
-  constructor(private actionRegistry: ActionRegistry,
-              private bindingRegistry: BindingRegistry,
-              private renderer: Renderer2,
-              private elementRef: ElementRef,
-              private logger: LogService) {
-  }
 
   ngOnInit() {
     this.parseButtons();
@@ -73,7 +70,11 @@ export class FormElementComponent implements OnInit, OnDestroy {
         const _listeners = Array.isArray(listeners) ? listeners : [listeners]
         for (const _listener of _listeners) {
           if (_listener instanceof Function) {
-            try { _listener(event, this.formProperty); } catch (e) { this.logger.error(`Error calling bindings event listener for '${eventId}'`, e) }
+            try {
+              _listener(event, this.formProperty);
+            } catch (e) {
+              this.logger.error(`Error calling bindings event listener for '${eventId}'`, e)
+            }
           } else {
             this.logger.warn('Calling non function handler for eventId ' + eventId + ' for path ' + this.formProperty.path);
           }
@@ -105,7 +106,7 @@ export class FormElementComponent implements OnInit, OnDestroy {
 
   onWidgetInstanciated(widget: Widget<any>) {
     this.widget = widget;
-    let id = this.formProperty.canonicalPathNotation || 'field' + (FormElementComponent.counter++);
+    let id = this.formProperty.canonicalPathNotation || 'field' + (FormElementComponent.counter++);
     if (this.formProperty.root.rootName) {
       id = `${this.formProperty.root.rootName}:${id}`;
     }

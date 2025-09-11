@@ -4,7 +4,8 @@ export class WidgetRegistry {
 
   private defaultWidget: any;
 
-  constructor() { }
+  constructor() {
+  }
 
   setDefaultWidget(widget: any) {
     this.defaultWidget = widget;

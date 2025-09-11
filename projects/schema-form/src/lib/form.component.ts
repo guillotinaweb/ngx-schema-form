@@ -1,13 +1,14 @@
 import {
   ChangeDetectorRef,
   Component,
-  OnChanges,
   EventEmitter,
+  inject,
   Input,
+  OnChanges,
   Output,
   SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {ControlValueAccessor, NG_VALUE_ACCESSOR} from '@angular/forms';
 
 import {Action} from './model/action';
 import {ActionRegistry} from './model/actionregistry';
@@ -23,42 +24,51 @@ import {SchemaValidatorFactory} from './schemavalidatorfactory';
 import {WidgetFactory} from './widgetfactory';
 import {TerminatorService} from './terminator.service';
 import {PropertyBindingRegistry} from './property-binding-registry';
-import { ExpressionCompilerFactory } from './expression-compiler-factory';
+import {ExpressionCompilerFactory} from './expression-compiler-factory';
 import {ISchema} from './model/ISchema';
-import { LogService } from './log.service';
+import {LogService} from './log.service';
 
 export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBindingRegistry, expressionCompilerFactory, logService) {
   return new FormPropertyFactory(schemaValidatorFactory, validatorRegistry, propertyBindingRegistry, expressionCompilerFactory, logService);
 }
 
 @Component({
-    selector: 'sf-form',
-    template: `
-    <form *ngIf="rootProperty" [attr.name]="rootProperty.rootName" [attr.id]="rootProperty.rootName">
-      <sf-form-element [formProperty]="rootProperty"></sf-form-element>
-    </form>`,
-    providers: [
-        ActionRegistry,
-        ValidatorRegistry,
-        PropertyBindingRegistry,
-        BindingRegistry,
-        SchemaPreprocessor,
-        WidgetFactory,
-        {
-            provide: FormPropertyFactory,
-            useFactory: useFactory,
-            deps: [SchemaValidatorFactory, ValidatorRegistry, PropertyBindingRegistry, ExpressionCompilerFactory, LogService]
-        },
-        TerminatorService,
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: FormComponent,
-            multi: true
-        }
-    ],
-    standalone: false
+  selector: 'sf-form',
+  template: `
+    @if (rootProperty) {
+      <form [attr.name]="rootProperty.rootName" [attr.id]="rootProperty.rootName">
+        <sf-form-element [formProperty]="rootProperty"></sf-form-element>
+      </form>
+    }`,
+  providers: [
+    ActionRegistry,
+    ValidatorRegistry,
+    PropertyBindingRegistry,
+    BindingRegistry,
+    SchemaPreprocessor,
+    WidgetFactory,
+    {
+      provide: FormPropertyFactory,
+      useFactory: useFactory,
+      deps: [SchemaValidatorFactory, ValidatorRegistry, PropertyBindingRegistry, ExpressionCompilerFactory, LogService]
+    },
+    TerminatorService,
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: FormComponent,
+      multi: true
+    }
+  ],
+  standalone: false
 })
 export class FormComponent implements OnChanges, ControlValueAccessor {
+  private formPropertyFactory = inject(FormPropertyFactory);
+  private actionRegistry = inject(ActionRegistry);
+  private validatorRegistry = inject(ValidatorRegistry);
+  private bindingRegistry = inject(BindingRegistry);
+  private cdr = inject(ChangeDetectorRef);
+  private terminator = inject(TerminatorService);
+
 
   @Input() schema: ISchema | null = null;
 
@@ -78,20 +88,11 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
 
   @Output() onErrorChange = new EventEmitter<{ value: any[] }>();
 
-  @Output() onErrorsChange = new EventEmitter<{value: any}>();
+  @Output() onErrorsChange = new EventEmitter<{ value: any }>();
 
   rootProperty: FormProperty = null;
 
   private onChangeCallback: any;
-
-  constructor(
-    private formPropertyFactory: FormPropertyFactory,
-    private actionRegistry: ActionRegistry,
-    private validatorRegistry: ValidatorRegistry,
-    private bindingRegistry: BindingRegistry,
-    private cdr: ChangeDetectorRef,
-    private terminator: TerminatorService
-  ) { }
 
   writeValue(obj: any) {
     if (this.rootProperty) {
@@ -154,7 +155,7 @@ export class FormComponent implements OnChanges, ControlValueAccessor {
 
     }
 
-    if (this.schema && (changes.model || changes.schema )) {
+    if (this.schema && (changes.model || changes.schema)) {
       this.rootProperty.reset(this.model, false);
       this.rootProperty._bindVisibility();
       this.cdr.detectChanges();

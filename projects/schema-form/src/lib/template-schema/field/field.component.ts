@@ -1,36 +1,40 @@
 import {
-  Component,
-  Input,
   AfterContentInit,
+  Component,
   ContentChildren,
-  QueryList,
   ElementRef,
-  SimpleChanges,
-  OnChanges,
   forwardRef,
+  inject,
+  Input,
+  OnChanges,
+  QueryList,
+  SimpleChanges
 } from "@angular/core";
 
-import { ActionRegistry } from "../../model/actionregistry";
-import { Validator } from "../../model/validator";
+import {ActionRegistry} from "../../model/actionregistry";
+import {Validator} from "../../model/validator";
 
-import { TemplateSchemaService } from "../template-schema.service";
-import { ButtonComponent } from "../button/button.component";
+import {TemplateSchemaService} from "../template-schema.service";
+import {ButtonComponent} from "../button/button.component";
 
-import { FieldParent } from "./field-parent";
-import { FieldType, Field, TNullableFieldType } from "./field";
-import { ItemComponent } from "./item/item.component";
-import { merge } from "rxjs";
-import { ISchema } from "../../model/ISchema";
+import {FieldParent} from "./field-parent";
+import {Field, FieldType, TNullableFieldType} from "./field";
+import {ItemComponent} from "./item/item.component";
+import {merge} from "rxjs";
+import {ISchema} from "../../model/ISchema";
 
 @Component({
-    selector: "sf-field",
-    templateUrl: "./field.component.html",
-    standalone: false
+  selector: "sf-field",
+  templateUrl: "./field.component.html",
+  standalone: false
 })
 export class FieldComponent
   extends FieldParent
-  implements Field, OnChanges, AfterContentInit
-{
+  implements Field, OnChanges, AfterContentInit {
+  private elementRef = inject(ElementRef);
+  private templateSchemaService = inject(TemplateSchemaService);
+  protected actionRegistry = inject(ActionRegistry);
+
   @ContentChildren(forwardRef(() => FieldComponent))
   childFields: QueryList<FieldComponent>;
 
@@ -73,16 +77,12 @@ export class FieldComponent
   @Input()
   schema: ISchema = {};
 
-  constructor(
-    private elementRef: ElementRef,
-    private templateSchemaService: TemplateSchemaService,
-    protected actionRegistry: ActionRegistry
-  ) {
+  constructor() {
     super();
   }
 
   getSchema(): ISchema {
-    const { properties, items, required } = this.getFieldsSchema(
+    const {properties, items, required} = this.getFieldsSchema(
       this.childFields.filter((field) => field !== this)
     );
 
@@ -147,7 +147,7 @@ export class FieldComponent
     const childValidators = this.getFieldsValidators(
       this.childFields.filter((field) => field !== this)
     );
-    const validators = childValidators.map(({ path, validator }) => {
+    const validators = childValidators.map(({path, validator}) => {
       return {
         path: this.path + path,
         validator,
@@ -158,7 +158,7 @@ export class FieldComponent
       return validators;
     }
 
-    validators.push({ path: this.path, validator: this.validator });
+    validators.push({path: this.path, validator: this.validator});
     return validators;
   }
 
@@ -180,12 +180,12 @@ export class FieldComponent
       return;
     }
 
-    const items = this.childItems.map(({ value, description }) => {
+    const items = this.childItems.map(({value, description}) => {
       if (!Array.isArray(value)) {
-        return { enum: [value], description };
+        return {enum: [value], description};
       }
 
-      return { enum: value, description };
+      return {enum: value, description};
     });
 
     if (items.length === 0) {

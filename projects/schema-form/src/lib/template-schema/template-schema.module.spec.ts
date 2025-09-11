@@ -1,4 +1,4 @@
-import { TemplateSchemaModule } from './template-schema.module';
+import {TemplateSchemaModule} from './template-schema.module';
 
 describe('TemplateSchemaModule', () => {
   let templateSchemaModule: TemplateSchemaModule;

@@ -1,11 +1,11 @@
-import { ChangeDetectorRef } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import {ChangeDetectorRef} from '@angular/core';
+import {TestBed} from '@angular/core/testing';
 
-import { TerminatorService } from './terminator.service';
-import { WidgetFactory } from './widgetfactory';
-import { WidgetRegistry } from './widgetregistry';
+import {TerminatorService} from './terminator.service';
+import {WidgetFactory} from './widgetfactory';
+import {WidgetRegistry} from './widgetregistry';
 
-import { WidgetChooserComponent } from './widgetchooser.component';
+import {WidgetChooserComponent} from './widgetchooser.component';
 
 describe('WidgetChooserComponent', () => {
 

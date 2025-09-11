@@ -1,9 +1,6 @@
-import {NgModule, ModuleWithProviders} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {
-  FormsModule,
-  ReactiveFormsModule
-} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 import {FormElementComponent} from './formelement.component';
 import {FormComponent} from './form.component';
@@ -22,16 +19,14 @@ import {StringWidget} from './defaultwidgets/string/string.widget';
 import {DefaultWidgetRegistry} from './defaultwidgets/defaultwidgetregistry';
 import {DisableControlDirective} from './defaultwidgets/_directives/disableControl.directive';
 
-import {
-  DefaultWidget
-} from './default.widget';
+import {DefaultWidget} from './default.widget';
 
 import {WidgetRegistry} from './widgetregistry';
 import {SchemaValidatorFactory, ZSchemaValidatorFactory} from './schemavalidatorfactory';
 import {FormElementComponentAction} from './formelement.action.component';
 import {ExpressionCompilerFactory, JEXLExpressionCompilerFactory} from './expression-compiler-factory';
 
-import { LOG_LEVEL, LogLevel, LogService, DefaultLogService } from './log.service';
+import {DefaultLogService, LOG_LEVEL, LogLevel, LogService} from './log.service';
 
 const moduleProviders = [
   {
@@ -57,44 +52,44 @@ const moduleProviders = [
 ];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule],
-    declarations: [
-        FormElementComponent,
-        FormElementComponentAction,
-        FormComponent,
-        WidgetChooserComponent,
-        DefaultWidget,
-        ArrayWidget,
-        ButtonWidget,
-        ObjectWidget,
-        CheckboxWidget,
-        FileWidget,
-        IntegerWidget,
-        TextAreaWidget,
-        RadioWidget,
-        RangeWidget,
-        SelectWidget,
-        StringWidget,
-        DisableControlDirective
-    ],
-    exports: [
-        FormComponent,
-        FormElementComponent,
-        FormElementComponentAction,
-        WidgetChooserComponent,
-        ArrayWidget,
-        ButtonWidget,
-        ObjectWidget,
-        CheckboxWidget,
-        FileWidget,
-        IntegerWidget,
-        TextAreaWidget,
-        RadioWidget,
-        RangeWidget,
-        SelectWidget,
-        StringWidget,
-        DisableControlDirective
-    ]
+  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  declarations: [
+    FormElementComponent,
+    FormElementComponentAction,
+    FormComponent,
+    WidgetChooserComponent,
+    DefaultWidget,
+    ArrayWidget,
+    ButtonWidget,
+    ObjectWidget,
+    CheckboxWidget,
+    FileWidget,
+    IntegerWidget,
+    TextAreaWidget,
+    RadioWidget,
+    RangeWidget,
+    SelectWidget,
+    StringWidget,
+    DisableControlDirective
+  ],
+  exports: [
+    FormComponent,
+    FormElementComponent,
+    FormElementComponentAction,
+    WidgetChooserComponent,
+    ArrayWidget,
+    ButtonWidget,
+    ObjectWidget,
+    CheckboxWidget,
+    FileWidget,
+    IntegerWidget,
+    TextAreaWidget,
+    RadioWidget,
+    RangeWidget,
+    SelectWidget,
+    StringWidget,
+    DisableControlDirective
+  ]
 })
 export class SchemaFormModule {
 

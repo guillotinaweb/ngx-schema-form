@@ -1,23 +1,24 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
-import { waitForAsync, TestBed } from "@angular/core/testing";
+import {Component, ViewChild} from "@angular/core";
+import {TestBed, waitForAsync} from "@angular/core/testing";
 
-import { ActionRegistry } from "../../model/actionregistry";
-import { ButtonComponent } from "../button/button.component";
-import { TemplateSchemaService } from "../template-schema.service";
-import { FieldComponent } from "./field.component";
-import { ItemComponent } from "./item/item.component";
-import { ISchema } from "../../model/ISchema";
+import {ActionRegistry} from "../../model/actionregistry";
+import {ButtonComponent} from "../button/button.component";
+import {TemplateSchemaService} from "../template-schema.service";
+import {FieldComponent} from "./field.component";
+import {ItemComponent} from "./item/item.component";
+import {ISchema} from "../../model/ISchema";
 
 @Component({
-    selector: "sf-test",
-    template: "",
-    standalone: false
+  selector: "sf-test",
+  template: "",
+  standalone: false
 })
 class TestComponent {
   @ViewChild(FieldComponent)
   field: FieldComponent;
 
-  validator() {}
+  validator() {
+  }
 }
 
 function getFieldComponent(template: string): FieldComponent {
@@ -65,7 +66,7 @@ describe("FieldComponent", () => {
 
     const schema = field.getSchema();
 
-    expect(schema).toEqual({ type: "string", title: "Name" });
+    expect(schema).toEqual({type: "string", title: "Name"});
   });
 
   it("should combine generated schema, with [schema] object properties taking precedence", () => {
@@ -162,9 +163,9 @@ describe("FieldComponent", () => {
       type: "string",
       widget: "select",
       oneOf: [
-        { enum: ["fedex"], description: "Fedex" },
-        { enum: ["ups"], description: "UPS" },
-        { enum: ["other"], description: "Other" },
+        {enum: ["fedex"], description: "Fedex"},
+        {enum: ["ups"], description: "UPS"},
+        {enum: ["other"], description: "Other"},
       ],
     });
   });
@@ -195,10 +196,10 @@ describe("FieldComponent", () => {
       items: {
         type: "string",
         oneOf: [
-          { enum: ["blue"], description: "Blue" },
-          { enum: ["green"], description: "Green" },
-          { enum: ["pink"], description: "Pink" },
-          { enum: ["orange"], description: "Orange" },
+          {enum: ["blue"], description: "Blue"},
+          {enum: ["green"], description: "Green"},
+          {enum: ["pink"], description: "Pink"},
+          {enum: ["orange"], description: "Orange"},
         ],
       },
     });

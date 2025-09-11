@@ -12,19 +12,27 @@
       "oneOf": [
         {
           "description": "Option #1",
-          "enum": ["Option #1"]
+          "enum": [
+            "Option #1"
+          ]
         },
         {
           "description": "Option #2",
-          "enum": ["Option #2"]
+          "enum": [
+            "Option #2"
+          ]
         },
         {
           "description": "Option #3",
-          "enum": ["Option #3"]
+          "enum": [
+            "Option #3"
+          ]
         }
       ],
       "visibleIf": {
-        "checkbox": [true]
+        "checkbox": [
+          true
+        ]
       }
     },
     "multi-select": {
@@ -37,27 +45,37 @@
         "oneOf": [
           {
             "description": "Option #1",
-            "enum": ["Option #1"]
+            "enum": [
+              "Option #1"
+            ]
           },
           {
             "description": "Option #2",
-            "enum": ["Option #2"]
+            "enum": [
+              "Option #2"
+            ]
           },
           {
             "description": "Option #3",
-            "enum": ["Option #3"]
+            "enum": [
+              "Option #3"
+            ]
           }
         ]
       },
       "visibleIf": {
-        "checkbox": [true]
+        "checkbox": [
+          true
+        ]
       }
     },
     "string": {
       "type": "string",
       "title": "String - Visible if Checkbox is checked",
       "visibleIf": {
-        "checkbox": [true]
+        "checkbox": [
+          true
+        ]
       }
     },
     "number": {
@@ -65,7 +83,9 @@
       "title": "Number - Visible if String is 'a'",
       "widget": "number",
       "visibleIf": {
-        "string": ["a"]
+        "string": [
+          "a"
+        ]
       }
     },
     "array": {
@@ -87,19 +107,27 @@
             "oneOf": [
               {
                 "description": "Option #1",
-                "enum": ["Option #1"]
+                "enum": [
+                  "Option #1"
+                ]
               },
               {
                 "description": "Option #2",
-                "enum": ["Option #2"]
+                "enum": [
+                  "Option #2"
+                ]
               },
               {
                 "description": "Option #3",
-                "enum": ["Option #3"]
+                "enum": [
+                  "Option #3"
+                ]
               }
             ],
             "visibleIf": {
-              "array-checkbox": [true]
+              "array-checkbox": [
+                true
+              ]
             }
           },
           "array-multi-select": {
@@ -112,27 +140,37 @@
               "oneOf": [
                 {
                   "description": "Option #1",
-                  "enum": ["Option #1"]
+                  "enum": [
+                    "Option #1"
+                  ]
                 },
                 {
                   "description": "Option #2",
-                  "enum": ["Option #2"]
+                  "enum": [
+                    "Option #2"
+                  ]
                 },
                 {
                   "description": "Option #3",
-                  "enum": ["Option #3"]
+                  "enum": [
+                    "Option #3"
+                  ]
                 }
               ]
             },
             "visibleIf": {
-              "array-checkbox": [true]
+              "array-checkbox": [
+                true
+              ]
             }
           },
           "array-string": {
             "type": "string",
             "title": "String - Visible if Checkbox is checked",
             "visibleIf": {
-              "array-checkbox": [true]
+              "array-checkbox": [
+                true
+              ]
             }
           },
           "array-number": {
@@ -140,7 +178,9 @@
             "title": "Number - Visible if String is 'a'",
             "widget": "number",
             "visibleIf": {
-              "array-string": ["a"]
+              "array-string": [
+                "a"
+              ]
             }
           }
         },
@@ -153,5 +193,11 @@
       }
     }
   },
-  "required": ["select", "multi-select", "string", "number", "array"]
+  "required": [
+    "select",
+    "multi-select",
+    "string",
+    "number",
+    "array"
+  ]
 }

@@ -1,12 +1,12 @@
-import { Component } from "@angular/core";
-import { FormsModule } from "@angular/forms";
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
-import { By } from "@angular/platform-browser";
+import {Component} from "@angular/core";
+import {FormsModule} from "@angular/forms";
+import {ComponentFixture, TestBed, waitForAsync} from "@angular/core/testing";
+import {By} from "@angular/platform-browser";
 
-import { FormComponent } from "./form.component";
-import { SchemaFormModule } from "./schema-form.module";
-import { FieldType } from "./template-schema/field/field";
-import { ISchema } from "./model/ISchema";
+import {FormComponent} from "./form.component";
+import {SchemaFormModule} from "./schema-form.module";
+import {FieldType} from "./template-schema/field/field";
+import {ISchema} from "./model/ISchema";
 
 class BaseTest {
   schema: ISchema = {
@@ -26,18 +26,20 @@ class BaseTest {
 }
 
 @Component({
-    selector: "sf-test",
-    template: ` <sf-form [schema]="schema" [(model)]="modelA"> </sf-form> `,
-    standalone: false
+  selector: "sf-test",
+  template: ` <sf-form [schema]="schema" [(model)]="modelA"> </sf-form> `,
+  standalone: false
 })
-class TestAComponent extends BaseTest {}
+class TestAComponent extends BaseTest {
+}
 
 @Component({
-    selector: "sf-test",
-    template: ` <sf-form [schema]="schema" [(ngModel)]="modelA"> </sf-form> `,
-    standalone: false
+  selector: "sf-test",
+  template: ` <sf-form [schema]="schema" [(ngModel)]="modelA"> </sf-form> `,
+  standalone: false
 })
-class TestBComponent extends BaseTest {}
+class TestBComponent extends BaseTest {
+}
 
 const schemaB: ISchema = {
   type: FieldType.Object,
@@ -161,8 +163,8 @@ describe("FormComponent", () => {
           input.value = "CHANGED";
           input.dispatchEvent(new Event("input"));
 
-          const value = { fieldA: "CHANGED" };
-          expect(form.onChange.emit).toHaveBeenCalledWith({ value });
+          const value = {fieldA: "CHANGED"};
+          expect(form.onChange.emit).toHaveBeenCalledWith({value});
         });
       });
     });

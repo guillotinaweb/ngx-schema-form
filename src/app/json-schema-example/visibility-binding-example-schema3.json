@@ -13,15 +13,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -32,15 +38,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -51,15 +63,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -70,15 +88,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -89,10 +113,32 @@
               "visibleIf": {
                 "allOf": [
                   {
-                    "oneOf": [{ "/demo/visibleIfBinding1/status1a": ["Pass"] }, { "/demo/visibleIfBinding1/status1b": ["Pass"] }]
+                    "oneOf": [
+                      {
+                        "/demo/visibleIfBinding1/status1a": [
+                          "Pass"
+                        ]
+                      },
+                      {
+                        "/demo/visibleIfBinding1/status1b": [
+                          "Pass"
+                        ]
+                      }
+                    ]
                   },
                   {
-                    "oneOf": [{ "/demo/visibleIfBinding1/status1c": ["Pass"] }, { "/demo/visibleIfBinding1/status1d": ["Pass"] }]
+                    "oneOf": [
+                      {
+                        "/demo/visibleIfBinding1/status1c": [
+                          "Pass"
+                        ]
+                      },
+                      {
+                        "/demo/visibleIfBinding1/status1d": [
+                          "Pass"
+                        ]
+                      }
+                    ]
                   }
                 ]
               }
@@ -109,15 +155,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -128,15 +180,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -147,15 +205,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -166,15 +230,21 @@
               "oneOf": [
                 {
                   "description": "Pass",
-                  "enum": ["Pass"]
+                  "enum": [
+                    "Pass"
+                  ]
                 },
                 {
                   "description": "Warn",
-                  "enum": ["Warn"]
+                  "enum": [
+                    "Warn"
+                  ]
                 },
                 {
                   "description": "Fail",
-                  "enum": ["Fail"]
+                  "enum": [
+                    "Fail"
+                  ]
                 }
               ],
               "widget": "select"
@@ -186,13 +256,31 @@
                 "oneOf": [
                   {
                     "allOf": [
-                      { "/demo/visibleIfBinding2/status2a": ["Fail"] },
-                      { "/demo/visibleIfBinding2/status2b": ["Fail"] },
-                      { "/demo/visibleIfBinding2/status2c": ["Fail"] }
+                      {
+                        "/demo/visibleIfBinding2/status2a": [
+                          "Fail"
+                        ]
+                      },
+                      {
+                        "/demo/visibleIfBinding2/status2b": [
+                          "Fail"
+                        ]
+                      },
+                      {
+                        "/demo/visibleIfBinding2/status2c": [
+                          "Fail"
+                        ]
+                      }
                     ]
                   },
                   {
-                    "allOf": [{ "/demo/visibleIfBinding2/status2d": ["Fail"] }]
+                    "allOf": [
+                      {
+                        "/demo/visibleIfBinding2/status2d": [
+                          "Fail"
+                        ]
+                      }
+                    ]
                   }
                 ]
               }

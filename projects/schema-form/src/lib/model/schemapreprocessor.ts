@@ -166,7 +166,7 @@ export class SchemaPreprocessor {
       }
     }
   }
-  
+
   /**
    * Enables alias names for JSON schema extensions.
    *
@@ -177,9 +177,9 @@ export class SchemaPreprocessor {
    */
   private static normalizeExtensions(schema: ISchema): void {
     const extensions = [
-        { name: "fieldsets", regex: /^x-?field-?sets$/i },
-        { name: "widget",    regex: /^x-?widget$/i },
-        { name: "visibleIf", regex: /^x-?visible-?if$/i }
+      {name: "fieldsets", regex: /^x-?field-?sets$/i},
+      {name: "widget", regex: /^x-?widget$/i},
+      {name: "visibleIf", regex: /^x-?visible-?if$/i}
     ];
     const keys = Object.keys(schema);
     for (let i = 0; i < keys.length; ++i) {

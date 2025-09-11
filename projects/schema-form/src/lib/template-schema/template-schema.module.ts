@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { FieldComponent } from './field/field.component';
-import { TemplateSchemaDirective } from './template-schema.directive';
-import { ButtonComponent } from './button/button.component';
-import { ItemComponent } from './field/item/item.component';
+import {FieldComponent} from './field/field.component';
+import {TemplateSchemaDirective} from './template-schema.directive';
+import {ButtonComponent} from './button/button.component';
+import {ItemComponent} from './field/item/item.component';
 
 @NgModule({
   imports: [
@@ -23,4 +23,5 @@ import { ItemComponent } from './field/item/item.component';
     ItemComponent
   ]
 })
-export class TemplateSchemaModule { }
+export class TemplateSchemaModule {
+}

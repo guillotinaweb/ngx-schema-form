@@ -1,28 +1,22 @@
-import {
-  Component,
-  AfterContentInit,
-  Input,
-  Output,
-  ElementRef,
-  EventEmitter,
-  forwardRef
-} from '@angular/core';
+import {AfterContentInit, Component, ElementRef, EventEmitter, forwardRef, inject, Input, Output} from '@angular/core';
 
-import { TemplateSchemaElement } from '../template-schema-element';
+import {TemplateSchemaElement} from '../template-schema-element';
 
 
 @Component({
-    selector: 'sf-button',
-    templateUrl: './button.component.html',
-    providers: [
-        {
-            provide: TemplateSchemaElement,
-            useExisting: forwardRef(() => ButtonComponent),
-        }
-    ],
-    standalone: false
+  selector: 'sf-button',
+  templateUrl: './button.component.html',
+  providers: [
+    {
+      provide: TemplateSchemaElement,
+      useExisting: forwardRef(() => ButtonComponent),
+    }
+  ],
+  standalone: false
 })
 export class ButtonComponent extends TemplateSchemaElement implements AfterContentInit {
+  private elementRef = inject(ElementRef);
+
 
   @Input()
   id: string;
@@ -36,7 +30,7 @@ export class ButtonComponent extends TemplateSchemaElement implements AfterConte
   @Output()
   click = new EventEmitter<any>();
 
-  constructor(private elementRef: ElementRef) {
+  constructor() {
     super();
   }
 
