@@ -17,13 +17,17 @@
         <li routerLinkActive="active"><a routerLink="/json">JSON Schema </a></li>
         <li routerLinkActive="active"><a routerLink="/template">Template Schema</a></li>
       </ul>
-      <div *ngIf="page === 'json'" class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" [(ngModel)]="schemaUrl" name="schemaUrl" class="form-control" placeholder="Load schema form URL">
+      @if (page === 'json') {
+        <div class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" [(ngModel)]="schemaUrl" name="schemaUrl" class="form-control" placeholder="Load schema form URL">
+          </div>
+          <button (click)="loadSchema()" class="btn btn-default" style="margin-left: 5px">Load</button>
+          @if (schemaUrl) {
+            <button (click)="removeSchema()" class="btn btn-default" style="margin-left: 5px">Clear</button>
+          }
         </div>
-        <button (click)="loadSchema()" class="btn btn-default" style="margin-left: 5px">Load</button>
-        <button *ngIf="schemaUrl" (click)="removeSchema()" class="btn btn-default" style="margin-left: 5px">Clear</button>
-      </div>
+      }
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

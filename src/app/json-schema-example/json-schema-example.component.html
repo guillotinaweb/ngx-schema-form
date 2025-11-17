@@ -3,7 +3,9 @@
     <div class="col-md-4">
       <label for="samples">Select schema form example: </label>&nbsp;
       <select id="samples" (change)="changeSchema($event.target.value)">
-        <option *ngFor="let sample of samples" (select)="sample.event()" [selected]="sample.selected">{{sample.label}}</option>
+        @for (sample of samples; track sample) {
+          <option (select)="sample.event()" [selected]="sample.selected">{{sample.label}}</option>
+        }
       </select>
     </div>
   </div>
@@ -11,12 +13,12 @@
     <div class="col-md-4">
       <h3>Form:</h3>
       <sf-form (onErrorChange)="logErrors($event.value)"
-               (onChange)="setValue($event.value)"
-               [schema]="schema"
-               [(model)]="model"
-               [validators]="fieldValidators"
-               [actions]="actions"
-               [bindings]="fieldBindings">
+        (onChange)="setValue($event.value)"
+        [schema]="schema"
+        [(model)]="model"
+        [validators]="fieldValidators"
+        [actions]="actions"
+        [bindings]="fieldBindings">
       </sf-form>
     </div>
     <div class="col-md-4">

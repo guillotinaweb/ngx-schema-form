@@ -1,3 +1,7 @@
+# 2.14.0 (2025-11-17)
+
+- Upgrade to Angular 20 (krishna217)
+
 # 2.12.2 (2024-09-27)
 
 - Throw required error only if property is visible (Adithya Jayasankar)
