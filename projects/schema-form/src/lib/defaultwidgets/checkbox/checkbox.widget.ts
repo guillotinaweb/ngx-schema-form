@@ -5,31 +5,39 @@ import { ControlWidget } from '../../widget';
 @Component({
     selector: 'sf-checkbox-widget',
     template: `<div class="widget form-group">
-    <label *ngIf="schema.title" [attr.for]="id" class="horizontal control-label">
-        {{ schema.title }}
-    </label>
-	<div *ngIf="schema.type!='array'" class="checkbox">
-		<label class="horizontal control-label">
-			<input [formControl]="control" [attr.name]="name" [attr.id]="id" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [disableControl]="schema.readOnly">
-			<input *ngIf="schema.readOnly" [attr.name]="name" type="hidden" [formControl]="control">
-			{{schema.description}}
-		</label>
-	</div>
-	<ng-container *ngIf="schema.type==='array'">
-		<div *ngFor="let option of schema.items.oneOf" class="checkbox">
-			<label class="horizontal control-label">
-				<input [attr.name]="name"
-					value="{{option.enum[0]}}" type="checkbox" 
-					[attr.disabled]="schema.readOnly"
-					(change)="onCheck($event.target)"
-					[attr.checked]="checked[option.enum[0]] ? true : null"
-					[attr.id]="id + '.' + option.enum[0]"
-					>
-				{{option.description}}
-			</label>
-		</div>
-	</ng-container>
-</div>`,
+      @if (schema.title) {
+        <label [attr.for]="id" class="horizontal control-label">
+          {{ schema.title }}
+        </label>
+      }
+      @if (schema.type!='array') {
+        <div class="checkbox">
+          <label class="horizontal control-label">
+            <input [formControl]="control" [attr.name]="name" [attr.id]="id" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [disableControl]="schema.readOnly">
+            @if (schema.readOnly) {
+              <input [attr.name]="name" type="hidden" [formControl]="control">
+            }
+            {{schema.description}}
+          </label>
+        </div>
+      }
+      @if (schema.type==='array') {
+        @for (option of schema.items.oneOf; track option) {
+          <div class="checkbox">
+            <label class="horizontal control-label">
+              <input [attr.name]="name"
+                value="{{option.enum[0]}}" type="checkbox"
+                [attr.disabled]="schema.readOnly"
+                (change)="onCheck($event.target)"
+                [attr.checked]="checked[option.enum[0]] ? true : null"
+                [attr.id]="id + '.' + option.enum[0]"
+                >
+              {{option.description}}
+            </label>
+          </div>
+        }
+      }
+    </div>`,
     standalone: false
 })
 export class CheckboxWidget extends ControlWidget implements AfterViewInit {

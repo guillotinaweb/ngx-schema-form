@@ -8,9 +8,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Test and build
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v3
         with:
-          node-version: 20.11
+          node-version: 24
       - run: npm install
       - run: npm run test
         env:
