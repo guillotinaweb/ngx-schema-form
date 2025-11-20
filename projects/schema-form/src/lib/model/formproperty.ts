@@ -639,7 +639,7 @@ export class ExtendedProxyHandler implements ProxyHandler<FormProperty[] | { [ke
            * because they are created before the parent gets attached to its parent.
            */
           for (const child of propertyGroupChildren) {
-            if (child.__canonicalPath.indexOf('*')) {
+            if (child.__canonicalPath.indexOf('*') >= 0) {
               const p_path = formProperty._canonicalPath.split('/')
               child._canonicalPath = p_path.concat(child._canonicalPath.split('/').splice(p_path.length)).join('/')
             }
