@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 import { TestBed, waitForAsync } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import {
@@ -14,6 +15,7 @@ describe("AppComponent", () => {
     TestBed.configureTestingModule({
       imports: [AppComponent, RouterModule.forRoot([]), FormsModule],
       providers: [
+        provideZoneChangeDetection(),
         { provide: APP_BASE_HREF, useValue: "/" },
         provideHttpClient(withInterceptorsFromDi()),
       ],

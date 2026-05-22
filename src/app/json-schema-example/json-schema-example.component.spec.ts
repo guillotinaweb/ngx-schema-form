@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 import {
   provideHttpClient,
@@ -21,6 +22,7 @@ describe("JsonSchemaExampleComponent", () => {
     TestBed.configureTestingModule({
       imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot()],
       providers: [
+        provideZoneChangeDetection(),
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
           provide: SchemaValidatorFactory,

@@ -3,6 +3,7 @@
 // ng test --include='**/json-schema-example/*.visibleIf.spec.ts' --watch=true`
 // - - - - - - - - - - - - - - - - - -
 
+import { provideZoneChangeDetection } from "@angular/core";
 import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 import {
   provideHttpClient,
@@ -28,6 +29,7 @@ describe("JsonSchemaExampleComponent", () => {
     TestBed.configureTestingModule({
       imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
+        provideZoneChangeDetection(),
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
           provide: SchemaValidatorFactory,
@@ -57,6 +59,7 @@ describe("JsonSchemaExampleComponent - canonical-path", () => {
     TestBed.configureTestingModule({
       imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
+        provideZoneChangeDetection(),
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
           provide: SchemaValidatorFactory,

@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from '@angular/core';
 import { TestBed, inject } from '@angular/core/testing';
 
 import { TemplateSchemaService } from './template-schema.service';
@@ -5,7 +6,7 @@ import { TemplateSchemaService } from './template-schema.service';
 describe('TemplateSchemaService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [TemplateSchemaService]
+      providers: [provideZoneChangeDetection(), TemplateSchemaService]
     });
   });
 
