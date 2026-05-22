@@ -32,12 +32,8 @@ function getFieldComponent(template: string): FieldComponent {
 describe("FieldComponent", () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        FieldComponent,
-        ItemComponent,
-        ButtonComponent,
-        TestComponent,
-      ],
+      imports: [FieldComponent, ItemComponent, ButtonComponent],
+      declarations: [TestComponent],
       providers: [ActionRegistry, TemplateSchemaService],
     });
   }));

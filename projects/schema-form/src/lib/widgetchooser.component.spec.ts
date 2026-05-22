@@ -11,7 +11,7 @@ describe('WidgetChooserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WidgetChooserComponent],
+      imports: [WidgetChooserComponent],
       providers: [
         WidgetFactory,
         WidgetRegistry,

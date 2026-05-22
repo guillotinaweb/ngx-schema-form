@@ -26,8 +26,7 @@ describe("JsonSchemaExampleComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
@@ -56,8 +55,7 @@ describe("JsonSchemaExampleComponent - visibleIf - data-types", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
@@ -369,8 +367,7 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
@@ -815,8 +812,7 @@ describe("JsonSchemaExampleComponent - visibleIf - condition-types (chained cond
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
@@ -979,8 +975,7 @@ describe("JsonSchemaExampleComponent - visibleIf - array items have visibleIf fi
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {

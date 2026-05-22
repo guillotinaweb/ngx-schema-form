@@ -12,8 +12,7 @@ import { AppComponent } from "./app.component";
 describe("AppComponent", () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [AppComponent],
-      imports: [RouterModule.forRoot([]), FormsModule],
+      imports: [AppComponent, RouterModule.forRoot([]), FormsModule],
       providers: [
         { provide: APP_BASE_HREF, useValue: "/" },
         provideHttpClient(withInterceptorsFromDi()),

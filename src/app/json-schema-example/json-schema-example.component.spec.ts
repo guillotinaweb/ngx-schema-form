@@ -19,8 +19,7 @@ describe("JsonSchemaExampleComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot()],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot()],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {

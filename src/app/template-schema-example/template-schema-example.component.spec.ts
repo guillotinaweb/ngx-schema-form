@@ -21,8 +21,7 @@ describe("TemplateSchemaExampleComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplateSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), TemplateSchemaModule, FormsModule],
+      imports: [TemplateSchemaExampleComponent, SchemaFormModule.forRoot(), TemplateSchemaModule, FormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {

@@ -26,8 +26,7 @@ describe("JsonSchemaExampleComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
@@ -56,8 +55,7 @@ describe("JsonSchemaExampleComponent - canonical-path", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [JsonSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
+      imports: [JsonSchemaExampleComponent, SchemaFormModule.forRoot(), FormsModule, ReactiveFormsModule],
       providers: [
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
