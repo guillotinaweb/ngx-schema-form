@@ -14,10 +14,6 @@
     "typeRoots": [
       "node_modules/@types"
     ],
-    "lib": [
-      "es2017",
-      "dom"
-    ],
     "paths": {
       "ngx-schema-form": [
         "projects/schema-form/src/lib"
