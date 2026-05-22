@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ControlWidget } from '../../widget';
+import { DisableControlDirective } from '../_directives/disableControl.directive';
 
 @Component({
     selector: 'sf-radio-widget',
@@ -23,6 +25,6 @@ import { ControlWidget } from '../../widget';
 	    <input [attr.name]="name" type="hidden" [formControl]="control">
 	  }
 	</div>`,
-    standalone: false
+    imports: [ReactiveFormsModule, DisableControlDirective]
 })
 export class RadioWidget extends ControlWidget {}

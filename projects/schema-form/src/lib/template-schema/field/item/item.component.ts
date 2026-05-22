@@ -11,7 +11,6 @@ import { TemplateSchemaElement } from '../../template-schema-element';
 @Component({
     selector: 'sf-item',
     templateUrl: './item.component.html',
-    standalone: false
 })
 export class ItemComponent extends TemplateSchemaElement implements OnInit {
 

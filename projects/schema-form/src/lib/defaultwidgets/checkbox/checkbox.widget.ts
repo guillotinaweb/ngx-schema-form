@@ -1,6 +1,8 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ControlWidget } from '../../widget';
+import { DisableControlDirective } from '../_directives/disableControl.directive';
 
 @Component({
     selector: 'sf-checkbox-widget',
@@ -38,7 +40,7 @@ import { ControlWidget } from '../../widget';
         }
       }
     </div>`,
-    standalone: false
+    imports: [ReactiveFormsModule, DisableControlDirective]
 })
 export class CheckboxWidget extends ControlWidget implements AfterViewInit {
 

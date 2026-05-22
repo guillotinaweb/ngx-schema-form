@@ -7,7 +7,9 @@ import {
   Output,
   SimpleChanges
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+
+import { FormElementComponent } from './formelement.component';
 
 import {Action} from './model/action';
 import {ActionRegistry} from './model/actionregistry';
@@ -58,7 +60,7 @@ export function useFactory(schemaValidatorFactory, validatorRegistry, propertyBi
             multi: true
         }
     ],
-    standalone: false
+    imports: [ReactiveFormsModule, FormElementComponent]
 })
 export class FormComponent implements OnChanges, ControlValueAccessor {
 

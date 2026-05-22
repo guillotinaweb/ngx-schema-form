@@ -15,7 +15,6 @@ import {TerminatorService} from "./terminator.service";
 @Component({
     selector: 'sf-form-element-action',
     template: '<ng-template #target></ng-template>',
-    standalone: false
 })
 export class FormElementComponentAction implements OnInit, OnChanges, OnDestroy {
 

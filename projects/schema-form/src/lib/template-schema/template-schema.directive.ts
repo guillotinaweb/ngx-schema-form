@@ -25,7 +25,6 @@ import {ISchema} from '../model/ISchema';
     providers: [
         TemplateSchemaService
     ],
-    standalone: false
 })
 export class TemplateSchemaDirective extends FieldParent implements AfterContentInit {
 

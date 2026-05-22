@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { FormProperty } from '../../model';
 import { ArrayLayoutWidget } from '../../widget';
+import { FormElementComponent } from '../../formelement.component';
 
 @Component({
     selector: 'sf-array-widget',
@@ -34,7 +35,7 @@ import { ArrayLayoutWidget } from '../../widget';
 	    </button>
 	  }
 	</div>`,
-    standalone: false
+    imports: [FormElementComponent]
 })
 export class ArrayWidget extends ArrayLayoutWidget {
   buttonDisabledAdd:boolean
