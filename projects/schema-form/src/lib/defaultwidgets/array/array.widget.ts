@@ -19,7 +19,7 @@ import { FormElementComponent } from '../../formelement.component';
 	    <div>
 	      <sf-form-element [formProperty]="itemProperty"></sf-form-element>
 	      @if (!(schema.hasOwnProperty('minItems') && schema.hasOwnProperty('maxItems') && schema.minItems === schema.maxItems)) {
-	        <button (click)="removeItem(itemProperty)" class="btn btn-default array-remove-button"
+	        <button type="button" (click)="removeItem(itemProperty)" class="btn btn-default array-remove-button"
 	          [disabled]="isRemoveButtonDisabled()"
 	          >
 	          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
@@ -28,7 +28,7 @@ import { FormElementComponent } from '../../formelement.component';
 	    </div>
 	  }
 	  @if (!(schema.hasOwnProperty('minItems') && schema.hasOwnProperty('maxItems') && schema.minItems === schema.maxItems)) {
-	    <button (click)="addItem()" class="btn btn-default array-add-button"
+	    <button type="button" (click)="addItem()" class="btn btn-default array-add-button"
 	      [disabled]="isAddButtonDisabled()"
 	      >
 	      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
