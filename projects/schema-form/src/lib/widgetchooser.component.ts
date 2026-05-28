@@ -19,7 +19,6 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'sf-widget-chooser',
     template: `<div #target></div>`,
-    standalone: false
 })
 export class WidgetChooserComponent implements OnInit, OnChanges, OnDestroy {
 

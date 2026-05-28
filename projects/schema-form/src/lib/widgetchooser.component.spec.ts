@@ -1,4 +1,4 @@
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, provideZoneChangeDetection } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 
 import { TerminatorService } from './terminator.service';
@@ -11,8 +11,9 @@ describe('WidgetChooserComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [WidgetChooserComponent],
+      imports: [WidgetChooserComponent],
       providers: [
+        provideZoneChangeDetection(),
         WidgetFactory,
         WidgetRegistry,
         ChangeDetectorRef,

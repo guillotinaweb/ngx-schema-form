@@ -20,7 +20,6 @@ import { TemplateSchemaElement } from '../template-schema-element';
             useExisting: forwardRef(() => ButtonComponent),
         }
     ],
-    standalone: false
 })
 export class ButtonComponent extends TemplateSchemaElement implements AfterContentInit {
 

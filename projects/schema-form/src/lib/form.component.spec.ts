@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, provideZoneChangeDetection } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
@@ -66,7 +66,7 @@ describe("FormComponent", () => {
       TestBed.configureTestingModule({
         imports: [FormsModule, SchemaFormModule.forRoot()],
         declarations: [testComponent],
-        providers: [],
+        providers: [provideZoneChangeDetection()],
       });
     }));
 

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { FormProperty } from '../../model';
 import { ArrayLayoutWidget } from '../../widget';
+import { FormElementComponent } from '../../formelement.component';
 
 @Component({
     selector: 'sf-array-widget',
@@ -18,7 +19,7 @@ import { ArrayLayoutWidget } from '../../widget';
 	    <div>
 	      <sf-form-element [formProperty]="itemProperty"></sf-form-element>
 	      @if (!(schema.hasOwnProperty('minItems') && schema.hasOwnProperty('maxItems') && schema.minItems === schema.maxItems)) {
-	        <button (click)="removeItem(itemProperty)" class="btn btn-default array-remove-button"
+	        <button type="button" (click)="removeItem(itemProperty)" class="btn btn-default array-remove-button"
 	          [disabled]="isRemoveButtonDisabled()"
 	          >
 	          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> Remove
@@ -27,14 +28,14 @@ import { ArrayLayoutWidget } from '../../widget';
 	    </div>
 	  }
 	  @if (!(schema.hasOwnProperty('minItems') && schema.hasOwnProperty('maxItems') && schema.minItems === schema.maxItems)) {
-	    <button (click)="addItem()" class="btn btn-default array-add-button"
+	    <button type="button" (click)="addItem()" class="btn btn-default array-add-button"
 	      [disabled]="isAddButtonDisabled()"
 	      >
 	      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
 	    </button>
 	  }
 	</div>`,
-    standalone: false
+    imports: [FormElementComponent]
 })
 export class ArrayWidget extends ArrayLayoutWidget {
   buttonDisabledAdd:boolean

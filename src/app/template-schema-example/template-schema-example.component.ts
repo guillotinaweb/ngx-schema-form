@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SchemaFormModule, TemplateSchemaModule } from 'ngx-schema-form';
 
 @Component({
     selector: 'app-template-schema-example',
     templateUrl: './template-schema-example.component.html',
     styleUrls: ['./template-schema-example.component.css'],
-    standalone: false
+    imports: [CommonModule, FormsModule, SchemaFormModule, TemplateSchemaModule]
 })
 export class TemplateSchemaExampleComponent implements OnInit {
 

@@ -1,4 +1,5 @@
 import { Component, AfterViewInit } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ControlWidget } from '../../widget';
 
@@ -20,7 +21,7 @@ import { ControlWidget } from '../../widget';
 	    <input [attr.name]="name" type="hidden" [formControl]="control">
 	  }
 	</div>`,
-    standalone: false
+    imports: [ReactiveFormsModule]
 })
 export class FileWidget extends ControlWidget implements AfterViewInit {
 

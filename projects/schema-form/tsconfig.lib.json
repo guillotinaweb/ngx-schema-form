@@ -15,10 +15,6 @@
     ],
     "typeRoots": [
       "../../node_modules/@types"
-    ],
-    "lib": [
-      "dom",
-      "es2017"
     ]
   },
   "angularCompilerOptions": {

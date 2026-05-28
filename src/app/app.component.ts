@@ -1,5 +1,6 @@
 import { Component, ViewEncapsulation, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { filter } from 'rxjs/operators';
 
 import { AppService } from './app.service';
@@ -9,7 +10,7 @@ import { AppService } from './app.service';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [RouterModule, FormsModule]
 })
 export class AppComponent implements OnInit {
 

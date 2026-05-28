@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { ObjectLayoutWidget } from '../../widget';
+import { FormElementComponent } from '../../formelement.component';
 
 @Component({
     selector: 'sf-form-object',
@@ -19,6 +20,6 @@ import { ObjectLayoutWidget } from '../../widget';
     }
   </fieldset>
 }`,
-    standalone: false
+    imports: [FormElementComponent]
 })
 export class ObjectWidget extends ObjectLayoutWidget { }

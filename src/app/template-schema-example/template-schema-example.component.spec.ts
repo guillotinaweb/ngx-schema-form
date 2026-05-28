@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
 import {
@@ -21,9 +22,9 @@ describe("TemplateSchemaExampleComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [TemplateSchemaExampleComponent],
-      imports: [SchemaFormModule.forRoot(), TemplateSchemaModule, FormsModule],
+      imports: [TemplateSchemaExampleComponent, SchemaFormModule.forRoot(), TemplateSchemaModule, FormsModule],
       providers: [
+        provideZoneChangeDetection(),
         { provide: WidgetRegistry, useClass: DefaultWidgetRegistry },
         {
           provide: SchemaValidatorFactory,

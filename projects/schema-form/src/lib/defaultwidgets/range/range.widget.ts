@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ControlWidget } from '../../widget';
+import { DisableControlDirective } from '../_directives/disableControl.directive';
 
 @Component({
     selector: 'sf-range-widget',
@@ -19,6 +21,6 @@ import { ControlWidget } from '../../widget';
 	    <input [attr.name]="name" type="hidden">
 	  }
 	</div>`,
-    standalone: false
+    imports: [ReactiveFormsModule, DisableControlDirective]
 })
 export class RangeWidget extends ControlWidget {}

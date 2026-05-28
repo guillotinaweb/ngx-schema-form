@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from "@angular/core";
+import { Component, ElementRef, ViewChild, provideZoneChangeDetection } from "@angular/core";
 import { waitForAsync, TestBed } from "@angular/core/testing";
 
 import { ActionRegistry } from "../../model/actionregistry";
@@ -32,13 +32,9 @@ function getFieldComponent(template: string): FieldComponent {
 describe("FieldComponent", () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [
-        FieldComponent,
-        ItemComponent,
-        ButtonComponent,
-        TestComponent,
-      ],
-      providers: [ActionRegistry, TemplateSchemaService],
+      imports: [FieldComponent, ItemComponent, ButtonComponent],
+      declarations: [TestComponent],
+      providers: [provideZoneChangeDetection(), ActionRegistry, TemplateSchemaService],
     });
   }));
 

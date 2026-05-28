@@ -25,7 +25,6 @@ import { ISchema } from "../../model/ISchema";
 @Component({
     selector: "sf-field",
     templateUrl: "./field.component.html",
-    standalone: false
 })
 export class FieldComponent
   extends FieldParent

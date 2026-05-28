@@ -1,3 +1,4 @@
+import { provideZoneChangeDetection } from "@angular/core";
 import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 
 import { ItemComponent } from "./item.component";
@@ -8,7 +9,8 @@ describe("ItemComponent", () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ItemComponent],
+      imports: [ItemComponent],
+      providers: [provideZoneChangeDetection()],
     }).compileComponents();
   }));
 

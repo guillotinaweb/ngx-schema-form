@@ -8,6 +8,9 @@ import {
   UntypedFormControl
 } from '@angular/forms';
 
+import { WidgetChooserComponent } from './widgetchooser.component';
+import { FormElementComponentAction } from './formelement.action.component';
+
 import {Widget} from './widget';
 
 import {ActionRegistry} from './model/actionregistry';
@@ -32,7 +35,7 @@ import { LogService } from './log.service';
         }
       </div>
     }`,
-    standalone: false
+    imports: [WidgetChooserComponent, FormElementComponentAction]
 })
 export class FormElementComponent implements OnInit, OnDestroy {
 

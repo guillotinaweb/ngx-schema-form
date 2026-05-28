@@ -4,6 +4,8 @@ import {
   OnInit,
   OnDestroy
 } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SchemaFormModule } from 'ngx-schema-form';
 import {Validator, Binding, FormProperty, PropertyGroup} from 'ngx-schema-form';
 import {Subscription} from 'rxjs';
 
@@ -26,7 +28,7 @@ import {ISchema} from 'ngx-schema-form';
     selector: 'sf-json-schema-example',
     templateUrl: './json-schema-example.component.html',
     encapsulation: ViewEncapsulation.None,
-    standalone: false
+    imports: [CommonModule, SchemaFormModule]
 })
 export class JsonSchemaExampleComponent implements OnInit, OnDestroy {
   schema: ISchema = {properties: {}};

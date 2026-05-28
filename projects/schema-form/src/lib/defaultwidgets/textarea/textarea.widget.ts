@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ControlWidget } from '../../widget';
 
@@ -21,6 +22,6 @@ import { ControlWidget } from '../../widget';
 	    [attr.minLength]="schema.minLength || null"
 	  [formControl]="control"></textarea>
 	</div>`,
-    standalone: false
+    imports: [ReactiveFormsModule]
 })
 export class TextAreaWidget extends ControlWidget {}
