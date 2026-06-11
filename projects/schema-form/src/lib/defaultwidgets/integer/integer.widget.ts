@@ -21,6 +21,7 @@ import { ControlWidget } from '../../widget';
 	    class="text-widget integer-widget form-control" [formControl]="control"
 	    [attr.type]="'number'" [attr.min]="schema.minimum" [attr.max]="schema.maximum"
 	    [attr.placeholder]="schema.placeholder"
+	    [attr.required]="effectiveIsRequired || null"
 	    [attr.maxLength]="schema.maxLength || null"
 	    [attr.minLength]="schema.minLength || null">
 	</div>`,

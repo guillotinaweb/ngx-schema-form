@@ -53,13 +53,5 @@
         ]
       }
     }
-  },
-  "if": {
-    "properties": {
-      "forename": { "const": "test" }
-    }
-  },
-  "then": {
-    "required": ["name"]
   }
 }

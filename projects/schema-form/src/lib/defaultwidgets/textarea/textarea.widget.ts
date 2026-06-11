@@ -18,6 +18,7 @@ import { ControlWidget } from '../../widget';
 	    [attr.id]="id"
 	    class="text-widget textarea-widget form-control"
 	    [attr.placeholder]="schema.placeholder"
+	    [attr.required]="effectiveIsRequired || null"
 	    [attr.maxLength]="schema.maxLength || null"
 	    [attr.minLength]="schema.minLength || null"
 	  [formControl]="control"></textarea>

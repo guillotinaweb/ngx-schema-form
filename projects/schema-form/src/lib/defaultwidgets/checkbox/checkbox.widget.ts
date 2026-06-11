@@ -15,7 +15,7 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
       @if (schema.type!='array') {
         <div class="checkbox">
           <label class="horizontal control-label">
-            <input [formControl]="control" [attr.name]="name" [attr.id]="id" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [disableControl]="schema.readOnly">
+            <input [formControl]="control" [attr.name]="name" [attr.id]="id" [indeterminate]="control.value !== false && control.value !== true ? true :null" type="checkbox" [attr.required]="effectiveIsRequired || null" [disableControl]="schema.readOnly">
             @if (schema.readOnly) {
               <input [attr.name]="name" type="hidden" [formControl]="control">
             }

@@ -16,7 +16,7 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
 	  @for (option of schema.oneOf; track option) {
 	    <div class="radio">
 	      <label class="horizontal control-label">
-	        <input [formControl]="control" [attr.name]="name" [attr.id]="id + '.' + option.enum[0]" value="{{option.enum[0]}}" type="radio"  [disableControl]="schema.readOnly||option.readOnly">
+	        <input [formControl]="control" [attr.name]="name" [attr.id]="id + '.' + option.enum[0]" value="{{option.enum[0]}}" type="radio" [attr.required]="effectiveIsRequired || null" [disableControl]="schema.readOnly||option.readOnly">
 	        {{option.description}}
 	      </label>
 	    </div>

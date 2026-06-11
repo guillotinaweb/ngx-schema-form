@@ -20,7 +20,7 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
 	  }
 	
 	  @if (schema.type!='array') {
-	    <select [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly" class="form-control">
+	    <select [formControl]="control" [attr.name]="name" [attr.id]="id" [attr.required]="effectiveIsRequired || null" [disableControl]="schema.readOnly" class="form-control">
 	      @if (schema.oneOf) {
 	        @for (option of schema.oneOf; track option) {
 	          <option [ngValue]="option.enum[0]" >{{option.description}}</option>
@@ -34,7 +34,7 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
 	  }
 	
 	  @if (schema.type==='array') {
-	    <select multiple [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly" class="form-control">
+	    <select multiple [formControl]="control" [attr.name]="name" [attr.id]="id" [attr.required]="effectiveIsRequired || null" [disableControl]="schema.readOnly" class="form-control">
 	      @for (option of arrayItemsSchema?.oneOf; track option) {
 	        <option [ngValue]="option.enum?.[0]" [disabled]="option.readOnly">{{option.description}}</option>
 	      }
