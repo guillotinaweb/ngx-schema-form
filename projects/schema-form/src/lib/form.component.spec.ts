@@ -1,6 +1,6 @@
 import { Component, provideZoneChangeDetection } from "@angular/core";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 import { FormsModule } from "@angular/forms";
-import { waitForAsync, ComponentFixture, TestBed } from "@angular/core/testing";
 import { By } from "@angular/platform-browser";
 
 import { FormComponent } from "./form.component";
@@ -152,12 +152,13 @@ describe("FormComponent", () => {
       it("should emit onChange events on field value change", () => {
         const predicate = By.directive(FormComponent);
         const form = fixture.debugElement.query(predicate).componentInstance;
-        spyOn(form.onChange, "emit");
+        fixture.detectChanges()
 
+        
         const input = fixture.debugElement.query(By.css("input")).nativeElement;
-        fixture.detectChanges();
-
+        
         fixture.whenStable().then(() => {
+          spyOn(form.onChange, "emit")
           input.value = "CHANGED";
           input.dispatchEvent(new Event("input"));
 

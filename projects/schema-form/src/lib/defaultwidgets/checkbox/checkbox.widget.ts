@@ -24,15 +24,15 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
         </div>
       }
       @if (schema.type==='array') {
-        @for (option of schema.items.oneOf; track option) {
+        @for (option of arrayItemsSchema?.oneOf; track option) {
           <div class="checkbox">
             <label class="horizontal control-label">
               <input [attr.name]="name"
-                value="{{option.enum[0]}}" type="checkbox"
+                value="{{option.enum?.[0]}}" type="checkbox"
                 [attr.disabled]="schema.readOnly"
                 (change)="onCheck($event.target)"
-                [attr.checked]="checked[option.enum[0]] ? true : null"
-                [attr.id]="id + '.' + option.enum[0]"
+                [attr.checked]="checked[option.enum?.[0]] ? true : null"
+                [attr.id]="id + '.' + option.enum?.[0]"
                 >
               {{option.description}}
             </label>

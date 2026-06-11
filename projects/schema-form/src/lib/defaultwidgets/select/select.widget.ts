@@ -35,8 +35,8 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
 	
 	  @if (schema.type==='array') {
 	    <select multiple [formControl]="control" [attr.name]="name" [attr.id]="id" [disableControl]="schema.readOnly" class="form-control">
-	      @for (option of schema.items.oneOf; track option) {
-	        <option [ngValue]="option.enum[0]" [disabled]="option.readOnly">{{option.description}}</option>
+	      @for (option of arrayItemsSchema?.oneOf; track option) {
+	        <option [ngValue]="option.enum?.[0]" [disabled]="option.readOnly">{{option.description}}</option>
 	      }
 	    </select>
 	  }
