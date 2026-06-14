@@ -1,3 +1,7 @@
+# 2.14.2 (2026-06-14)
+
+- Fix upgrade to angular 21 (Dana Ciubancan)
+
 # 2.14.1 (2025-11-20)
 
 - Fix a bug in inserting new items in array properties (Ajay Kanduru).
