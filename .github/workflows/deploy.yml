@@ -16,12 +16,6 @@ jobs:
         with:
           node-version: 24
       - run: npm install
-      - name: Github pages
-        uses: sterlingwes/gh-pages-deploy-action@v1.1
-        with:
-          access-token: ${{ secrets.ACCESS_TOKEN }}
-          source-directory: dist/ngx-schema-form
-          build-command: npm run build-demo
       - name: Tag
         run: ./tag-version.sh
       - run: npm run build:lib
@@ -30,3 +24,9 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: ./dist/schema-form/package.json
+      - name: Github pages
+        uses: sterlingwes/gh-pages-deploy-action@v1.3
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          source-directory: dist/ngx-schema-form
+          build-command: npm run build-demo
