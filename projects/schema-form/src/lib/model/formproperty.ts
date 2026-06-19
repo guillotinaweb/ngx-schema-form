@@ -66,7 +66,8 @@ export abstract class FormProperty {
               parent: PropertyGroup,
               path: string,
               protected logger: LogService) {
-    this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema);
+    const documentSchema = parent?.root?.schema ?? schema;
+    this.schemaValidator = schemaValidatorFactory.createValidatorFn(this.schema, documentSchema);
     this.expressionCompilerVisibiltyIf = expressionCompilerFactory.createExpressionCompilerVisibilityIf();
 
     this._parent = parent;

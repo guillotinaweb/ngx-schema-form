@@ -1,10 +1,10 @@
-import {FormProperty, PropertyGroup} from './formproperty';
-import {FormPropertyFactory} from './formpropertyfactory';
+import { FormProperty, PropertyGroup } from './formproperty';
+import { FormPropertyFactory } from './formpropertyfactory';
 import { PROPERTY_TYPE_MAPPING } from './typemapping';
-import {SchemaValidatorFactory} from '../schemavalidatorfactory';
-import {ValidatorRegistry} from './validatorregistry';
+import { SchemaValidatorFactory } from '../schemavalidatorfactory';
+import { ValidatorRegistry } from './validatorregistry';
 import { ExpressionCompilerFactory } from '../expression-compiler-factory';
-import {ISchema} from './ISchema';
+import { ISchema } from './ISchema';
 import { LogService } from '../log.service';
 
 export class ArrayProperty extends PropertyGroup {
@@ -28,18 +28,43 @@ export class ArrayProperty extends PropertyGroup {
   }
 
   private addProperty() {
-    let itemSchema = this.schema.items
-    if (Array.isArray(this.schema.items)) {
-      const itemSchemas = this.schema.items as object[]
-      if (itemSchemas.length > (<FormProperty[]>this.properties).length) {
-        itemSchema = itemSchema[(<FormProperty[]>this.properties).length]
-      } else if (this.schema.additionalItems) {
-        itemSchema = this.schema.additionalItems
+    const schema = this.schema;
+    const withPrefix = schema as ISchema & { prefixItems?: ISchema[] };
+    const prefixItems = withPrefix.prefixItems;
+    const tupleFromPrefix = Array.isArray(prefixItems) && prefixItems.length > 0;
+    const legacyTuple = Array.isArray(schema.items);
+
+    let itemSchema: ISchema;
+
+    if (tupleFromPrefix) {
+      const pos = (<FormProperty[]>this.properties).length;
+      if (pos < prefixItems.length) {
+        itemSchema = prefixItems[pos];
+      } else {
+        const rest =
+          schema.items && typeof schema.items === 'object' && !Array.isArray(schema.items)
+            ? schema.items
+            : schema.additionalItems;
+        if (!rest) {
+          return null;
+        }
+        itemSchema = rest;
+      }
+    } else if (legacyTuple) {
+      const itemSchemas = schema.items as ISchema[];
+      const pos = (<FormProperty[]>this.properties).length;
+      if (pos < itemSchemas.length) {
+        itemSchema = itemSchemas[pos];
+      } else if (schema.additionalItems) {
+        itemSchema = schema.additionalItems;
       } else {
         // souldn't add new items since schema is undefined for the item at its position
         return null
       }
+    } else {
+      itemSchema = schema.items as ISchema;
     }
+
     let newProperty = this.formPropertyFactory.createProperty(itemSchema, this);
     (<FormProperty[]>this.properties).push(newProperty);
     return newProperty;

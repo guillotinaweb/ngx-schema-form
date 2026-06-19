@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "title": "Conditional required (draft 2019-09 / 2020-12)",
+  "description": "Demonstrates keywords added after draft-04: dependentRequired, dependentSchemas and if/then/else. The required indicator (*) appears dynamically as you fill the trigger fields.",
+  "properties": {
+    "creditCard": {
+      "type": "string",
+      "title": "Credit card number",
+      "description": "Fill this in to make 'Billing ZIP' required (dependentRequired)."
+    },
+    "billingZip": {
+      "type": "string",
+      "title": "Billing ZIP",
+      "description": "Required only when a credit card number is entered."
+    },
+    "email": {
+      "type": "string",
+      "title": "E-mail",
+      "description": "Fill this in to make 'Confirm e-mail' required (dependentSchemas)."
+    },
+    "emailConfirm": {
+      "type": "string",
+      "title": "Confirm e-mail",
+      "description": "Required only when an e-mail is entered."
+    },
+    "accountType": {
+      "type": "string",
+      "title": "Account type",
+      "widget": "select",
+      "description": "Pick 'business' to require Company name, otherwise Personal ID is required (if/then/else).",
+      "oneOf": [
+        { "description": "Personal", "enum": ["personal"] },
+        { "description": "Business", "enum": ["business"] }
+      ]
+    },
+    "companyName": {
+      "type": "string",
+      "title": "Company name",
+      "description": "Required when account type is 'business'."
+    },
+    "personalId": {
+      "type": "string",
+      "title": "Personal ID",
+      "description": "Required when account type is not 'business'."
+    },
+    "country": {
+      "type": "string",
+      "title": "Country",
+      "description": "Always required (unconditional 'required' array)."
+    }
+  },
+  "order": [
+    "country",
+    "creditCard",
+    "billingZip",
+    "email",
+    "emailConfirm",
+    "accountType",
+    "companyName",
+    "personalId"
+  ],
+  "required": ["country"],
+  "dependentRequired": {
+    "creditCard": ["billingZip"]
+  },
+  "dependentSchemas": {
+    "email": {
+      "required": ["emailConfirm"]
+    }
+  },
+  "if": {
+    "properties": {
+      "accountType": { "const": "business" }
+    }
+  },
+  "then": {
+    "required": ["companyName"]
+  },
+  "else": {
+    "required": ["personalId"]
+  }
+}

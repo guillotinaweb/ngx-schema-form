@@ -16,7 +16,7 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
 	    <span class="formHelp">{{schema.description}}</span>
 	  }
 	  <input [name]="name" class="text-widget range-widget" [attr.id]="id"
-	    [formControl]="control" [attr.type]="'range'" [attr.min]="schema.minimum" [attr.max]="schema.maximum" [disableControl]="schema.readOnly?true:null" >
+	    [formControl]="control" [attr.type]="'range'" [attr.min]="schema.minimum" [attr.max]="schema.maximum" [attr.required]="effectiveIsRequired || null" [disableControl]="schema.readOnly?true:null" >
 	  @if (schema.readOnly) {
 	    <input [attr.name]="name" type="hidden">
 	  }

@@ -1,10 +1,16 @@
+
+import { Injectable } from '@angular/core';
 import ZSchema from 'z-schema';
-import {Injectable} from '@angular/core';
-import {ISchema} from './model/ISchema';
-import {FieldType} from './template-schema/field/field';
+import { ISchema } from './model/ISchema';
+import { ZSchemaLibraryVersion, zSchemaLibraryVersionFrom$Schema } from './model/json-schema-version';
+import { FieldType } from './template-schema/field/field';
 
 export abstract class SchemaValidatorFactory {
-  abstract createValidatorFn(schema): (value: any) => any;
+  /**
+   * @param schema Schema fragment used for validation (e.g. a single property).
+   * @param documentSchema Root document schema whose {@code $schema} selects the z-schema draft; defaults to {@code schema} when omitted.
+   */
+  abstract createValidatorFn(schema: any, documentSchema?: ISchema): (value: any) => any;
 
   abstract getSchema(schema, ref): any;
 
@@ -17,7 +23,7 @@ export abstract class SchemaValidatorFactory {
    * Example of re-instantiating schema validator
    * <code>
    *     reset(){
-   *         this.zschema = new ZSchema({})
+   *         this.zschema = ZSchema.create({ safe: true, version: 'draft-04' })
    *     }
    * </code>
    * <br/>
@@ -41,64 +47,66 @@ export abstract class SchemaValidatorFactory {
 @Injectable()
 export class ZSchemaValidatorFactory extends SchemaValidatorFactory {
 
-  protected zschema;
+  /** One cached validator per resolved {@link ZSchemaLibraryVersion}. */
+  private validators = new Map<ZSchemaLibraryVersion, any>();
 
   constructor() {
     super();
-    this.createSchemaValidator();
   }
 
-  private createSchemaValidator() {
-    this.zschema =  new ZSchema({
-      breakOnFirstError: false
-    });
+  private getValidator(documentSchema: ISchema) {
+    const version = zSchemaLibraryVersionFrom$Schema(documentSchema?.$schema);
+    let z = this.validators.get(version);
+    if (!z) {
+      z = ZSchema.create({
+        safe: true,
+        breakOnFirstError: false,
+        version,
+      });
+      this.validators.set(version, z);
+    }
+    return z;
   }
 
   reset() {
-    this.createSchemaValidator();
+    this.validators.clear();
   }
 
-  compile(schema: any) {
-    const zSchema = new ZSchema({}) as any;
-    zSchema.compileSchema(schema);
-    return zSchema.getResolvedSchema(schema);
-  }
-
-  createValidatorFn(schema: ISchema) {
+  createValidatorFn(schema: ISchema, documentSchema?: ISchema) {
+    const doc = documentSchema ?? schema;
     return (value): { [key: string]: boolean } => {
 
       if (schema.type === FieldType.Number || schema.type === FieldType.Integer) {
         value = +value;
       }
 
-      this.zschema.validate(value, schema);
-      // tslint:disable-next-line:prefer-const
-      let err = this.zschema.getLastErrors();
+      const zschema = this.getValidator(doc);
+      const result = zschema.validate(value, schema);
+      const err = !result.valid && result.err ? result.err.details : null;
 
       this.denormalizeRequiredPropertyPaths(err);
 
-      return err || null;
+      return err && err.length ? err : null;
     };
   }
 
   getSchema(schema: any, ref: string) {
     // check definitions are valid
-    const isValid = this.zschema.compileSchema(schema);
-    if (isValid) {
-      return this.getDefinition(schema, ref);
-    } else {
-      throw this.zschema.getLastError();
+    const resolved = this.getDefinition(schema, ref);
+    if (resolved === undefined) {
+      throw new Error(`Unable to resolve schema reference: ${ref}`);
     }
+    return resolved;
   }
 
-  private denormalizeRequiredPropertyPaths(err: any[]) {
-    if (err && err.length) {
-      err = err.map(error => {
-        if (error.path === '#/' && error.code === 'OBJECT_MISSING_REQUIRED_PROPERTY') {
-          error.path = `${error.path}${error.params[0]}`;
-        }
-        return error;
-      });
+  private denormalizeRequiredPropertyPaths(err: any[] | null) {
+    if (!err || !err.length) {
+      return;
+    }
+    for (const error of err) {
+      if (error.path === '#/' && error.code === 'OBJECT_MISSING_REQUIRED_PROPERTY') {
+        error.path = `${error.path}${error.params[0]}`;
+      }
     }
   }
 

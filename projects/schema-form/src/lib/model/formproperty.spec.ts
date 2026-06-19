@@ -69,7 +69,8 @@ describe("FormProperty", () => {
 
   it("should create a validator on construction", () => {
     expect(THE_SCHEMA_VALIDATOR_FACTORY.createValidatorFn).toHaveBeenCalledWith(
-      THE_PROPERTY_SCHEMA
+      THE_PROPERTY_SCHEMA,
+      propertyGroup.schema
     );
   });
 

@@ -28,7 +28,7 @@
     "ngx-schema-form": "file:projects/schema-form",
     "rxjs": "7.8.2",
     "tslib": "^2.6.3",
-    "z-schema": "^6.0.0",
+    "z-schema": "^12.3.1",
     "zone.js": "0.15.1"
   },
   "devDependencies": {

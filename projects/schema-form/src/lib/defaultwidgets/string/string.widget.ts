@@ -25,7 +25,7 @@ import { DisableControlDirective } from '../_directives/disableControl.directive
       [attr.id]="id"  [formControl]="control" [attr.placeholder]="schema.placeholder"
       [attr.maxLength]="schema.maxLength || null"
       [attr.minLength]="schema.minLength || null"
-      [attr.required]="schema.isRequired || null"
+      [attr.required]="effectiveIsRequired || null"
       [disableControl]="(schema.widget.id=='color' && schema.readOnly)?true:null">
     @if ((schema.widget.id==='color' && schema.readOnly)) {
       <input [attr.name]="name" type="hidden" [formControl]="control">
